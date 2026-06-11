@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,7 @@
   <meta name="author" content="HashmiTools.com" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://hashmitools.com/" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -34,6 +35,10 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+
+  <!-- Theme (load before body to prevent flash) -->
+  <script src="assets/js/theme.js"></script>
 
   <!-- JSON-LD Schema: WebSite -->
   <script type="application/ld+json">
@@ -139,7 +144,7 @@
       </nav>
 
       <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <button class="theme-toggle" id="themeToggle" aria-label="Switch to Dark Mode" title="Switch to Dark Mode" data-theme-toggle>
           <i class="fas fa-moon" id="themeIcon"></i>
         </button>
         <button class="nav-search-btn" id="navSearchBtn" aria-label="Search tools">

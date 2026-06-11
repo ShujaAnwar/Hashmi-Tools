@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Online Image Editor — Edit, Crop, Filter & Resize Photos | HashmiTools.com</title>
+<meta name="description" content="Edit images online for free. Crop, resize, add filters, text, stickers and drawings. Supports JPG, PNG, WebP, GIF. No software download needed. Fast browser-based image editor." />
+<meta name="keywords" content="free image editor online, photo editor browser, crop image online, resize image, image filters, add text to image, photo effects online, image editing tool" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://hashmitools.com/tools/image-editor.html" />
+<meta property="og:title" content="Free Online Image Editor — Edit, Crop, Filter & Resize | HashmiTools.com" />
+<meta property="og:description" content="Edit images in your browser for free. Crop, resize, filters, text, drawing and more." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+<script src="../assets/js/theme.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Online Image Editor",
+  "url": "https://hashmitools.com/tools/image-editor.html",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "description": "Edit images online for free. Crop, resize, filters, text, drawing. Supports JPG PNG WebP.",
+  "creator": {"@type": "Organization", "name": "HashmiTools.com"}
+}
+</script>
+
+<style>
+:root {
+  --bg: #1a1a2e;
+  --surface: #16213e;
+  --surface2: #0f3460;
+  --border: #2d3561;
+  --text: #e0e6ff;
+  --text2: #8892b0;
+  --text3: #4a5568;
+  --accent: #7c73ff;
+  --accent2: #a29bfe;
+  --success: #00b894;
+  --danger: #e17055;
+  --warning: #fdcb6e;
+  --shadow: 0 2px 12px rgba(0,0,0,0.4);
+  --radius: 10px;
+  --sidebar-w: 56px;
+  --rpanel-w: 260px;
+  --toolbar-h: 52px;
+  --nav-h: 52px;
+  --transition: all 0.2s ease;
+}
+[data-theme="light"] {
+  --bg: #f0f2f5;
+  --surface: #ffffff;
+  --surface2: #f8f9fa;
+  --border: #e1e4e8;
+  --text: #1a1a2e;
+  --text2: #6c757d;
+  --text3: #adb5bd;
+  --accent: #6c63ff;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--nav-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: var(--shadow);
+}
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.nav-logo .acc { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-btn { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 7px; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); font-size: 0.8rem; cursor: pointer; text-decoration: none; transition: var(--transition); }
+.nav-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+.theme-btn { width: 32px; height: 32px; border-radius: 7px; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); font-size: 0.8rem; }
+.theme-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* ===== APP LAYOUT ===== */
+.app-wrap {
+  position: fixed;
+  top: var(--nav-h); left: 0; right: 0; bottom: 0;
+  display: flex; flex-direction: column;
+}
+
+/* ===== TOP TOOLBAR ===== */
+.top-toolbar {
+  height: var(--toolbar-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 12px; gap: 6px;
+  overflow-x: auto; flex-shrink: 0;
+}
+.top-toolbar::-webkit-scrollbar { display: none; }
+.tb-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-width: 48px; height: 40px; padding: 0 8px;
+  border-radius: 7px; border: 1px solid transparent;
+  background: transparent; color: var(--text2); cursor: pointer;
+  transition: var(--transition); font-size: 0.6rem; font-family: 'Inter', sans-serif;
+  gap: 2px; white-space: nowrap; flex-shrink: 0;
+}
+.tb-btn i { font-size: 0.9rem; }
+.tb-btn:hover { background: var(--surface2); color: var(--text); border-color: var(--border); }
+.tb-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+.tb-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.tb-sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; flex-shrink: 0; }
+.tb-select {
+  height: 32px; padding: 0 8px; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text); font-size: 0.8rem; cursor: pointer; outline: none;
+}
+.tb-input-num {
+  height: 32px; width: 60px; padding: 0 8px; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text); font-size: 0.8rem; outline: none; text-align: center;
+}
+
+/* ===== MAIN AREA ===== */
+.main-area {
+  flex: 1; display: flex; overflow: hidden;
+}
+
+/* ===== LEFT TOOL SIDEBAR ===== */
+.tool-sidebar {
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 6px; gap: 4px; flex-shrink: 0;
+  overflow-y: auto;
+}
+.tool-sidebar::-webkit-scrollbar { display: none; }
+.side-btn {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: transparent; border: 1px solid transparent;
+  color: var(--text2); cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  transition: var(--transition); font-size: 1rem; position: relative;
+}
+.side-btn:hover { background: var(--surface2); color: var(--text); border-color: var(--border); }
+.side-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+.side-btn[title]::after {
+  content: attr(title);
+  position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%);
+  background: var(--text); color: var(--bg); padding: 4px 8px; border-radius: 5px;
+  font-size: 0.72rem; white-space: nowrap; pointer-events: none; opacity: 0;
+  transition: opacity 0.2s;
+}
+.side-btn:hover::after { opacity: 1; }
+.side-sep { width: 32px; height: 1px; background: var(--border); margin: 4px 0; }
+
+/* ===== CANVAS AREA ===== */
+.canvas-area {
+  flex: 1; background: var(--bg); overflow: auto;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; padding: 24px;
+}
+.canvas-area::-webkit-scrollbar { width: 8px; height: 8px; }
+.canvas-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* Upload prompt */
+.upload-prompt {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 40px; width: 100%;
+}
+.upload-dz {
+  border: 2.5px dashed var(--border); border-radius: 20px;
+  padding: 60px 48px; cursor: pointer; transition: var(--transition);
+  background: var(--surface); max-width: 480px; width: 100%;
+}
+.upload-dz:hover, .upload-dz.dragover {
+  border-color: var(--accent); background: rgba(108,99,255,0.05);
+}
+.upload-dz-icon { font-size: 4rem; color: var(--text3); margin-bottom: 20px; }
+.upload-dz-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.upload-dz-desc { color: var(--text2); font-size: 0.9rem; margin-bottom: 24px; }
+.upload-btn-main { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: linear-gradient(135deg,var(--accent),var(--accent2)); color: white; border-radius: 10px; font-weight: 700; cursor: pointer; border: none; font-size: 0.95rem; transition: var(--transition); }
+.upload-btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(108,99,255,0.3); }
+
+/* canvas wrapper */
+.canvas-wrap {
+  position: relative; box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  display: none;
+}
+
+/* ===== RIGHT PANEL ===== */
+.right-panel {
+  width: var(--rpanel-w);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; flex-shrink: 0;
+  overflow: hidden;
+}
+.rp-tabs { display: flex; border-bottom: 1px solid var(--border); }
+.rp-tab {
+  flex: 1; padding: 10px 6px; text-align: center; font-size: 0.72rem;
+  font-weight: 600; color: var(--text2); cursor: pointer; border: none;
+  background: transparent; border-bottom: 2px solid transparent;
+  transition: var(--transition); text-transform: uppercase; letter-spacing: 0.05em;
+}
+.rp-tab:hover { color: var(--text); }
+.rp-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.rp-body { flex: 1; overflow-y: auto; padding: 12px; }
+.rp-body::-webkit-scrollbar { width: 4px; }
+.rp-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.rp-panel { display: none; }
+.rp-panel.active { display: block; }
+
+.rp-section { margin-bottom: 18px; }
+.rp-section-title {
+  font-size: 0.72rem; font-weight: 700; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid var(--border);
+}
+.rp-row { margin-bottom: 10px; }
+.rp-label { font-size: 0.75rem; color: var(--text2); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.rp-label span { font-weight: 600; color: var(--text); }
+.rp-range { width: 100%; height: 4px; accent-color: var(--accent); cursor: pointer; }
+.rp-input { width: 100%; height: 30px; padding: 0 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.8rem; outline: none; }
+.rp-input:focus { border-color: var(--accent); }
+.rp-select { width: 100%; height: 30px; padding: 0 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.8rem; outline: none; }
+.rp-color { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--border); padding: 2px; cursor: pointer; background: var(--surface2); }
+.rp-btn { width: 100%; padding: 8px; border-radius: 6px; background: var(--accent); color: white; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; margin-bottom: 6px; transition: var(--transition); }
+.rp-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.rp-btn-ghost { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+.rp-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.rp-btn-danger { background: var(--danger); }
+.rp-btn-success { background: var(--success); }
+
+/* Filter presets */
+.preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.preset-btn {
+  padding: 8px 4px; border-radius: 7px; background: var(--surface2);
+  border: 1px solid var(--border); color: var(--text2); font-size: 0.72rem;
+  cursor: pointer; text-align: center; transition: var(--transition); font-weight: 500;
+}
+.preset-btn:hover, .preset-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Layer items */
+.layer-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: 7px;
+  background: var(--surface2); border: 1px solid var(--border);
+  margin-bottom: 5px; cursor: pointer; transition: var(--transition);
+}
+.layer-item:hover { border-color: var(--accent); }
+.layer-item.active { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+.layer-icon { font-size: 0.8rem; color: var(--text3); }
+.layer-name { flex: 1; font-size: 0.78rem; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.layer-del { width: 20px; height: 20px; border-radius: 4px; background: transparent; border: none; color: var(--text3); cursor: pointer; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+.layer-del:hover { background: rgba(225,112,85,0.2); color: var(--danger); }
+
+/* Export panel */
+.export-quality-wrap { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+
+/* Size presets */
+.size-preset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.size-preset-btn { padding: 6px 4px; border-radius: 6px; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); font-size: 0.68rem; cursor: pointer; text-align: center; transition: var(--transition); }
+.size-preset-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* ===== BOTTOM EXPORT BAR ===== */
+.bottom-bar {
+  height: 44px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 16px; flex-shrink: 0;
+  overflow-x: auto;
+}
+.bb-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 16px; border-radius: 7px; border: none;
+  font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  white-space: nowrap; transition: var(--transition);
+}
+.bb-primary { background: linear-gradient(135deg,var(--accent),var(--accent2)); color: white; }
+.bb-secondary { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+.bb-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.bb-status { margin-left: auto; font-size: 0.78rem; color: var(--text3); }
+
+/* ===== TOAST ===== */
+.toast-wrap { position: fixed; bottom: 60px; right: 24px; z-index: 500; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast { background: var(--surface); color: var(--text); padding: 10px 16px; border-radius: 10px; font-size: 0.83rem; font-weight: 500; box-shadow: var(--shadow); animation: toastIn 0.3s ease; pointer-events: auto; display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); }
+@keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.toast.ok { border-left: 3px solid var(--success); }
+.toast.err { border-left: 3px solid var(--danger); }
+
+/* Responsive */
+@media (max-width: 900px) { :root { --rpanel-w: 200px; } }
+@media (max-width: 640px) { .right-panel, .tool-sidebar { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="../index.html" class="nav-logo">⚡ Hashmi<span class="acc">Tools</span></a>
+  <div class="nav-right">
+    <a href="../index.html" class="nav-btn"><i class="fas fa-arrow-left"></i> Home</a>
+    <button class="theme-btn" data-theme-toggle><i class="fas fa-moon"></i></button>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ===== APP ===== -->
+<div class="app-wrap">
+
+  <!-- TOP TOOLBAR -->
+  <div class="top-toolbar">
+    <button class="tb-btn" onclick="triggerImageUpload()" title="Open Image"><i class="fas fa-folder-open"></i>Open</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn" id="btnUndo" onclick="doUndo()" disabled><i class="fas fa-undo"></i>Undo</button>
+    <button class="tb-btn" id="btnRedo" onclick="doRedo()" disabled><i class="fas fa-redo"></i>Redo</button>
+    <div class="tb-sep"></div>
+    <!-- Transform -->
+    <button class="tb-btn" id="btnFlipH" onclick="flipH()" disabled title="Flip Horizontal"><i class="fas fa-arrows-alt-h"></i>Flip H</button>
+    <button class="tb-btn" id="btnFlipV" onclick="flipV()" disabled title="Flip Vertical"><i class="fas fa-arrows-alt-v"></i>Flip V</button>
+    <button class="tb-btn" id="btnRotL" onclick="rotateCanvas(-90)" disabled><i class="fas fa-undo"></i>Rot L</button>
+    <button class="tb-btn" id="btnRotR" onclick="rotateCanvas(90)" disabled><i class="fas fa-redo"></i>Rot R</button>
+    <div class="tb-sep"></div>
+    <!-- Zoom -->
+    <button class="tb-btn" id="btnZoomOut" onclick="zoomOut()" disabled><i class="fas fa-search-minus"></i>Zoom-</button>
+    <select class="tb-select" id="zoomSel" onchange="setZoom(this.value)" disabled>
+      <option value="0.25">25%</option><option value="0.5">50%</option><option value="0.75">75%</option>
+      <option value="1" selected>100%</option><option value="1.5">150%</option><option value="2">200%</option>
+    </select>
+    <button class="tb-btn" id="btnZoomIn" onclick="zoomIn()" disabled><i class="fas fa-search-plus"></i>Zoom+</button>
+    <div class="tb-sep"></div>
+    <!-- Presets -->
+    <button class="tb-btn" id="btnFitScreen" onclick="fitToScreen()" disabled><i class="fas fa-expand-arrows-alt"></i>Fit</button>
+    <div class="tb-sep"></div>
+    <!-- Reset -->
+    <button class="tb-btn" id="btnReset" onclick="resetFilters()" disabled title="Reset all filters"><i class="fas fa-sync"></i>Reset</button>
+  </div>
+
+  <!-- MAIN AREA -->
+  <div class="main-area">
+
+    <!-- LEFT TOOL SIDEBAR -->
+    <div class="tool-sidebar">
+      <button class="side-btn active" id="tool-move" onclick="setTool('move')" title="Move / Select"><i class="fas fa-mouse-pointer"></i></button>
+      <div class="side-sep"></div>
+      <button class="side-btn" id="tool-crop" onclick="setTool('crop')" title="Crop"><i class="fas fa-crop-alt"></i></button>
+      <button class="side-btn" id="tool-text" onclick="setTool('text')" title="Add Text"><i class="fas fa-font"></i></button>
+      <button class="side-btn" id="tool-pen" onclick="setTool('pen')" title="Freehand Draw"><i class="fas fa-pen"></i></button>
+      <button class="side-btn" id="tool-eraser" onclick="setTool('eraser')" title="Eraser"><i class="fas fa-eraser"></i></button>
+      <div class="side-sep"></div>
+      <button class="side-btn" id="tool-rect" onclick="setTool('rect')" title="Rectangle"><i class="fas fa-vector-square"></i></button>
+      <button class="side-btn" id="tool-circle" onclick="setTool('circle')" title="Circle"><i class="fas fa-circle"></i></button>
+      <button class="side-btn" id="tool-line" onclick="setTool('line')" title="Line"><i class="fas fa-minus"></i></button>
+      <button class="side-btn" id="tool-arrow" onclick="setTool('arrow')" title="Arrow"><i class="fas fa-arrow-right"></i></button>
+      <div class="side-sep"></div>
+      <button class="side-btn" id="tool-sticker" onclick="setTool('sticker')" title="Stickers"><i class="fas fa-smile"></i></button>
+      <button class="side-btn" id="tool-image" onclick="insertImage()" title="Insert Image"><i class="fas fa-image"></i></button>
+      <button class="side-btn" id="tool-watermark" onclick="setTool('watermark')" title="Watermark"><i class="fas fa-water"></i></button>
+    </div>
+
+    <!-- CANVAS AREA -->
+    <div class="canvas-area" id="canvasArea">
+      <!-- Upload prompt -->
+      <div class="upload-prompt" id="uploadPrompt">
+        <div class="upload-dz" id="uploadDz">
+          <div class="upload-dz-icon">🖼️</div>
+          <div class="upload-dz-title">Drop your image here</div>
+          <div class="upload-dz-desc">Supports JPG, PNG, WebP, GIF, BMP, SVG<br><small style="color:var(--text3)">or click to browse</small></div>
+          <button class="upload-btn-main" onclick="triggerImageUpload()"><i class="fas fa-upload"></i> Choose Image</button>
+        </div>
+      </div>
+      <!-- Canvas -->
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="mainCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="rp-tabs">
+        <button class="rp-tab active" onclick="switchTab('filters',this)">Filters</button>
+        <button class="rp-tab" onclick="switchTab('adjust',this)">Adjust</button>
+        <button class="rp-tab" onclick="switchTab('export',this)">Export</button>
+        <button class="rp-tab" onclick="switchTab('layers',this)">Layers</button>
+      </div>
+      <div class="rp-body">
+
+        <!-- ===== FILTERS TAB ===== -->
+        <div class="rp-panel active" id="tab-filters">
+          <div class="rp-section">
+            <div class="rp-section-title">Presets</div>
+            <div class="preset-grid">
+              <button class="preset-btn active" onclick="applyPreset('none',this)">None</button>
+              <button class="preset-btn" onclick="applyPreset('vivid',this)">Vivid</button>
+              <button class="preset-btn" onclick="applyPreset('cool',this)">Cool</button>
+              <button class="preset-btn" onclick="applyPreset('warm',this)">Warm</button>
+              <button class="preset-btn" onclick="applyPreset('vintage',this)">Vintage</button>
+              <button class="preset-btn" onclick="applyPreset('bw',this)">B&W</button>
+              <button class="preset-btn" onclick="applyPreset('dramatic',this)">Dramatic</button>
+              <button class="preset-btn" onclick="applyPreset('fade',this)">Fade</button>
+              <button class="preset-btn" onclick="applyPreset('sepia',this)">Sepia</button>
+            </div>
+          </div>
+          <div class="rp-section">
+            <div class="rp-section-title">Toggles</div>
+            <button class="rp-btn rp-btn-ghost" id="btnGrayscale" onclick="toggleFilter('grayscale')">⬜ Grayscale</button>
+            <button class="rp-btn rp-btn-ghost" id="btnSepia" onclick="toggleFilter('sepia')">🟤 Sepia</button>
+            <button class="rp-btn rp-btn-ghost" id="btnInvert" onclick="toggleFilter('invert')">🔄 Invert</button>
+          </div>
+        </div>
+
+        <!-- ===== ADJUST TAB ===== -->
+        <div class="rp-panel" id="tab-adjust">
+          <div class="rp-section">
+            <div class="rp-section-title">Adjustments</div>
+            <div class="rp-row">
+              <div class="rp-label">Brightness <span id="val-brightness">0</span></div>
+              <input type="range" class="rp-range" id="rng-brightness" min="-100" max="100" value="0" oninput="updateAdjust('brightness',this.value)" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Contrast <span id="val-contrast">0</span></div>
+              <input type="range" class="rp-range" id="rng-contrast" min="-100" max="100" value="0" oninput="updateAdjust('contrast',this.value)" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Saturation <span id="val-saturation">0</span></div>
+              <input type="range" class="rp-range" id="rng-saturation" min="-100" max="100" value="0" oninput="updateAdjust('saturation',this.value)" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Hue <span id="val-hue">0</span>°</div>
+              <input type="range" class="rp-range" id="rng-hue" min="-180" max="180" value="0" oninput="updateAdjust('hue',this.value)" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Blur <span id="val-blur">0</span>px</div>
+              <input type="range" class="rp-range" id="rng-blur" min="0" max="20" value="0" oninput="updateAdjust('blur',this.value)" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Sharpen <span id="val-sharpen">0</span></div>
+              <input type="range" class="rp-range" id="rng-sharpen" min="0" max="10" value="0" oninput="updateAdjust('sharpen',this.value)" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Vignette <span id="val-vignette">0</span></div>
+              <input type="range" class="rp-range" id="rng-vignette" min="0" max="100" value="0" oninput="updateAdjust('vignette',this.value)" />
+            </div>
+          </div>
+          <div class="rp-section">
+            <div class="rp-section-title">Resize</div>
+            <div class="rp-row">
+              <div class="rp-label">Width (px)</div>
+              <input type="number" class="rp-input" id="resizeW" placeholder="Width" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Height (px)</div>
+              <input type="number" class="rp-input" id="resizeH" placeholder="Height" />
+            </div>
+            <label style="display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text2);margin-bottom:8px;">
+              <input type="checkbox" id="lockAspect" checked /> Lock aspect ratio
+            </label>
+            <button class="rp-btn" onclick="applyResize()" id="btnResize" disabled>Apply Resize</button>
+          </div>
+          <div class="rp-section">
+            <div class="rp-section-title">Canvas Presets</div>
+            <div class="size-preset-grid">
+              <button class="size-preset-btn" onclick="applyCanvasPreset(1080,1080,'Instagram Post')">Instagram Post</button>
+              <button class="size-preset-btn" onclick="applyCanvasPreset(1080,1920,'Instagram Story')">Insta Story</button>
+              <button class="size-preset-btn" onclick="applyCanvasPreset(1200,628,'Facebook Cover')">FB Cover</button>
+              <button class="size-preset-btn" onclick="applyCanvasPreset(1280,720,'YouTube Thumb')">YouTube Thumb</button>
+              <button class="size-preset-btn" onclick="applyCanvasPreset(1500,500,'Twitter Banner')">Twitter Banner</button>
+              <button class="size-preset-btn" onclick="applyCanvasPreset(2480,3508,'A4 Portrait')">A4 Portrait</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== EXPORT TAB ===== -->
+        <div class="rp-panel" id="tab-export">
+          <div class="rp-section">
+            <div class="rp-section-title">Download as JPG</div>
+            <div class="rp-row">
+              <div class="rp-label">Quality <span id="jpgQualVal">90</span>%</div>
+              <input type="range" class="rp-range" id="jpgQuality" min="10" max="100" value="90" oninput="document.getElementById('jpgQualVal').textContent=this.value" />
+            </div>
+            <button class="rp-btn rp-btn-success" onclick="downloadAs('jpg')" id="btnDlJpg" disabled><i class="fas fa-download"></i> Download JPG</button>
+          </div>
+          <div class="rp-section">
+            <div class="rp-section-title">Download as PNG</div>
+            <label style="display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text2);margin-bottom:8px;">
+              <input type="checkbox" id="pngTransparent" /> Transparent background
+            </label>
+            <button class="rp-btn rp-btn-success" onclick="downloadAs('png')" id="btnDlPng" disabled><i class="fas fa-download"></i> Download PNG</button>
+          </div>
+          <div class="rp-section">
+            <div class="rp-section-title">Download as WebP</div>
+            <button class="rp-btn rp-btn-success" onclick="downloadAs('webp')" id="btnDlWebp" disabled><i class="fas fa-download"></i> Download WebP</button>
+          </div>
+          <div class="rp-section">
+            <div class="rp-section-title">Clipboard</div>
+            <button class="rp-btn rp-btn-ghost" onclick="copyToClipboard()" id="btnClipboard" disabled><i class="fas fa-copy"></i> Copy to Clipboard</button>
+          </div>
+        </div>
+
+        <!-- ===== LAYERS TAB ===== -->
+        <div class="rp-panel" id="tab-layers">
+          <div class="rp-section">
+            <div class="rp-section-title">Objects</div>
+            <div id="layersList">
+              <p style="color:var(--text3);font-size:0.78rem;">Add objects to see them here.</p>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="rp-btn rp-btn-ghost" style="flex:1;" onclick="bringForward()"><i class="fas fa-sort-amount-up"></i> Forward</button>
+              <button class="rp-btn rp-btn-ghost" style="flex:1;" onclick="sendBackward()"><i class="fas fa-sort-amount-down"></i> Back</button>
+            </div>
+            <button class="rp-btn rp-btn-danger" onclick="deleteSelected()" style="margin-top:6px;"><i class="fas fa-trash"></i> Delete Selected</button>
+          </div>
+
+          <!-- Text tool settings -->
+          <div class="rp-section" id="textProps">
+            <div class="rp-section-title">Text Settings</div>
+            <div class="rp-row">
+              <div class="rp-label">Font</div>
+              <select class="rp-select" id="textFont">
+                <option>Arial</option><option>Times New Roman</option><option>Helvetica</option>
+                <option>Georgia</option><option>Courier New</option><option>Impact</option>
+              </select>
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Size (px)</div>
+              <input type="number" class="rp-input" id="textSize" value="32" min="8" max="200" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Color</div>
+              <input type="color" class="rp-color" id="textColor" value="#ffffff" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Background</div>
+              <input type="color" class="rp-color" id="textBg" value="#000000" />
+            </div>
+            <div style="display:flex;gap:6px;margin-bottom:8px;">
+              <button class="rp-btn rp-btn-ghost" id="tbBold" onclick="toggleTextStyle('bold')" style="flex:1;font-weight:700;">B</button>
+              <button class="rp-btn rp-btn-ghost" id="tbItalic" onclick="toggleTextStyle('italic')" style="flex:1;font-style:italic;">I</button>
+              <button class="rp-btn rp-btn-ghost" id="tbUnder" onclick="toggleTextStyle('underline')" style="flex:1;text-decoration:underline;">U</button>
+            </div>
+          </div>
+
+          <!-- Draw settings -->
+          <div class="rp-section" id="drawProps" style="display:none;">
+            <div class="rp-section-title">Draw Settings</div>
+            <div class="rp-row">
+              <div class="rp-label">Color</div>
+              <input type="color" class="rp-color" id="drawColor" value="#ff6b6b" oninput="updateBrush()" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Size <span id="drawSizeVal">5</span>px</div>
+              <input type="range" class="rp-range" id="drawSize" min="1" max="50" value="5" oninput="document.getElementById('drawSizeVal').textContent=this.value; updateBrush();" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Opacity <span id="drawOpVal">100</span>%</div>
+              <input type="range" class="rp-range" id="drawOpacity" min="10" max="100" value="100" oninput="document.getElementById('drawOpVal').textContent=this.value; updateBrush();" />
+            </div>
+          </div>
+
+          <!-- Shape settings -->
+          <div class="rp-section" id="shapeProps" style="display:none;">
+            <div class="rp-section-title">Shape Settings</div>
+            <div class="rp-row">
+              <div class="rp-label">Fill</div>
+              <input type="color" class="rp-color" id="shapeFill" value="#6c63ff" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Stroke</div>
+              <input type="color" class="rp-color" id="shapeStroke" value="#6c63ff" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Stroke Width</div>
+              <input type="number" class="rp-input" id="shapeStrokeW" value="2" min="0" max="20" />
+            </div>
+          </div>
+
+          <!-- Watermark settings -->
+          <div class="rp-section" id="watermarkProps" style="display:none;">
+            <div class="rp-section-title">Watermark</div>
+            <div class="rp-row">
+              <div class="rp-label">Text</div>
+              <input type="text" class="rp-input" id="wmText" value="© HashmiTools" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Color</div>
+              <input type="color" class="rp-color" id="wmColor" value="#ffffff" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Size</div>
+              <input type="number" class="rp-input" id="wmSize" value="24" min="10" max="100" />
+            </div>
+            <div class="rp-row">
+              <div class="rp-label">Opacity <span id="wmOpVal">50</span>%</div>
+              <input type="range" class="rp-range" id="wmOpacity" min="10" max="100" value="50" oninput="document.getElementById('wmOpVal').textContent=this.value" />
+            </div>
+            <button class="rp-btn" onclick="addWatermark()">Add Watermark</button>
+          </div>
+
+          <!-- Sticker panel -->
+          <div class="rp-section" id="stickerProps" style="display:none;">
+            <div class="rp-section-title">Stickers & Emoji</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;font-size:1.4rem;">
+              <span style="cursor:pointer;" onclick="addSticker('😀')" title="Add">😀</span>
+              <span style="cursor:pointer;" onclick="addSticker('❤️')">❤️</span>
+              <span style="cursor:pointer;" onclick="addSticker('🔥')">🔥</span>
+              <span style="cursor:pointer;" onclick="addSticker('⭐')">⭐</span>
+              <span style="cursor:pointer;" onclick="addSticker('🎉')">🎉</span>
+              <span style="cursor:pointer;" onclick="addSticker('👍')">👍</span>
+              <span style="cursor:pointer;" onclick="addSticker('✅')">✅</span>
+              <span style="cursor:pointer;" onclick="addSticker('💯')">💯</span>
+              <span style="cursor:pointer;" onclick="addSticker('🚀')">🚀</span>
+              <span style="cursor:pointer;" onclick="addSticker('💪')">💪</span>
+              <span style="cursor:pointer;" onclick="addSticker('📸')">📸</span>
+              <span style="cursor:pointer;" onclick="addSticker('🎯')">🎯</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <button class="bb-btn bb-primary" onclick="triggerImageUpload()"><i class="fas fa-upload"></i> Open</button>
+    <button class="bb-btn bb-secondary" id="bbUndo" onclick="doUndo()" disabled><i class="fas fa-undo"></i></button>
+    <button class="bb-btn bb-secondary" id="bbRedo" onclick="doRedo()" disabled><i class="fas fa-redo"></i></button>
+    <button class="bb-btn bb-secondary" id="bbReset" onclick="resetFilters()" disabled><i class="fas fa-sync"></i> Reset</button>
+    <div class="bb-status" id="bbStatus">No image loaded</div>
+    <button class="bb-btn bb-primary" onclick="downloadAs('jpg')" id="bbDownload" disabled><i class="fas fa-download"></i> Download</button>
+  </div>
+
+</div><!-- end app-wrap -->
+
+<!-- Hidden file inputs -->
+<input type="file" id="imgUploadInput" accept="image/*" style="display:none" onchange="loadImage(event)" />
+<input type="file" id="imgInsertInput" accept="image/*" style="display:none" onchange="insertImageFile(event)" />
+
+<script>
+/* ============================================================
+   IMAGE EDITOR — HashmiTools v2.0
+   Fabric.js based | Filters, Drawing, Text, Export
+   ============================================================ */
+
+// ===== STATE =====
+const S = {
+  canvas: null,
+  bgImage: null,
+  origWidth: 0,
+  origHeight: 0,
+  zoom: 1,
+  activeTool: 'move',
+  adjustments: { brightness: 0, contrast: 0, saturation: 0, hue: 0, blur: 0, sharpen: 0, vignette: 0 },
+  filters: { grayscale: false, sepia: false, invert: false },
+  undoHistory: [],
+  redoHistory: [],
+  isDrawing: false,
+  shapeStart: null,
+  shapeCurrent: null,
+  loaded: false,
+};
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  S.canvas = new fabric.Canvas('mainCanvas', {
+    isDrawingMode: false,
+    selection: true,
+    backgroundColor: null,
+  });
+  S.canvas.on('object:added', updateLayersList);
+  S.canvas.on('object:removed', updateLayersList);
+  S.canvas.on('selection:created', updateLayersList);
+  setupDropzone();
+  setupKeyboard();
+});
+
+// ===== UPLOAD =====
+function triggerImageUpload() { document.getElementById('imgUploadInput').click(); }
+function insertImage() { document.getElementById('imgInsertInput').click(); }
+
+function loadImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    fabric.Image.fromURL(ev.target.result, img => {
+      S.bgImage = img;
+      S.origWidth = img.width;
+      S.origHeight = img.height;
+      S.canvas.setWidth(img.width);
+      S.canvas.setHeight(img.height);
+      S.canvas.setBackgroundImage(img, S.canvas.renderAll.bind(S.canvas), {
+        scaleX: 1, scaleY: 1
+      });
+      document.getElementById('canvasWrap').style.display = 'block';
+      document.getElementById('uploadPrompt').style.display = 'none';
+      document.getElementById('resizeW').value = img.width;
+      document.getElementById('resizeH').value = img.height;
+      S.loaded = true;
+      enableControls();
+      saveState();
+      showStatus(`${file.name} — ${img.width}×${img.height}px`);
+      showToast('Image loaded!', 'ok');
+    });
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function insertImageFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    fabric.Image.fromURL(ev.target.result, img => {
+      img.scaleToWidth(200);
+      S.canvas.add(img);
+      S.canvas.setActiveObject(img);
+      S.canvas.renderAll();
+      showToast('Image inserted', 'ok');
+    });
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+// ===== TOOLS =====
+function setTool(tool) {
+  S.activeTool = tool;
+  const fc = S.canvas;
+
+  // Reset all
+  fc.isDrawingMode = false;
+  fc.selection = true;
+  fc.defaultCursor = 'default';
+  fc.off('mouse:down');
+  fc.off('mouse:move');
+  fc.off('mouse:up');
+
+  // Clear active
+  document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
+  const sb = document.getElementById('tool-' + tool);
+  if (sb) sb.classList.add('active');
+
+  // Hide prop panels
+  ['textProps','drawProps','shapeProps','watermarkProps','stickerProps'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  switchTab('layers', document.querySelector('.rp-tab:last-child'));
+
+  switch(tool) {
+    case 'move':
+      fc.selection = true;
+      fc.defaultCursor = 'default';
+      break;
+    case 'text':
+      document.getElementById('textProps').style.display = 'block';
+      fc.selection = false;
+      fc.defaultCursor = 'text';
+      fc.on('mouse:down', opt => {
+        if (S.activeTool !== 'text') return;
+        const txt = prompt('Enter text:');
+        if (!txt) return;
+        const p = fc.getPointer(opt.e);
+        const textObj = new fabric.Text(txt, {
+          left: p.x, top: p.y,
+          fontFamily: document.getElementById('textFont').value,
+          fontSize: parseInt(document.getElementById('textSize').value) || 32,
+          fill: document.getElementById('textColor').value,
+          fontWeight: document.getElementById('tbBold').classList.contains('active') ? 'bold' : 'normal',
+          fontStyle: document.getElementById('tbItalic').classList.contains('active') ? 'italic' : 'normal',
+          underline: document.getElementById('tbUnder').classList.contains('active'),
+        });
+        fc.add(textObj);
+        fc.setActiveObject(textObj);
+        fc.renderAll();
+        setTool('move');
+      });
+      break;
+    case 'pen':
+      document.getElementById('drawProps').style.display = 'block';
+      fc.isDrawingMode = true;
+      updateBrush();
+      break;
+    case 'eraser':
+      fc.isDrawingMode = true;
+      fc.freeDrawingBrush.color = getCanvasBgColor();
+      fc.freeDrawingBrush.width = 20;
+      break;
+    case 'rect':
+    case 'circle':
+    case 'line':
+    case 'arrow':
+      document.getElementById('shapeProps').style.display = 'block';
+      setupShapeDraw(tool);
+      break;
+    case 'sticker':
+      document.getElementById('stickerProps').style.display = 'block';
+      break;
+    case 'watermark':
+      document.getElementById('watermarkProps').style.display = 'block';
+      break;
+    case 'crop':
+      showToast('Click and drag on canvas to crop', 'ok');
+      setupCropTool();
+      break;
+  }
+}
+
+function setupShapeDraw(shape) {
+  const fc = S.canvas;
+  fc.selection = false;
+  fc.defaultCursor = 'crosshair';
+  let isDown = false, orig = null, obj = null;
+
+  fc.on('mouse:down', opt => {
+    if (!['rect','circle','line','arrow'].includes(S.activeTool)) return;
+    isDown = true;
+    orig = fc.getPointer(opt.e);
+    const fill = S.activeTool === 'line' || S.activeTool === 'arrow' ? 'transparent' : hexToRgba(document.getElementById('shapeFill').value, 0.3);
+    const stroke = document.getElementById('shapeStroke').value;
+    const sw = parseInt(document.getElementById('shapeStrokeW').value) || 2;
+    if (shape === 'rect') {
+      obj = new fabric.Rect({ left: orig.x, top: orig.y, width: 0, height: 0, fill, stroke, strokeWidth: sw, selectable: false });
+    } else if (shape === 'circle') {
+      obj = new fabric.Ellipse({ left: orig.x, top: orig.y, rx: 0, ry: 0, fill, stroke, strokeWidth: sw, selectable: false });
+    } else if (shape === 'line' || shape === 'arrow') {
+      obj = new fabric.Line([orig.x, orig.y, orig.x, orig.y], { stroke, strokeWidth: sw, selectable: false });
+    }
+    if (obj) fc.add(obj);
+  });
+
+  fc.on('mouse:move', opt => {
+    if (!isDown || !obj) return;
+    const p = fc.getPointer(opt.e);
+    if (shape === 'rect') {
+      obj.set({ width: Math.abs(p.x-orig.x), height: Math.abs(p.y-orig.y), left: Math.min(p.x,orig.x), top: Math.min(p.y,orig.y) });
+    } else if (shape === 'circle') {
+      obj.set({ rx: Math.abs(p.x-orig.x)/2, ry: Math.abs(p.y-orig.y)/2, left: Math.min(p.x,orig.x), top: Math.min(p.y,orig.y) });
+    } else if (shape === 'line' || shape === 'arrow') {
+      obj.set({ x2: p.x, y2: p.y });
+    }
+    fc.renderAll();
+  });
+
+  fc.on('mouse:up', () => {
+    isDown = false;
+    if (obj) { obj.selectable = true; fc.setActiveObject(obj); }
+    obj = null;
+    saveState();
+  });
+}
+
+function setupCropTool() {
+  const fc = S.canvas;
+  fc.selection = false;
+  fc.defaultCursor = 'crosshair';
+  let isDown = false, orig = null, overlay = null;
+
+  fc.on('mouse:down', opt => {
+    if (S.activeTool !== 'crop') return;
+    isDown = true;
+    orig = fc.getPointer(opt.e);
+    overlay = new fabric.Rect({
+      left: orig.x, top: orig.y, width: 0, height: 0,
+      fill: 'rgba(0,0,0,0.4)', stroke: 'white', strokeWidth: 1,
+      strokeDashArray: [5,5], selectable: false,
+    });
+    fc.add(overlay);
+  });
+  fc.on('mouse:move', opt => {
+    if (!isDown || !overlay) return;
+    const p = fc.getPointer(opt.e);
+    overlay.set({ width: Math.abs(p.x-orig.x), height: Math.abs(p.y-orig.y), left: Math.min(p.x,orig.x), top: Math.min(p.y,orig.y) });
+    fc.renderAll();
+  });
+  fc.on('mouse:up', () => {
+    isDown = false;
+    if (overlay && overlay.width > 10 && overlay.height > 10) {
+      const x = overlay.left, y = overlay.top, w = overlay.width, h = overlay.height;
+      fc.remove(overlay);
+      applyCrop(x, y, w, h);
+    } else {
+      if (overlay) fc.remove(overlay);
+    }
+    overlay = null;
+    setTool('move');
+  });
+}
+
+function applyCrop(x, y, w, h) {
+  const fc = S.canvas;
+  // Export current state as image
+  const dataUrl = fc.toDataURL({ format: 'png', left: x, top: y, width: w, height: h });
+  fabric.Image.fromURL(dataUrl, img => {
+    fc.setWidth(w);
+    fc.setHeight(h);
+    fc.clear();
+    fc.setBackgroundImage(img, fc.renderAll.bind(fc));
+    S.bgImage = img;
+    showToast('Cropped!', 'ok');
+    saveState();
+  });
+}
+
+// ===== FILTERS & ADJUSTMENTS =====
+function updateAdjust(prop, val) {
+  S.adjustments[prop] = parseInt(val);
+  document.getElementById('val-' + prop).textContent = val;
+  applyFiltersToImage();
+}
+
+function applyFiltersToImage() {
+  if (!S.bgImage) return;
+  S.bgImage.filters = [];
+  const a = S.adjustments;
+
+  if (a.brightness !== 0) S.bgImage.filters.push(new fabric.Image.filters.Brightness({ brightness: a.brightness / 100 }));
+  if (a.contrast !== 0) S.bgImage.filters.push(new fabric.Image.filters.Contrast({ contrast: a.contrast / 100 }));
+  if (a.saturation !== 0) S.bgImage.filters.push(new fabric.Image.filters.Saturation({ saturation: a.saturation / 100 }));
+  if (a.hue !== 0) S.bgImage.filters.push(new fabric.Image.filters.HueRotation({ rotation: a.hue / 360 }));
+  if (a.blur > 0) S.bgImage.filters.push(new fabric.Image.filters.Blur({ blur: a.blur / 100 }));
+
+  if (S.filters.grayscale) S.bgImage.filters.push(new fabric.Image.filters.Grayscale());
+  if (S.filters.sepia) S.bgImage.filters.push(new fabric.Image.filters.Sepia());
+  if (S.filters.invert) S.bgImage.filters.push(new fabric.Image.filters.Invert());
+
+  S.bgImage.applyFilters();
+  S.canvas.renderAll();
+}
+
+function toggleFilter(f) {
+  S.filters[f] = !S.filters[f];
+  document.getElementById('btn' + f.charAt(0).toUpperCase() + f.slice(1)).classList.toggle('active', S.filters[f]);
+  applyFiltersToImage();
+}
+
+function applyPreset(name, btn) {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const presets = {
+    none: { brightness: 0, contrast: 0, saturation: 0, hue: 0, blur: 0 },
+    vivid: { brightness: 10, contrast: 20, saturation: 30, hue: 0, blur: 0 },
+    cool: { brightness: 5, contrast: 5, saturation: -10, hue: 15, blur: 0 },
+    warm: { brightness: 10, contrast: 10, saturation: 20, hue: -10, blur: 0 },
+    vintage: { brightness: -10, contrast: -5, saturation: -30, hue: 5, blur: 0 },
+    bw: { brightness: 0, contrast: 20, saturation: -100, hue: 0, blur: 0 },
+    dramatic: { brightness: -15, contrast: 40, saturation: 20, hue: 0, blur: 0 },
+    fade: { brightness: 20, contrast: -20, saturation: -20, hue: 0, blur: 0 },
+    sepia: { brightness: -5, contrast: 5, saturation: -50, hue: 10, blur: 0 },
+  };
+
+  const p = presets[name] || presets.none;
+  Object.assign(S.adjustments, p);
+  Object.entries(p).forEach(([k,v]) => {
+    const rng = document.getElementById('rng-' + k);
+    const val = document.getElementById('val-' + k);
+    if (rng) rng.value = v;
+    if (val) val.textContent = v;
+  });
+
+  if (name === 'bw') { S.filters.grayscale = true; document.getElementById('btnGrayscale').classList.add('active'); }
+  else if (name === 'sepia') { S.filters.sepia = true; document.getElementById('btnSepia').classList.add('active'); }
+  else { S.filters.grayscale = false; S.filters.sepia = false; document.getElementById('btnGrayscale').classList.remove('active'); document.getElementById('btnSepia').classList.remove('active'); }
+
+  applyFiltersToImage();
+}
+
+function resetFilters() {
+  if (!S.loaded) return;
+  S.adjustments = { brightness: 0, contrast: 0, saturation: 0, hue: 0, blur: 0, sharpen: 0, vignette: 0 };
+  S.filters = { grayscale: false, sepia: false, invert: false };
+  ['brightness','contrast','saturation','hue','blur','sharpen','vignette'].forEach(k => {
+    const rng = document.getElementById('rng-' + k);
+    const val = document.getElementById('val-' + k);
+    if (rng) rng.value = 0;
+    if (val) val.textContent = 0;
+  });
+  ['Grayscale','Sepia','Invert'].forEach(f => document.getElementById('btn'+f).classList.remove('active'));
+  if (S.bgImage) { S.bgImage.filters = []; S.bgImage.applyFilters(); S.canvas.renderAll(); }
+  showToast('Filters reset', 'ok');
+}
+
+// ===== TRANSFORM =====
+function flipH() { if (!S.bgImage) return; S.bgImage.set('flipX', !S.bgImage.flipX); S.canvas.renderAll(); }
+function flipV() { if (!S.bgImage) return; S.bgImage.set('flipY', !S.bgImage.flipY); S.canvas.renderAll(); }
+function rotateCanvas(deg) {
+  if (!S.bgImage) return;
+  S.bgImage.set('angle', (S.bgImage.angle + deg + 360) % 360);
+  S.canvas.renderAll();
+}
+
+// ===== ZOOM =====
+function zoomIn() { setZoom(Math.min(2, S.zoom + 0.25)); }
+function zoomOut() { setZoom(Math.max(0.25, S.zoom - 0.25)); }
+function setZoom(val) {
+  S.zoom = parseFloat(val);
+  S.canvas.setZoom(S.zoom);
+  document.getElementById('zoomSel').value = S.zoom;
+}
+function fitToScreen() {
+  if (!S.bgImage) return;
+  const area = document.getElementById('canvasArea');
+  const maxW = area.clientWidth - 48, maxH = area.clientHeight - 48;
+  const scaleX = maxW / S.origWidth, scaleY = maxH / S.origHeight;
+  setZoom(Math.min(scaleX, scaleY, 1));
+}
+
+// ===== RESIZE =====
+function applyResize() {
+  if (!S.loaded) return;
+  const w = parseInt(document.getElementById('resizeW').value);
+  const h = parseInt(document.getElementById('resizeH').value);
+  if (!w || !h) return;
+  const dataUrl = S.canvas.toDataURL({ format: 'png' });
+  fabric.Image.fromURL(dataUrl, img => {
+    S.canvas.setWidth(w); S.canvas.setHeight(h);
+    img.scaleToWidth(w);
+    S.canvas.clear();
+    S.bgImage = img;
+    S.canvas.setBackgroundImage(img, S.canvas.renderAll.bind(S.canvas));
+    S.origWidth = w; S.origHeight = h;
+    showToast(`Resized to ${w}×${h}px`, 'ok');
+    saveState();
+  });
+}
+
+function applyCanvasPreset(w, h, name) {
+  document.getElementById('resizeW').value = w;
+  document.getElementById('resizeH').value = h;
+  applyResize();
+  showToast(`Canvas set to ${name} (${w}×${h})`, 'ok');
+}
+
+// ===== WATERMARK =====
+function addWatermark() {
+  if (!S.loaded) return;
+  const text = document.getElementById('wmText').value || '© HashmiTools';
+  const color = document.getElementById('wmColor').value;
+  const size = parseInt(document.getElementById('wmSize').value) || 24;
+  const opacity = parseInt(document.getElementById('wmOpacity').value) / 100;
+  const w = S.canvas.getWidth(), h = S.canvas.getHeight();
+  const wm = new fabric.Text(text, {
+    left: w / 2, top: h / 2, originX: 'center', originY: 'center',
+    fontSize: size, fill: color, opacity, fontWeight: 'bold',
+    angle: -30, selectable: true,
+  });
+  S.canvas.add(wm);
+  S.canvas.renderAll();
+  showToast('Watermark added', 'ok');
+}
+
+// ===== STICKERS =====
+function addSticker(emoji) {
+  if (!S.loaded) return;
+  const t = new fabric.Text(emoji, {
+    left: S.canvas.getWidth()/2, top: S.canvas.getHeight()/2,
+    fontSize: 60, selectable: true,
+  });
+  S.canvas.add(t);
+  S.canvas.setActiveObject(t);
+  S.canvas.renderAll();
+  showToast('Sticker added!', 'ok');
+}
+
+// ===== TEXT STYLING =====
+function toggleTextStyle(style) {
+  const btn = document.getElementById('tb' + style.charAt(0).toUpperCase() + style.slice(1));
+  btn.classList.toggle('active');
+  const obj = S.canvas.getActiveObject();
+  if (!obj || obj.type !== 'text') return;
+  if (style === 'bold') obj.set('fontWeight', obj.fontWeight === 'bold' ? 'normal' : 'bold');
+  if (style === 'italic') obj.set('fontStyle', obj.fontStyle === 'italic' ? 'normal' : 'italic');
+  if (style === 'underline') obj.set('underline', !obj.underline);
+  S.canvas.renderAll();
+}
+
+// ===== LAYERS =====
+function updateLayersList() {
+  const list = document.getElementById('layersList');
+  const objects = S.canvas.getObjects();
+  if (!objects.length) {
+    list.innerHTML = '<p style="color:var(--text3);font-size:0.78rem;">No objects added yet.</p>';
+    return;
+  }
+  const icons = { 'text': 'T', 'path': '✏', 'rect': '⬜', 'circle': '⭕', 'image': '🖼', 'ellipse': '⭕', 'line': '—' };
+  list.innerHTML = objects.slice().reverse().map((obj, i) => {
+    const realIdx = objects.length - 1 - i;
+    const icon = icons[obj.type] || '?';
+    const name = obj.type === 'text' ? (obj.text || 'Text').slice(0, 20) : obj.type.charAt(0).toUpperCase() + obj.type.slice(1);
+    return `<div class="layer-item" onclick="selectLayer(${realIdx})" id="layer-${realIdx}">
+      <span class="layer-icon">${icon}</span>
+      <span class="layer-name">${name}</span>
+      <button class="layer-del" onclick="event.stopPropagation();removeLayer(${realIdx})">×</button>
+    </div>`;
+  }).join('');
+}
+
+function selectLayer(idx) {
+  const objects = S.canvas.getObjects();
+  if (objects[idx]) { S.canvas.setActiveObject(objects[idx]); S.canvas.renderAll(); }
+}
+
+function removeLayer(idx) {
+  const objects = S.canvas.getObjects();
+  if (objects[idx]) { S.canvas.remove(objects[idx]); S.canvas.renderAll(); }
+}
+
+function bringForward() { S.canvas.bringForward(S.canvas.getActiveObject()); S.canvas.renderAll(); }
+function sendBackward() { S.canvas.sendBackwards(S.canvas.getActiveObject()); S.canvas.renderAll(); }
+function deleteSelected() { const o = S.canvas.getActiveObject(); if (o) { S.canvas.remove(o); S.canvas.renderAll(); } }
+
+// ===== BRUSH =====
+function updateBrush() {
+  const fc = S.canvas;
+  fc.freeDrawingBrush.color = document.getElementById('drawColor').value;
+  fc.freeDrawingBrush.width = parseInt(document.getElementById('drawSize').value);
+  fc.freeDrawingBrush.opacity = parseInt(document.getElementById('drawOpacity').value) / 100;
+}
+
+// ===== UNDO/REDO =====
+function saveState() {
+  const json = JSON.stringify(S.canvas.toJSON(['selectable', 'evented']));
+  S.undoHistory.push(json);
+  if (S.undoHistory.length > 50) S.undoHistory.shift();
+  S.redoHistory = [];
+  document.getElementById('btnUndo').disabled = S.undoHistory.length < 2;
+  document.getElementById('bbUndo').disabled = S.undoHistory.length < 2;
+  document.getElementById('btnRedo').disabled = true;
+  document.getElementById('bbRedo').disabled = true;
+}
+
+function doUndo() {
+  if (S.undoHistory.length < 2) return;
+  const current = S.undoHistory.pop();
+  S.redoHistory.push(current);
+  const prev = S.undoHistory[S.undoHistory.length - 1];
+  S.canvas.loadFromJSON(prev, () => { S.canvas.renderAll(); reloadBgRef(); });
+  document.getElementById('btnRedo').disabled = false;
+  document.getElementById('bbRedo').disabled = false;
+}
+
+function doRedo() {
+  if (!S.redoHistory.length) return;
+  const next = S.redoHistory.pop();
+  S.undoHistory.push(next);
+  S.canvas.loadFromJSON(next, () => { S.canvas.renderAll(); reloadBgRef(); });
+  if (!S.redoHistory.length) { document.getElementById('btnRedo').disabled = true; document.getElementById('bbRedo').disabled = true; }
+}
+
+function reloadBgRef() {
+  const bg = S.canvas.backgroundImage;
+  if (bg) S.bgImage = bg;
+}
+
+// ===== EXPORT =====
+function downloadAs(format) {
+  if (!S.loaded) return;
+  const quality = parseInt(document.getElementById('jpgQuality').value) / 100;
+  const transparent = document.getElementById('pngTransparent').checked;
+  let dataUrl;
+  if (format === 'png' && transparent) {
+    const savedBg = S.canvas.backgroundColor;
+    S.canvas.setBackgroundColor(null, S.canvas.renderAll.bind(S.canvas));
+    dataUrl = S.canvas.toDataURL({ format: 'png' });
+    S.canvas.setBackgroundColor(savedBg, S.canvas.renderAll.bind(S.canvas));
+  } else {
+    dataUrl = S.canvas.toDataURL({ format: format === 'jpg' ? 'jpeg' : format, quality });
+  }
+  const a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = `edited-hashmitools.${format}`;
+  a.click();
+  showToast(`Downloaded as ${format.toUpperCase()}!`, 'ok');
+}
+
+function copyToClipboard() {
+  S.canvas.toBlob(blob => {
+    try {
+      navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      showToast('Copied to clipboard!', 'ok');
+    } catch(e) {
+      showToast('Clipboard not supported in this browser', 'err');
+    }
+  });
+}
+
+// ===== UTILS =====
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function getCanvasBgColor() {
+  const bg = S.canvas.backgroundColor;
+  return bg || '#ffffff';
+}
+
+function enableControls() {
+  const ids = ['btnUndo','btnRedo','btnFlipH','btnFlipV','btnRotL','btnRotR','btnZoomOut','btnZoomIn','zoomSel','btnZoomIn','btnFitScreen','btnReset','btnResize','btnDlJpg','btnDlPng','btnDlWebp','btnClipboard','bbUndo','bbRedo','bbReset','bbDownload'];
+  ids.forEach(id => { const el = document.getElementById(id); if(el) el.disabled = false; });
+}
+
+function showStatus(msg) {
+  document.getElementById('bbStatus').textContent = msg;
+}
+
+function showToast(msg, type='ok') {
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fas fa-${type==='ok'?'check':'exclamation'}-circle"></i> ${msg}`;
+  wrap.appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; t.style.transform='translateY(10px)'; setTimeout(()=>t.remove(), 300); }, 3000);
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.rp-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.rp-panel').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function setupDropzone() {
+  const dz = document.getElementById('uploadDz');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const ev = { target: { files: [file] } };
+      loadImage(ev);
+    }
+  });
+}
+
+function setupKeyboard() {
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'z') { e.preventDefault(); doUndo(); }
+    if (e.ctrlKey && e.key === 'y') { e.preventDefault(); doRedo(); }
+    if (e.key === 'Delete' && document.activeElement.tagName !== 'INPUT') deleteSelected();
+    if (e.key === 'Escape') setTool('move');
+  });
+}
+</script>
+</body>
+</html>

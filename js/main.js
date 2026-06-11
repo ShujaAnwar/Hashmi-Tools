@@ -79,24 +79,14 @@ function initHamburger() {
 }
 
 // ============================================
-// THEME TOGGLE
+// THEME TOGGLE — Light Mode Default
 // ============================================
 function initTheme() {
-  const btn = document.getElementById('themeToggle');
+  // Theme is already applied by assets/js/theme.js
+  // Just sync the icon on DOM ready
   const icon = document.getElementById('themeIcon');
-  if (!btn) return;
-
-  const saved = localStorage.getItem('ht-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', saved);
-  updateThemeIcon(saved, icon);
-
-  btn.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('ht-theme', next);
-    updateThemeIcon(next, icon);
-  });
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  updateThemeIcon(current, icon);
 }
 
 function updateThemeIcon(theme, icon) {

@@ -1,42 +1,66 @@
-# HashmiTools.com - Robots.txt
-# https://hashmitools.com
+# HashmiTools.com — Robots.txt
+# https://hashmitools.com/
+# Last updated: 2025-06-11
 
-# Allow all crawlers
+# ===== Default: allow all well-behaved bots =====
 User-agent: *
 Allow: /
 
-# Block admin panel from indexing
+# Disallow admin and private areas
 Disallow: /admin/
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /assets/js/
+Disallow: /assets/css/
+Disallow: /css/
+Disallow: /js/
 
-# Block any hidden/system directories
-Disallow: /.git/
-Disallow: /.tables/
-Disallow: /.meta/
-
-# Allow all tool pages explicitly
-Allow: /tools/
-Allow: /css/
-Allow: /js/
+# Allow critical static assets (for proper rendering signals)
+Allow: /css/*.css
+Allow: /assets/css/*.css
 Allow: /images/
+Allow: /icons/
 
-# Sitemap location
-Sitemap: https://hashmitools.com/sitemap.xml
+# ===== Search engine crawl rate hints =====
 
-# Crawl delay (be polite to server resources)
-Crawl-delay: 1
-
-# Google-specific
+# Google
 User-agent: Googlebot
 Allow: /
-Disallow: /admin/
-Crawl-delay: 0
+Crawl-delay: 1
 
 # Bing
 User-agent: Bingbot
 Allow: /
-Disallow: /admin/
+Crawl-delay: 2
 
-# Yandex
-User-agent: Yandex
-Allow: /
-Disallow: /admin/
+# Google Images — allow all images
+User-agent: Googlebot-Image
+Allow: /images/
+
+# ===== Block bad bots and scrapers =====
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+# ===== Sitemap Location =====
+Sitemap: https://hashmitools.com/sitemap.xml
+
+# ===== Site Information =====
+# Site: HashmiTools.com
+# Description: Free Online Islamic, Finance, AI, PDF & Developer Tools
+# Contact: https://hashmitools.com/contact.html

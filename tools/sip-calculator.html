@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SIP Calculator — Systematic Investment Plan | IslamiTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/tools.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* ── result summary cards ── */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.result-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.1rem 1rem;
+  text-align: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.result-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+.result-card .label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+.result-card .value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+}
+.result-card .value.green { color: #22c55e; }
+.result-card .value.blue  { color: #3b82f6; }
+.result-card .value.amber { color: #f59e0b; }
+.result-card .value.purple { color: #8b5cf6; }
+.result-card .sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+/* ── input card ── */
+.input-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+.input-card h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ── form layout ── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 640px){ .form-grid { grid-template-columns: 1fr; } }
+
+.field-group { display: flex; flex-direction: column; gap: 6px; }
+.field-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.input-with-suffix {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.input-with-suffix:focus-within { border-color: var(--accent); }
+.input-with-suffix input {
+  flex: 1;
+  border: none;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  outline: none;
+  font-family: 'Space Grotesk', sans-serif;
+  min-width: 0;
+}
+.suffix {
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--border-color);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ── tabs ── */
+.mode-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  background: var(--input-bg);
+  padding: 5px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color);
+}
+.mode-tab {
+  flex: 1;
+  padding: 0.55rem 0.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  text-align: center;
+}
+.mode-tab.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.3);
+}
+
+/* ── chart wrapper ── */
+.chart-wrapper {
+  position: relative;
+  height: 320px;
+  width: 100%;
+}
+.chart-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  justify-content: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ── table ── */
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color);
+  margin-top: 1.5rem;
+}
+table.year-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+table.year-table thead th {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  text-align: right;
+  font-weight: 700;
+  white-space: nowrap;
+}
+table.year-table thead th:first-child { text-align: left; }
+table.year-table tbody tr:nth-child(even) { background: var(--input-bg); }
+table.year-table tbody td {
+  padding: 0.6rem 1rem;
+  text-align: right;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+  font-family: 'Space Grotesk', sans-serif;
+}
+table.year-table tbody td:first-child { text-align: left; font-weight: 600; }
+table.year-table tfoot td {
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  background: var(--card-bg);
+  text-align: right;
+  border-top: 2px solid var(--border-color);
+  font-family: 'Space Grotesk', sans-serif;
+}
+table.year-table tfoot td:first-child { text-align: left; }
+
+/* ── range slider ── */
+.range-field { display: flex; flex-direction: column; gap: 4px; }
+.range-row { display: flex; align-items: center; gap: 0.75rem; }
+.range-row input[type=range] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  border-radius: 99px;
+  background: linear-gradient(to right, var(--accent) 0%, var(--border-color) 0%);
+  outline: none;
+  cursor: pointer;
+}
+.range-row input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+.range-val {
+  min-width: 52px;
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 0.3rem 0.5rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--accent);
+  background: var(--input-bg);
+}
+
+/* ── progress bar ── */
+.prog-bar-track {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--border-color);
+  overflow: hidden;
+  margin-top: 4px;
+}
+.prog-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg,var(--accent),#8b5cf6);
+  transition: width 0.5s ease;
+}
+
+/* toast */
+.toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: #1e293b;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 9999;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* hidden */
+.hidden { display: none !important; }
+.section-divider { border: none; border-top: 1.5px solid var(--border-color); margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <span class="brand-icon"><i class="fas fa-crescent"></i></span>
+      <span class="brand-text">IslamiTools</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="tool-hero">
+  <div class="tool-hero-content">
+    <div class="tool-hero-icon" style="background:linear-gradient(135deg,#22c55e,#3b82f6)">
+      <i class="fas fa-chart-line"></i>
+    </div>
+    <div>
+      <h1 class="tool-hero-title">SIP Calculator</h1>
+      <p class="tool-hero-desc">Calculate returns on Systematic Investment Plans with step-up SIP, lump sum comparison, year-wise growth table, and charts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="tool-main">
+<div class="tool-container">
+
+  <!-- Mode Tabs -->
+  <div class="mode-tabs" role="tablist">
+    <button class="mode-tab active" id="tabSIP" onclick="setMode('sip')" role="tab">📈 Regular SIP</button>
+    <button class="mode-tab" id="tabStep" onclick="setMode('step')" role="tab">📊 Step-Up SIP</button>
+    <button class="mode-tab" id="tabLump" onclick="setMode('lump')" role="tab">💰 Lump Sum</button>
+    <button class="mode-tab" id="tabGoal" onclick="setMode('goal')" role="tab">🎯 Goal SIP</button>
+  </div>
+
+  <!-- ══════════ REGULAR SIP ══════════ -->
+  <div id="panelSIP">
+    <div class="input-card">
+      <h3><i class="fas fa-sliders-h" style="color:var(--accent)"></i> SIP Parameters</h3>
+      <div class="form-grid">
+        <div class="field-group">
+          <label>Monthly Investment</label>
+          <div class="input-with-suffix">
+            <input type="number" id="sip_monthly" value="10000" min="100" oninput="calcSIP()"/>
+            <span class="suffix">PKR</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Expected Annual Return (%)</label>
+          <div class="range-field">
+            <div class="range-row">
+              <input type="range" id="sip_rate_range" min="1" max="30" step="0.5" value="12" oninput="syncRange('sip_rate',this.value);calcSIP()"/>
+              <span class="range-val" id="sip_rate_disp">12%</span>
+            </div>
+            <input type="number" id="sip_rate" value="12" min="0.1" max="50" step="0.1" oninput="syncRange2('sip_rate','sip_rate_range',this.value);calcSIP()" style="border:1.5px solid var(--border-color);border-radius:8px;padding:0.4rem 0.6rem;background:var(--input-bg);color:var(--text-primary);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.9rem;outline:none;width:100%;margin-top:4px"/>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Investment Period (years)</label>
+          <div class="range-field">
+            <div class="range-row">
+              <input type="range" id="sip_yrs_range" min="1" max="40" step="1" value="15" oninput="syncRange('sip_yrs',this.value);calcSIP()"/>
+              <span class="range-val" id="sip_yrs_disp">15 yrs</span>
+            </div>
+            <input type="number" id="sip_yrs" value="15" min="1" max="40" oninput="syncRange2('sip_yrs','sip_yrs_range',this.value);calcSIP()" style="border:1.5px solid var(--border-color);border-radius:8px;padding:0.4rem 0.6rem;background:var(--input-bg);color:var(--text-primary);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.9rem;outline:none;width:100%;margin-top:4px"/>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Currency</label>
+          <select id="sip_currency" onchange="calcSIP()" style="padding:0.6rem 0.75rem;border:1.5px solid var(--border-color);border-radius:10px;background:var(--input-bg);color:var(--text-primary);font-size:0.92rem;font-weight:600;outline:none">
+            <option value="PKR">PKR — Pakistani Rupee</option>
+            <option value="USD">USD — US Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="AED">AED — UAE Dirham</option>
+            <option value="SAR">SAR — Saudi Riyal</option>
+            <option value="EUR">EUR — Euro</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap">
+        <button onclick="calcSIP()" style="flex:1;padding:0.65rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.92rem;cursor:pointer;min-width:120px"><i class="fas fa-calculator"></i> Calculate</button>
+        <button onclick="resetSIP()" style="padding:0.65rem 1rem;background:transparent;color:var(--text-secondary);border:1.5px solid var(--border-color);border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer"><i class="fas fa-undo"></i> Reset</button>
+        <button onclick="copySIPResult()" style="padding:0.65rem 1rem;background:transparent;color:var(--text-secondary);border:1.5px solid var(--border-color);border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer"><i class="fas fa-copy"></i> Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ STEP-UP SIP ══════════ -->
+  <div id="panelStep" class="hidden">
+    <div class="input-card">
+      <h3><i class="fas fa-stairs" style="color:#22c55e"></i> Step-Up SIP Parameters</h3>
+      <div class="form-grid">
+        <div class="field-group">
+          <label>Initial Monthly Investment</label>
+          <div class="input-with-suffix">
+            <input type="number" id="step_monthly" value="10000" min="100" oninput="calcStep()"/>
+            <span class="suffix" id="step_cur_suffix">PKR</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Annual Step-Up (%)</label>
+          <div class="range-field">
+            <div class="range-row">
+              <input type="range" id="step_up_range" min="0" max="30" step="1" value="10" oninput="syncRange('step_up',this.value);calcStep()"/>
+              <span class="range-val" id="step_up_disp">10%</span>
+            </div>
+          </div>
+          <input type="hidden" id="step_up" value="10"/>
+        </div>
+        <div class="field-group">
+          <label>Expected Annual Return (%)</label>
+          <div class="input-with-suffix">
+            <input type="number" id="step_rate" value="12" min="0.1" max="50" step="0.1" oninput="calcStep()"/>
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Investment Period (years)</label>
+          <div class="input-with-suffix">
+            <input type="number" id="step_yrs" value="15" min="1" max="40" oninput="calcStep()"/>
+            <span class="suffix">yrs</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1rem">
+        <button onclick="calcStep()" style="padding:0.65rem 1.5rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.92rem;cursor:pointer"><i class="fas fa-calculator"></i> Calculate Step-Up SIP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ LUMP SUM ══════════ -->
+  <div id="panelLump" class="hidden">
+    <div class="input-card">
+      <h3><i class="fas fa-coins" style="color:#f59e0b"></i> Lump Sum Investment</h3>
+      <div class="form-grid">
+        <div class="field-group">
+          <label>Lump Sum Amount</label>
+          <div class="input-with-suffix">
+            <input type="number" id="lump_amt" value="100000" min="1000" oninput="calcLump()"/>
+            <span class="suffix">PKR</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Expected Annual Return (%)</label>
+          <div class="input-with-suffix">
+            <input type="number" id="lump_rate" value="12" min="0.1" max="50" step="0.1" oninput="calcLump()"/>
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Investment Period (years)</label>
+          <div class="input-with-suffix">
+            <input type="number" id="lump_yrs" value="15" min="1" max="40" oninput="calcLump()"/>
+            <span class="suffix">yrs</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Compounding Frequency</label>
+          <select id="lump_comp" onchange="calcLump()" style="padding:0.6rem 0.75rem;border:1.5px solid var(--border-color);border-radius:10px;background:var(--input-bg);color:var(--text-primary);font-size:0.92rem;font-weight:600;outline:none">
+            <option value="12">Monthly</option>
+            <option value="4">Quarterly</option>
+            <option value="2">Semi-Annually</option>
+            <option value="1">Annually</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:1rem">
+        <button onclick="calcLump()" style="padding:0.65rem 1.5rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.92rem;cursor:pointer"><i class="fas fa-calculator"></i> Calculate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ GOAL SIP ══════════ -->
+  <div id="panelGoal" class="hidden">
+    <div class="input-card">
+      <h3><i class="fas fa-bullseye" style="color:#ef4444"></i> Goal-Based SIP Calculator</h3>
+      <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem">Enter your financial goal and see how much you need to invest monthly.</p>
+      <div class="form-grid">
+        <div class="field-group">
+          <label>Target Amount</label>
+          <div class="input-with-suffix">
+            <input type="number" id="goal_target" value="5000000" min="10000" oninput="calcGoal()"/>
+            <span class="suffix">PKR</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Expected Annual Return (%)</label>
+          <div class="input-with-suffix">
+            <input type="number" id="goal_rate" value="12" min="0.1" max="50" step="0.1" oninput="calcGoal()"/>
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Time to Goal (years)</label>
+          <div class="input-with-suffix">
+            <input type="number" id="goal_yrs" value="15" min="1" max="40" oninput="calcGoal()"/>
+            <span class="suffix">yrs</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1rem">
+        <button onclick="calcGoal()" style="padding:0.65rem 1.5rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.92rem;cursor:pointer"><i class="fas fa-calculator"></i> Calculate Required SIP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsArea" class="hidden">
+    <div class="result-grid" id="resultCards"></div>
+
+    <!-- Progress bars -->
+    <div class="input-card" style="margin-bottom:1.25rem">
+      <h3><i class="fas fa-chart-bar" style="color:var(--accent)"></i> Return Breakdown</h3>
+      <div id="progressBars"></div>
+    </div>
+
+    <!-- Charts -->
+    <div class="input-card" style="margin-bottom:1.25rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem">
+        <h3 style="margin:0"><i class="fas fa-chart-area" style="color:#3b82f6"></i> Growth Chart</h3>
+        <div style="display:flex;gap:0.5rem">
+          <button onclick="setChartType('line')" id="btnLine" style="padding:4px 12px;border-radius:8px;border:1.5px solid var(--accent);background:var(--accent);color:#fff;font-size:0.78rem;font-weight:600;cursor:pointer">📈 Line</button>
+          <button onclick="setChartType('bar')" id="btnBar" style="padding:4px 12px;border-radius:8px;border:1.5px solid var(--border-color);background:transparent;color:var(--text-secondary);font-size:0.78rem;font-weight:600;cursor:pointer">📊 Bar</button>
+        </div>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="growthChart"></canvas>
+      </div>
+      <div class="chart-legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span> Total Value</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Amount Invested</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Wealth Gained</span>
+      </div>
+    </div>
+
+    <!-- Donut Chart -->
+    <div class="input-card" style="margin-bottom:1.25rem">
+      <h3><i class="fas fa-chart-pie" style="color:#8b5cf6"></i> Investment Mix</h3>
+      <div style="max-width:300px;margin:0 auto">
+        <div class="chart-wrapper" style="height:240px">
+          <canvas id="donutChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year Table -->
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem">
+      <i class="fas fa-table" style="color:var(--accent)"></i> Year-by-Year Breakdown
+    </h3>
+    <div class="table-container">
+      <table class="year-table" id="yearTable">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Monthly SIP</th>
+            <th>Amount Invested</th>
+            <th>Wealth Gained</th>
+            <th>Total Value</th>
+          </tr>
+        </thead>
+        <tbody id="yearTbody"></tbody>
+        <tfoot id="yearTfoot"></tfoot>
+      </table>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────
+//  THEME
+// ─────────────────────────────────────────
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const html = document.documentElement;
+  const t = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', t);
+  localStorage.setItem('theme', t);
+  document.getElementById('themeIcon').className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+});
+
+// ─────────────────────────────────────────
+//  TOAST
+// ─────────────────────────────────────────
+function showToast(msg, dur=2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
+}
+
+// ─────────────────────────────────────────
+//  MODE SWITCHING
+// ─────────────────────────────────────────
+let currentMode = 'sip';
+function setMode(m) {
+  currentMode = m;
+  ['sip','step','lump','goal'].forEach(id=>{
+    document.getElementById('panel'+id.charAt(0).toUpperCase()+id.slice(1)).classList.toggle('hidden', id!==m);
+    document.getElementById('tab'+id.charAt(0).toUpperCase()+id.slice(1)).classList.toggle('active', id===m);
+  });
+  document.getElementById('resultsArea').classList.add('hidden');
+  // Auto-calc
+  if(m==='sip') calcSIP();
+  else if(m==='step') calcStep();
+  else if(m==='lump') calcLump();
+  else calcGoal();
+}
+
+// ─────────────────────────────────────────
+//  RANGE SYNC
+// ─────────────────────────────────────────
+function syncRange(id, val) {
+  const el = document.getElementById(id);
+  if(el) el.value = val;
+  const disp = document.getElementById(id+'_disp');
+  if(disp) {
+    if(id.includes('yrs')) disp.textContent=val+' yrs';
+    else disp.textContent=val+'%';
+  }
+  updateRangeTrack(id+'_range', val);
+}
+function syncRange2(id, rangeId, val) {
+  const range = document.getElementById(rangeId);
+  if(range){ range.value=val; updateRangeTrack(rangeId,val); }
+  const disp = document.getElementById(id+'_disp');
+  if(disp){
+    if(id.includes('yrs')) disp.textContent=val+' yrs';
+    else disp.textContent=val+'%';
+  }
+}
+function updateRangeTrack(rangeId, val) {
+  const r=document.getElementById(rangeId);
+  if(!r) return;
+  const pct=(val-r.min)/(r.max-r.min)*100;
+  r.style.background=`linear-gradient(to right, var(--accent) ${pct}%, var(--border-color) ${pct}%)`;
+}
+
+// ─────────────────────────────────────────
+//  CURRENCY / FORMAT
+// ─────────────────────────────────────────
+const CURR_SYMBOLS = {PKR:'₨',USD:'$',GBP:'£',INR:'₹',AED:'د.إ',SAR:'﷼',EUR:'€'};
+let currSymbol = '₨';
+
+function fmt(n, currency) {
+  const sym = currency ? (CURR_SYMBOLS[currency]||currency) : currSymbol;
+  if(n>=10000000) return sym+(n/10000000).toFixed(2)+' Cr';
+  if(n>=100000)   return sym+(n/100000).toFixed(2)+' L';
+  if(n>=1000)     return sym+(n/1000).toFixed(1)+' K';
+  return sym+Math.round(n).toLocaleString();
+}
+function fmtFull(n) {
+  return currSymbol+Math.round(n).toLocaleString();
+}
+
+// ─────────────────────────────────────────
+//  SIP FORMULA
+//  FV = P × [(1+r)^n - 1] / r × (1+r)
+//  where r = monthly rate, n = total months
+// ─────────────────────────────────────────
+function sipFV(monthly, annualRate, years) {
+  const r = annualRate / 100 / 12;
+  const n = years * 12;
+  if(r===0) return monthly * n;
+  return monthly * (Math.pow(1+r,n)-1) / r * (1+r);
+}
+
+function calcSIP() {
+  const monthly = parseFloat(document.getElementById('sip_monthly').value)||0;
+  const rate    = parseFloat(document.getElementById('sip_rate').value)||0;
+  const yrs     = parseInt(document.getElementById('sip_yrs').value)||0;
+  const cur     = document.getElementById('sip_currency').value;
+  currSymbol    = CURR_SYMBOLS[cur]||'₨';
+
+  if(monthly<=0||rate<=0||yrs<=0) return;
+
+  const invested = monthly * yrs * 12;
+  const totalVal = sipFV(monthly, rate, yrs);
+  const gained   = totalVal - invested;
+  const returns  = (gained/invested)*100;
+
+  // Year-by-year data
+  const yearLabels=[], yearInvested=[], yearValue=[], yearGained=[];
+  for(let y=1;y<=yrs;y++){
+    const inv=monthly*y*12;
+    const val=sipFV(monthly,rate,y);
+    yearLabels.push('Yr '+y);
+    yearInvested.push(Math.round(inv));
+    yearValue.push(Math.round(val));
+    yearGained.push(Math.round(val-inv));
+  }
+
+  showResults({
+    monthly, invested, totalVal, gained, returns,
+    yearLabels, yearInvested, yearValue, yearGained,
+    yrs, rate, mode:'sip', currency:cur
+  });
+}
+
+// ─────────────────────────────────────────
+//  STEP-UP SIP
+// ─────────────────────────────────────────
+function calcStep() {
+  let monthly = parseFloat(document.getElementById('step_monthly').value)||0;
+  const stepUp  = parseFloat(document.getElementById('step_up').value)||0;
+  const rate    = parseFloat(document.getElementById('step_rate').value)||0;
+  const yrs     = parseInt(document.getElementById('step_yrs').value)||0;
+  currSymbol    = CURR_SYMBOLS[document.getElementById('sip_currency').value]||'₨';
+
+  if(monthly<=0||rate<=0||yrs<=0) return;
+
+  const r = rate/100/12;
+  let balance=0, totalInvested=0;
+  const yearLabels=[], yearInvested=[], yearValue=[], yearGained=[];
+  let yearMonthlys=[];
+
+  for(let y=1;y<=yrs;y++){
+    const mSIP = monthly * Math.pow(1+stepUp/100, y-1);
+    yearMonthlys.push(Math.round(mSIP));
+    for(let m=1;m<=12;m++){
+      balance = balance*(1+r) + mSIP;
+      totalInvested += mSIP;
+    }
+    yearLabels.push('Yr '+y);
+    yearInvested.push(Math.round(totalInvested));
+    yearValue.push(Math.round(balance));
+    yearGained.push(Math.round(balance-totalInvested));
+  }
+
+  const gained  = balance - totalInvested;
+  const returns = (gained/totalInvested)*100;
+
+  showResults({
+    monthly, invested:totalInvested, totalVal:balance, gained, returns,
+    yearLabels, yearInvested, yearValue, yearGained,
+    yearMonthlys, yrs, rate, mode:'step', stepUp,
+    currency: document.getElementById('sip_currency').value
+  });
+}
+
+// ─────────────────────────────────────────
+//  LUMP SUM
+//  A = P(1 + r/n)^(nt)
+// ─────────────────────────────────────────
+function calcLump() {
+  const P    = parseFloat(document.getElementById('lump_amt').value)||0;
+  const r    = parseFloat(document.getElementById('lump_rate').value)||0;
+  const t    = parseInt(document.getElementById('lump_yrs').value)||0;
+  const n    = parseInt(document.getElementById('lump_comp').value)||12;
+  currSymbol = CURR_SYMBOLS[document.getElementById('sip_currency').value]||'₨';
+
+  if(P<=0||r<=0||t<=0) return;
+
+  const totalVal = P * Math.pow(1+r/100/n, n*t);
+  const gained   = totalVal - P;
+  const returns  = (gained/P)*100;
+  const effRate  = (Math.pow(1+r/100/n,n)-1)*100;
+
+  const yearLabels=[], yearInvested=[], yearValue=[], yearGained=[];
+  for(let y=1;y<=t;y++){
+    const val=P*Math.pow(1+r/100/n,n*y);
+    yearLabels.push('Yr '+y);
+    yearInvested.push(Math.round(P));
+    yearValue.push(Math.round(val));
+    yearGained.push(Math.round(val-P));
+  }
+
+  showResults({
+    monthly:0, invested:P, totalVal, gained, returns,
+    yearLabels, yearInvested, yearValue, yearGained,
+    yrs:t, rate:r, effRate, mode:'lump',
+    currency: document.getElementById('sip_currency').value
+  });
+}
+
+// ─────────────────────────────────────────
+//  GOAL-BASED SIP
+//  P = FV × r / [(1+r)^n - 1] / (1+r)
+// ─────────────────────────────────────────
+function calcGoal() {
+  const FV   = parseFloat(document.getElementById('goal_target').value)||0;
+  const rate = parseFloat(document.getElementById('goal_rate').value)||0;
+  const yrs  = parseInt(document.getElementById('goal_yrs').value)||0;
+  currSymbol = CURR_SYMBOLS[document.getElementById('sip_currency').value]||'₨';
+
+  if(FV<=0||rate<=0||yrs<=0) return;
+
+  const r = rate/100/12;
+  const n = yrs*12;
+  const monthly = r===0 ? FV/n : FV*r / ((Math.pow(1+r,n)-1)*(1+r));
+  const invested = monthly*n;
+  const gained   = FV - invested;
+  const returns  = (gained/invested)*100;
+
+  const yearLabels=[], yearInvested=[], yearValue=[], yearGained=[];
+  for(let y=1;y<=yrs;y++){
+    const inv=monthly*y*12;
+    const val=sipFV(monthly,rate,y);
+    yearLabels.push('Yr '+y);
+    yearInvested.push(Math.round(inv));
+    yearValue.push(Math.round(val));
+    yearGained.push(Math.round(val-inv));
+  }
+
+  showResults({
+    monthly, invested, totalVal:FV, gained, returns,
+    yearLabels, yearInvested, yearValue, yearGained,
+    yrs, rate, mode:'goal',
+    currency: document.getElementById('sip_currency').value
+  });
+}
+
+// ─────────────────────────────────────────
+//  SHOW RESULTS (unified renderer)
+// ─────────────────────────────────────────
+let growthChartInst=null, donutChartInst=null;
+let lastData=null;
+let currentChartType='line';
+
+function showResults(d) {
+  lastData=d;
+  currSymbol = CURR_SYMBOLS[d.currency]||'₨';
+  document.getElementById('resultsArea').classList.remove('hidden');
+
+  // ── Result cards ──
+  const cards=[
+    {label: d.mode==='goal'?'Required Monthly SIP':'Monthly Investment', value:fmtFull(d.monthly||0), cls:'blue'},
+    {label:'Total Invested', value:fmtFull(d.invested), cls:''},
+    {label:'Wealth Gained', value:fmtFull(d.gained), cls:'green'},
+    {label:'Total Value', value:fmtFull(d.totalVal), cls:'purple'},
+    {label:'Absolute Returns', value:d.returns.toFixed(1)+'%', cls:'amber'},
+    {label:'CAGR (Approx)', value:d.mode==='lump'?d.rate.toFixed(1)+'%':approxCAGR(d.invested,d.totalVal,d.yrs).toFixed(2)+'%', cls:''},
+  ];
+  if(d.effRate) cards.push({label:'Effective Annual Rate', value:d.effRate.toFixed(3)+'%', cls:'amber'});
+
+  document.getElementById('resultCards').innerHTML=cards.map(c=>`
+    <div class="result-card">
+      <div class="label">${c.label}</div>
+      <div class="value ${c.cls}">${c.value}</div>
+    </div>`).join('');
+
+  // ── Progress bars ──
+  const invPct = (d.invested/d.totalVal*100).toFixed(1);
+  const gndPct = (d.gained/d.totalVal*100).toFixed(1);
+  document.getElementById('progressBars').innerHTML=`
+    <div style="margin-bottom:0.75rem">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:0.8rem;font-weight:600;color:var(--text-secondary)">💰 Amount Invested</span>
+        <span style="font-size:0.8rem;font-weight:700;color:#3b82f6">${fmtFull(d.invested)} (${invPct}%)</span>
+      </div>
+      <div class="prog-bar-track"><div class="prog-bar-fill" style="width:${invPct}%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:0.8rem;font-weight:600;color:var(--text-secondary)">📈 Wealth Gained</span>
+        <span style="font-size:0.8rem;font-weight:700;color:#22c55e">${fmtFull(d.gained)} (${gndPct}%)</span>
+      </div>
+      <div class="prog-bar-track"><div class="prog-bar-fill" style="width:${gndPct}%;background:linear-gradient(90deg,#22c55e,#86efac)"></div></div>
+    </div>`;
+
+  // ── Line/Bar Chart ──
+  renderGrowthChart(d);
+
+  // ── Donut Chart ──
+  renderDonutChart(d);
+
+  // ── Year table ──
+  renderYearTable(d);
+}
+
+function approxCAGR(invested, final, years) {
+  if(invested<=0||final<=0||years<=0) return 0;
+  return (Math.pow(final/invested, 1/years)-1)*100;
+}
+
+// ─────────────────────────────────────────
+//  CHARTS
+// ─────────────────────────────────────────
+function setChartType(type) {
+  currentChartType=type;
+  document.getElementById('btnLine').style.background = type==='line' ? 'var(--accent)' : 'transparent';
+  document.getElementById('btnLine').style.color      = type==='line' ? '#fff' : 'var(--text-secondary)';
+  document.getElementById('btnBar').style.background  = type==='bar'  ? 'var(--accent)' : 'transparent';
+  document.getElementById('btnBar').style.color       = type==='bar'  ? '#fff' : 'var(--text-secondary)';
+  if(lastData) renderGrowthChart(lastData);
+}
+
+function renderGrowthChart(d) {
+  if(growthChartInst) { growthChartInst.destroy(); growthChartInst=null; }
+  const ctx=document.getElementById('growthChart').getContext('2d');
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const gridColor=isDark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)';
+  const textColor=isDark?'#94a3b8':'#64748b';
+
+  growthChartInst=new Chart(ctx,{
+    type: currentChartType,
+    data:{
+      labels: d.yearLabels,
+      datasets:[
+        {label:'Total Value', data:d.yearValue, borderColor:'#3b82f6', backgroundColor:'rgba(59,130,246,0.15)', fill:true, tension:0.3, pointRadius:3},
+        {label:'Amount Invested', data:d.yearInvested, borderColor:'#22c55e', backgroundColor:'rgba(34,197,94,0.1)', fill:true, tension:0.3, pointRadius:2},
+        {label:'Wealth Gained', data:d.yearGained, borderColor:'#f59e0b', backgroundColor:'rgba(245,158,11,0.1)', fill:false, tension:0.3, pointRadius:2},
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          callbacks:{
+            label:ctx=>`${ctx.dataset.label}: ${currSymbol}${Math.round(ctx.raw).toLocaleString()}`
+          }
+        }
+      },
+      scales:{
+        x:{grid:{color:gridColor},ticks:{color:textColor,maxTicksLimit:12}},
+        y:{grid:{color:gridColor},ticks:{color:textColor,callback:v=>currSymbol+(v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}
+      }
+    }
+  });
+}
+
+function renderDonutChart(d) {
+  if(donutChartInst) { donutChartInst.destroy(); donutChartInst=null; }
+  const ctx=document.getElementById('donutChart').getContext('2d');
+  donutChartInst=new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:['Amount Invested','Wealth Gained'],
+      datasets:[{
+        data:[Math.round(d.invested),Math.round(d.gained)],
+        backgroundColor:['#3b82f6','#22c55e'],
+        borderWidth:3,
+        borderColor:document.documentElement.getAttribute('data-theme')==='dark'?'#1e293b':'#fff',
+        hoverOffset:6
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      cutout:'72%',
+      plugins:{
+        legend:{position:'bottom',labels:{color:document.documentElement.getAttribute('data-theme')==='dark'?'#94a3b8':'#64748b',padding:16,font:{size:12}}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${currSymbol}${Math.round(ctx.raw).toLocaleString()}`}}
+      }
+    }
+  });
+}
+
+// ─────────────────────────────────────────
+//  YEAR TABLE
+// ─────────────────────────────────────────
+function renderYearTable(d) {
+  const tbody=document.getElementById('yearTbody');
+  const tfoot=document.getElementById('yearTfoot');
+  tbody.innerHTML='';
+
+  d.yearLabels.forEach((lbl,i)=>{
+    const sipDisplay = d.yearMonthlys ? fmtFull(d.yearMonthlys[i]) : (d.monthly>0 ? fmtFull(d.monthly) : '—');
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td>${lbl}</td>
+      <td>${sipDisplay}</td>
+      <td>${fmtFull(d.yearInvested[i])}</td>
+      <td style="color:#22c55e">${fmtFull(d.yearGained[i])}</td>
+      <td style="color:#3b82f6;font-weight:700">${fmtFull(d.yearValue[i])}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  tfoot.innerHTML=`<tr>
+    <td>Total (${d.yrs} yrs)</td>
+    <td>—</td>
+    <td>${fmtFull(d.invested)}</td>
+    <td style="color:#22c55e">${fmtFull(d.gained)}</td>
+    <td style="color:#3b82f6">${fmtFull(d.totalVal)}</td>
+  </tr>`;
+}
+
+// ─────────────────────────────────────────
+//  COPY RESULT
+// ─────────────────────────────────────────
+function copySIPResult() {
+  if(!lastData) return;
+  const d=lastData;
+  const text=`SIP Calculation Result
+Monthly SIP: ${fmtFull(d.monthly||0)}
+Investment Period: ${d.yrs} years
+Annual Rate: ${d.rate}%
+Total Invested: ${fmtFull(d.invested)}
+Wealth Gained: ${fmtFull(d.gained)}
+Total Value: ${fmtFull(d.totalVal)}
+Absolute Returns: ${d.returns.toFixed(1)}%`;
+  navigator.clipboard.writeText(text).then(()=>showToast('✅ Results copied!'));
+}
+
+function resetSIP() {
+  document.getElementById('sip_monthly').value=10000;
+  document.getElementById('sip_rate').value=12;
+  document.getElementById('sip_yrs').value=15;
+  syncRange2('sip_rate','sip_rate_range',12);
+  syncRange2('sip_yrs','sip_yrs_range',15);
+  calcSIP();
+  showToast('↩ Reset to defaults');
+}
+
+// ─────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────
+updateRangeTrack('sip_rate_range',12);
+updateRangeTrack('sip_yrs_range',15);
+updateRangeTrack('step_up_range',10);
+syncRange('sip_rate',12);
+syncRange('sip_yrs',15);
+syncRange('step_up',10);
+calcSIP();
+</script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pakistan Income Tax Calculator 2024-25 – FBR Tax Slabs | HashmiTools</title>
+  <meta name="description" content="Calculate Pakistan income tax for 2024-25 tax year. FBR tax slabs for salaried persons, business individuals. PKR tax calculator with deductions." />
+  <meta name="keywords" content="pakistan income tax calculator, fbr tax calculator, pakistan tax slabs 2024, salary tax calculator pakistan, income tax pakistan 2025" />
+  <link rel="canonical" href="https://hashmitools.com/tools/pakistan-tax.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="pakistan.html" class="nav-link active">Pakistan Tools</a>
+        <a href="finance.html" class="nav-link">Finance</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <section class="tool-page-header">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="pakistan.html">Pakistan Tools</a><i class="fas fa-chevron-right"></i><span>Income Tax Calculator</span></nav>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:3rem;">🇵🇰</div>
+        <div>
+          <h1 class="tool-title">Pakistan Income Tax Calculator 2024-25</h1>
+          <p class="tool-desc">Calculate your FBR income tax based on latest tax slabs for salaried persons and business individuals</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-container"><div class="ad-placeholder" style="max-width:1280px;margin:0 auto;padding:0 24px;"><span>Advertisement</span></div></div>
+
+  <main class="tool-main">
+    <div class="container">
+      <div class="tool-layout">
+        <div>
+          <!-- Taxpayer Type -->
+          <div class="tabs" id="taxTypeTabs" style="margin-bottom:20px;">
+            <button class="tab-btn active" onclick="setTaxType('salaried',this)">👨‍💼 Salaried Person</button>
+            <button class="tab-btn" onclick="setTaxType('business',this)">🏪 Business / AOP</button>
+          </div>
+
+          <div class="tool-box" style="margin-bottom:20px;">
+            <div class="tool-box-header"><i class="fas fa-rupee-sign"></i> Income Details (Tax Year 2024-25)</div>
+            <div class="tool-box-body">
+              <!-- Income Input Mode -->
+              <div class="form-group">
+                <label class="form-label">Income Entry Mode</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                  <label style="cursor:pointer;" onclick="setIncomeMode('annual')">
+                    <div id="annualCard" style="padding:12px;background:var(--bg-glass);border:2px solid var(--accent-purple);border-radius:8px;text-align:center;">
+                      <div style="font-weight:700;font-size:0.875rem;">📅 Annual Income</div>
+                    </div>
+                  </label>
+                  <label style="cursor:pointer;" onclick="setIncomeMode('monthly')">
+                    <div id="monthlyCard" style="padding:12px;background:var(--bg-glass);border:1px solid var(--border-glass);border-radius:8px;text-align:center;">
+                      <div style="font-weight:700;font-size:0.875rem;">📆 Monthly Salary</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Annual Income -->
+              <div class="form-group" id="annualIncomeGroup">
+                <label class="form-label">Annual Gross Income (PKR)</label>
+                <div class="input-group">
+                  <span class="input-prefix">₨</span>
+                  <input type="number" class="form-input" id="annualIncome" placeholder="e.g. 1200000" min="0" oninput="syncIncomeInputs('annual');calculateTax()" style="padding-left:30px;" />
+                </div>
+                <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+                  <button onclick="setIncome(600000)" class="copy-btn" style="font-size:0.75px;">₨50K/mo</button>
+                  <button onclick="setIncome(1200000)" class="copy-btn" style="font-size:0.75rem;">₨100K/mo</button>
+                  <button onclick="setIncome(1800000)" class="copy-btn" style="font-size:0.75rem;">₨150K/mo</button>
+                  <button onclick="setIncome(3000000)" class="copy-btn" style="font-size:0.75rem;">₨250K/mo</button>
+                  <button onclick="setIncome(6000000)" class="copy-btn" style="font-size:0.75rem;">₨500K/mo</button>
+                </div>
+              </div>
+
+              <!-- Monthly Salary (hidden by default) -->
+              <div class="form-group" id="monthlySalaryGroup" style="display:none;">
+                <label class="form-label">Monthly Gross Salary (PKR)</label>
+                <div class="input-group">
+                  <span class="input-prefix">₨</span>
+                  <input type="number" class="form-input" id="monthlySalaryInput" placeholder="e.g. 100000" min="0" oninput="syncIncomeInputs('monthly');calculateTax()" style="padding-left:30px;" />
+                </div>
+              </div>
+
+              <!-- Allowances -->
+              <div class="form-group">
+                <label class="form-label">Allowances (included in above income?)</label>
+                <div class="checkbox-group">
+                  <label class="checkbox-item" style="font-size:0.875rem;"><input type="checkbox" id="hasMedical" onchange="calculateTax()" /><span>Medical Allowance (exempt up to 10% of salary)</span></label>
+                  <label class="checkbox-item" style="font-size:0.875rem;"><input type="checkbox" id="hasPF" onchange="calculateTax()" /><span>Provident Fund Contribution</span></label>
+                  <label class="checkbox-item" style="font-size:0.875rem;"><input type="checkbox" id="hasZakat" onchange="calculateTax()" /><span>Zakat Paid (deductible)</span></label>
+                </div>
+              </div>
+
+              <!-- Zakat Amount -->
+              <div class="form-group" id="zakatGroup" style="display:none;">
+                <label class="form-label">Zakat Paid (PKR)</label>
+                <div class="input-group">
+                  <span class="input-prefix">₨</span>
+                  <input type="number" class="form-input" id="zakatPaid" placeholder="e.g. 25000" min="0" oninput="calculateTax()" style="padding-left:30px;" />
+                </div>
+              </div>
+
+              <!-- Filer Status -->
+              <div class="form-group">
+                <label class="form-label">FBR Filer Status</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                  <label onclick="setFilerStatus('filer')">
+                    <div id="filerCard" style="padding:12px;background:var(--bg-glass);border:2px solid var(--accent-emerald);border-radius:8px;text-align:center;cursor:pointer;">
+                      <div style="font-size:1.2rem;">📋</div>
+                      <div style="font-weight:700;font-size:0.875rem;color:var(--accent-emerald);">Active Filer</div>
+                      <div style="font-size:0.72rem;color:var(--text-muted);">Normal tax rates</div>
+                    </div>
+                  </label>
+                  <label onclick="setFilerStatus('nonfiler')">
+                    <div id="nonfilerCard" style="padding:12px;background:var(--bg-glass);border:1px solid var(--border-glass);border-radius:8px;text-align:center;cursor:pointer;">
+                      <div style="font-size:1.2rem;">⚠️</div>
+                      <div style="font-weight:700;font-size:0.875rem;">Non-Filer</div>
+                      <div style="font-size:0.72rem;color:var(--text-muted);">Higher WHT rates</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <button class="btn btn-primary w-full" onclick="calculateTax()" style="padding:14px;font-size:1rem;margin-top:8px;">
+                <i class="fas fa-calculator"></i> Calculate Income Tax
+              </button>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="tool-box" id="taxResults">
+            <div class="tool-box-header" style="background:rgba(16,185,129,0.1);"><i class="fas fa-receipt"></i> Tax Calculation Results</div>
+            <div class="tool-box-body">
+              <div class="result-box" style="margin-bottom:20px;background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(6,182,212,0.1));border-color:rgba(16,185,129,0.2);">
+                <div class="result-label">Annual Income Tax Due</div>
+                <div class="result-value" id="annualTaxDue">₨0</div>
+                <div style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;" id="effectiveRateDisplay">Effective Rate: 0%</div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-item"><div class="result-item-label">Gross Income</div><div class="result-item-value" id="resGross">₨0</div></div>
+                <div class="result-item"><div class="result-item-label">Taxable Income</div><div class="result-item-value" id="resTaxable">₨0</div></div>
+                <div class="result-item"><div class="result-item-label">Annual Tax</div><div class="result-item-value" id="resAnnualTax" style="color:#f87171;">₨0</div></div>
+                <div class="result-item"><div class="result-item-label">Monthly Tax</div><div class="result-item-value" id="resMonthlyTax">₨0</div></div>
+                <div class="result-item"><div class="result-item-label">Net Monthly Take-Home</div><div class="result-item-value" id="resNetMonthly" style="color:var(--accent-emerald);">₨0</div></div>
+                <div class="result-item"><div class="result-item-label">Tax Slab</div><div class="result-item-value" id="resTaxSlab" style="color:var(--accent-amber);">—</div></div>
+              </div>
+
+              <!-- Chart -->
+              <div style="height:250px;margin-top:20px;"><canvas id="taxChart"></canvas></div>
+
+              <!-- Slab Details -->
+              <div style="margin-top:20px;">
+                <h4 style="font-size:0.9rem;font-weight:700;margin-bottom:12px;">Tax Slab Breakdown</h4>
+                <div id="slabBreakdown" style="display:flex;flex-direction:column;gap:8px;"></div>
+              </div>
+
+              <div class="share-section" style="margin-top:16px;">
+                <span class="share-label">Share:</span>
+                <button class="share-btn whatsapp" onclick="shareTax()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                <button class="share-btn copy" onclick="copyTaxResult()"><i class="fas fa-copy"></i> Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tax Slabs Table -->
+          <div class="tool-box" style="margin-top:20px;">
+            <div class="tool-box-header" id="slabsHeader"><i class="fas fa-table"></i> FBR Tax Slabs 2024-25 — Salaried Persons</div>
+            <div class="tool-box-body" style="overflow-x:auto;">
+              <table class="data-table" id="taxSlabsTable">
+                <thead><tr><th>Annual Income Range</th><th>Tax Rate</th><th>Fixed Tax</th><th>On Excess Above</th></tr></thead>
+                <tbody id="taxSlabsBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="faq-section" style="margin-top:24px;">
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:16px;">FAQ</h3>
+            <div class="faq-item"><div class="faq-question">Who is a salaried person for FBR? <span class="faq-icon">+</span></div><div class="faq-answer">A salaried person is one who derives at least 75% of their income from salary. Salary includes basic pay, allowances, bonuses, and other compensations from employment.</div></div>
+            <div class="faq-item"><div class="faq-question">What is the tax-free threshold for salaried persons? <span class="faq-icon">+</span></div><div class="faq-answer">For tax year 2024-25, income up to ₨600,000 per year (₨50,000/month) is exempt from income tax for salaried individuals in Pakistan.</div></div>
+            <div class="faq-item"><div class="faq-question">What is the difference between active filer and non-filer? <span class="faq-icon">+</span></div><div class="faq-answer">Active filers (those who file annual income tax returns) get lower withholding tax rates on various transactions. Non-filers face higher WHT rates on bank transactions, property, vehicles, and more.</div></div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="sidebar-ad">Advertisement (300×250)</div>
+          <div class="tool-box" style="margin-top:16px;">
+            <div class="tool-box-header">🇵🇰 Pakistan Tools</div>
+            <div class="tool-box-body" style="display:flex;flex-direction:column;gap:8px;">
+              <a href="emi-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">💰 EMI Calculator</a>
+              <a href="zakat-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🕌 Zakat Calculator</a>
+              <a href="currency-converter.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">💱 PKR Currency Converter</a>
+            </div>
+          </div>
+          <div class="sidebar-ad" style="margin-top:16px;">Advertisement (300×600)</div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></div></footer>
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../js/main.js"></script>
+  <script>
+  // FBR Tax Slabs 2024-25 — Salaried Persons
+  const SALARIED_SLABS = [
+    { min: 0, max: 600000, rate: 0, fixed: 0, label: 'Up to ₨600,000' },
+    { min: 600001, max: 1200000, rate: 0.05, fixed: 0, label: '₨600,001 – ₨1,200,000' },
+    { min: 1200001, max: 2400000, rate: 0.15, fixed: 30000, label: '₨1,200,001 – ₨2,400,000' },
+    { min: 2400001, max: 3600000, rate: 0.25, fixed: 210000, label: '₨2,400,001 – ₨3,600,000' },
+    { min: 3600001, max: 6000000, rate: 0.30, fixed: 510000, label: '₨3,600,001 – ₨6,000,000' },
+    { min: 6000001, max: 12000000, rate: 0.35, fixed: 1230000, label: '₨6,000,001 – ₨12,000,000' },
+    { min: 12000001, max: Infinity, rate: 0.39, fixed: 3330000, label: 'Above ₨12,000,000' },
+  ];
+
+  const BUSINESS_SLABS = [
+    { min: 0, max: 600000, rate: 0, fixed: 0, label: 'Up to ₨600,000' },
+    { min: 600001, max: 1200000, rate: 0.15, fixed: 0, label: '₨600,001 – ₨1,200,000' },
+    { min: 1200001, max: 1600000, rate: 0.20, fixed: 90000, label: '₨1,200,001 – ₨1,600,000' },
+    { min: 1600001, max: 3200000, rate: 0.25, fixed: 170000, label: '₨1,600,001 – ₨3,200,000' },
+    { min: 3200001, max: 5600000, rate: 0.30, fixed: 570000, label: '₨3,200,001 – ₨5,600,000' },
+    { min: 5600001, max: Infinity, rate: 0.35, fixed: 1290000, label: 'Above ₨5,600,000' },
+  ];
+
+  let currentTaxType = 'salaried';
+  let currentIncomeMode = 'annual';
+  let isFiler = true;
+  let taxChartInst;
+
+  function setTaxType(type, btn) {
+    currentTaxType = type;
+    document.querySelectorAll('#taxTypeTabs .tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderSlabsTable();
+    calculateTax();
+  }
+
+  function setIncomeMode(mode) {
+    currentIncomeMode = mode;
+    document.getElementById('annualCard').style.borderColor = mode === 'annual' ? 'var(--accent-purple)' : 'var(--border-glass)';
+    document.getElementById('monthlyCard').style.borderColor = mode === 'monthly' ? 'var(--accent-purple)' : 'var(--border-glass)';
+    document.getElementById('annualIncomeGroup').style.display = mode === 'annual' ? 'block' : 'none';
+    document.getElementById('monthlySalaryGroup').style.display = mode === 'monthly' ? 'block' : 'none';
+  }
+
+  function setFilerStatus(status) {
+    isFiler = status === 'filer';
+    document.getElementById('filerCard').style.borderColor = isFiler ? 'var(--accent-emerald)' : 'var(--border-glass)';
+    document.getElementById('nonfilerCard').style.borderColor = !isFiler ? 'var(--accent-amber)' : 'var(--border-glass)';
+    calculateTax();
+  }
+
+  function syncIncomeInputs(mode) {
+    if (mode === 'annual') {
+      const annual = parseFloat(document.getElementById('annualIncome').value) || 0;
+      document.getElementById('monthlySalaryInput').value = Math.round(annual / 12);
+    } else {
+      const monthly = parseFloat(document.getElementById('monthlySalaryInput').value) || 0;
+      document.getElementById('annualIncome').value = monthly * 12;
+    }
+  }
+
+  function setIncome(amount) {
+    document.getElementById('annualIncome').value = amount;
+    document.getElementById('monthlySalaryInput').value = Math.round(amount / 12);
+    calculateTax();
+  }
+
+  document.getElementById('hasZakat').addEventListener('change', function() {
+    document.getElementById('zakatGroup').style.display = this.checked ? 'block' : 'none';
+    calculateTax();
+  });
+
+  function getAnnualIncome() {
+    if (currentIncomeMode === 'monthly') {
+      return (parseFloat(document.getElementById('monthlySalaryInput').value) || 0) * 12;
+    }
+    return parseFloat(document.getElementById('annualIncome').value) || 0;
+  }
+
+  function calculateTax() {
+    const grossIncome = getAnnualIncome();
+    if (!grossIncome) return;
+
+    let taxableIncome = grossIncome;
+    const slabs = currentTaxType === 'salaried' ? SALARIED_SLABS : BUSINESS_SLABS;
+
+    // Deductions
+    if (document.getElementById('hasMedical').checked) taxableIncome -= Math.min(grossIncome * 0.1, grossIncome);
+    if (document.getElementById('hasZakat').checked) {
+      const zakatPaid = parseFloat(document.getElementById('zakatPaid').value) || 0;
+      taxableIncome -= zakatPaid;
+    }
+    taxableIncome = Math.max(0, taxableIncome);
+
+    // Calculate tax
+    let tax = 0;
+    let slabUsed = null;
+    for (const slab of slabs) {
+      if (taxableIncome > slab.min - 1 && taxableIncome <= slab.max) {
+        tax = slab.fixed + (taxableIncome - slab.min + 1) * slab.rate;
+        slabUsed = slab;
+        break;
+      }
+    }
+
+    // Non-filer surcharge
+    if (!isFiler) tax *= 1.25;
+
+    const annualTax = Math.round(tax);
+    const monthlyTax = Math.round(tax / 12);
+    const netMonthly = Math.round((grossIncome - tax) / 12);
+    const effectiveRate = grossIncome > 0 ? ((tax / grossIncome) * 100).toFixed(2) : 0;
+
+    document.getElementById('annualTaxDue').textContent = '₨' + annualTax.toLocaleString();
+    document.getElementById('effectiveRateDisplay').textContent = `Effective Rate: ${effectiveRate}%`;
+    document.getElementById('resGross').textContent = '₨' + grossIncome.toLocaleString();
+    document.getElementById('resTaxable').textContent = '₨' + taxableIncome.toLocaleString();
+    document.getElementById('resAnnualTax').textContent = '₨' + annualTax.toLocaleString();
+    document.getElementById('resMonthlyTax').textContent = '₨' + monthlyTax.toLocaleString();
+    document.getElementById('resNetMonthly').textContent = '₨' + netMonthly.toLocaleString();
+    document.getElementById('resTaxSlab').textContent = slabUsed ? `${Math.round(slabUsed.rate * 100)}% Slab` : 'Exempt';
+
+    // Chart
+    const ctx = document.getElementById('taxChart').getContext('2d');
+    if (taxChartInst) taxChartInst.destroy();
+    taxChartInst = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Tax', 'Net Income'],
+        datasets: [{ data: [annualTax, grossIncome - annualTax], backgroundColor: ['#ef4444','#10b981'], borderColor: 'transparent' }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } } } }
+    });
+
+    // Slab breakdown
+    const breakdownEl = document.getElementById('slabBreakdown');
+    breakdownEl.innerHTML = slabs.filter(s => taxableIncome > s.min - 1).map(s => {
+      const taxable = Math.min(taxableIncome, s.max) - s.min + 1;
+      const tax = taxable * s.rate;
+      const isActive = slabUsed && s.min === slabUsed.min;
+      return `
+        <div style="padding:10px 12px;background:${isActive ? 'rgba(99,102,241,0.1)' : 'var(--bg-glass)'};border:1px solid ${isActive ? 'rgba(99,102,241,0.3)' : 'var(--border-glass)'};border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;flex-wrap:wrap;gap:8px;">
+          <span style="color:var(--text-secondary);">${s.label}</span>
+          <span><strong style="color:${isActive ? 'var(--accent-purple)' : 'var(--text-primary)'};">${Math.round(s.rate * 100)}%</strong><span style="color:var(--text-muted);margin-left:8px;">Tax: ₨${Math.round(Math.max(0,tax)).toLocaleString()}</span></span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderSlabsTable() {
+    const slabs = currentTaxType === 'salaried' ? SALARIED_SLABS : BUSINESS_SLABS;
+    document.getElementById('slabsHeader').innerHTML = `<i class="fas fa-table"></i> FBR Tax Slabs 2024-25 — ${currentTaxType === 'salaried' ? 'Salaried Persons' : 'Business / AOP'}`;
+    document.getElementById('taxSlabsBody').innerHTML = slabs.map(s => `
+      <tr>
+        <td>${s.label}</td>
+        <td><strong>${Math.round(s.rate * 100)}%</strong></td>
+        <td>₨${s.fixed.toLocaleString()}</td>
+        <td>₨${(s.min - 1).toLocaleString()}</td>
+      </tr>
+    `).join('');
+  }
+
+  function shareTax() {
+    const tax = document.getElementById('annualTaxDue')?.textContent;
+    const net = document.getElementById('resNetMonthly')?.textContent;
+    const text = `Pakistan Income Tax 2024-25 (from HashmiTools.com):\n💰 Annual Tax: ${tax}\n🏦 Monthly Take-Home: ${net}\n\nCalculate yours: https://hashmitools.com/tools/pakistan-tax.html`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  function copyTaxResult() {
+    const tax = document.getElementById('annualTaxDue')?.textContent;
+    HashmiTools.copyToClipboard(`Annual Tax: ${tax}`);
+  }
+
+  renderSlabsTable();
+  HashmiTools.trackToolView('Pakistan Tax Calculator', 'tools/pakistan-tax.html', '🇵🇰');
+  </script>
+</body>
+</html>

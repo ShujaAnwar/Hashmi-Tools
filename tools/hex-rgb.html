@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HEX ↔ RGB Color Converter | IslamiTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/tools.css"/>
+<style>
+:root {
+  --swatch-border: #e2e8f0;
+  --code-bg: #f8fafc;
+  --code-border: #e2e8f0;
+}
+[data-theme="dark"] {
+  --swatch-border: #334155;
+  --code-bg: #1e293b;
+  --code-border: #334155;
+}
+
+/* ── Layout ── */
+.color-workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 768px) { .color-workspace { grid-template-columns: 1fr; } }
+
+/* ── Big swatch preview ── */
+.big-swatch {
+  border-radius: 16px;
+  height: 140px;
+  width: 100%;
+  border: 2px solid var(--swatch-border);
+  transition: background 0.25s, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.big-swatch::after {
+  content: "Click to copy HEX";
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  font-family: 'Inter', sans-serif;
+  pointer-events: none;
+}
+.swatch-label {
+  position: absolute;
+  top: 10px; left: 14px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* ── Input cards ── */
+.input-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.input-card h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+.hex-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hex-row input[type="color"] {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 2px;
+  background: none;
+  outline: none;
+  flex-shrink: 0;
+}
+.hex-row input[type="text"] {
+  flex: 1;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.hex-row input[type="text"]:focus { border-color: var(--accent); }
+
+/* RGB sliders */
+.rgb-channel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.channel-label {
+  width: 22px;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+.channel-label.r { color: #ef4444; }
+.channel-label.g { color: #22c55e; }
+.channel-label.b { color: #3b82f6; }
+.channel-label.a { color: #a855f7; }
+
+input[type="range"].channel-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 99px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].channel-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #94a3b8;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.channel-num {
+  width: 48px;
+  text-align: center;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  outline: none;
+}
+
+/* HSL row */
+.hsl-row {
+  display: flex;
+  gap: 0.5rem;
+}
+.hsl-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hsl-group label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.hsl-group input {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.hsl-group input:focus { border-color: var(--accent); }
+
+/* Code output */
+.code-block {
+  background: var(--code-bg);
+  border: 1.5px solid var(--code-border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  position: relative;
+  overflow-x: auto;
+}
+.code-block pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--text-primary);
+}
+.copy-code-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.copy-code-btn:hover { opacity: 0.85; }
+
+/* Palette section */
+.palette-section { margin-top: 1.75rem; }
+.palette-section h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.palette-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.palette-tab {
+  padding: 0.4rem 0.9rem;
+  border-radius: 99px;
+  border: 1.5px solid var(--border-color);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.palette-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.75rem;
+}
+.palette-chip {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid var(--swatch-border);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.palette-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.chip-color { height: 64px; width: 100%; }
+.chip-info {
+  padding: 6px 8px;
+  background: var(--card-bg);
+}
+.chip-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chip-hex {
+  font-size: 0.68rem;
+  font-family: 'Space Grotesk', monospace;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Gradient builder */
+.gradient-builder { margin-top: 1.75rem; }
+.gradient-stops {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.stop-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+.stop-item label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+.stop-item input[type="color"] {
+  width: 44px; height: 44px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 2px;
+  background: none;
+}
+.gradient-preview {
+  height: 80px;
+  border-radius: 12px;
+  border: 1.5px solid var(--swatch-border);
+  margin-bottom: 0.75rem;
+  transition: background 0.3s;
+}
+.gradient-direction {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.dir-btn {
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dir-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Contrast checker */
+.contrast-check { margin-top: 1.75rem; }
+.contrast-demo {
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.25s;
+}
+.contrast-ratio {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.contrast-badges { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.wcag-badge {
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.wcag-pass { background: #dcfce7; color: #166534; }
+.wcag-fail { background: #fee2e2; color: #991b1b; }
+[data-theme="dark"] .wcag-pass { background: #14532d; color: #86efac; }
+[data-theme="dark"] .wcag-fail { background: #7f1d1d; color: #fca5a5; }
+
+/* History */
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.history-chip {
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1.5px solid var(--swatch-border);
+  transition: transform 0.15s;
+}
+.history-chip:hover { transform: scale(1.06); }
+.history-chip-color { height: 48px; }
+.history-chip-hex {
+  padding: 4px;
+  text-align: center;
+  font-size: 0.65rem;
+  font-family: 'Space Grotesk', monospace;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  text-transform: uppercase;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: #1e293b;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 9999;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  pointer-events: none;
+  max-width: 320px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* Random & reset buttons */
+.actions-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+.btn-action:hover { border-color: var(--accent); color: var(--accent); }
+.btn-action.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-action.primary:hover { opacity: 0.88; }
+
+/* Alpha channel */
+.alpha-bar-bg {
+  background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+                    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, #ccc 75%),
+                    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+  border-radius: 4px;
+  height: 6px;
+  position: relative;
+}
+
+.section-divider {
+  border: none;
+  border-top: 1.5px solid var(--border-color);
+  margin: 1.5rem 0;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <span class="brand-icon"><i class="fas fa-crescent"></i></span>
+      <span class="brand-text">IslamiTools</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="tool-hero">
+  <div class="tool-hero-content">
+    <div class="tool-hero-icon" style="background:linear-gradient(135deg,#f59e0b,#ef4444,#8b5cf6)">
+      <i class="fas fa-palette"></i>
+    </div>
+    <div>
+      <h1 class="tool-hero-title">HEX ↔ RGB Color Converter</h1>
+      <p class="tool-hero-desc">Convert colors between HEX, RGB, HSL, CMYK. Pick from palettes, build gradients, check WCAG contrast.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="tool-main">
+<div class="tool-container">
+
+  <!-- Big Swatch -->
+  <div class="big-swatch" id="bigSwatch" onclick="copyHex()" title="Click to copy HEX">
+    <span class="swatch-label" id="swatchLabel">#6366F1</span>
+  </div>
+
+  <!-- Action Row -->
+  <div class="actions-row">
+    <button class="btn-action primary" onclick="randomColor()"><i class="fas fa-random"></i> Random Color</button>
+    <button class="btn-action" onclick="resetColor()"><i class="fas fa-undo"></i> Reset</button>
+    <button class="btn-action" onclick="copyAllFormats()"><i class="fas fa-copy"></i> Copy All</button>
+    <button class="btn-action" onclick="addToHistory()"><i class="fas fa-heart"></i> Save to History</button>
+  </div>
+
+  <!-- Input Workspace -->
+  <div class="color-workspace">
+
+    <!-- HEX INPUT -->
+    <div class="input-card">
+      <h3><i class="fas fa-hashtag" style="color:var(--accent)"></i> HEX</h3>
+      <div class="hex-row">
+        <input type="color" id="colorPicker" value="#6366f1" oninput="fromColorPicker()" title="Visual color picker"/>
+        <input type="text" id="hexInput" value="#6366F1" maxlength="9" placeholder="#RRGGBB" oninput="fromHex()" spellcheck="false"/>
+      </div>
+      <p style="font-size:0.76rem;color:var(--text-muted);margin:0">Supports 3-digit (#RGB), 6-digit (#RRGGBB), and 8-digit (#RRGGBBAA)</p>
+    </div>
+
+    <!-- RGB INPUT -->
+    <div class="input-card">
+      <h3><i class="fas fa-sliders-h" style="color:#22c55e"></i> RGB / RGBA</h3>
+      <div class="rgb-channel">
+        <span class="channel-label r">R</span>
+        <input type="range" class="channel-slider" id="rSlider" min="0" max="255" value="99" oninput="fromRGB()" style="background:linear-gradient(to right,#000,#f00)"/>
+        <input type="number" class="channel-num" id="rNum" min="0" max="255" value="99" oninput="fromRGB()"/>
+      </div>
+      <div class="rgb-channel">
+        <span class="channel-label g">G</span>
+        <input type="range" class="channel-slider" id="gSlider" min="0" max="255" value="102" oninput="fromRGB()" style="background:linear-gradient(to right,#000,#0f0)"/>
+        <input type="number" class="channel-num" id="gNum" min="0" max="255" value="102" oninput="fromRGB()"/>
+      </div>
+      <div class="rgb-channel">
+        <span class="channel-label b">B</span>
+        <input type="range" class="channel-slider" id="bSlider" min="0" max="255" value="241" oninput="fromRGB()" style="background:linear-gradient(to right,#000,#00f)"/>
+        <input type="number" class="channel-num" id="bNum" min="0" max="255" value="241" oninput="fromRGB()"/>
+      </div>
+      <div class="rgb-channel">
+        <span class="channel-label a">A</span>
+        <div class="alpha-bar-bg" style="flex:1;position:relative">
+          <input type="range" class="channel-slider" id="aSlider" min="0" max="100" value="100" oninput="fromRGB()" style="position:absolute;inset:0;width:100%;opacity:0.001;height:100%;cursor:pointer;margin:0"/>
+          <div id="alphaFill" style="position:absolute;inset:0;border-radius:4px;pointer-events:none;background:linear-gradient(to right,transparent,#6366f1)"></div>
+          <div id="alphaThumb" style="position:absolute;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid #64748b;pointer-events:none;left:calc(100% - 7px)"></div>
+        </div>
+        <input type="number" class="channel-num" id="aNum" min="0" max="100" value="100" oninput="fromRGB()"/>
+        <span style="font-size:0.8rem;color:var(--text-muted)">%</span>
+      </div>
+    </div>
+
+    <!-- HSL INPUT -->
+    <div class="input-card">
+      <h3><i class="fas fa-adjust" style="color:#f59e0b"></i> HSL</h3>
+      <div class="hsl-row">
+        <div class="hsl-group">
+          <label>H (°)</label>
+          <input type="number" id="hInput" min="0" max="360" value="239" oninput="fromHSL()"/>
+        </div>
+        <div class="hsl-group">
+          <label>S (%)</label>
+          <input type="number" id="sInput" min="0" max="100" value="84" oninput="fromHSL()"/>
+        </div>
+        <div class="hsl-group">
+          <label>L (%)</label>
+          <input type="number" id="lInput" min="0" max="100" value="67" oninput="fromHSL()"/>
+        </div>
+      </div>
+      <div style="margin-top:0.5rem">
+        <div style="height:10px;border-radius:6px;background:linear-gradient(to right,hsl(0,100%,50%),hsl(60,100%,50%),hsl(120,100%,50%),hsl(180,100%,50%),hsl(240,100%,50%),hsl(300,100%,50%),hsl(360,100%,50%))"></div>
+        <p style="font-size:0.72rem;color:var(--text-muted);margin:4px 0 0">Hue rainbow spectrum</p>
+      </div>
+    </div>
+
+    <!-- CMYK INPUT -->
+    <div class="input-card">
+      <h3><i class="fas fa-print" style="color:#0ea5e9"></i> CMYK</h3>
+      <div class="rgb-channel">
+        <span class="channel-label" style="color:#06b6d4;width:18px">C</span>
+        <input type="range" class="channel-slider" id="cSlider" min="0" max="100" value="59" oninput="fromCMYK()" style="background:linear-gradient(to right,#fff,#06b6d4)"/>
+        <input type="number" class="channel-num" id="cNum" min="0" max="100" value="59" oninput="fromCMYK()"/>
+        <span style="font-size:0.8rem;color:var(--text-muted)">%</span>
+      </div>
+      <div class="rgb-channel">
+        <span class="channel-label" style="color:#a855f7;width:18px">M</span>
+        <input type="range" class="channel-slider" id="mSlider" min="0" max="100" value="58" oninput="fromCMYK()" style="background:linear-gradient(to right,#fff,#a855f7)"/>
+        <input type="number" class="channel-num" id="mNum" min="0" max="100" value="58" oninput="fromCMYK()"/>
+        <span style="font-size:0.8rem;color:var(--text-muted)">%</span>
+      </div>
+      <div class="rgb-channel">
+        <span class="channel-label" style="color:#f59e0b;width:18px">Y</span>
+        <input type="range" class="channel-slider" id="ySlider" min="0" max="100" value="0" oninput="fromCMYK()" style="background:linear-gradient(to right,#fff,#f59e0b)"/>
+        <input type="number" class="channel-num" id="yNum" min="0" max="100" value="0" oninput="fromCMYK()"/>
+        <span style="font-size:0.8rem;color:var(--text-muted)">%</span>
+      </div>
+      <div class="rgb-channel">
+        <span class="channel-label" style="color:#1e293b;width:18px">K</span>
+        <input type="range" class="channel-slider" id="kSlider" min="0" max="100" value="5" oninput="fromCMYK()" style="background:linear-gradient(to right,#fff,#1e293b)"/>
+        <input type="number" class="channel-num" id="kNum" min="0" max="100" value="5" oninput="fromCMYK()"/>
+        <span style="font-size:0.8rem;color:var(--text-muted)">%</span>
+      </div>
+    </div>
+  </div><!-- end .color-workspace -->
+
+  <!-- CSS Code Output -->
+  <div class="input-card" style="margin-top:1.5rem">
+    <h3><i class="fas fa-code" style="color:#8b5cf6"></i> CSS / Code Snippets</h3>
+    <div class="code-block" style="margin-bottom:0.75rem">
+      <pre id="cssOutput">/* Loading... */</pre>
+      <button class="copy-code-btn" onclick="copyCSSSnippets()"><i class="fas fa-copy"></i> Copy</button>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- PALETTE SECTION -->
+  <section class="palette-section">
+    <h2><i class="fas fa-swatchbook" style="color:var(--accent)"></i> Color Palettes</h2>
+    <div class="palette-tabs" role="tablist">
+      <button class="palette-tab active" onclick="showPalette('tailwind')" role="tab">Tailwind CSS</button>
+      <button class="palette-tab" onclick="showPalette('material')" role="tab">Material</button>
+      <button class="palette-tab" onclick="showPalette('css')" role="tab">CSS Named</button>
+      <button class="palette-tab" onclick="showPalette('islamic')" role="tab">Islamic Tones</button>
+      <button class="palette-tab" onclick="showPalette('shades')" role="tab">Current Shades</button>
+    </div>
+    <div class="palette-grid" id="paletteGrid"></div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- GRADIENT BUILDER -->
+  <section class="gradient-builder">
+    <h2><i class="fas fa-magic" style="color:#f59e0b"></i> Gradient Builder</h2>
+    <div class="gradient-stops" id="gradientStops">
+      <div class="stop-item">
+        <label>Stop 1</label>
+        <input type="color" id="grad1" value="#6366f1" oninput="updateGradient()"/>
+      </div>
+      <div class="stop-item">
+        <label>Stop 2</label>
+        <input type="color" id="grad2" value="#8b5cf6" oninput="updateGradient()"/>
+      </div>
+      <div class="stop-item">
+        <label>Stop 3 (opt)</label>
+        <input type="color" id="grad3" value="" oninput="updateGradient()" style="opacity:0.5"/>
+      </div>
+      <button class="btn-action" onclick="addGradientStop()" style="align-self:flex-end"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="gradient-direction">
+      <button class="dir-btn active" onclick="setGradDir(this,'to right')">→ Right</button>
+      <button class="dir-btn" onclick="setGradDir(this,'to bottom')">↓ Down</button>
+      <button class="dir-btn" onclick="setGradDir(this,'to bottom right')">↘ Diagonal</button>
+      <button class="dir-btn" onclick="setGradDir(this,'135deg')">135°</button>
+      <button class="dir-btn" onclick="setGradDir(this,'radial')">◉ Radial</button>
+    </div>
+    <div class="gradient-preview" id="gradientPreview"></div>
+    <div class="code-block" style="margin-bottom:0.75rem">
+      <pre id="gradientCSS">/* gradient CSS */</pre>
+      <button class="copy-code-btn" onclick="copyGradientCSS()"><i class="fas fa-copy"></i> Copy</button>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- CONTRAST CHECKER -->
+  <section class="contrast-check">
+    <h2><i class="fas fa-eye" style="color:#ef4444"></i> WCAG Contrast Checker</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem" class="contrast-inputs-grid">
+      <div class="input-card">
+        <h3>Foreground</h3>
+        <div class="hex-row">
+          <input type="color" id="fgPicker" value="#ffffff" oninput="checkContrast()"/>
+          <input type="text" id="fgHex" value="#FFFFFF" oninput="checkContrast()" style="font-size:1rem"/>
+        </div>
+      </div>
+      <div class="input-card">
+        <h3>Background</h3>
+        <div class="hex-row">
+          <input type="color" id="bgPicker" value="#6366f1" oninput="checkContrast()"/>
+          <input type="text" id="bgHex" value="#6366F1" oninput="checkContrast()" style="font-size:1rem"/>
+        </div>
+      </div>
+    </div>
+    <button class="btn-action" onclick="useCurrentColor('fg')" style="margin-bottom:0.5rem"><i class="fas fa-arrow-up"></i> Use Current as FG</button>
+    <button class="btn-action" onclick="useCurrentColor('bg')" style="margin-bottom:0.5rem"><i class="fas fa-arrow-down"></i> Use Current as BG</button>
+    <div class="contrast-demo" id="contrastDemo" style="background:#6366f1;color:#fff">
+      <div>The quick brown fox jumps over the lazy dog — Aa Bb Cc 123</div>
+      <div style="font-size:0.85rem;margin-top:4px">Small text sample (14px regular)</div>
+    </div>
+    <div style="text-align:center">
+      <div class="contrast-ratio" id="contrastRatio">--</div>
+      <div style="color:var(--text-muted);font-size:0.8rem">Contrast Ratio</div>
+    </div>
+    <div class="contrast-badges" id="wcagBadges" style="justify-content:center;margin-top:0.75rem"></div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- HISTORY -->
+  <section>
+    <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem">
+      <i class="fas fa-history" style="color:var(--accent)"></i> Saved Colors
+      <button class="btn-action" onclick="clearHistory()" style="margin-left:auto;font-size:0.75rem"><i class="fas fa-trash"></i> Clear</button>
+    </h2>
+    <div class="history-grid" id="historyGrid">
+      <p style="color:var(--text-muted);font-size:0.82rem;grid-column:1/-1" id="historyEmpty">No saved colors yet. Click "Save to History" above.</p>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────
+//  GLOBAL STATE
+// ─────────────────────────────────────────
+let currentR=99, currentG=102, currentB=241, currentA=100;
+let gradDir = 'to right';
+let stopCount = 3;
+let _updating = false; // prevent re-entrant updates
+
+// ─────────────────────────────────────────
+//  TOAST
+// ─────────────────────────────────────────
+function showToast(msg, duration=2000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ─────────────────────────────────────────
+//  THEME
+// ─────────────────────────────────────────
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const html = document.documentElement;
+  const t = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', t);
+  localStorage.setItem('theme', t);
+  document.getElementById('themeIcon').className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+});
+
+// ─────────────────────────────────────────
+//  CONVERSIONS
+// ─────────────────────────────────────────
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+function toHex2(n) { return ('0'+Math.round(clamp(n,0,255)).toString(16)).slice(-2).toUpperCase(); }
+
+function rgbToHex(r,g,b,a=100) {
+  let h = '#' + toHex2(r) + toHex2(g) + toHex2(b);
+  if (a < 100) h += toHex2(Math.round(a/100*255));
+  return h;
+}
+
+function hexToRGB(hex) {
+  hex = hex.replace(/^#/,'');
+  if (hex.length===3) hex = hex.split('').map(c=>c+c).join('');
+  if (hex.length===4) hex = hex.split('').map(c=>c+c).join('');
+  if (hex.length===6) hex += 'FF';
+  if (hex.length!==8) return null;
+  return {
+    r: parseInt(hex.slice(0,2),16),
+    g: parseInt(hex.slice(2,4),16),
+    b: parseInt(hex.slice(4,6),16),
+    a: Math.round(parseInt(hex.slice(6,8),16)/255*100)
+  };
+}
+
+function rgbToHSL(r,g,b) {
+  r/=255; g/=255; b/=255;
+  const max=Math.max(r,g,b), min=Math.min(r,g,b);
+  let h,s,l=(max+min)/2;
+  if (max===min) { h=s=0; }
+  else {
+    const d=max-min;
+    s = l>0.5 ? d/(2-max-min) : d/(max+min);
+    switch(max){
+      case r: h=((g-b)/d+(g<b?6:0))/6; break;
+      case g: h=((b-r)/d+2)/6; break;
+      case b: h=((r-g)/d+4)/6; break;
+    }
+  }
+  return { h:Math.round(h*360), s:Math.round(s*100), l:Math.round(l*100) };
+}
+
+function hslToRGB(h,s,l) {
+  s/=100; l/=100;
+  const a=s*Math.min(l,1-l);
+  const f=n=>{ const k=(n+h/30)%12; return l-a*Math.max(Math.min(k-3,9-k,1),-1); };
+  return { r:Math.round(f(0)*255), g:Math.round(f(8)*255), b:Math.round(f(4)*255) };
+}
+
+function rgbToCMYK(r,g,b) {
+  if (r===0&&g===0&&b===0) return {c:0,m:0,y:0,k:100};
+  r/=255; g/=255; b/=255;
+  const k=1-Math.max(r,g,b);
+  const c=(1-r-k)/(1-k);
+  const m=(1-g-k)/(1-k);
+  const y=(1-b-k)/(1-k);
+  return { c:Math.round(c*100), m:Math.round(m*100), y:Math.round(y*100), k:Math.round(k*100) };
+}
+
+function cmykToRGB(c,m,y,k) {
+  c/=100; m/=100; y/=100; k/=100;
+  return {
+    r: Math.round(255*(1-c)*(1-k)),
+    g: Math.round(255*(1-m)*(1-k)),
+    b: Math.round(255*(1-y)*(1-k))
+  };
+}
+
+// ─────────────────────────────────────────
+//  UPDATE ALL UI from (r,g,b,a)
+// ─────────────────────────────────────────
+function updateAll() {
+  if (_updating) return; _updating=true;
+  const r=clamp(Math.round(currentR),0,255);
+  const g=clamp(Math.round(currentG),0,255);
+  const b=clamp(Math.round(currentB),0,255);
+  const a=clamp(Math.round(currentA),0,100);
+  currentR=r; currentG=g; currentB=b; currentA=a;
+
+  const hexFull = rgbToHex(r,g,b,a);
+  const hexDisplay = a===100 ? '#'+toHex2(r)+toHex2(g)+toHex2(b) : hexFull;
+  const hsl = rgbToHSL(r,g,b);
+  const cmyk = rgbToCMYK(r,g,b);
+  const cssRgba = a===100 ? `rgb(${r},${g},${b})` : `rgba(${r},${g},${b},${(a/100).toFixed(2)})`;
+
+  // Big swatch
+  document.getElementById('bigSwatch').style.background = cssRgba;
+  document.getElementById('swatchLabel').textContent = hexDisplay;
+
+  // HEX
+  document.getElementById('hexInput').value = hexDisplay;
+  document.getElementById('colorPicker').value = '#'+toHex2(r)+toHex2(g)+toHex2(b);
+
+  // RGB sliders
+  ['r','g','b'].forEach((ch,i)=>{
+    const val=[r,g,b][i];
+    document.getElementById(ch+'Slider').value=val;
+    document.getElementById(ch+'Num').value=val;
+    const colors=['#f00','#0f0','#00f'];
+    document.getElementById(ch+'Slider').style.background=`linear-gradient(to right,#000 0%,${colors[i]} 100%)`;
+  });
+  document.getElementById('aSlider').value=a;
+  document.getElementById('aNum').value=a;
+  const alphaFill=document.getElementById('alphaFill');
+  alphaFill.style.background=`linear-gradient(to right,transparent,${cssRgba})`;
+  const alphaThumb=document.getElementById('alphaThumb');
+  alphaThumb.style.left=`calc(${a}% - 7px)`;
+
+  // HSL
+  document.getElementById('hInput').value=hsl.h;
+  document.getElementById('sInput').value=hsl.s;
+  document.getElementById('lInput').value=hsl.l;
+
+  // CMYK
+  ['c','m','y','k'].forEach(ch=>{
+    document.getElementById(ch+'Slider').value=cmyk[ch];
+    document.getElementById(ch+'Num').value=cmyk[ch];
+  });
+
+  // CSS Output
+  const cssOut = [
+    `/* HEX */`,
+    `color: ${hexDisplay};`,
+    ``,
+    `/* RGB */`,
+    `color: ${cssRgba};`,
+    ``,
+    `/* HSL */`,
+    `color: hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%);`,
+    ``,
+    `/* CSS Variable */`,
+    `--my-color: ${hexDisplay};`,
+    ``,
+    `/* CMYK (print reference) */`,
+    `/* cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%) */`,
+    ``,
+    `/* Tailwind arbitrary */`,
+    `className="bg-[${hexDisplay}]"`,
+  ].join('\n');
+  document.getElementById('cssOutput').textContent = cssOut;
+
+  // Auto-update gradient with current color
+  document.getElementById('grad1').value = '#'+toHex2(r)+toHex2(g)+toHex2(b);
+  updateGradient();
+
+  // Update contrast checker foreground
+  checkContrast();
+
+  // Re-render current shades if active
+  const activePaletteTab = document.querySelector('.palette-tab.active');
+  if (activePaletteTab && activePaletteTab.textContent.trim()==='Current Shades') {
+    renderPalette('shades');
+  }
+
+  _updating = false;
+}
+
+// ─────────────────────────────────────────
+//  INPUT HANDLERS
+// ─────────────────────────────────────────
+function fromColorPicker() {
+  const hex = document.getElementById('colorPicker').value;
+  const rgb = hexToRGB(hex);
+  if (!rgb) return;
+  currentR=rgb.r; currentG=rgb.g; currentB=rgb.b; currentA=100;
+  updateAll();
+}
+
+function fromHex() {
+  let val = document.getElementById('hexInput').value.trim();
+  if (!val.startsWith('#')) val='#'+val;
+  val = val.replace(/[^#0-9a-fA-F]/g,'');
+  const rgb = hexToRGB(val);
+  if (!rgb) return;
+  currentR=rgb.r; currentG=rgb.g; currentB=rgb.b; currentA=rgb.a;
+  updateAll();
+}
+
+function fromRGB() {
+  currentR=parseInt(document.getElementById('rSlider').value)||0;
+  currentG=parseInt(document.getElementById('gSlider').value)||0;
+  currentB=parseInt(document.getElementById('bSlider').value)||0;
+  currentA=parseInt(document.getElementById('aSlider').value)||0;
+  // Sync number inputs with sliders
+  ['r','g','b','a'].forEach(ch=>{
+    const slider=document.getElementById(ch+'Slider');
+    const num=document.getElementById(ch+'Num');
+    if (document.activeElement===num) {
+      slider.value=num.value;
+      if(ch==='r')currentR=parseInt(num.value)||0;
+      if(ch==='g')currentG=parseInt(num.value)||0;
+      if(ch==='b')currentB=parseInt(num.value)||0;
+      if(ch==='a')currentA=parseInt(num.value)||0;
+    } else {
+      num.value=slider.value;
+    }
+  });
+  updateAll();
+}
+
+function fromHSL() {
+  const h=parseInt(document.getElementById('hInput').value)||0;
+  const s=parseInt(document.getElementById('sInput').value)||0;
+  const l=parseInt(document.getElementById('lInput').value)||0;
+  const rgb=hslToRGB(h,s,l);
+  currentR=rgb.r; currentG=rgb.g; currentB=rgb.b;
+  updateAll();
+}
+
+function fromCMYK() {
+  const c=parseInt(document.getElementById('cSlider').value)||0;
+  const m=parseInt(document.getElementById('mSlider').value)||0;
+  const y=parseInt(document.getElementById('ySlider').value)||0;
+  const k=parseInt(document.getElementById('kSlider').value)||0;
+  // sync num inputs
+  ['c','m','y','k'].forEach(ch=>{
+    const slider=document.getElementById(ch+'Slider');
+    const num=document.getElementById(ch+'Num');
+    if(document.activeElement===num){ slider.value=num.value; }
+    else { num.value=slider.value; }
+  });
+  const cv=parseInt(document.getElementById('cNum').value)||0;
+  const mv=parseInt(document.getElementById('mNum').value)||0;
+  const yv=parseInt(document.getElementById('yNum').value)||0;
+  const kv=parseInt(document.getElementById('kNum').value)||0;
+  const rgb=cmykToRGB(cv,mv,yv,kv);
+  currentR=rgb.r; currentG=rgb.g; currentB=rgb.b;
+  updateAll();
+}
+
+// ─────────────────────────────────────────
+//  COPY FUNCTIONS
+// ─────────────────────────────────────────
+function copyHex() {
+  const h = document.getElementById('swatchLabel').textContent;
+  navigator.clipboard.writeText(h).then(()=>showToast('✅ Copied: '+h));
+}
+function copyCSSSnippets() {
+  const text = document.getElementById('cssOutput').textContent;
+  navigator.clipboard.writeText(text).then(()=>showToast('✅ CSS snippets copied!'));
+}
+function copyAllFormats() {
+  const r=currentR,g=currentG,b=currentB,a=currentA;
+  const hsl=rgbToHSL(r,g,b);
+  const cmyk=rgbToCMYK(r,g,b);
+  const hex=rgbToHex(r,g,b,a);
+  const text=`HEX: ${hex}\nRGB: rgb(${r},${g},${b})\nHSL: hsl(${hsl.h},${hsl.s}%,${hsl.l}%)\nCMYK: cmyk(${cmyk.c}%,${cmyk.m}%,${cmyk.y}%,${cmyk.k}%)`;
+  navigator.clipboard.writeText(text).then(()=>showToast('✅ All formats copied!'));
+}
+
+// ─────────────────────────────────────────
+//  RANDOM & RESET
+// ─────────────────────────────────────────
+function randomColor() {
+  currentR=Math.floor(Math.random()*256);
+  currentG=Math.floor(Math.random()*256);
+  currentB=Math.floor(Math.random()*256);
+  currentA=100;
+  updateAll();
+  showToast('🎨 New random color!');
+}
+function resetColor() {
+  currentR=99; currentG=102; currentB=241; currentA=100;
+  updateAll();
+  showToast('↩ Reset to default');
+}
+
+// ─────────────────────────────────────────
+//  HISTORY
+// ─────────────────────────────────────────
+function addToHistory() {
+  const hex=rgbToHex(currentR,currentG,currentB);
+  const history=JSON.parse(localStorage.getItem('colorHistory')||'[]');
+  if (!history.includes(hex)) {
+    history.unshift(hex);
+    if (history.length>24) history.pop();
+    localStorage.setItem('colorHistory',JSON.stringify(history));
+  }
+  renderHistory();
+  showToast('💖 Saved to history!');
+}
+function renderHistory() {
+  const history=JSON.parse(localStorage.getItem('colorHistory')||'[]');
+  const grid=document.getElementById('historyGrid');
+  const empty=document.getElementById('historyEmpty');
+  if (!history.length) { grid.innerHTML=''; grid.appendChild(empty); empty.style.display=''; return; }
+  grid.innerHTML='';
+  history.forEach(hex=>{
+    const chip=document.createElement('div');
+    chip.className='history-chip';
+    chip.innerHTML=`<div class="history-chip-color" style="background:${hex}"></div><div class="history-chip-hex">${hex}</div>`;
+    chip.onclick=()=>{ const rgb=hexToRGB(hex); if(rgb){currentR=rgb.r;currentG=rgb.g;currentB=rgb.b;currentA=rgb.a;updateAll();showToast('🎨 Loaded: '+hex);} };
+    grid.appendChild(chip);
+  });
+}
+function clearHistory() {
+  localStorage.removeItem('colorHistory');
+  renderHistory();
+  showToast('🗑 History cleared');
+}
+
+// ─────────────────────────────────────────
+//  PALETTES
+// ─────────────────────────────────────────
+const PALETTES = {
+  tailwind: [
+    {n:'Slate 500',h:'#64748b'},{n:'Gray 500',h:'#6b7280'},{n:'Zinc 500',h:'#71717a'},
+    {n:'Red 500',h:'#ef4444'},{n:'Orange 500',h:'#f97316'},{n:'Amber 500',h:'#f59e0b'},
+    {n:'Yellow 500',h:'#eab308'},{n:'Lime 500',h:'#84cc16'},{n:'Green 500',h:'#22c55e'},
+    {n:'Emerald 500',h:'#10b981'},{n:'Teal 500',h:'#14b8a6'},{n:'Cyan 500',h:'#06b6d4'},
+    {n:'Sky 500',h:'#0ea5e9'},{n:'Blue 500',h:'#3b82f6'},{n:'Indigo 500',h:'#6366f1'},
+    {n:'Violet 500',h:'#8b5cf6'},{n:'Purple 500',h:'#a855f7'},{n:'Fuchsia 500',h:'#d946ef'},
+    {n:'Pink 500',h:'#ec4899'},{n:'Rose 500',h:'#f43f5e'},
+  ],
+  material: [
+    {n:'Red',h:'#f44336'},{n:'Pink',h:'#e91e63'},{n:'Purple',h:'#9c27b0'},
+    {n:'Deep Purple',h:'#673ab7'},{n:'Indigo',h:'#3f51b5'},{n:'Blue',h:'#2196f3'},
+    {n:'Light Blue',h:'#03a9f4'},{n:'Cyan',h:'#00bcd4'},{n:'Teal',h:'#009688'},
+    {n:'Green',h:'#4caf50'},{n:'Light Green',h:'#8bc34a'},{n:'Lime',h:'#cddc39'},
+    {n:'Yellow',h:'#ffeb3b'},{n:'Amber',h:'#ffc107'},{n:'Orange',h:'#ff9800'},
+    {n:'Deep Orange',h:'#ff5722'},{n:'Brown',h:'#795548'},{n:'Blue Grey',h:'#607d8b'},
+  ],
+  css: [
+    {n:'AliceBlue',h:'#f0f8ff'},{n:'Crimson',h:'#dc143c'},{n:'DarkBlue',h:'#00008b'},
+    {n:'DarkGreen',h:'#006400'},{n:'DarkOrange',h:'#ff8c00'},{n:'DeepSkyBlue',h:'#00bfff'},
+    {n:'FireBrick',h:'#b22222'},{n:'ForestGreen',h:'#228b22'},{n:'Gold',h:'#ffd700'},
+    {n:'HotPink',h:'#ff69b4'},{n:'LimeGreen',h:'#32cd32'},{n:'MediumOrchid',h:'#ba55d3'},
+    {n:'MidnightBlue',h:'#191970'},{n:'OrangeRed',h:'#ff4500'},{n:'RoyalBlue',h:'#4169e1'},
+    {n:'SeaGreen',h:'#2e8b57'},{n:'SlateBlue',h:'#6a5acd'},{n:'Tomato',h:'#ff6347'},
+  ],
+  islamic: [
+    {n:'Masjid Green',h:'#1a6b3c'},{n:'Crescent Gold',h:'#c5a028'},{n:'Makkah Stone',h:'#c8b89a'},
+    {n:'Desert Sand',h:'#c2956c'},{n:'Nile Blue',h:'#1a5f7a'},{n:'Arabian Night',h:'#1a1a2e'},
+    {n:'Pearl White',h:'#f5f0e8'},{n:'Henna Red',h:'#8b1a1a'},{n:'Saffron',h:'#ff9a00'},
+    {n:'Olive Branch',h:'#708238'},{n:'Lapis Lazuli',h:'#26619c'},{n:'Cedar',h:'#6b3a2a'},
+    {n:'Turquoise Tile',h:'#1d8a8a'},{n:'Rose Gold',h:'#b76e79'},{n:'Myrrh Brown',h:'#6b4c3b'},
+    {n:'Oasis Blue',h:'#0077b6'},{n:'Amber Resin',h:'#b5651d'},{n:'Silk Purple',h:'#7b2d8b'},
+  ],
+  shades: [] // generated dynamically
+};
+
+function generateShades(r,g,b) {
+  const shades=[];
+  const hsl=rgbToHSL(r,g,b);
+  const lightnesses=[95,85,70,60,50,40,30,20,10];
+  const labels=['50','100','200','300','400','500','600','700','800'];
+  lightnesses.forEach((l,i)=>{
+    const rgb2=hslToRGB(hsl.h,hsl.s,l);
+    shades.push({n:'Shade '+labels[i],h:rgbToHex(rgb2.r,rgb2.g,rgb2.b,100)});
+  });
+  return shades;
+}
+
+function renderPalette(name) {
+  if (name==='shades') {
+    PALETTES.shades=generateShades(currentR,currentG,currentB);
+  }
+  const items=PALETTES[name]||[];
+  const grid=document.getElementById('paletteGrid');
+  grid.innerHTML='';
+  items.forEach(item=>{
+    const chip=document.createElement('div');
+    chip.className='palette-chip';
+    chip.innerHTML=`<div class="chip-color" style="background:${item.h}"></div><div class="chip-info"><div class="chip-name">${item.n}</div><div class="chip-hex">${item.h}</div></div>`;
+    chip.onclick=()=>{
+      const rgb=hexToRGB(item.h);
+      if(rgb){currentR=rgb.r;currentG=rgb.g;currentB=rgb.b;currentA=100;updateAll();}
+      showToast('🎨 Loaded: '+item.h);
+    };
+    chip.title=`${item.n} — ${item.h}`;
+    grid.appendChild(chip);
+  });
+}
+
+function showPalette(name) {
+  document.querySelectorAll('.palette-tab').forEach(t=>t.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  renderPalette(name);
+}
+
+// ─────────────────────────────────────────
+//  GRADIENT BUILDER
+// ─────────────────────────────────────────
+function setGradDir(btn, dir) {
+  document.querySelectorAll('.dir-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  gradDir=dir;
+  updateGradient();
+}
+
+function updateGradient() {
+  const stops=[];
+  for(let i=1;i<=stopCount;i++){
+    const el=document.getElementById('grad'+i);
+    if(el&&el.value) stops.push(el.value);
+  }
+  if(stops.length<2) return;
+  let css;
+  if(gradDir==='radial') {
+    css=`radial-gradient(circle, ${stops.join(', ')})`;
+  } else {
+    css=`linear-gradient(${gradDir}, ${stops.join(', ')})`;
+  }
+  document.getElementById('gradientPreview').style.background=css;
+  document.getElementById('gradientCSS').textContent=`background: ${css};`;
+}
+
+function addGradientStop() {
+  stopCount++;
+  const newId='grad'+stopCount;
+  const container=document.getElementById('gradientStops');
+  const btn=container.querySelector('button');
+  const div=document.createElement('div');
+  div.className='stop-item';
+  div.innerHTML=`<label>Stop ${stopCount}</label><input type="color" id="${newId}" value="#${Math.floor(Math.random()*16777215).toString(16).padStart(6,'0')}" oninput="updateGradient()"/>`;
+  container.insertBefore(div,btn);
+  updateGradient();
+}
+
+function copyGradientCSS() {
+  const text=document.getElementById('gradientCSS').textContent;
+  navigator.clipboard.writeText(text).then(()=>showToast('✅ Gradient CSS copied!'));
+}
+
+// ─────────────────────────────────────────
+//  CONTRAST CHECKER (WCAG 2.1)
+// ─────────────────────────────────────────
+function relativeLuminance(r,g,b) {
+  [r,g,b]=[r,g,b].map(v=>{
+    v/=255;
+    return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4);
+  });
+  return 0.2126*r+0.7152*g+0.0722*b;
+}
+
+function contrastRatio(l1,l2) {
+  const lighter=Math.max(l1,l2), darker=Math.min(l1,l2);
+  return (lighter+0.05)/(darker+0.05);
+}
+
+function useCurrentColor(type) {
+  const hex=rgbToHex(currentR,currentG,currentB);
+  if(type==='fg'){
+    document.getElementById('fgPicker').value='#'+toHex2(currentR)+toHex2(currentG)+toHex2(currentB);
+    document.getElementById('fgHex').value=hex;
+  } else {
+    document.getElementById('bgPicker').value='#'+toHex2(currentR)+toHex2(currentG)+toHex2(currentB);
+    document.getElementById('bgHex').value=hex;
+  }
+  checkContrast();
+}
+
+function checkContrast() {
+  // Sync pickers with text inputs
+  const fgEl=document.getElementById('fgHex');
+  const bgEl=document.getElementById('bgHex');
+  const fpEl=document.getElementById('fgPicker');
+  const bpEl=document.getElementById('bgPicker');
+
+  if(document.activeElement===fpEl){fgEl.value=fpEl.value.toUpperCase();}
+  if(document.activeElement===bpEl){bgEl.value=bpEl.value.toUpperCase();}
+  if(document.activeElement===fgEl&&fgEl.value.match(/^#[0-9a-fA-F]{6}$/)){fpEl.value=fgEl.value;}
+  if(document.activeElement===bgEl&&bgEl.value.match(/^#[0-9a-fA-F]{6}$/)){bpEl.value=bgEl.value;}
+
+  const fgRgb=hexToRGB(fgEl.value)||{r:255,g:255,b:255,a:100};
+  const bgRgb=hexToRGB(bgEl.value)||{r:99,g:102,b:241,a:100};
+
+  const l1=relativeLuminance(fgRgb.r,fgRgb.g,fgRgb.b);
+  const l2=relativeLuminance(bgRgb.r,bgRgb.g,bgRgb.b);
+  const ratio=contrastRatio(l1,l2);
+
+  const demo=document.getElementById('contrastDemo');
+  demo.style.background=bgEl.value||'#6366f1';
+  demo.style.color=fgEl.value||'#ffffff';
+
+  document.getElementById('contrastRatio').textContent=ratio.toFixed(2)+':1';
+
+  const badges=document.getElementById('wcagBadges');
+  const tests=[
+    {label:'AA Normal (4.5:1)', pass:ratio>=4.5},
+    {label:'AA Large (3:1)', pass:ratio>=3},
+    {label:'AAA Normal (7:1)', pass:ratio>=7},
+    {label:'AAA Large (4.5:1)', pass:ratio>=4.5},
+  ];
+  badges.innerHTML=tests.map(t=>`<span class="wcag-badge ${t.pass?'wcag-pass':'wcag-fail'}">${t.pass?'✅':'❌'} ${t.label}</span>`).join('');
+}
+
+// ─────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────
+renderPalette('tailwind');
+renderHistory();
+updateAll();
+checkContrast();
+updateGradient();
+</script>
+</body>
+</html>

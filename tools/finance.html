@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Tools – EMI, SIP, Mortgage, Compound Interest, Zakat | HashmiTools.com</title>
+  <meta name="description" content="Free financial calculators: EMI Calculator, SIP Calculator, Mortgage & PITI Calculator, Compound Interest, Currency Converter, Zakat Calculator. PDF reports included." />
+  <meta name="keywords" content="emi calculator, sip calculator, mortgage calculator, compound interest calculator, currency converter, zakat calculator, loan calculator, investment calculator" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://hashmitools.com/tools/finance.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Finance Tools – Free Online Financial Calculators | HashmiTools.com" />
+  <meta property="og:description" content="EMI, SIP, Mortgage, Compound Interest & more — professional financial calculators with PDF export." />
+  <meta property="og:url" content="https://hashmitools.com/tools/finance.html" />
+  <meta property="og:image" content="https://hashmitools.com/images/og-image.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Finance Tools",
+    "description": "Free financial calculators: EMI, SIP, Mortgage, Compound Interest and Currency Converter.",
+    "url": "https://hashmitools.com/tools/finance.html",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hashmitools.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Finance Tools", "item": "https://hashmitools.com/tools/finance.html"}
+      ]
+    }
+  }
+  </script>
+  <style>
+    .category-hero { background: linear-gradient(135deg, #0369a1 0%, #0891b2 50%, #06b6d4 100%); padding: 80px 0 60px; text-align: center; position: relative; overflow: hidden; }
+    .category-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 70%); }
+    .hero-icon { font-size: 72px; margin-bottom: 16px; }
+    .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #fff; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+    .hero-desc { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 600px; margin: 0 auto 24px; }
+    .hero-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
+    .hero-stat strong { display: block; font-size: 1.8rem; font-weight: 800; color: #fff; }
+    .hero-stat span { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+    .breadcrumb { background: var(--bg-secondary); padding: 12px 0; border-bottom: 1px solid var(--border-glass); }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb-inner a { color: var(--accent-cyan); }
+    .tools-section { padding: 60px 0; }
+    .section-title { font-size: 1.8rem; font-weight: 700; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; }
+    .section-subtitle { color: var(--text-secondary); }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
+    .tool-card { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 16px; padding: 28px; transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; text-decoration: none; display: block; }
+    .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(135deg, #0369a1, #06b6d4); }
+    .tool-card:hover { transform: translateY(-6px); border-color: #06b6d4; box-shadow: 0 20px 40px rgba(6,182,212,0.2); }
+    .tool-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .tool-name { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+    .tool-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
+    .tool-features { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .feature-tag { background: rgba(6,182,212,0.12); color: #22d3ee; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(6,182,212,0.25); }
+    .tool-cta { display: inline-flex; align-items: center; gap: 6px; color: #22d3ee; font-weight: 600; font-size: 0.9rem; }
+    .tool-badge { position: absolute; top: 16px; right: 16px; background: linear-gradient(135deg, #0369a1, #06b6d4); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .ad-slot { background: var(--bg-secondary); border: 1px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 32px 0; }
+    .faq-section { padding: 60px 0; background: var(--bg-secondary); }
+    .faq-item { margin-bottom: 16px; }
+    .faq-q { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-primary); transition: all 0.3s ease; }
+    .faq-q:hover, .faq-q.active { border-color: #06b6d4; background: rgba(6,182,212,0.08); }
+    .faq-a { display: none; padding: 16px 24px; color: var(--text-secondary); line-height: 1.7; border: 1px solid var(--border-glass); border-top: none; border-radius: 0 0 12px 12px; background: var(--bg-card); }
+    .faq-a.open { display: block; }
+    @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="islamic.html" class="nav-link">Islamic</a>
+        <a href="finance.html" class="nav-link active">Finance</a>
+        <a href="health.html" class="nav-link">Health</a>
+        <a href="developer.html" class="nav-link">Developer</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="category-hero">
+    <div class="hero-icon">💰</div>
+    <h1 class="hero-title">Finance Tools</h1>
+    <p class="hero-desc">Professional financial calculators for loans, investments, mortgages, and smart money decisions.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>7</strong><span>Tools Available</span></div>
+      <div class="hero-stat"><strong>PDF</strong><span>Export Ready</span></div>
+      <div class="hero-stat"><strong>Free</strong><span>Forever</span></div>
+    </div>
+  </section>
+
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size:0.7rem"></i>
+        <span>Finance Tools</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container"><div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567891" data-ad-format="auto" data-full-width-responsive="true"></ins><p>Advertisement</p></div></div>
+
+  <section class="tools-section">
+    <div class="container">
+      <h2 class="section-title">All Finance Tools</h2>
+      <p class="section-subtitle">From loan EMI to investment growth — every financial calculation you need</p>
+      <div class="tools-grid">
+
+        <a href="emi-calculator.html" class="tool-card">
+          <span class="tool-badge">⭐ Popular</span>
+          <div class="tool-icon">🏦</div>
+          <h3 class="tool-name">EMI Calculator</h3>
+          <p class="tool-desc">Calculate monthly EMI for home, car, or personal loans. Full amortization schedule, prepayment analysis, and PDF report with jsPDF.</p>
+          <div class="tool-features"><span class="feature-tag">Amortization</span><span class="feature-tag">Prepayment</span><span class="feature-tag">PDF Report</span><span class="feature-tag">Chart.js</span></div>
+          <span class="tool-cta">Calculate EMI <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="sip-calculator.html" class="tool-card">
+          <span class="tool-badge">🔥 Hot</span>
+          <div class="tool-icon">📈</div>
+          <h3 class="tool-name">SIP Calculator</h3>
+          <p class="tool-desc">4-mode SIP: Regular, Step-Up, Lump Sum & Goal-based. Real compound interest formulas with interactive wealth projection charts.</p>
+          <div class="tool-features"><span class="feature-tag">4 Modes</span><span class="feature-tag">Step-Up SIP</span><span class="feature-tag">Goal-Based</span><span class="feature-tag">Charts</span></div>
+          <span class="tool-cta">Start SIP Calc <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="mortgage-calculator.html" class="tool-card">
+          <div class="tool-icon">🏠</div>
+          <h3 class="tool-name">Mortgage Calculator</h3>
+          <p class="tool-desc">Full PITI breakdown (Principal, Interest, Taxes, Insurance). Monthly payment schedule, total interest saved, amortization chart.</p>
+          <div class="tool-features"><span class="feature-tag">PITI Breakdown</span><span class="feature-tag">Amortization</span><span class="feature-tag">Tax & Insurance</span><span class="feature-tag">PDF</span></div>
+          <span class="tool-cta">Calculate Mortgage <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="compound-interest.html" class="tool-card">
+          <div class="tool-icon">💹</div>
+          <h3 class="tool-name">Compound Interest Calculator</h3>
+          <p class="tool-desc">A=P(1+r/n)^(nt) formula. Compare daily, monthly, quarterly, and annual compounding. Visualize wealth growth over time.</p>
+          <div class="tool-features"><span class="feature-tag">Multiple Periods</span><span class="feature-tag">Compare Modes</span><span class="feature-tag">Growth Chart</span></div>
+          <span class="tool-cta">Calculate Growth <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="zakat-calculator.html" class="tool-card">
+          <div class="tool-icon">🌙</div>
+          <h3 class="tool-name">Zakat Calculator</h3>
+          <p class="tool-desc">Shariah-compliant Zakat calculation on cash, gold, silver, business assets and investments. Auto Nisab, PDF certificate.</p>
+          <div class="tool-features"><span class="feature-tag">Auto Nisab</span><span class="feature-tag">All Asset Types</span><span class="feature-tag">PDF Certificate</span></div>
+          <span class="tool-cta">Calculate Zakat <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="currency-converter.html" class="tool-card">
+          <div class="tool-icon">💱</div>
+          <h3 class="tool-name">Currency Converter</h3>
+          <p class="tool-desc">Real-time PKR, USD, EUR, GBP, SAR, AED conversion. Live exchange rates, conversion history, and popular pairs.</p>
+          <div class="tool-features"><span class="feature-tag">Live Rates</span><span class="feature-tag">PKR Focused</span><span class="feature-tag">History</span></div>
+          <span class="tool-cta">Convert Currency <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="pakistan-tax.html" class="tool-card">
+          <div class="tool-icon">🇵🇰</div>
+          <h3 class="tool-name">Pakistan Tax Calculator</h3>
+          <p class="tool-desc">FBR income tax slabs 2024-25. Salaried & business income tax. Net take-home salary, effective tax rate, monthly breakdown.</p>
+          <div class="tool-features"><span class="feature-tag">FBR 2024-25</span><span class="feature-tag">Salaried</span><span class="feature-tag">Business</span><span class="feature-tag">Effective Rate</span></div>
+          <span class="tool-cta">Calculate Tax <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="ad-slot"><p>Advertisement — 336×280</p></div></div>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div id="faqList">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">How is EMI calculated? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">EMI = [P × r × (1+r)^n] / [(1+r)^n - 1] where P = Principal loan amount, r = monthly interest rate (annual rate / 12 / 100), n = loan tenure in months. Our calculator shows the full amortization schedule with every payment breakdown.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">What is the SIP Step-Up feature? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Step-Up SIP (also called Top-Up SIP) allows you to increase your monthly SIP amount by a fixed percentage every year. For example, if you start at Rs.5,000/month and increase by 10% annually, by year 5 your monthly investment is Rs.7,321. This aligns your investment with salary growth and dramatically increases wealth accumulation.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">What does PITI mean in Mortgage Calculator? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">PITI stands for Principal, Interest, Taxes, and Insurance — the four components of a complete mortgage payment. Principal reduces the loan balance, Interest is the lender's charge, Taxes are property taxes held in escrow, and Insurance covers homeowner's and PMI insurance. Our calculator shows each component separately.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Are the exchange rates in Currency Converter live? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Yes, our currency converter fetches live exchange rates from open APIs. The rates are updated every time you load the page. For the most critical financial decisions, we recommend cross-checking with your bank's official rates.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:var(--bg-secondary);padding:40px 0;text-align:center;border-top:1px solid var(--border-glass);">
+    <div class="container">
+      <p style="color:var(--text-secondary)">© 2025 <a href="../index.html" style="color:var(--accent-cyan)">HashmiTools.com</a> — Free Financial Calculators</p>
+      <div style="display:flex;gap:24px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+        <a href="../privacy.html" style="color:var(--text-muted);font-size:0.9rem">Privacy Policy</a>
+        <a href="../terms.html" style="color:var(--text-muted);font-size:0.9rem">Terms</a>
+        <a href="../contact.html" style="color:var(--text-muted);font-size:0.9rem">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+      document.getElementById('themeToggle').innerHTML = t === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    });
+    if (savedTheme === 'light') document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+    document.getElementById('navHamburger').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('active'); });
+    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+    function toggleFaq(el) {
+      const ans = el.nextElementSibling;
+      ans.classList.toggle('open');
+      el.classList.toggle('active');
+      el.querySelector('i').className = ans.classList.contains('open') ? 'fas fa-minus' : 'fas fa-plus';
+    }
+  </script>
+</body>
+</html>

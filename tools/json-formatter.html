@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Formatter & Validator – Beautify JSON Online | HashmiTools</title>
+  <meta name="description" content="Free online JSON formatter and validator. Format, beautify, minify, validate and parse JSON data. Syntax highlighting, error detection. Works in browser instantly." />
+  <meta name="keywords" content="json formatter, json validator, json beautifier, json parser, format json online, json minifier" />
+  <link rel="canonical" href="https://hashmitools.com/tools/json-formatter.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="developer.html" class="nav-link active">Developer Tools</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search 100+ tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <section class="tool-page-header">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="developer.html">Developer Tools</a><i class="fas fa-chevron-right"></i><span>JSON Formatter</span></nav>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:3rem;font-family:'Space Grotesk',sans-serif;font-weight:900;background:var(--gradient-dev);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">{ }</div>
+        <div>
+          <h1 class="tool-title">JSON Formatter & Validator</h1>
+          <p class="tool-desc">Format, beautify, minify and validate JSON data with syntax highlighting</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-container"><div class="ad-placeholder" style="max-width:1280px;margin:0 auto;padding:0 24px;"><span>Advertisement</span></div></div>
+
+  <main class="tool-main" style="padding-top:24px;">
+    <div class="container">
+
+      <!-- Action Toolbar -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+        <button class="btn btn-primary" onclick="formatJSON()" style="padding:10px 18px;"><i class="fas fa-magic"></i> Format / Beautify</button>
+        <button class="btn btn-outline" onclick="minifyJSON()" style="padding:10px 18px;"><i class="fas fa-compress"></i> Minify</button>
+        <button class="btn btn-outline" onclick="validateJSON()" style="padding:10px 18px;"><i class="fas fa-check-circle"></i> Validate</button>
+        <button class="btn btn-outline" onclick="clearAll()" style="padding:10px 18px;"><i class="fas fa-trash"></i> Clear</button>
+        <button class="copy-btn" onclick="copyOutput()" style="padding:10px 18px;"><i class="fas fa-copy"></i> Copy Output</button>
+        <select class="form-select" id="indentSelect" onchange="formatJSON()" style="width:auto;padding:10px 14px;font-size:0.875rem;">
+          <option value="2">2 Spaces</option>
+          <option value="4" selected>4 Spaces</option>
+          <option value="tab">Tab</option>
+        </select>
+        <button class="btn btn-outline" onclick="loadSample()" style="padding:10px 18px;"><i class="fas fa-file-code"></i> Sample</button>
+      </div>
+
+      <!-- Validation Status -->
+      <div id="validationStatus" style="display:none;padding:10px 16px;border-radius:8px;font-size:0.875rem;margin-bottom:16px;display:flex;align-items:center;gap:8px;"></div>
+
+      <!-- Dual Editor -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <!-- Input -->
+        <div class="tool-box">
+          <div class="tool-box-header" style="justify-content:space-between;">
+            <span><i class="fas fa-code"></i> Input JSON</span>
+            <div style="display:flex;gap:8px;">
+              <button class="copy-btn" onclick="pasteFromClipboard()" style="font-size:0.75rem;padding:4px 10px;"><i class="fas fa-paste"></i> Paste</button>
+              <button class="copy-btn" onclick="document.getElementById('fileInput').click()" style="font-size:0.75rem;padding:4px 10px;"><i class="fas fa-upload"></i> Upload</button>
+              <input type="file" id="fileInput" accept=".json,.txt" style="display:none;" onchange="loadFile(this)" />
+            </div>
+          </div>
+          <div class="tool-box-body" style="padding:0;">
+            <textarea id="jsonInput" class="form-textarea code-area" style="border:none;border-radius:0 0 var(--radius-card) var(--radius-card);min-height:450px;padding:16px;font-size:0.875rem;resize:none;width:100%;" placeholder='Paste your JSON here...&#10;&#10;Example:&#10;{"name":"Hassan","age":25,"city":"Karachi"}'
+              oninput="liveValidate()"></textarea>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div class="tool-box">
+          <div class="tool-box-header" style="justify-content:space-between;">
+            <span><i class="fas fa-eye"></i> Formatted Output</span>
+            <div style="display:flex;gap:6px;">
+              <button class="copy-btn" onclick="copyOutput()" style="font-size:0.75rem;padding:4px 10px;"><i class="fas fa-copy"></i> Copy</button>
+              <button class="copy-btn" onclick="downloadJSON()" style="font-size:0.75rem;padding:4px 10px;"><i class="fas fa-download"></i> Download</button>
+            </div>
+          </div>
+          <div class="tool-box-body" style="padding:0;">
+            <pre id="jsonOutput" style="font-family:'JetBrains Mono','Courier New',monospace;font-size:0.875rem;background:#0d1117;color:#e6edf3;padding:16px;min-height:450px;overflow:auto;border-radius:0 0 var(--radius-card) var(--radius-card);margin:0;white-space:pre-wrap;word-break:break-word;"></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- JSON Stats -->
+      <div class="tool-box" style="margin-bottom:16px;">
+        <div class="tool-box-header"><i class="fas fa-chart-bar"></i> JSON Statistics</div>
+        <div class="tool-box-body">
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;" id="jsonStats">
+            <div class="result-item"><div class="result-item-label">Characters</div><div class="result-item-value" id="statChars">0</div></div>
+            <div class="result-item"><div class="result-item-label">Tokens</div><div class="result-item-value" id="statTokens">0</div></div>
+            <div class="result-item"><div class="result-item-label">Objects</div><div class="result-item-value" id="statObjects">0</div></div>
+            <div class="result-item"><div class="result-item-label">Arrays</div><div class="result-item-value" id="statArrays">0</div></div>
+            <div class="result-item"><div class="result-item-label">Strings</div><div class="result-item-value" id="statStrings">0</div></div>
+            <div class="result-item"><div class="result-item-label">Size</div><div class="result-item-value" id="statSize">0 B</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;">
+        <!-- JSON Tree View -->
+        <div class="tool-box">
+          <div class="tool-box-header" style="justify-content:space-between;">
+            <span><i class="fas fa-sitemap"></i> JSON Tree View</span>
+            <button class="copy-btn" onclick="expandAll()" style="font-size:0.75rem;padding:4px 10px;"><i class="fas fa-expand-alt"></i> Expand All</button>
+          </div>
+          <div class="tool-box-body">
+            <div id="jsonTree" style="font-family:'JetBrains Mono',monospace;font-size:0.825rem;max-height:400px;overflow:auto;color:var(--text-secondary);">
+              <em style="color:var(--text-muted);">Format JSON to see tree view...</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Ad -->
+        <div>
+          <div class="sidebar-ad">Advertisement</div>
+          <div class="tool-box" style="margin-top:16px;">
+            <div class="tool-box-header"><i class="fas fa-th"></i> Related Tools</div>
+            <div class="tool-box-body" style="display:flex;flex-direction:column;gap:8px;">
+              <a href="base64.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">64 Base64 Encoder</a>
+              <a href="url-encoder.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🔗 URL Encoder</a>
+              <a href="password-generator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🔐 Password Generator</a>
+              <a href="hex-rgb.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🎨 HEX to RGB</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq-section" style="margin-top:24px;">
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:16px;">FAQ</h3>
+        <div class="faq-item"><div class="faq-question">What is JSON? <span class="faq-icon">+</span></div><div class="faq-answer">JSON (JavaScript Object Notation) is a lightweight data interchange format. It is easy for humans to read and write and easy for machines to parse and generate. JSON is widely used for APIs, configuration files, and data storage.</div></div>
+        <div class="faq-item"><div class="faq-question">Is this JSON tool safe? <span class="faq-icon">+</span></div><div class="faq-answer">Yes! All JSON processing happens entirely in your browser. Your data is never sent to any server. This makes it safe to use with sensitive data.</div></div>
+        <div class="faq-item"><div class="faq-question">What's the difference between format and minify? <span class="faq-icon">+</span></div><div class="faq-answer">Formatting (beautify) adds proper indentation and line breaks to make JSON human-readable. Minifying removes all whitespace and line breaks to reduce file size for production use.</div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></div></footer>
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../js/main.js"></script>
+  <script>
+  function getIndent() {
+    const v = document.getElementById('indentSelect').value;
+    return v === 'tab' ? '\t' : parseInt(v);
+  }
+
+  function formatJSON() {
+    const input = document.getElementById('jsonInput').value.trim();
+    if (!input) return;
+    try {
+      const parsed = JSON.parse(input);
+      const formatted = JSON.stringify(parsed, null, getIndent());
+      document.getElementById('jsonOutput').innerHTML = syntaxHighlight(formatted);
+      showStatus('valid', '✅ Valid JSON — Formatted successfully!');
+      updateStats(input, parsed);
+      buildTree(parsed, document.getElementById('jsonTree'));
+    } catch(e) {
+      showStatus('error', `❌ Invalid JSON: ${e.message}`);
+    }
+  }
+
+  function minifyJSON() {
+    const input = document.getElementById('jsonInput').value.trim();
+    if (!input) return;
+    try {
+      const parsed = JSON.parse(input);
+      const minified = JSON.stringify(parsed);
+      document.getElementById('jsonOutput').textContent = minified;
+      showStatus('valid', `✅ Minified! Reduced from ${input.length} to ${minified.length} characters (saved ${Math.round((1-minified.length/input.length)*100)}%)`);
+      updateStats(input, parsed);
+    } catch(e) {
+      showStatus('error', `❌ Invalid JSON: ${e.message}`);
+    }
+  }
+
+  function validateJSON() {
+    const input = document.getElementById('jsonInput').value.trim();
+    if (!input) { showStatus('info', 'ℹ️ Please enter JSON to validate.'); return; }
+    try {
+      JSON.parse(input);
+      showStatus('valid', '✅ Valid JSON! Your JSON is properly formatted and parseable.');
+    } catch(e) {
+      showStatus('error', `❌ Invalid JSON: ${e.message}`);
+    }
+  }
+
+  function liveValidate() {
+    const input = document.getElementById('jsonInput').value.trim();
+    if (!input) { document.getElementById('validationStatus').style.display = 'none'; return; }
+    try {
+      JSON.parse(input);
+      showStatus('valid', '✅ Valid JSON');
+    } catch(e) {
+      showStatus('error', `❌ ${e.message}`);
+    }
+  }
+
+  function showStatus(type, msg) {
+    const el = document.getElementById('validationStatus');
+    el.style.display = 'flex';
+    if (type === 'valid') { el.style.background = 'rgba(34,197,94,0.1)'; el.style.border = '1px solid rgba(34,197,94,0.3)'; el.style.color = '#6ee7b7'; }
+    else if (type === 'error') { el.style.background = 'rgba(239,68,68,0.1)'; el.style.border = '1px solid rgba(239,68,68,0.3)'; el.style.color = '#fca5a5'; }
+    else { el.style.background = 'rgba(59,130,246,0.1)'; el.style.border = '1px solid rgba(59,130,246,0.3)'; el.style.color = '#93c5fd'; }
+    el.textContent = msg;
+  }
+
+  function syntaxHighlight(json) {
+    return json
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (match) => {
+        let cls = 'color:#79c0ff'; // number
+        if (/^"/.test(match)) {
+          cls = /:$/.test(match) ? 'color:#ff7b72' : 'color:#a5d6ff'; // key vs string
+        } else if (/true|false/.test(match)) { cls = 'color:#79c0ff'; }
+        else if (/null/.test(match)) { cls = 'color:#8b949e'; }
+        return `<span style="${cls}">${match}</span>`;
+      });
+  }
+
+  function updateStats(input, parsed) {
+    const str = JSON.stringify(parsed);
+    document.getElementById('statChars').textContent = str.length.toLocaleString();
+    document.getElementById('statSize').textContent = formatBytes(new Blob([str]).size);
+    let objects = 0, arrays = 0, strings = 0;
+    function count(obj) {
+      if (Array.isArray(obj)) { arrays++; obj.forEach(count); }
+      else if (obj !== null && typeof obj === 'object') { objects++; Object.values(obj).forEach(count); }
+      else if (typeof obj === 'string') strings++;
+    }
+    count(parsed);
+    document.getElementById('statObjects').textContent = objects;
+    document.getElementById('statArrays').textContent = arrays;
+    document.getElementById('statStrings').textContent = strings;
+    document.getElementById('statTokens').textContent = (objects + arrays + strings).toLocaleString();
+  }
+
+  function formatBytes(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+    return (bytes/1024/1024).toFixed(2) + ' MB';
+  }
+
+  function buildTree(obj, container, depth=0) {
+    container.innerHTML = '';
+    renderNode(obj, container, '', depth);
+  }
+
+  function renderNode(val, parent, key, depth) {
+    const div = document.createElement('div');
+    div.style.paddingLeft = depth * 16 + 'px';
+    div.style.margin = '2px 0';
+
+    const keySpan = key !== '' ? `<span style="color:#ff7b72;">"${key}"</span><span style="color:#8b949e;">: </span>` : '';
+
+    if (val === null) { div.innerHTML = `${keySpan}<span style="color:#8b949e;">null</span>`; }
+    else if (typeof val === 'boolean') { div.innerHTML = `${keySpan}<span style="color:#79c0ff;">${val}</span>`; }
+    else if (typeof val === 'number') { div.innerHTML = `${keySpan}<span style="color:#f0883e;">${val}</span>`; }
+    else if (typeof val === 'string') { div.innerHTML = `${keySpan}<span style="color:#a5d6ff;">"${val.length > 60 ? val.substring(0,60)+'...' : val}"</span>`; }
+    else if (Array.isArray(val)) {
+      const toggle = document.createElement('div');
+      toggle.style.cursor = 'pointer';
+      toggle.innerHTML = `${keySpan}<span style="color:#e6edf3;">▾ [ </span><span style="color:#8b949e;">${val.length} items</span><span style="color:#e6edf3;"> ]</span>`;
+      const children = document.createElement('div');
+      val.forEach((item, i) => renderNode(item, children, i, depth+1));
+      toggle.onclick = () => { children.style.display = children.style.display === 'none' ? 'block' : 'none'; };
+      div.appendChild(toggle); div.appendChild(children);
+    } else if (typeof val === 'object') {
+      const keys = Object.keys(val);
+      const toggle = document.createElement('div');
+      toggle.style.cursor = 'pointer';
+      toggle.innerHTML = `${keySpan}<span style="color:#e6edf3;">▾ { </span><span style="color:#8b949e;">${keys.length} keys</span><span style="color:#e6edf3;"> }</span>`;
+      const children = document.createElement('div');
+      keys.forEach(k => renderNode(val[k], children, k, depth+1));
+      toggle.onclick = () => { children.style.display = children.style.display === 'none' ? 'block' : 'none'; };
+      div.appendChild(toggle); div.appendChild(children);
+    }
+
+    parent.appendChild(div);
+  }
+
+  function expandAll() { document.querySelectorAll('#jsonTree div div').forEach(el => el.style.display = 'block'); }
+
+  function clearAll() {
+    document.getElementById('jsonInput').value = '';
+    document.getElementById('jsonOutput').textContent = '';
+    document.getElementById('jsonTree').innerHTML = '<em style="color:var(--text-muted);">Format JSON to see tree view...</em>';
+    document.getElementById('validationStatus').style.display = 'none';
+    ['statChars','statTokens','statObjects','statArrays','statStrings'].forEach(id => document.getElementById(id).textContent = '0');
+    document.getElementById('statSize').textContent = '0 B';
+  }
+
+  function copyOutput() {
+    const output = document.getElementById('jsonOutput').textContent;
+    if (!output) { HashmiTools.showToast('No output to copy!', 'error'); return; }
+    HashmiTools.copyToClipboard(output);
+  }
+
+  function downloadJSON() {
+    const output = document.getElementById('jsonOutput').textContent;
+    if (!output) { HashmiTools.showToast('No output to download!', 'error'); return; }
+    const blob = new Blob([output], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'formatted.json'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function loadFile(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => { document.getElementById('jsonInput').value = e.target.result; liveValidate(); };
+    reader.readAsText(file);
+  }
+
+  async function pasteFromClipboard() {
+    try {
+      const text = await navigator.clipboard.readText();
+      document.getElementById('jsonInput').value = text;
+      liveValidate();
+    } catch(e) { HashmiTools.showToast('Could not access clipboard. Please paste manually.', 'error'); }
+  }
+
+  function loadSample() {
+    document.getElementById('jsonInput').value = JSON.stringify({
+      "user": { "id": 1, "name": "Hassan Hashmi", "email": "hassan@example.com", "role": "admin" },
+      "tools": [{ "id": 1, "name": "Zakat Calculator", "category": "Islamic", "uses": 12500 }, { "id": 2, "name": "EMI Calculator", "category": "Finance", "uses": 9800 }],
+      "stats": { "totalTools": 100, "monthlyUsers": 50000, "rating": 4.9 },
+      "settings": { "darkMode": true, "language": "en", "notifications": false }
+    }, null, 2);
+    formatJSON();
+  }
+
+  HashmiTools.trackToolView('JSON Formatter', 'tools/json-formatter.html', '{ }');
+  </script>
+</body>
+</html>

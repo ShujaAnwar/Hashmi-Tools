@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ideal Weight Calculator — Devine, Robinson, Miller, BMI | IslamiTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/tools.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.input-card {
+  background: var(--card-bg); border: 1.5px solid var(--border-color);
+  border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem;
+}
+.input-card h3 {
+  font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--text-muted); margin-bottom: 1rem;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); }
+.field-input {
+  padding: 0.6rem 0.75rem; border: 1.5px solid var(--border-color);
+  border-radius: 10px; background: var(--input-bg); color: var(--text-primary);
+  font-size: 0.9rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;
+  outline: none; transition: border-color 0.2s; width: 100%;
+}
+.field-input:focus { border-color: var(--accent); }
+
+/* ── ideal weight hero ── */
+.iw-hero {
+  background: linear-gradient(135deg, #22c55e, #16a34a, #15803d);
+  border-radius: 16px; padding: 1.75rem; color: #fff; margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+}
+.iw-main { font-family: 'Space Grotesk', sans-serif; }
+.iw-range { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+.iw-label { font-size: 0.88rem; opacity: 0.85; margin-top: 4px; }
+.iw-current { text-align: right; }
+.iw-current-val { font-size: 1.4rem; font-weight: 700; }
+.iw-diff { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+
+/* ── formula cards ── */
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.formula-card {
+  background: var(--card-bg); border: 1.5px solid var(--border-color);
+  border-radius: 12px; padding: 1rem; text-align: center;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.formula-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.formula-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 0.35rem; }
+.formula-val { font-size: 1.5rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: var(--accent); }
+.formula-range { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+.formula-desc { font-size: 0.7rem; color: var(--text-secondary); margin-top: 5px; line-height: 1.4; }
+
+/* ── BMI gauge ── */
+.bmi-gauge-wrap { position: relative; width: 200px; height: 110px; margin: 0 auto; }
+.bmi-gauge-wrap canvas { display: block; }
+.bmi-gauge-label {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800;
+  font-size: 1.6rem; color: var(--text-primary); text-align: center; line-height: 1;
+}
+.bmi-gauge-sub { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
+
+/* ── weight comparison table ── */
+.comp-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.comp-table th { background: var(--accent); color: #fff; padding: 0.6rem 0.9rem; text-align: left; }
+.comp-table td { padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--border-color); color: var(--text-primary); }
+.comp-table tr:nth-child(even) td { background: var(--input-bg); }
+.comp-table tr.highlight td { background: rgba(34,197,94,0.1); font-weight: 700; }
+
+/* ── weight range bar ── */
+.range-bar-wrap { position: relative; margin: 1rem 0; }
+.range-bar {
+  height: 12px; border-radius: 99px;
+  background: linear-gradient(to right, #3b82f6 0%, #22c55e 30%, #f59e0b 70%, #ef4444 100%);
+  position: relative;
+}
+.range-marker {
+  position: absolute; top: 50%; transform: translate(-50%,-50%);
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; border: 3px solid #1e293b;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: left 0.5s;
+}
+.range-labels { display: flex; justify-content: space-between; margin-top: 5px; }
+.range-labels span { font-size: 0.68rem; color: var(--text-muted); }
+
+/* chart */
+.chart-wrapper { position: relative; height: 260px; }
+
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: #1e293b; color: #fff;
+  padding: 0.75rem 1.25rem; border-radius: 10px;
+  font-size: 0.85rem; font-weight: 500; z-index: 9999;
+  transform: translateY(60px); opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.section-divider { border: none; border-top: 1.5px solid var(--border-color); margin: 1.5rem 0; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <span class="brand-icon"><i class="fas fa-crescent"></i></span>
+      <span class="brand-text">IslamiTools</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+  </div>
+</nav>
+
+<section class="tool-hero">
+  <div class="tool-hero-content">
+    <div class="tool-hero-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+      <i class="fas fa-weight"></i>
+    </div>
+    <div>
+      <h1 class="tool-hero-title">Ideal Weight Calculator</h1>
+      <p class="tool-hero-desc">Calculate ideal body weight using 5 medical formulas: Devine, Robinson, Miller, Hamwi, and BMI-based range.</p>
+    </div>
+  </div>
+</section>
+
+<main class="tool-main">
+<div class="tool-container">
+
+  <div class="input-card">
+    <h3><i class="fas fa-ruler-vertical" style="color:var(--accent)"></i> Your Measurements</h3>
+    <div class="form-grid">
+      <div class="field-group">
+        <label>Unit System</label>
+        <select class="field-input" id="unitSys" onchange="toggleUnits()">
+          <option value="metric">Metric (cm / kg)</option>
+          <option value="imperial">Imperial (ft-in / lbs)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Gender</label>
+        <select class="field-input" id="gender" onchange="calculate()">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <!-- Metric -->
+      <div class="field-group" id="heightCmGroup">
+        <label>Height (cm)</label>
+        <input type="number" class="field-input" id="heightCm" value="175" min="100" max="250" oninput="calculate()"/>
+      </div>
+      <!-- Imperial -->
+      <div class="field-group hidden" id="heightFtGroup">
+        <label>Height (ft)</label>
+        <input type="number" class="field-input" id="heightFt" value="5" min="3" max="8" oninput="calculate()"/>
+      </div>
+      <div class="field-group hidden" id="heightInGroup">
+        <label>Height (inches)</label>
+        <input type="number" class="field-input" id="heightIn" value="9" min="0" max="11" oninput="calculate()"/>
+      </div>
+      <div class="field-group">
+        <label>Current Weight (kg) <span style="color:var(--text-muted);font-weight:400">(optional — for comparison)</span></label>
+        <input type="number" class="field-input" id="currentWeight" value="80" min="20" max="300" step="0.1" oninput="calculate()"/>
+      </div>
+      <div class="field-group">
+        <label>Frame Size</label>
+        <select class="field-input" id="frameSize" onchange="calculate()">
+          <option value="small">Small Frame</option>
+          <option value="medium" selected>Medium Frame</option>
+          <option value="large">Large Frame</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Age</label>
+        <input type="number" class="field-input" id="age" value="25" min="10" max="100" oninput="calculate()"/>
+      </div>
+    </div>
+    <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+      <button onclick="calculate()" style="flex:1;padding:0.7rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.95rem;cursor:pointer;min-width:120px"><i class="fas fa-calculator"></i> Calculate</button>
+      <button onclick="copyResult()" style="padding:0.7rem 1rem;background:transparent;color:var(--text-secondary);border:1.5px solid var(--border-color);border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer"><i class="fas fa-copy"></i> Copy</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsArea" class="hidden">
+
+    <!-- Hero Banner -->
+    <div class="iw-hero" id="iwHero">
+      <div class="iw-main">
+        <div class="iw-range" id="iwRange">64–71 kg</div>
+        <div class="iw-label">Ideal Weight Range (BMI 18.5–25)</div>
+      </div>
+      <div class="iw-current">
+        <div class="iw-current-val" id="iwCurrent">80 kg</div>
+        <div class="iw-diff" id="iwDiff">+9 kg above ideal</div>
+      </div>
+    </div>
+
+    <!-- Gauge Range Bar -->
+    <div class="input-card" style="margin-bottom:1.25rem">
+      <h3><i class="fas fa-ruler-horizontal" style="color:#22c55e"></i> Weight Range Indicator</h3>
+      <div class="range-bar-wrap">
+        <div class="range-bar">
+          <div class="range-marker" id="rangeMarker" style="left:50%"></div>
+        </div>
+        <div class="range-labels">
+          <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:0.5rem">
+        <span id="weightStatus" style="font-weight:700;font-size:0.9rem"></span>
+      </div>
+    </div>
+
+    <!-- All Formulas -->
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem">
+      <i class="fas fa-flask" style="color:var(--accent)"></i> Ideal Weight by Formula
+    </h3>
+    <div class="formula-grid" id="formulaGrid"></div>
+
+    <!-- BMI gauge + Chart -->
+    <div class="input-card" style="margin-bottom:1.25rem">
+      <h3><i class="fas fa-chart-pie" style="color:#3b82f6"></i> BMI Analysis</h3>
+      <div style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center">
+        <div>
+          <div class="bmi-gauge-wrap">
+            <canvas id="bmiGauge" width="200" height="110"></canvas>
+            <div class="bmi-gauge-label"><span id="bmiGaugeVal">--</span><div class="bmi-gauge-sub" id="bmiGaugeCat">BMI</div></div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:180px">
+          <div id="bmiDetails" style="font-size:0.85rem;color:var(--text-secondary);line-height:2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Chart -->
+    <div class="input-card" style="margin-bottom:1.25rem">
+      <h3><i class="fas fa-chart-bar" style="color:#8b5cf6"></i> Formula Comparison Chart</h3>
+      <div class="chart-wrapper"><canvas id="formulaChart"></canvas></div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="input-card">
+      <h3><i class="fas fa-table" style="color:#f59e0b"></i> Detailed Formula Breakdown</h3>
+      <div style="overflow-x:auto">
+        <table class="comp-table" id="compTable"></table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</main>
+
+<div class="toast" id="toast"></div>
+<script>
+const savedTheme = localStorage.getItem('theme')||'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme==='dark'?'fas fa-sun':'fas fa-moon';
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const html=document.documentElement;
+  const t=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',t); localStorage.setItem('theme',t);
+  document.getElementById('themeIcon').className=t==='dark'?'fas fa-sun':'fas fa-moon';
+});
+function showToast(msg,dur=2500){
+  const t=document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+let formulaChartInst=null, lastResult=null;
+
+function toggleUnits(){
+  const imp=document.getElementById('unitSys').value==='imperial';
+  document.getElementById('heightCmGroup').classList.toggle('hidden',imp);
+  document.getElementById('heightFtGroup').classList.toggle('hidden',!imp);
+  document.getElementById('heightInGroup').classList.toggle('hidden',!imp);
+  calculate();
+}
+
+function getHeightCm(){
+  if(document.getElementById('unitSys').value==='imperial'){
+    const ft=parseFloat(document.getElementById('heightFt').value)||5;
+    const inch=parseFloat(document.getElementById('heightIn').value)||9;
+    return (ft*12+inch)*2.54;
+  }
+  return parseFloat(document.getElementById('heightCm').value)||175;
+}
+
+// ═══════════════════════════════════════
+//  IDEAL WEIGHT FORMULAS
+//  All formulas take height in inches (for males/females)
+//  Devine: Male: 50 + 2.3*(h-60); Female: 45.5 + 2.3*(h-60)
+//  Robinson: Male: 52 + 1.9*(h-60); Female: 49 + 1.7*(h-60)
+//  Miller: Male: 56.2 + 1.41*(h-60); Female: 53.1 + 1.36*(h-60)
+//  Hamwi: Male: 48 + 2.7*(h-60); Female: 45.5 + 2.2*(h-60) → for 5ft = 60 inches
+// ═══════════════════════════════════════
+function calcIdealWeights(heightCm, gender, frameSize){
+  const hIn = heightCm / 2.54; // to inches
+  const excess = hIn - 60;     // inches over 5 feet
+  const g = gender==='male';
+
+  let devine, robinson, miller, hamwi;
+
+  if(g){
+    devine   = 50   + 2.3  * excess;
+    robinson = 52   + 1.9  * excess;
+    miller   = 56.2 + 1.41 * excess;
+    hamwi    = 48   + 2.7  * excess;
+  } else {
+    devine   = 45.5 + 2.3  * excess;
+    robinson = 49   + 1.7  * excess;
+    miller   = 53.1 + 1.36 * excess;
+    hamwi    = 45.5 + 2.2  * excess;
+  }
+
+  // Frame adjustment (±10%)
+  const frameMul = {small:0.90, medium:1.0, large:1.10};
+  const fm = frameMul[frameSize]||1.0;
+  devine   *= fm; robinson *= fm; miller *= fm; hamwi *= fm;
+
+  // BMI healthy range (18.5–25)
+  const hm  = heightCm/100;
+  const bmiLow  = 18.5 * hm * hm;
+  const bmiHigh = 25   * hm * hm;
+
+  return {
+    devine:   Math.round(devine*10)/10,
+    robinson: Math.round(robinson*10)/10,
+    miller:   Math.round(miller*10)/10,
+    hamwi:    Math.round(hamwi*10)/10,
+    bmiLow:   Math.round(bmiLow*10)/10,
+    bmiHigh:  Math.round(bmiHigh*10)/10,
+    avg: Math.round(((devine+robinson+miller+hamwi)/4)*10)/10
+  };
+}
+
+function calcBMI(weightKg, heightCm){
+  const hm=heightCm/100;
+  return weightKg/(hm*hm);
+}
+function bmiCategory(bmi){
+  if(bmi<18.5) return {cat:'Underweight',color:'#3b82f6',pct:12};
+  if(bmi<25)   return {cat:'Normal Weight',color:'#22c55e',pct:38};
+  if(bmi<30)   return {cat:'Overweight',color:'#f59e0b',pct:60};
+  if(bmi<35)   return {cat:'Obese I',color:'#f97316',pct:78};
+  return {cat:'Obese II+',color:'#ef4444',pct:92};
+}
+
+function calculate(){
+  const heightCm = getHeightCm();
+  const gender   = document.getElementById('gender').value;
+  const frame    = document.getElementById('frameSize').value;
+  const age      = parseInt(document.getElementById('age').value)||25;
+  let   currW    = parseFloat(document.getElementById('currentWeight').value)||0;
+  if(document.getElementById('unitSys').value==='imperial') currW*=0.453592;
+
+  if(heightCm<100||heightCm>250) return;
+
+  const iw = calcIdealWeights(heightCm, gender, frame);
+  lastResult={iw, currW, heightCm, gender, frame};
+  document.getElementById('resultsArea').classList.remove('hidden');
+
+  // ── Hero ──
+  document.getElementById('iwRange').textContent=`${iw.bmiLow}–${iw.bmiHigh} kg`;
+  if(currW>0){
+    document.getElementById('iwCurrent').textContent=currW.toFixed(1)+' kg';
+    const diff=currW-iw.avg;
+    const s=diff>0?`+${diff.toFixed(1)} kg above average ideal`:(diff<0?`${diff.toFixed(1)} kg below average ideal`:'At average ideal weight');
+    document.getElementById('iwDiff').textContent=s;
+    document.getElementById('iwDiff').style.color=Math.abs(diff)<2?'rgba(255,255,255,0.95)':'rgba(255,220,150,0.95)';
+  } else {
+    document.getElementById('iwCurrent').textContent='—';
+    document.getElementById('iwDiff').textContent='Enter current weight for comparison';
+  }
+
+  // ── Range bar marker ──
+  const bmi = currW>0 ? calcBMI(currW, heightCm) : 22;
+  const bmiInfo = bmiCategory(bmi);
+  document.getElementById('rangeMarker').style.left=bmiInfo.pct+'%';
+  document.getElementById('rangeMarker').style.borderColor=bmiInfo.color;
+  document.getElementById('weightStatus').textContent=currW>0?`BMI ${bmi.toFixed(1)} — ${bmiInfo.cat}`:'Enter current weight to see status';
+  document.getElementById('weightStatus').style.color=bmiInfo.color;
+
+  // ── Formula cards ──
+  const formulas=[
+    {name:'Devine (1974)',val:iw.devine,desc:'Most widely used in clinical settings. Good for average builds.'},
+    {name:'Robinson (1983)',val:iw.robinson,desc:'Refined from Devine formula with broader population data.'},
+    {name:'Miller (1983)',val:iw.miller,desc:'More moderate estimates, works well for lighter frames.'},
+    {name:'Hamwi (1964)',val:iw.hamwi,desc:'Common in dietitian practice. Slightly higher estimates.'},
+    {name:'BMI Low (18.5)',val:iw.bmiLow,desc:'Minimum healthy weight based on BMI 18.5.'},
+    {name:'BMI High (25)',val:iw.bmiHigh,desc:'Maximum healthy weight based on BMI 25.0.'},
+    {name:'Average (All)',val:iw.avg,desc:'Average of Devine, Robinson, Miller & Hamwi formulas.'},
+  ];
+  document.getElementById('formulaGrid').innerHTML=formulas.map(f=>`
+    <div class="formula-card">
+      <div class="formula-name">${f.name}</div>
+      <div class="formula-val">${f.val} kg</div>
+      <div class="formula-range">${(f.val*2.205).toFixed(1)} lbs</div>
+      <div class="formula-desc">${f.desc}</div>
+    </div>`).join('');
+
+  // ── BMI gauge ──
+  drawBMIGauge(bmi, bmiInfo);
+  document.getElementById('bmiGaugeVal').textContent=currW>0?bmi.toFixed(1):'--';
+  document.getElementById('bmiGaugeCat').textContent=currW>0?bmiInfo.cat:'BMI';
+  document.getElementById('bmiDetails').innerHTML=`
+    <div>📏 Height: <b>${heightCm.toFixed(1)} cm</b> (${(heightCm/2.54).toFixed(1)} in)</div>
+    ${currW>0?`<div>⚖️ Current: <b>${currW.toFixed(1)} kg</b></div>`:''}
+    <div>✅ BMI Goal: <b>18.5–25</b></div>
+    <div>🎯 Target range: <b>${iw.bmiLow}–${iw.bmiHigh} kg</b></div>
+    <div>📊 Average IBW: <b>${iw.avg} kg</b></div>`;
+
+  // ── Chart ──
+  renderFormulaChart(iw, currW);
+
+  // ── Table ──
+  const tRows=formulas.map((f,i)=>`
+    <tr${i===6?' class="highlight"':''}>
+      <td>${f.name}</td>
+      <td>${f.val} kg</td>
+      <td>${(f.val*2.205).toFixed(1)} lbs</td>
+      <td>${currW>0?(currW-f.val>0?'+':'')+(currW-f.val).toFixed(1)+' kg':'—'}</td>
+    </tr>`).join('');
+  document.getElementById('compTable').innerHTML=`
+    <thead><tr><th>Formula</th><th>Ideal Weight</th><th>In lbs</th><th>Diff (Current)</th></tr></thead>
+    <tbody>${tRows}</tbody>`;
+}
+
+function drawBMIGauge(bmi, bmiInfo){
+  const canvas=document.getElementById('bmiGauge');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,200,110);
+  // Draw arc background
+  const cx=100,cy=100,r=80,lw=16;
+  const sections=[
+    {color:'#3b82f6',start:Math.PI,end:Math.PI*1.25},   // Underweight
+    {color:'#22c55e',start:Math.PI*1.25,end:Math.PI*1.6},// Normal
+    {color:'#f59e0b',start:Math.PI*1.6,end:Math.PI*1.8}, // Overweight
+    {color:'#ef4444',start:Math.PI*1.8,end:Math.PI*2},   // Obese
+  ];
+  sections.forEach(s=>{
+    ctx.beginPath(); ctx.arc(cx,cy,r,s.start,s.end);
+    ctx.strokeStyle=s.color; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
+  });
+  // Needle
+  const bmiClamped=Math.max(15,Math.min(40,bmi));
+  const angle=Math.PI+(bmiClamped-15)/(40-15)*Math.PI;
+  const nx=cx+Math.cos(angle)*60, ny=cy+Math.sin(angle)*60;
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(nx,ny);
+  ctx.strokeStyle=bmiInfo.color; ctx.lineWidth=3; ctx.lineCap='round'; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,5,0,Math.PI*2);
+  ctx.fillStyle=bmiInfo.color; ctx.fill();
+}
+
+function renderFormulaChart(iw, currW){
+  if(formulaChartInst){formulaChartInst.destroy();formulaChartInst=null;}
+  const labels=['Devine','Robinson','Miller','Hamwi','BMI Low','BMI High'];
+  const vals=[iw.devine,iw.robinson,iw.miller,iw.hamwi,iw.bmiLow,iw.bmiHigh];
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const ctx=document.getElementById('formulaChart').getContext('2d');
+  const datasets=[{
+    label:'Ideal Weight (kg)', data:vals,
+    backgroundColor:'rgba(34,197,94,0.7)', borderColor:'#22c55e',
+    borderWidth:2, borderRadius:6
+  }];
+  if(currW>0){
+    datasets.push({
+      label:'Your Current Weight',
+      data:vals.map(()=>currW),
+      type:'line', borderColor:'#ef4444', backgroundColor:'transparent',
+      borderWidth:2, borderDash:[5,5], pointRadius:0, tension:0
+    });
+  }
+  formulaChartInst=new Chart(ctx,{
+    type:'bar', data:{labels,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'bottom',labels:{color:isDark?'#94a3b8':'#64748b',font:{size:11}}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw} kg`}}
+      },
+      scales:{
+        x:{grid:{color:isDark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)'},ticks:{color:isDark?'#94a3b8':'#64748b'}},
+        y:{grid:{color:isDark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)'},ticks:{color:isDark?'#94a3b8':'#64748b',callback:v=>v+' kg'}}
+      }
+    }
+  });
+}
+
+function copyResult(){
+  if(!lastResult) return;
+  const {iw,currW}=lastResult;
+  const text=`Ideal Weight Results\nBMI Range: ${iw.bmiLow}–${iw.bmiHigh} kg\nDevine: ${iw.devine} kg\nRobinson: ${iw.robinson} kg\nMiller: ${iw.miller} kg\nHamwi: ${iw.hamwi} kg\nAverage: ${iw.avg} kg${currW>0?`\nCurrent: ${currW.toFixed(1)} kg`:''}`;
+  navigator.clipboard.writeText(text).then(()=>showToast('✅ Copied!'));
+}
+
+calculate();
+</script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator – Calculate Exact Age in Years, Months & Days | HashmiTools</title>
+  <meta name="description" content="Free online age calculator. Calculate exact age from date of birth in years, months, weeks, days and hours. Also calculates next birthday countdown." />
+  <meta name="keywords" content="age calculator, date of birth calculator, exact age calculator, birthday calculator, how old am i" />
+  <link rel="canonical" href="https://hashmitools.com/tools/age-calculator.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="health.html" class="nav-link active">Health Tools</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <section class="tool-page-header">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="health.html">Health Tools</a><i class="fas fa-chevron-right"></i><span>Age Calculator</span></nav>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:3rem;">🎂</div>
+        <div>
+          <h1 class="tool-title">Age Calculator</h1>
+          <p class="tool-desc">Calculate your exact age and find out how many days until your next birthday</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-container"><div class="ad-placeholder" style="max-width:1280px;margin:0 auto;padding:0 24px;"><span>Advertisement</span></div></div>
+
+  <main class="tool-main">
+    <div class="container">
+      <div class="tool-layout">
+        <div>
+          <div class="tool-box" style="margin-bottom:20px;">
+            <div class="tool-box-header"><i class="fas fa-calendar-alt"></i> Enter Your Birth Date</div>
+            <div class="tool-box-body">
+              <div class="form-group">
+                <label class="form-label">Date of Birth *</label>
+                <input type="date" class="form-input" id="dob" max="" oninput="calculateAge()" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Calculate Age As Of</label>
+                <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;">
+                  <input type="date" class="form-input" id="targetDate" oninput="calculateAge()" />
+                  <button class="copy-btn" onclick="setToday()"><i class="fas fa-calendar"></i> Today</button>
+                </div>
+              </div>
+              <button class="btn btn-primary w-full" onclick="calculateAge()" style="padding:14px;font-size:1rem;">
+                <i class="fas fa-calculator"></i> Calculate Age
+              </button>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="tool-box" id="ageResults" style="display:none;margin-bottom:20px;">
+            <div class="tool-box-header" style="background:rgba(236,72,153,0.1);">🎂 Age Results</div>
+            <div class="tool-box-body">
+              <!-- Main Age Display -->
+              <div class="result-box" style="margin-bottom:20px;">
+                <div class="result-label">Your Exact Age</div>
+                <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:8px;">
+                  <div style="text-align:center;">
+                    <div class="result-value" id="ageYears" style="font-size:3rem;">0</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">Years</div>
+                  </div>
+                  <div style="font-size:2rem;color:var(--text-muted);align-self:center;">:</div>
+                  <div style="text-align:center;">
+                    <div class="result-value" id="ageMonths" style="font-size:3rem;">0</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">Months</div>
+                  </div>
+                  <div style="font-size:2rem;color:var(--text-muted);align-self:center;">:</div>
+                  <div style="text-align:center;">
+                    <div class="result-value" id="ageDays" style="font-size:3rem;">0</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">Days</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Detailed Stats -->
+              <div class="result-grid">
+                <div class="result-item"><div class="result-item-label">Total Days Lived</div><div class="result-item-value" id="totalDays">—</div></div>
+                <div class="result-item"><div class="result-item-label">Total Weeks</div><div class="result-item-value" id="totalWeeks">—</div></div>
+                <div class="result-item"><div class="result-item-label">Total Hours</div><div class="result-item-value" id="totalHours">—</div></div>
+                <div class="result-item"><div class="result-item-label">Total Minutes</div><div class="result-item-value" id="totalMinutes">—</div></div>
+                <div class="result-item"><div class="result-item-label">Day of Birth</div><div class="result-item-value" id="dayOfBirth">—</div></div>
+                <div class="result-item"><div class="result-item-label">Zodiac Sign</div><div class="result-item-value" id="zodiacSign">—</div></div>
+              </div>
+
+              <!-- Birthday Countdown -->
+              <div style="margin-top:16px;padding:16px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;text-align:center;">
+                <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:6px;">🎂 Next Birthday</div>
+                <div id="birthdayCountdown" style="font-size:1.1rem;font-weight:700;color:var(--accent-purple);"></div>
+              </div>
+
+              <!-- Fun Facts -->
+              <div style="margin-top:16px;" id="funFacts"></div>
+
+              <div class="share-section" style="margin-top:16px;">
+                <span class="share-label">Share:</span>
+                <button class="share-btn whatsapp" onclick="shareAge()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                <button class="share-btn copy" onclick="copyAge()"><i class="fas fa-copy"></i> Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Age Milestones -->
+          <div class="tool-box" id="milestonesBox" style="display:none;margin-bottom:24px;">
+            <div class="tool-box-header"><i class="fas fa-star"></i> Life Milestones</div>
+            <div class="tool-box-body">
+              <div id="milestonesGrid" style="display:flex;flex-direction:column;gap:10px;"></div>
+            </div>
+          </div>
+
+          <div class="faq-section">
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:16px;">FAQ</h3>
+            <div class="faq-item"><div class="faq-question">How accurate is this age calculator? <span class="faq-icon">+</span></div><div class="faq-answer">Our age calculator is highly accurate, accounting for leap years and the exact number of days in each month. It calculates the exact years, months, and days between two dates.</div></div>
+            <div class="faq-item"><div class="faq-question">Can I calculate age on a specific past or future date? <span class="faq-icon">+</span></div><div class="faq-answer">Yes! Use the "Calculate Age As Of" field to calculate age on any date — past, present, or future. This is useful for legal age verification or historical calculations.</div></div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="sidebar-ad">Advertisement (300×250)</div>
+          <div class="tool-box" style="margin-top:16px;">
+            <div class="tool-box-header">❤️ Health Tools</div>
+            <div class="tool-box-body" style="display:flex;flex-direction:column;gap:8px;">
+              <a href="bmi-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">❤️ BMI Calculator</a>
+              <a href="calorie-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🥗 Calorie Calculator</a>
+              <a href="water-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">💧 Water Intake</a>
+              <a href="ideal-weight.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">⚖️ Ideal Weight</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p></div></div></div></footer>
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../js/main.js"></script>
+  <script>
+  const ZODIAC = [
+    { sign: '♑ Capricorn', start: [12,22], end: [1,19] },
+    { sign: '♒ Aquarius', start: [1,20], end: [2,18] },
+    { sign: '♓ Pisces', start: [2,19], end: [3,20] },
+    { sign: '♈ Aries', start: [3,21], end: [4,19] },
+    { sign: '♉ Taurus', start: [4,20], end: [5,20] },
+    { sign: '♊ Gemini', start: [5,21], end: [6,20] },
+    { sign: '♋ Cancer', start: [6,21], end: [7,22] },
+    { sign: '♌ Leo', start: [7,23], end: [8,22] },
+    { sign: '♍ Virgo', start: [8,23], end: [9,22] },
+    { sign: '♎ Libra', start: [9,23], end: [10,22] },
+    { sign: '♏ Scorpio', start: [10,23], end: [11,21] },
+    { sign: '♐ Sagittarius', start: [11,22], end: [12,21] },
+  ];
+
+  const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  function setToday() {
+    document.getElementById('targetDate').value = new Date().toISOString().split('T')[0];
+    calculateAge();
+  }
+
+  // Init max date and default target
+  window.addEventListener('load', () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('dob').max = today;
+    document.getElementById('targetDate').value = today;
+  });
+
+  function calculateAge() {
+    const dobStr = document.getElementById('dob').value;
+    const targetStr = document.getElementById('targetDate').value || new Date().toISOString().split('T')[0];
+    if (!dobStr) return;
+
+    const dob = new Date(dobStr);
+    const target = new Date(targetStr);
+
+    if (dob > target) {
+      HashmiTools.showToast('Date of birth cannot be in the future!', 'error');
+      return;
+    }
+
+    // Calculate exact years, months, days
+    let years = target.getFullYear() - dob.getFullYear();
+    let months = target.getMonth() - dob.getMonth();
+    let days = target.getDate() - dob.getDate();
+
+    if (days < 0) {
+      months--;
+      const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+      days += prevMonth.getDate();
+    }
+    if (months < 0) { months += 12; years--; }
+
+    // Total calculations
+    const totalDays = Math.floor((target - dob) / (1000*60*60*24));
+    const totalWeeks = Math.floor(totalDays / 7);
+    const totalHours = totalDays * 24;
+    const totalMinutes = totalHours * 60;
+
+    // Day of birth
+    const dayName = DAYS[dob.getDay()];
+
+    // Zodiac
+    const m = dob.getMonth() + 1;
+    const d = dob.getDate();
+    let zodiac = '♑ Capricorn';
+    for (const z of ZODIAC) {
+      const [sm, sd] = z.start;
+      const [em, ed] = z.end;
+      if ((m === sm && d >= sd) || (m === em && d <= ed)) { zodiac = z.sign; break; }
+    }
+
+    // Next birthday
+    let nextBirthday = new Date(target.getFullYear(), dob.getMonth(), dob.getDate());
+    if (nextBirthday <= target) nextBirthday = new Date(target.getFullYear() + 1, dob.getMonth(), dob.getDate());
+    const daysToNext = Math.ceil((nextBirthday - target) / (1000*60*60*24));
+    const bdMsg = daysToNext === 0 ? '🎉 Happy Birthday! Today is your birthday!' : `${daysToNext} days until your ${years + 1}th birthday! 🎂`;
+
+    // Update UI
+    document.getElementById('ageResults').style.display = 'block';
+    document.getElementById('ageYears').textContent = years;
+    document.getElementById('ageMonths').textContent = months;
+    document.getElementById('ageDays').textContent = days;
+    document.getElementById('totalDays').textContent = totalDays.toLocaleString();
+    document.getElementById('totalWeeks').textContent = totalWeeks.toLocaleString();
+    document.getElementById('totalHours').textContent = totalHours.toLocaleString();
+    document.getElementById('totalMinutes').textContent = totalMinutes.toLocaleString();
+    document.getElementById('dayOfBirth').textContent = dayName;
+    document.getElementById('zodiacSign').textContent = zodiac;
+    document.getElementById('birthdayCountdown').textContent = bdMsg;
+
+    // Fun Facts
+    const funFacts = [
+      `❤️ Your heart has beaten approximately <strong>${(totalDays * 100000).toLocaleString()}</strong> times!`,
+      `🫁 You've taken about <strong>${(totalDays * 17280).toLocaleString()}</strong> breaths!`,
+      `😴 You've slept for about <strong>${Math.round(totalDays * 8 / 24)}</strong> years!`,
+      `🌍 Earth has traveled <strong>${(totalDays * 2.5).toLocaleString()}M km</strong> around the Sun since your birth!`,
+    ];
+    document.getElementById('funFacts').innerHTML = `
+      <h4 style="font-size:0.875rem;font-weight:700;margin-bottom:10px;">🎉 Fun Facts About Your Life</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${funFacts.map(f => `<div style="padding:10px 12px;background:var(--bg-glass);border-radius:8px;font-size:0.85rem;color:var(--text-secondary);">${f}</div>`).join('')}
+      </div>
+    `;
+
+    // Milestones
+    document.getElementById('milestonesBox').style.display = 'block';
+    const milestones = [
+      { age: 1, label: 'First Birthday' },
+      { age: 5, label: 'Started School' },
+      { age: 18, label: 'Adulthood (Legal)' },
+      { age: 21, label: 'Official Adult (USA)' },
+      { age: 25, label: 'Brain Fully Developed' },
+      { age: 30, label: 'Thirties Begin' },
+      { age: 40, label: 'Forties Begin' },
+      { age: 50, label: 'Half Century' },
+      { age: 60, label: 'Retirement Age (PK)' },
+      { age: 100, label: 'Centenarian' },
+    ];
+    document.getElementById('milestonesGrid').innerHTML = milestones.map(m => {
+      const milestoneDate = new Date(dob.getFullYear() + m.age, dob.getMonth(), dob.getDate());
+      const isPast = milestoneDate <= target;
+      const daysAway = Math.abs(Math.ceil((milestoneDate - target) / (1000*60*60*24)));
+      return `
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:${isPast ? 'rgba(34,197,94,0.08)' : 'var(--bg-glass)'};border:1px solid ${isPast ? 'rgba(34,197,94,0.2)' : 'var(--border-glass)'};border-radius:8px;font-size:0.85rem;">
+          <span style="font-size:1.2rem;">${isPast ? '✅' : '⏳'}</span>
+          <span style="flex:1;font-weight:600;">${m.label} (Age ${m.age})</span>
+          <span style="color:var(--text-muted);font-size:0.78rem;">${isPast ? `${daysAway.toLocaleString()} days ago` : `in ${daysAway.toLocaleString()} days`}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function shareAge() {
+    const years = document.getElementById('ageYears')?.textContent || '0';
+    const months = document.getElementById('ageMonths')?.textContent || '0';
+    const days = document.getElementById('ageDays')?.textContent || '0';
+    const text = `My exact age from HashmiTools.com:\n🎂 ${years} years, ${months} months, ${days} days\n\nCalculate yours: https://hashmitools.com/tools/age-calculator.html`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  function copyAge() {
+    const years = document.getElementById('ageYears')?.textContent;
+    const months = document.getElementById('ageMonths')?.textContent;
+    const days = document.getElementById('ageDays')?.textContent;
+    HashmiTools.copyToClipboard(`Age: ${years} years, ${months} months, ${days} days`);
+  }
+
+  HashmiTools.trackToolView('Age Calculator', 'tools/age-calculator.html', '🎂');
+  </script>
+</body>
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Speed Test – Free WPM & Accuracy Test Online | HashmiTools.com</title>
+  <meta name="description" content="Free online typing speed test. Measure your WPM (Words Per Minute) and accuracy in 1 minute. Real-time feedback, 3 difficulty levels, shareable results. Improve your typing skills!" />
+  <meta name="keywords" content="typing speed test, wpm test, typing test online, words per minute test, typing accuracy test, free typing test, improve typing speed, keyboard speed test" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://hashmitools.com/tools/typing-test.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Typing Speed Test – Free WPM Test Online | HashmiTools.com" />
+  <meta property="og:description" content="Test your typing speed and accuracy in 60 seconds. Get WPM, accuracy %, and share your results!" />
+  <meta property="og:url" content="https://hashmitools.com/tools/typing-test.html" />
+  <meta property="og:image" content="https://hashmitools.com/images/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Typing Speed Test – Free WPM Test | HashmiTools.com" />
+  <meta name="twitter:description" content="How fast can you type? Test your WPM and accuracy in 60 seconds!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Typing Speed Test",
+    "description": "Free online typing speed test measuring WPM and accuracy with real-time feedback and shareable results.",
+    "url": "https://hashmitools.com/tools/typing-test.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "breadcrumb": {"@type": "BreadcrumbList","itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hashmitools.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Developer Tools", "item": "https://hashmitools.com/tools/developer.html"},
+      {"@type": "ListItem", "position": 3, "name": "Typing Speed Test", "item": "https://hashmitools.com/tools/typing-test.html"}
+    ]},
+    "featureList": ["Real-time WPM calculation", "Accuracy tracking", "3 difficulty levels", "Shareable results", "60-second timer"]
+  }
+  </script>
+  <style>
+    /* ---- Tool Header ---- */
+    .tool-header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 50%, #6366f1 100%);
+      padding: 60px 0 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+    .tool-header h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: #fff; margin-bottom: 8px; font-family: 'Space Grotesk', sans-serif; }
+    .tool-header p { color: rgba(255,255,255,0.8); font-size: 1.05rem; }
+    .breadcrumb { background: var(--bg-secondary); padding: 10px 0; border-bottom: 1px solid var(--border-glass); }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+    .breadcrumb-inner a { color: var(--accent-purple); }
+
+    /* ---- Main Layout ---- */
+    .typing-container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* ---- Stats Bar ---- */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .stat-card.highlight { border-color: var(--accent-purple); box-shadow: 0 0 20px rgba(99,102,241,0.2); }
+    .stat-value { font-size: 2.2rem; font-weight: 800; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; line-height: 1; }
+    .stat-value.timer-val { color: var(--accent-cyan); }
+    .stat-value.wpm-val { color: var(--accent-purple); }
+    .stat-value.acc-val { color: #10b981; }
+    .stat-value.errors-val { color: #f59e0b; }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+
+    /* ---- Difficulty + Controls ---- */
+    .test-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .difficulty-tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 4px;
+    }
+    .diff-btn {
+      padding: 7px 18px;
+      border-radius: 9px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+    .diff-btn.active { background: var(--accent-purple); color: #fff; }
+    .diff-btn:hover:not(.active) { color: var(--text-primary); background: var(--bg-glass); }
+    .duration-tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 4px;
+    }
+    .dur-btn {
+      padding: 7px 14px;
+      border-radius: 9px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+    .dur-btn.active { background: var(--accent-cyan); color: #fff; }
+    .dur-btn:hover:not(.active) { color: var(--text-primary); background: var(--bg-glass); }
+
+    /* ---- Text Display ---- */
+    .text-display {
+      background: var(--bg-card);
+      border: 2px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      line-height: 2;
+      margin-bottom: 16px;
+      min-height: 120px;
+      position: relative;
+      overflow-x: hidden;
+      word-break: break-word;
+      user-select: none;
+      transition: border-color 0.3s ease;
+    }
+    .text-display.active { border-color: var(--accent-purple); box-shadow: 0 0 24px rgba(99,102,241,0.15); }
+    .text-display.finished { border-color: #10b981; }
+    .char { position: relative; }
+    .char.correct { color: #10b981; }
+    .char.wrong { color: #ef4444; background: rgba(239,68,68,0.15); border-radius: 2px; }
+    .char.current {
+      position: relative;
+    }
+    .char.current::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      bottom: 2px;
+      width: 2px;
+      background: var(--accent-cyan);
+      border-radius: 1px;
+      animation: blink 1s step-end infinite;
+    }
+    .char.pending { color: var(--text-muted); }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ---- Input Area ---- */
+    .input-wrapper { position: relative; }
+    #typingInput {
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-glass);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      outline: none;
+      transition: all 0.3s ease;
+      caret-color: var(--accent-cyan);
+    }
+    #typingInput:focus { border-color: var(--accent-purple); box-shadow: 0 0 16px rgba(99,102,241,0.2); }
+    #typingInput:disabled { opacity: 0.5; cursor: not-allowed; }
+    .input-hint {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- Start/Reset Button ---- */
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #4338ca, #6366f1);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: all 0.3s ease;
+    }
+    .action-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,102,241,0.4); }
+    .action-btn.reset { background: linear-gradient(135deg, #374151, #4b5563); }
+
+    /* ---- Progress Bar ---- */
+    .progress-wrapper { margin: 12px 0; }
+    .progress-bar {
+      height: 6px;
+      background: var(--bg-secondary);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+      border-radius: 3px;
+      transition: width 0.1s linear;
+      width: 100%;
+    }
+
+    /* ---- Results Panel ---- */
+    .results-panel {
+      display: none;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-purple);
+      border-radius: 20px;
+      padding: 36px;
+      text-align: center;
+      margin-top: 24px;
+      animation: fadeInUp 0.5s ease;
+    }
+    .results-panel.show { display: block; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .result-title { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; font-family: 'Space Grotesk', sans-serif; }
+    .result-grade { font-size: 3.5rem; margin: 12px 0; }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .result-item {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .result-num { font-size: 2rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; }
+    .result-num.wpm { color: var(--accent-purple); }
+    .result-num.acc { color: #10b981; }
+    .result-num.chars { color: var(--accent-cyan); }
+    .result-num.errs { color: #f59e0b; }
+    .result-lbl { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; margin-top: 4px; }
+    .share-section { margin-top: 24px; }
+    .share-text {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-align: left;
+      margin-bottom: 12px;
+      word-break: break-all;
+    }
+    .share-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .share-btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .share-btn.copy { background: var(--accent-purple); color: #fff; }
+    .share-btn.twitter { background: #1da1f2; color: #fff; }
+    .share-btn.whatsapp { background: #25d366; color: #fff; }
+    .share-btn.retry { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-glass); }
+    .share-btn:hover { transform: translateY(-2px); }
+
+    /* ---- Leaderboard ---- */
+    .leaderboard { margin-top: 48px; }
+    .lb-title { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+    .lb-table { width: 100%; border-collapse: collapse; }
+    .lb-table th { text-align: left; padding: 10px 16px; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border-glass); }
+    .lb-table td { padding: 12px 16px; border-bottom: 1px solid var(--border-glass); color: var(--text-secondary); font-size: 0.9rem; }
+    .lb-table tr:last-child td { border-bottom: none; }
+    .lb-table tr:hover td { background: var(--bg-glass); }
+    .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 0.8rem; font-weight: 700; }
+    .rank-1 { background: #fbbf24; color: #000; }
+    .rank-2 { background: #9ca3af; color: #000; }
+    .rank-3 { background: #b45309; color: #fff; }
+    .rank-other { background: var(--bg-secondary); color: var(--text-muted); }
+
+    /* ---- Tips ---- */
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 32px; }
+    .tip-card { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; padding: 20px; }
+    .tip-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .tip-title { font-weight: 700; color: var(--text-primary); margin-bottom: 6px; font-size: 1rem; }
+    .tip-text { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; }
+
+    /* ---- Ad Slot ---- */
+    .ad-slot { background: var(--bg-secondary); border: 1px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 32px 0; }
+
+    /* ---- FAQ ---- */
+    .faq-section { padding: 48px 0; background: var(--bg-secondary); border-top: 1px solid var(--border-glass); }
+    .faq-item { margin-bottom: 14px; max-width: 900px; margin-left: auto; margin-right: auto; }
+    .faq-q { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-primary); transition: all 0.3s ease; font-size: 0.95rem; }
+    .faq-q:hover, .faq-q.active { border-color: var(--accent-purple); background: rgba(99,102,241,0.08); }
+    .faq-a { display: none; padding: 14px 20px; color: var(--text-secondary); line-height: 1.7; border: 1px solid var(--border-glass); border-top: none; border-radius: 0 0 12px 12px; background: var(--bg-card); font-size: 0.9rem; }
+    .faq-a.open { display: block; }
+
+    @media (max-width: 640px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .text-display { font-size: 1rem; }
+      .result-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="developer.html" class="nav-link">Developer Tools</a>
+        <a href="productivity.html" class="nav-link">Productivity</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="tool-header">
+    <div class="container">
+      <h1>⌨️ Typing Speed Test</h1>
+      <p>Measure your WPM, accuracy & consistency in real-time. Share your results!</p>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size:0.7rem"></i>
+        <a href="developer.html">Developer Tools</a>
+        <i class="fas fa-chevron-right" style="font-size:0.7rem"></i>
+        <span>Typing Speed Test</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AD TOP -->
+  <div class="typing-container" style="padding-bottom:0">
+    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="2345678901" data-ad-format="auto" data-full-width-responsive="true"></ins><p>Advertisement</p></div>
+  </div>
+
+  <!-- MAIN TYPING TEST -->
+  <div class="typing-container">
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-card highlight" id="timerCard">
+        <div class="stat-value timer-val" id="timerDisplay">60</div>
+        <div class="stat-label">⏱ Seconds Left</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value wpm-val" id="wpmDisplay">0</div>
+        <div class="stat-label">🚀 WPM</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value acc-val" id="accDisplay">100%</div>
+        <div class="stat-label">🎯 Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value errors-val" id="errDisplay">0</div>
+        <div class="stat-label">❌ Errors</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="test-controls">
+      <div class="difficulty-tabs">
+        <button class="diff-btn active" onclick="setDifficulty('easy')">Easy</button>
+        <button class="diff-btn" onclick="setDifficulty('medium')">Medium</button>
+        <button class="diff-btn" onclick="setDifficulty('hard')">Hard</button>
+      </div>
+      <div class="duration-tabs">
+        <button class="dur-btn" onclick="setDuration(30)">30s</button>
+        <button class="dur-btn active" onclick="setDuration(60)">60s</button>
+        <button class="dur-btn" onclick="setDuration(120)">2min</button>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-wrapper">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Text Display -->
+    <div class="text-display" id="textDisplay" onclick="document.getElementById('typingInput').focus()">
+      <span style="color:var(--text-muted);font-size:0.95rem;font-family:'Inter',sans-serif">Click here or start typing to begin the test...</span>
+    </div>
+
+    <!-- Input -->
+    <div class="input-wrapper">
+      <input
+        type="text"
+        id="typingInput"
+        placeholder="Start typing here... The timer begins on your first keystroke!"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      />
+      <span class="input-hint">Press Tab to restart</span>
+    </div>
+
+    <!-- Reset Button -->
+    <button class="action-btn reset" id="resetBtn" onclick="resetTest()">
+      <i class="fas fa-redo"></i> New Test
+    </button>
+
+    <!-- Results Panel -->
+    <div class="results-panel" id="resultsPanel">
+      <div class="result-grade" id="resultGrade">🏆</div>
+      <div class="result-title" id="resultTitle">Test Complete!</div>
+      <div class="result-grid">
+        <div class="result-item">
+          <div class="result-num wpm" id="finalWpm">0</div>
+          <div class="result-lbl">WPM</div>
+        </div>
+        <div class="result-item">
+          <div class="result-num acc" id="finalAcc">0%</div>
+          <div class="result-lbl">Accuracy</div>
+        </div>
+        <div class="result-item">
+          <div class="result-num chars" id="finalChars">0</div>
+          <div class="result-lbl">Correct Chars</div>
+        </div>
+        <div class="result-item">
+          <div class="result-num errs" id="finalErrors">0</div>
+          <div class="result-lbl">Errors</div>
+        </div>
+      </div>
+      <div class="share-section">
+        <div class="share-text" id="shareText"></div>
+        <div class="share-btns">
+          <button class="share-btn copy" onclick="copyResult()"><i class="fas fa-copy"></i> Copy Result</button>
+          <button class="share-btn twitter" onclick="shareTwitter()"><i class="fab fa-twitter"></i> Tweet</button>
+          <button class="share-btn whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+          <button class="share-btn retry" onclick="resetTest()"><i class="fas fa-redo"></i> Try Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard">
+      <h2 class="lb-title">📊 Your Best Scores</h2>
+      <table class="lb-table" id="leaderboardTable">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>WPM</th>
+            <th>Accuracy</th>
+            <th>Difficulty</th>
+            <th>Duration</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No scores yet. Complete a test to see your history!</td></tr>
+        </tbody>
+      </table>
+      <button onclick="clearScores()" style="margin-top:12px;padding:8px 16px;border-radius:8px;font-size:0.8rem;color:var(--text-muted);background:var(--bg-secondary);border:1px solid var(--border-glass);cursor:pointer">Clear History</button>
+    </div>
+
+    <!-- Typing Tips -->
+    <div style="margin-top:48px">
+      <h2 style="font-size:1.4rem;font-weight:700;color:var(--text-primary);margin-bottom:8px;font-family:'Space Grotesk',sans-serif">💡 Tips to Improve Your Typing Speed</h2>
+      <p style="color:var(--text-secondary);margin-bottom:16px">Professional tips to reach 80+ WPM</p>
+      <div class="tips-grid">
+        <div class="tip-card"><div class="tip-icon">👆</div><div class="tip-title">Touch Typing</div><div class="tip-text">Learn to type without looking at the keyboard. Use home row (ASDF JKL;) as your base position for all fingers.</div></div>
+        <div class="tip-card"><div class="tip-icon">🎯</div><div class="tip-title">Accuracy First</div><div class="tip-text">Focus on accuracy before speed. Correcting mistakes slows you down more than typing slowly but accurately.</div></div>
+        <div class="tip-card"><div class="tip-icon">📅</div><div class="tip-title">Daily Practice</div><div class="tip-text">Practice 15-20 minutes daily for consistent improvement. You can expect 5-10 WPM gain per week with regular practice.</div></div>
+        <div class="tip-card"><div class="tip-icon">🖥️</div><div class="tip-title">Proper Posture</div><div class="tip-text">Sit straight, elbows at 90°, wrists relaxed and slightly elevated. Good ergonomics prevents fatigue and improves speed.</div></div>
+        <div class="tip-card"><div class="tip-icon">🔤</div><div class="tip-title">Learn Shortcuts</div><div class="tip-text">Master keyboard shortcuts (Ctrl+C/V/Z, etc.). These reduce mouse usage and significantly boost overall productivity.</div></div>
+        <div class="tip-card"><div class="tip-icon">⚡</div><div class="tip-title">Look Ahead</div><div class="tip-text">Train your eyes to read 2-3 words ahead of where you're typing. This reduces pauses and increases flow.</div></div>
+      </div>
+    </div>
+
+    <!-- Ad Mid -->
+    <div class="ad-slot"><p>Advertisement — 336×280</p></div>
+
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 style="font-size:1.8rem;font-weight:700;color:var(--text-primary);font-family:'Space Grotesk',sans-serif;margin-bottom:8px">Frequently Asked Questions</h2>
+      <p style="color:var(--text-secondary);margin-bottom:24px">About typing speed and this test</p>
+      <div id="faqList">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">How is WPM calculated? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">WPM (Words Per Minute) = (Total correct characters typed / 5) / time in minutes. We divide by 5 because the average English word is 5 characters. So if you type 250 correct characters in 1 minute, your WPM = 250/5 = 50 WPM. This is the industry-standard calculation method.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">How is accuracy calculated? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Accuracy = (Correct keystrokes / Total keystrokes) × 100%. Every correct character adds 1 to correct count. Every wrong character adds 1 to total but not correct count. Backspace corrections don't improve accuracy — only correct first-attempt keystrokes count.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">What is a good WPM score? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">• Beginner: Under 30 WPM<br>• Average: 40-50 WPM<br>• Good: 60-80 WPM<br>• Professional: 80-100 WPM<br>• Expert: 100-120 WPM<br>• Elite: 120+ WPM<br>The world record is 212 WPM by Barbara Blackburn. Most office jobs require 40-60 WPM minimum.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">What is the difference between Easy/Medium/Hard levels? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Easy uses common, short everyday words (3-5 letters). Medium uses standard sentences with moderate vocabulary and punctuation. Hard uses complex paragraphs with technical words, numbers, punctuation, and longer sentences. Start with Easy and progress to harder levels as your accuracy improves.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Can I share my typing results? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Yes! After completing a test, you can share your results via Twitter, WhatsApp, or copy the result text. Your score includes WPM, accuracy percentage, and the difficulty level so others can see and compare. Your personal best scores are saved locally in your browser.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--bg-secondary);padding:40px 0;text-align:center;border-top:1px solid var(--border-glass);">
+    <div class="container">
+      <p style="color:var(--text-secondary)">© 2025 <a href="../index.html" style="color:var(--accent-purple)">HashmiTools.com</a> — Free Typing Speed Test</p>
+      <div style="display:flex;gap:24px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+        <a href="../privacy.html" style="color:var(--text-muted);font-size:0.9rem">Privacy Policy</a>
+        <a href="../terms.html" style="color:var(--text-muted);font-size:0.9rem">Terms</a>
+        <a href="../contact.html" style="color:var(--text-muted);font-size:0.9rem">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ===========================
+       TYPING SPEED TEST ENGINE
+       =========================== */
+
+    // Word banks
+    const WORDS = {
+      easy: [
+        "the", "be", "to", "of", "and", "a", "in", "that", "have", "it",
+        "for", "not", "on", "with", "he", "as", "you", "do", "at", "this",
+        "but", "his", "by", "from", "they", "we", "say", "her", "she", "or",
+        "an", "will", "my", "one", "all", "would", "there", "their", "what",
+        "so", "up", "out", "if", "about", "who", "get", "which", "go", "me",
+        "when", "make", "can", "like", "time", "no", "just", "him", "know",
+        "take", "people", "into", "year", "your", "good", "some", "could",
+        "them", "see", "other", "than", "then", "now", "look", "only", "come",
+        "its", "over", "think", "also", "back", "after", "use", "two", "how",
+        "our", "work", "first", "well", "way", "even", "new", "want", "because",
+        "any", "these", "give", "day", "most", "us", "great", "between", "need",
+        "large", "often", "hand", "high", "place", "hold", "free", "real"
+      ],
+      medium: [
+        "The quick brown fox jumps over the lazy dog",
+        "She sells seashells by the seashore every summer",
+        "Practice makes perfect when you work hard every day",
+        "Technology has changed the way we communicate and work",
+        "Reading books regularly helps improve your vocabulary and focus",
+        "The internet has made information accessible to everyone worldwide",
+        "Learning to type faster requires daily practice and dedication",
+        "Fresh vegetables and fruits are essential for a healthy lifestyle",
+        "The mountain trail was steep but the view was absolutely breathtaking",
+        "Scientists are working hard to develop new medicines for diseases",
+        "She finished her project on time despite many unexpected challenges",
+        "The children played in the park until the sun went down",
+        "Good communication skills are vital in every professional setting",
+        "He decided to travel around the world with just a backpack",
+        "The library has thousands of books on every subject imaginable",
+        "Water is the most precious resource on our entire planet",
+        "They celebrated the New Year with fireworks and great food",
+        "The teacher explained the complex concept in simple language",
+        "Kindness and empathy are the foundations of meaningful relationships",
+        "The sunrise over the ocean was the most beautiful sight"
+      ],
+      hard: [
+        "The philosopher Nietzsche once proclaimed that what doesn't kill you makes you stronger, a sentiment echoed throughout human history.",
+        "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose.",
+        "The Byzantine Empire, known for its intricate bureaucracy and sophisticated legal system, lasted for over a thousand years after Rome's fall.",
+        "Quantum mechanics fundamentally changed our understanding of physics, demonstrating that particles can exist in multiple states simultaneously.",
+        "The development of artificial intelligence raises profound ethical questions about consciousness, responsibility, and the future of human employment.",
+        "Shakespeare's sonnets explore themes of love, beauty, mortality, and the passage of time with unparalleled linguistic sophistication.",
+        "The human genome contains approximately 3 billion base pairs of DNA, encoding the instructions for building and maintaining a human body.",
+        "Economic inequality has increased dramatically in recent decades, with the wealthiest 1% now controlling more wealth than the bottom 50%.",
+        "The architecture of ancient Rome, characterized by arches, domes, and concrete construction, influenced building design for centuries afterward.",
+        "Machine learning algorithms analyze vast datasets to identify patterns and make predictions that would be impossible for humans to compute manually."
+      ]
+    };
+
+    // State
+    let currentText = '';
+    let currentWords = [];
+    let charIndex = 0;
+    let correctChars = 0;
+    let totalKeystrokes = 0;
+    let errors = 0;
+    let timer = null;
+    let timeLeft = 60;
+    let testDuration = 60;
+    let isRunning = false;
+    let isFinished = false;
+    let currentDifficulty = 'easy';
+
+    // DOM
+    const textDisplay = document.getElementById('textDisplay');
+    const typingInput = document.getElementById('typingInput');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const wpmDisplay = document.getElementById('wpmDisplay');
+    const accDisplay = document.getElementById('accDisplay');
+    const errDisplay = document.getElementById('errDisplay');
+    const progressFill = document.getElementById('progressFill');
+    const resultsPanel = document.getElementById('resultsPanel');
+
+    function generateText(difficulty) {
+      if (difficulty === 'easy') {
+        const pool = WORDS.easy;
+        const wordCount = Math.ceil(testDuration * 1.5);
+        const selected = [];
+        for (let i = 0; i < wordCount; i++) {
+          selected.push(pool[Math.floor(Math.random() * pool.length)]);
+        }
+        return selected.join(' ');
+      } else {
+        const pool = WORDS[difficulty];
+        const shuffled = [...pool].sort(() => Math.random() - 0.5);
+        return shuffled.slice(0, Math.ceil(pool.length / 2)).join(' ');
+      }
+    }
+
+    function renderText() {
+      textDisplay.innerHTML = currentText.split('').map((ch, i) => {
+        let cls = 'pending';
+        if (i < charIndex) {
+          cls = currentText[i] === currentText[i] ? 'correct' : 'wrong';
+        } else if (i === charIndex) {
+          cls = 'current';
+        }
+        const display = ch === ' ' ? '&nbsp;' : ch;
+        return `<span class="char ${cls}" data-i="${i}">${display}</span>`;
+      }).join('');
+    }
+
+    function initTest() {
+      currentText = generateText(currentDifficulty);
+      charIndex = 0;
+      correctChars = 0;
+      totalKeystrokes = 0;
+      errors = 0;
+      timeLeft = testDuration;
+      isRunning = false;
+      isFinished = false;
+
+      clearInterval(timer);
+      timerDisplay.textContent = timeLeft;
+      wpmDisplay.textContent = '0';
+      accDisplay.textContent = '100%';
+      errDisplay.textContent = '0';
+      progressFill.style.width = '100%';
+      resultsPanel.classList.remove('show');
+      textDisplay.classList.remove('active', 'finished');
+
+      typingInput.value = '';
+      typingInput.disabled = false;
+      typingInput.placeholder = 'Start typing here... The timer begins on your first keystroke!';
+
+      renderText();
+      updateCursorScroll();
+    }
+
+    function startTimer() {
+      isRunning = true;
+      textDisplay.classList.add('active');
+      timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = timeLeft;
+        progressFill.style.width = `${(timeLeft / testDuration) * 100}%`;
+
+        // Timer color changes
+        if (timeLeft <= 10) timerDisplay.style.color = '#ef4444';
+        else if (timeLeft <= 20) timerDisplay.style.color = '#f59e0b';
+        else timerDisplay.style.color = '';
+
+        if (timeLeft <= 0) {
+          endTest();
+        }
+      }, 1000);
+    }
+
+    function updateStats() {
+      const elapsed = (testDuration - timeLeft) / 60;
+      const wpm = elapsed > 0 ? Math.round((correctChars / 5) / Math.max(elapsed, 0.016)) : 0;
+      const acc = totalKeystrokes > 0 ? Math.round((correctChars / totalKeystrokes) * 100) : 100;
+
+      wpmDisplay.textContent = wpm;
+      accDisplay.textContent = acc + '%';
+      errDisplay.textContent = errors;
+    }
+
+    function updateCursorScroll() {
+      const currentEl = textDisplay.querySelector('.char.current');
+      if (currentEl) {
+        const parentRect = textDisplay.getBoundingClientRect();
+        const elRect = currentEl.getBoundingClientRect();
+        if (elRect.bottom > parentRect.bottom - 20) {
+          textDisplay.scrollTop += elRect.bottom - parentRect.bottom + 40;
+        }
+      }
+    }
+
+    typingInput.addEventListener('input', (e) => {
+      if (isFinished) return;
+
+      if (!isRunning && typingInput.value.length > 0) {
+        startTimer();
+      }
+
+      const inputVal = typingInput.value;
+      const lastChar = inputVal[inputVal.length - 1];
+
+      if (inputVal.length > 0 && charIndex < currentText.length) {
+        const expected = currentText[charIndex];
+        totalKeystrokes++;
+
+        if (lastChar === expected) {
+          correctChars++;
+          markChar(charIndex, 'correct');
+        } else {
+          errors++;
+          markChar(charIndex, 'wrong');
+        }
+
+        charIndex++;
+
+        // Move cursor
+        if (charIndex < currentText.length) {
+          markChar(charIndex, 'current');
+        }
+
+        updateStats();
+        updateCursorScroll();
+
+        // Clear input to keep it from growing
+        typingInput.value = '';
+
+        // Auto-end when text is finished
+        if (charIndex >= currentText.length) {
+          endTest();
+        }
+      }
+    });
+
+    typingInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        resetTest();
+      }
+    });
+
+    function markChar(index, cls) {
+      const spans = textDisplay.querySelectorAll('.char');
+      if (spans[index]) {
+        spans[index].className = `char ${cls}`;
+      }
+    }
+
+    function endTest() {
+      clearInterval(timer);
+      isRunning = false;
+      isFinished = true;
+      typingInput.disabled = true;
+      textDisplay.classList.remove('active');
+      textDisplay.classList.add('finished');
+
+      const elapsed = Math.max(testDuration - timeLeft, 1) / 60;
+      const finalWpm = Math.round((correctChars / 5) / elapsed);
+      const finalAcc = totalKeystrokes > 0 ? Math.round((correctChars / totalKeystrokes) * 100) : 100;
+
+      showResults(finalWpm, finalAcc, correctChars, errors);
+      saveScore(finalWpm, finalAcc);
+    }
+
+    function getGrade(wpm, acc) {
+      if (wpm >= 100 && acc >= 95) return { grade: '🏆', title: 'Elite Typist!', msg: 'Outstanding! You are in the top 1% of typists worldwide!' };
+      if (wpm >= 80 && acc >= 93) return { grade: '🥇', title: 'Expert Level!', msg: 'Excellent! Professional-grade typing speed and accuracy.' };
+      if (wpm >= 60 && acc >= 90) return { grade: '🥈', title: 'Advanced Typist', msg: 'Great job! You\'re well above average. Keep practicing!' };
+      if (wpm >= 40 && acc >= 85) return { grade: '🥉', title: 'Good Typist', msg: 'Nice work! A bit more practice will get you to expert level.' };
+      if (wpm >= 25) return { grade: '⭐', title: 'Getting Better!', msg: 'You\'re on the right track. Focus on accuracy first, speed follows!' };
+      return { grade: '💪', title: 'Keep Practicing!', msg: 'Everyone starts somewhere! Daily practice will improve your speed.' };
+    }
+
+    function showResults(wpm, acc, chars, errs) {
+      const { grade, title, msg } = getGrade(wpm, acc);
+
+      document.getElementById('resultGrade').textContent = grade;
+      document.getElementById('resultTitle').textContent = title;
+      document.getElementById('finalWpm').textContent = wpm;
+      document.getElementById('finalAcc').textContent = acc + '%';
+      document.getElementById('finalChars').textContent = chars;
+      document.getElementById('finalErrors').textContent = errs;
+
+      const shareMsg = `I just typed ${wpm} WPM with ${acc}% accuracy on the Typing Speed Test at HashmiTools.com! 🚀⌨️ Can you beat my score? ${msg}`;
+      document.getElementById('shareText').textContent = shareMsg;
+
+      resultsPanel.classList.add('show');
+      resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function saveScore(wpm, acc) {
+      const scores = JSON.parse(localStorage.getItem('typingScores') || '[]');
+      scores.unshift({
+        wpm, acc,
+        difficulty: currentDifficulty,
+        duration: testDuration,
+        date: new Date().toLocaleDateString()
+      });
+      localStorage.setItem('typingScores', JSON.stringify(scores.slice(0, 20)));
+      loadLeaderboard();
+    }
+
+    function loadLeaderboard() {
+      const scores = JSON.parse(localStorage.getItem('typingScores') || '[]');
+      const tbody = document.getElementById('leaderboardBody');
+      if (scores.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No scores yet. Complete a test to see your history!</td></tr>';
+        return;
+      }
+      const sorted = [...scores].sort((a, b) => b.wpm - a.wpm);
+      tbody.innerHTML = sorted.map((s, i) => {
+        const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+        return `<tr>
+          <td><span class="rank-badge ${rankClass}">${i + 1}</span></td>
+          <td style="font-weight:700;color:var(--accent-purple)">${s.wpm} WPM</td>
+          <td style="color:#10b981">${s.acc}%</td>
+          <td style="text-transform:capitalize">${s.difficulty}</td>
+          <td>${s.duration}s</td>
+          <td>${s.date}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    function clearScores() {
+      if (confirm('Clear all typing history?')) {
+        localStorage.removeItem('typingScores');
+        loadLeaderboard();
+      }
+    }
+
+    function setDifficulty(d) {
+      currentDifficulty = d;
+      document.querySelectorAll('.diff-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.toLowerCase() === d);
+      });
+      resetTest();
+    }
+
+    function setDuration(d) {
+      testDuration = d;
+      document.querySelectorAll('.dur-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent === (d === 120 ? '2min' : d + 's'));
+      });
+      resetTest();
+    }
+
+    function resetTest() {
+      clearInterval(timer);
+      initTest();
+      typingInput.focus();
+    }
+
+    function copyResult() {
+      const text = document.getElementById('shareText').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.share-btn.copy');
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i> Copy Result', 2000);
+      });
+    }
+
+    function shareTwitter() {
+      const text = encodeURIComponent(document.getElementById('shareText').textContent);
+      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent('https://hashmitools.com/tools/typing-test.html')}`, '_blank');
+    }
+
+    function shareWhatsApp() {
+      const text = encodeURIComponent(document.getElementById('shareText').textContent + '\n\nhttps://hashmitools.com/tools/typing-test.html');
+      window.open(`https://wa.me/?text=${text}`, '_blank');
+    }
+
+    function toggleFaq(el) {
+      const a = el.nextElementSibling;
+      a.classList.toggle('open');
+      el.classList.toggle('active');
+      el.querySelector('i').className = a.classList.contains('open') ? 'fas fa-minus' : 'fas fa-plus';
+    }
+
+    // Theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      localStorage.setItem('theme', n);
+      document.getElementById('themeToggle').innerHTML = n === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    });
+    if (savedTheme === 'light') document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+
+    // Navbar
+    document.getElementById('navHamburger').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Init
+    initTest();
+    loadLeaderboard();
+    typingInput.focus();
+  </script>
+</body>
+</html>

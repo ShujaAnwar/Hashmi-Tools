@@ -1,0 +1,42 @@
+# HashmiTools.com - Robots.txt
+# https://hashmitools.com
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Block admin panel from indexing
+Disallow: /admin/
+
+# Block any hidden/system directories
+Disallow: /.git/
+Disallow: /.tables/
+Disallow: /.meta/
+
+# Allow all tool pages explicitly
+Allow: /tools/
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://hashmitools.com/sitemap.xml
+
+# Crawl delay (be polite to server resources)
+Crawl-delay: 1
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Disallow: /admin/

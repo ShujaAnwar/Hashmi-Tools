@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compound Interest Calculator — Real Growth Formula | HashmiTools</title>
+<meta name="description" content="Calculate compound interest with yearly/monthly/daily compounding. Full growth table, Chart.js visualization, and PDF export.">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/tools.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--radius:12px;--transition:all .3s ease}
+[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glass);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:.9rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.4rem;border-radius:8px;font-size:.9rem;font-weight:500;cursor:pointer;border:none;transition:var(--transition)}
+.btn-primary{background:var(--gradient-main);color:#fff}.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--border-glass);color:var(--text-primary)}.btn-outline:hover{border-color:var(--accent-purple)}
+.page-wrapper{padding-top:80px;max-width:1000px;margin:0 auto;padding:80px 1.5rem 4rem}
+.breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--text-muted);margin-bottom:1.5rem}
+.breadcrumb a{color:var(--text-muted);text-decoration:none}
+.page-header{text-align:center;margin-bottom:2rem}
+.icon-badge{width:64px;height:64px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem}
+.page-header h1{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700}
+.page-header p{color:var(--text-secondary);margin-top:.4rem}
+.card{background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius);overflow:hidden;margin-bottom:1.5rem}
+.card-header{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border-glass);display:flex;align-items:center;gap:.75rem}
+.card-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.card-header h3{font-size:1rem;font-weight:600}
+.card-body{padding:1.5rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.grid-2{grid-template-columns:1fr}}
+.form-group{margin-bottom:1.1rem}
+.form-label{display:flex;justify-content:space-between;font-size:.85rem;font-weight:500;color:var(--text-secondary);margin-bottom:.45rem}
+.form-label span{color:var(--text-primary);font-weight:700}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--bg-secondary);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gradient-main);cursor:pointer}
+.form-input{width:100%;background:var(--bg-secondary);border:1px solid var(--border-glass);border-radius:8px;padding:.65rem .9rem;color:var(--text-primary);font-size:.9rem;outline:none;-moz-appearance:textfield;transition:var(--transition)}
+.form-input::-webkit-outer-spin-button,.form-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.form-input:focus{border-color:var(--accent-purple)}
+.result-box{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08));border:1px solid rgba(16,185,129,.25);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;text-align:center}
+.result-amount{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;color:var(--accent-green)}
+.result-label{font-size:.9rem;color:var(--text-secondary);margin-bottom:.4rem}
+.result-sub{font-size:.82rem;color:var(--text-muted);margin-top:.3rem}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+@media(max-width:600px){.stats-grid{grid-template-columns:1fr 1fr}}
+.stat-card{background:var(--bg-card);border:1px solid var(--border-glass);border-radius:8px;padding:.9rem;text-align:center}
+.stat-label{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:.2rem}
+.stat-value{font-size:1rem;font-weight:700}
+.chart-wrap{height:280px;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead th{background:var(--bg-secondary);padding:.6rem .9rem;text-align:right;font-weight:600;color:var(--text-secondary);border-bottom:2px solid var(--border-glass)}
+thead th:first-child{text-align:left}
+tbody tr{border-bottom:1px solid var(--border-glass)}
+tbody tr:hover{background:var(--bg-glass)}
+tbody td{padding:.55rem .9rem;text-align:right;color:var(--text-secondary)}
+tbody td:first-child{text-align:left;color:var(--text-primary);font-weight:500}
+.action-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="../index.html" class="nav-brand"><i class="fas fa-tools"></i> HashmiTools</a>
+  <ul class="nav-links"><li><a href="../index.html">Home</a></li><li><a href="../trending.html">Tools</a></li></ul>
+  <button class="btn btn-outline" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
+</nav>
+
+<div class="page-wrapper">
+  <nav class="breadcrumb">
+    <a href="../index.html">Home</a><i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+    <a href="../trending.html">Finance</a><i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+    <span>Compound Interest</span>
+  </nav>
+  <header class="page-header">
+    <div class="icon-badge">📈</div>
+    <h1>Compound Interest Calculator</h1>
+    <p>See the power of compounding — daily, monthly, quarterly, or yearly. Real formula: A = P(1 + r/n)^(nt)</p>
+  </header>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-icon" style="background:rgba(16,185,129,.15);color:var(--accent-green)"><i class="fas fa-sliders-h"></i></div><h3>Inputs</h3>
+        <select class="form-input" id="sym" onchange="calc()" style="margin-left:auto;width:90px;padding:.35rem .6rem;font-size:.8rem">
+          <option value="$">USD $</option><option value="₨">PKR ₨</option><option value="£">GBP £</option><option value="€">EUR €</option>
+        </select>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label class="form-label">Principal <span id="pdsp">$10,000</span></label>
+          <input type="range" id="pSl" min="1000" max="10000000" step="1000" value="10000" oninput="sv('principal',this.value);calc()">
+          <input type="number" class="form-input" id="principal" value="10000" min="1" oninput="sv('pSl',this.value,1000,10000000);calc()" style="margin-top:.5rem">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Annual Rate <span id="rdsp">7%</span></label>
+          <input type="range" id="rSl" min="0.1" max="50" step="0.1" value="7" oninput="sv('rate',this.value);calc()">
+          <input type="number" class="form-input" id="rate" value="7" min="0.01" max="100" step="0.1" oninput="sv('rSl',this.value,.1,50);calc()" style="margin-top:.5rem">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Years <span id="ydsp">10 yrs</span></label>
+          <input type="range" id="ySl" min="1" max="50" step="1" value="10" oninput="sv('years',this.value);calc()">
+          <input type="number" class="form-input" id="years" value="10" min="1" max="100" oninput="sv('ySl',this.value,1,50);calc()" style="margin-top:.5rem">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Monthly Contribution <span id="mcdsp">$0</span></label>
+          <input type="range" id="mcSl" min="0" max="50000" step="100" value="0" oninput="sv('monthlyContrib',this.value);calc()">
+          <input type="number" class="form-input" id="monthlyContrib" value="0" min="0" oninput="sv('mcSl',this.value,0,50000);calc()" style="margin-top:.5rem">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Compounding Frequency</label>
+          <select class="form-input" id="freq" onchange="calc()">
+            <option value="365">Daily (365)</option>
+            <option value="12" selected>Monthly (12)</option>
+            <option value="4">Quarterly (4)</option>
+            <option value="2">Semi-annually (2)</option>
+            <option value="1">Annually (1)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="calc()" style="width:100%"><i class="fas fa-calculator"></i> Calculate</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-box">
+        <div class="result-label">Final Amount</div>
+        <div class="result-amount" id="finalAmt">$0</div>
+        <div class="result-sub" id="formulaSub">A = P(1 + r/n)^(nt)</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Principal</div><div class="stat-value" id="sPrincipal" style="color:var(--accent-purple)">—</div></div>
+        <div class="stat-card"><div class="stat-label">Total Contrib.</div><div class="stat-value" id="sContrib" style="color:var(--accent-cyan)">—</div></div>
+        <div class="stat-card"><div class="stat-label">Interest Earned</div><div class="stat-value" id="sInterest" style="color:var(--accent-green)">—</div></div>
+        <div class="stat-card"><div class="stat-label">Doubling Time</div><div class="stat-value" id="sDouble" style="color:var(--accent-gold)">—</div></div>
+        <div class="stat-card"><div class="stat-label">Effective Rate</div><div class="stat-value" id="sEffRate" style="color:var(--accent-cyan)">—</div></div>
+        <div class="stat-card"><div class="stat-label">Growth Multiple</div><div class="stat-value" id="sMultiple" style="color:var(--accent-green)">—</div></div>
+      </div>
+      <div class="card"><div class="card-body" style="padding:1rem">
+        <div style="font-size:.82rem;color:var(--text-secondary);margin-bottom:.4rem">Growth Over Time</div>
+        <div class="chart-wrap"><canvas id="growthChart"></canvas></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- Year-by-year table -->
+  <div class="card">
+    <div class="card-header"><div class="card-icon" style="background:rgba(6,182,212,.15);color:var(--accent-cyan)"><i class="fas fa-table"></i></div><h3>Year-by-Year Breakdown</h3></div>
+    <div class="card-body">
+      <div style="overflow-x:auto"><table id="growthTable"><thead><tr><th>Year</th><th>Opening Balance</th><th>Contributions</th><th>Interest Earned</th><th>Closing Balance</th></tr></thead><tbody id="growthTbody"></tbody></table></div>
+      <div class="action-row">
+        <button class="btn btn-outline" onclick="copyTable()"><i class="fas fa-copy"></i> Copy Results</button>
+        <button class="btn btn-outline" onclick="shareResult()"><i class="fas fa-share-alt"></i> Share</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let sym2='$';let gChart=null;
+function sv(id,val,mn,mx){const el=document.getElementById(id);if(el){if(mn!==undefined){el.value=Math.max(mn,Math.min(mx,parseFloat(val)||mn));}else el.value=val;}}
+function updateDisps(){
+  sym2=document.getElementById('sym').value;
+  const p=document.getElementById('principal').value,r=document.getElementById('rate').value,y=document.getElementById('years').value,m=document.getElementById('monthlyContrib').value;
+  document.getElementById('pdsp').textContent=sym2+fmtN(p);
+  document.getElementById('rdsp').textContent=r+'%';
+  document.getElementById('ydsp').textContent=y+' yr'+(y!=1?'s':'');
+  document.getElementById('mcdsp').textContent=sym2+fmtN(m);
+}
+
+function calc(){
+  updateDisps();
+  const P=parseFloat(document.getElementById('principal').value)||0;
+  const r=parseFloat(document.getElementById('rate').value)/100;
+  const t=parseInt(document.getElementById('years').value)||1;
+  const mc=parseFloat(document.getElementById('monthlyContrib').value)||0;
+  const n=parseInt(document.getElementById('freq').value)||12;
+  sym2=document.getElementById('sym').value;
+
+  // A = P(1 + r/n)^(nt) + PMT * [((1+r/n)^(nt)-1)/(r/n)]
+  const rate_per_period=r/n;
+  const periods=n*t;
+  const fv_principal=P*Math.pow(1+rate_per_period,periods);
+  const fv_contrib=mc>0?mc*(Math.pow(1+rate_per_period,periods)-1)/rate_per_period:0;
+  const finalAmt=fv_principal+fv_contrib;
+  const totalContrib=mc*12*t;
+  const totalInvested=P+totalContrib;
+  const interest=finalAmt-totalInvested;
+  const effectiveRate=(Math.pow(1+r/n,n)-1)*100;
+  const doubling=Math.log(2)/Math.log(1+r/n)/n;
+  const multiple=finalAmt/totalInvested;
+
+  document.getElementById('finalAmt').textContent=sym2+fmtN(finalAmt);
+  document.getElementById('formulaSub').textContent=`${sym2}${fmtN(P)} @ ${r*100}% ${getFreqName(n)} for ${t} yrs${mc>0?' + '+sym2+fmtN(mc)+'/mo':''}`;
+  document.getElementById('sPrincipal').textContent=sym2+fmtN(P);
+  document.getElementById('sContrib').textContent=sym2+fmtN(totalContrib);
+  document.getElementById('sInterest').textContent=sym2+fmtN(interest);
+  document.getElementById('sDouble').textContent=doubling.toFixed(1)+' yrs';
+  document.getElementById('sEffRate').textContent=effectiveRate.toFixed(3)+'%';
+  document.getElementById('sMultiple').textContent=multiple.toFixed(2)+'×';
+
+  // Build yearly data
+  const years=[],balances=[],principals=[],interestAccum=[];
+  let balance=P,cumInterest=0,cumContrib=0;
+  const tbody=document.getElementById('growthTbody');
+  tbody.innerHTML='';
+  for(let yr=1;yr<=t;yr++){
+    const opening=balance;
+    const yearContrib=mc*12;
+    for(let m=0;m<12;m++){
+      const int=balance*rate_per_period;
+      balance+=int+mc;
+      cumInterest+=int;
+    }
+    cumContrib+=yearContrib;
+    const yearInterest=balance-opening-yearContrib;
+    years.push('Year '+yr);
+    balances.push(balance.toFixed(0));
+    principals.push((P+cumContrib).toFixed(0));
+    interestAccum.push(cumInterest.toFixed(0));
+    tbody.innerHTML+=`<tr>
+      <td>Year ${yr}</td>
+      <td>${sym2}${fmtN(opening)}</td>
+      <td style="color:var(--accent-cyan)">${sym2}${fmtN(yearContrib)}</td>
+      <td style="color:var(--accent-green)">${sym2}${fmtN(yearInterest)}</td>
+      <td style="font-weight:600;color:var(--text-primary)">${sym2}${fmtN(balance)}</td>
+    </tr>`;
+  }
+
+  renderChart(years,balances,principals,interestAccum);
+}
+
+function getFreqName(n){return{365:'daily',12:'monthly',4:'quarterly',2:'semi-annually',1:'annually'}[n]||'';}
+
+function renderChart(labels,balances,principals,interests){
+  const ctx=document.getElementById('growthChart').getContext('2d');
+  if(gChart)gChart.destroy();
+  gChart=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Total Balance',data:balances,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.1)',fill:true,tension:.4,pointRadius:0,borderWidth:2},
+      {label:'Invested',data:principals,borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.05)',fill:true,tension:.4,pointRadius:0,borderWidth:2,borderDash:[5,3]}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{ticks:{color:'#64748b',font:{size:10},maxTicksLimit:10},grid:{color:'rgba(255,255,255,.04)'}},
+        y:{ticks:{color:'#64748b',font:{size:10},callback:v=>sym2+fmtN(v)},grid:{color:'rgba(255,255,255,.04)'}}},
+      plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${sym2}${fmtN(c.raw)}`}}}
+    }
+  });
+}
+
+function copyTable(){
+  let txt=`Compound Interest Calculation\nPrincipal: ${sym2}${document.getElementById('principal').value}, Rate: ${document.getElementById('rate').value}%, Years: ${document.getElementById('years').value}\nFinal: ${document.getElementById('finalAmt').textContent}\n\nHashmiTools.com`;
+  navigator.clipboard.writeText(txt).then(()=>showToast('Copied!','success'));
+}
+
+function shareResult(){
+  const txt=`Compound Interest: ${document.getElementById('finalAmt').textContent} in ${document.getElementById('years').value} years @ ${document.getElementById('rate').value}% — HashmiTools.com`;
+  if(navigator.share)navigator.share({text:txt});
+  else window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`);
+}
+
+function fmtN(n){return parseFloat(n||0).toLocaleString('en',{minimumFractionDigits:0,maximumFractionDigits:0});}
+
+function toggleTheme(){const h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeIcon').className=n==='dark'?'fas fa-moon':'fas fa-sun';localStorage.setItem('theme',n);}
+function showToast(msg,type='info'){let tc=document.getElementById('tc');if(!tc){tc=document.createElement('div');tc.id='tc';tc.style.cssText='position:fixed;top:80px;right:1rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem';document.body.appendChild(tc);}const c={success:'#10b981',error:'#ef4444',info:'#6366f1'};const t=document.createElement('div');t.style.cssText=`background:var(--bg-card);border:1px solid ${c[type]};color:var(--text-primary);padding:.75rem 1.25rem;border-radius:8px;font-size:.9rem;box-shadow:0 4px 20px rgba(0,0,0,.3);animation:si .3s ease`;t.innerHTML=`<span style="color:${c[type]}">●</span> ${msg}`;tc.appendChild(t);setTimeout(()=>t.remove(),3000);}
+document.addEventListener('DOMContentLoaded',()=>{const s=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeIcon').className=s==='dark'?'fas fa-moon':'fas fa-sun';calc();});
+</script>
+<style>@keyframes si{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}</style>
+</body>
+</html>

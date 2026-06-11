@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — Full PITI Breakdown | HashmiTools</title>
+<meta name="description" content="Complete mortgage calculator with Principal, Interest, Property Tax, Insurance, HOA fees. Monthly payment breakdown, amortization, and PDF export.">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/tools.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+<style>
+:root{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--radius:12px;--transition:all .3s ease}
+[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glass);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:.9rem}
+.nav-links a:hover{color:var(--text-primary)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.4rem;border-radius:8px;font-size:.9rem;font-weight:500;cursor:pointer;border:none;transition:var(--transition)}
+.btn-primary{background:var(--gradient-main);color:#fff}.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--border-glass);color:var(--text-primary)}.btn-outline:hover{border-color:var(--accent-purple)}
+.btn-gold{background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff}
+.page-wrapper{padding-top:80px;max-width:1100px;margin:0 auto;padding:80px 1.5rem 4rem}
+.breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--text-muted);margin-bottom:1.5rem}
+.breadcrumb a{color:var(--text-muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent-purple)}
+.page-header{text-align:center;margin-bottom:2rem}
+.icon-badge{width:64px;height:64px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem}
+.page-header h1{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700}
+.page-header p{color:var(--text-secondary);margin-top:.4rem}
+.card{background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius);overflow:hidden;margin-bottom:1.5rem}
+.card-header{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border-glass);display:flex;align-items:center;gap:.75rem}
+.card-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.card-header h3{font-size:1rem;font-weight:600}
+.card-body{padding:1.5rem}
+.form-group{margin-bottom:1.1rem}
+.form-label{display:flex;justify-content:space-between;font-size:.85rem;font-weight:500;color:var(--text-secondary);margin-bottom:.45rem}
+.form-label span{color:var(--text-primary);font-weight:700}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--bg-secondary);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--gradient-main);cursor:pointer}
+.range-labels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--text-muted);margin-top:.2rem}
+.form-input{width:100%;background:var(--bg-secondary);border:1px solid var(--border-glass);border-radius:8px;padding:.65rem .9rem;color:var(--text-primary);font-size:.9rem;outline:none;-moz-appearance:textfield;transition:var(--transition)}
+.form-input::-webkit-outer-spin-button,.form-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.form-input:focus{border-color:var(--accent-purple);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.input-prefix{position:relative}
+.input-prefix span{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem;z-index:1}
+.input-prefix input{padding-left:2.2rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.grid-2{grid-template-columns:1fr}}
+/* Payment breakdown */
+.payment-total{text-align:center;background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.08));border:1px solid rgba(16,185,129,.25);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
+.payment-label{font-size:.9rem;color:var(--text-secondary);margin-bottom:.4rem}
+.payment-amount{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;color:var(--accent-green)}
+.payment-note{font-size:.82rem;color:var(--text-muted);margin-top:.3rem}
+.piti-breakdown{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.5rem}
+@media(max-width:600px){.piti-breakdown{grid-template-columns:1fr 1fr}}
+.piti-item{background:var(--bg-card);border:1px solid var(--border-glass);border-radius:10px;padding:.9rem 1rem}
+.piti-item-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;display:flex;align-items:center;gap:.4rem}
+.piti-item-value{font-size:1.1rem;font-weight:700}
+.piti-bar{height:5px;border-radius:3px;margin-top:.4rem}
+.chart-wrap{height:260px;margin:1rem 0}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+@media(max-width:600px){.stat-grid{grid-template-columns:1fr 1fr}}
+.stat-box{background:var(--bg-secondary);border-radius:8px;padding:.9rem 1rem}
+.stat-box-label{font-size:.75rem;color:var(--text-muted);margin-bottom:.3rem}
+.stat-box-value{font-size:1rem;font-weight:700}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead th{background:var(--bg-secondary);padding:.65rem .9rem;text-align:right;font-weight:600;color:var(--text-secondary);border-bottom:2px solid var(--border-glass)}
+thead th:first-child{text-align:left}
+tbody tr{border-bottom:1px solid var(--border-glass)}
+tbody tr:hover{background:var(--bg-glass)}
+tbody td{padding:.55rem .9rem;text-align:right;color:var(--text-secondary)}
+tbody td:first-child{text-align:left;color:var(--text-primary)}
+.action-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem}
+.info-box{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:8px;padding:1rem 1.2rem;font-size:.88rem;color:var(--text-secondary);margin-top:1rem}
+.info-box h4{color:var(--accent-purple);margin-bottom:.4rem}
+.section-title{font-size:.9rem;font-weight:600;color:var(--text-secondary);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border-glass)}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="../index.html" class="nav-brand"><i class="fas fa-tools"></i> HashmiTools</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../trending.html">Tools</a></li>
+  </ul>
+  <button class="btn btn-outline" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
+</nav>
+
+<div class="page-wrapper">
+  <nav class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+    <a href="../trending.html">Finance</a>
+    <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+    <span>Mortgage Calculator</span>
+  </nav>
+
+  <header class="page-header">
+    <div class="icon-badge">🏠</div>
+    <h1>Mortgage Calculator</h1>
+    <p>Full PITI breakdown — Principal, Interest, Property Tax, Insurance, HOA. Complete amortization & PDF.</p>
+  </header>
+
+  <div class="grid-2">
+    <!-- INPUTS -->
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(16,185,129,.15);color:var(--accent-green);font-size:.9rem"><i class="fas fa-home"></i></div>
+          <h3>Property & Loan Details</h3>
+          <select class="form-input" id="currency" onchange="updateSym()" style="margin-left:auto;width:100px;padding:.35rem .6rem;font-size:.8rem">
+            <option value="$">USD $</option>
+            <option value="₨">PKR ₨</option>
+            <option value="£">GBP £</option>
+            <option value="€">EUR €</option>
+          </select>
+        </div>
+        <div class="card-body">
+          <div class="section-title">Property</div>
+
+          <div class="form-group">
+            <label class="form-label">Home Price <span id="hpDisp">$300,000</span></label>
+            <input type="range" id="hpSlider" min="50000" max="5000000" step="10000" value="300000" oninput="syncHP(this.value)">
+            <div class="range-labels"><span>$50K</span><span>$5M</span></div>
+            <div class="input-prefix" style="margin-top:.5rem">
+              <span id="sym1">$</span>
+              <input type="number" class="form-input" id="homePrice" value="300000" min="1" oninput="syncInput('hpSlider',this.value,50000,5000000);calculate()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Down Payment <span id="dpDisp">20% — $60,000</span></label>
+            <input type="range" id="dpSlider" min="0" max="50" step="1" value="20" oninput="syncDP(this.value)">
+            <div class="range-labels"><span>0%</span><span>50%</span></div>
+            <div style="display:flex;gap:.5rem;margin-top:.5rem">
+              <div class="input-prefix" style="flex:1">
+                <span id="sym2">$</span>
+                <input type="number" class="form-input" id="downPayment" value="60000" min="0" oninput="dpAmountChanged();calculate()">
+              </div>
+              <div style="position:relative;width:90px">
+                <input type="number" class="form-input" id="downPaymentPct" value="20" min="0" max="100" step="1" oninput="dpPctChanged();calculate()" style="padding-right:1.8rem">
+                <span style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.85rem">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:1rem">Loan</div>
+
+          <div class="form-group">
+            <label class="form-label">Interest Rate (% p.a.) <span id="rateDisp">6.5%</span></label>
+            <input type="range" id="rateSlider" min="1" max="20" step="0.1" value="6.5" oninput="syncRate(this.value)">
+            <div class="range-labels"><span>1%</span><span>20%</span></div>
+            <input type="number" class="form-input" id="rate" value="6.5" min="0.1" max="50" step="0.1" oninput="syncInput('rateSlider',this.value,1,20);calculate()" style="margin-top:.5rem">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Loan Term <span id="termDisp">30 Years</span></label>
+            <input type="range" id="termSlider" min="1" max="30" step="1" value="30" oninput="syncTerm(this.value)">
+            <div class="range-labels"><span>1 yr</span><span>30 yrs</span></div>
+            <input type="number" class="form-input" id="term" value="30" min="1" max="50" oninput="syncInput('termSlider',this.value,1,30);calculate()" style="margin-top:.5rem">
+          </div>
+
+          <div class="section-title" style="margin-top:1rem">Additional Costs (Monthly)</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+            <div class="form-group">
+              <label class="form-label">Property Tax (yr%)</label>
+              <input type="number" class="form-input" id="propTaxPct" value="1.2" min="0" max="5" step="0.1" oninput="calculate()" placeholder="Annual %">
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:.2rem" id="propTaxMo">≈ $300/mo</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Home Insurance (yr%)</label>
+              <input type="number" class="form-input" id="insurancePct" value="0.5" min="0" max="3" step="0.1" oninput="calculate()" placeholder="Annual %">
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:.2rem" id="insuranceMo">≈ $125/mo</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">PMI (if DP &lt;20%)</label>
+              <input type="number" class="form-input" id="pmi" value="0" min="0" oninput="calculate()" placeholder="Monthly $">
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:.2rem">Private Mortgage Insurance</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">HOA Fees (Monthly)</label>
+              <input type="number" class="form-input" id="hoa" value="0" min="0" oninput="calculate()" placeholder="Monthly $">
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:.2rem">Homeowner Association</div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" onclick="calculate()" style="width:100%;margin-top:.5rem"><i class="fas fa-calculator"></i> Calculate Mortgage</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div>
+      <div class="payment-total">
+        <div class="payment-label">Total Monthly Payment (PITI)</div>
+        <div class="payment-amount" id="totalPayment">$0</div>
+        <div class="payment-note" id="paymentNote">Principal + Interest + Taxes + Insurance + HOA</div>
+      </div>
+
+      <div class="piti-breakdown" id="pitiBreakdown">
+        <div class="piti-item">
+          <div class="piti-item-label"><i class="fas fa-dollar-sign" style="color:var(--accent-purple)"></i> Principal & Interest</div>
+          <div class="piti-item-value" id="piAmt" style="color:var(--accent-purple)">$0</div>
+          <div class="piti-bar" style="background:var(--accent-purple);width:0" id="piBar"></div>
+        </div>
+        <div class="piti-item">
+          <div class="piti-item-label"><i class="fas fa-file-invoice" style="color:var(--accent-gold)"></i> Property Tax</div>
+          <div class="piti-item-value" id="taxAmt" style="color:var(--accent-gold)">$0</div>
+          <div class="piti-bar" style="background:var(--accent-gold);width:0" id="taxBar"></div>
+        </div>
+        <div class="piti-item">
+          <div class="piti-item-label"><i class="fas fa-shield-alt" style="color:var(--accent-cyan)"></i> Home Insurance</div>
+          <div class="piti-item-value" id="insAmt" style="color:var(--accent-cyan)">$0</div>
+          <div class="piti-bar" style="background:var(--accent-cyan);width:0" id="insBar"></div>
+        </div>
+        <div class="piti-item">
+          <div class="piti-item-label"><i class="fas fa-building" style="color:var(--accent-green)"></i> HOA + PMI</div>
+          <div class="piti-item-value" id="hoaAmt" style="color:var(--accent-green)">$0</div>
+          <div class="piti-bar" style="background:var(--accent-green);width:0" id="hoaBar"></div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-box-label">Loan Amount</div><div class="stat-box-value" id="loanAmt" style="color:var(--accent-purple)">—</div></div>
+        <div class="stat-box"><div class="stat-box-label">Total Interest</div><div class="stat-box-value" id="totalInt" style="color:var(--accent-red)">—</div></div>
+        <div class="stat-box"><div class="stat-box-label">Total Cost</div><div class="stat-box-value" id="totalCost" style="color:var(--accent-gold)">—</div></div>
+        <div class="stat-box"><div class="stat-box-label">Down Payment</div><div class="stat-box-value" id="downPay" style="color:var(--accent-green)">—</div></div>
+        <div class="stat-box"><div class="stat-box-label">Payoff Date</div><div class="stat-box-value" id="payoffDate" style="color:var(--accent-cyan)">—</div></div>
+        <div class="stat-box"><div class="stat-box-label">Equity @ 5yr</div><div class="stat-box-value" id="equity5yr" style="color:var(--accent-green)">—</div></div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <div class="card-body" style="padding:1rem">
+          <div style="font-size:.85rem;font-weight:600;margin-bottom:.5rem;color:var(--text-secondary)">Monthly Payment Breakdown</div>
+          <div class="chart-wrap"><canvas id="pitiChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Balance Over Time Chart -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:rgba(6,182,212,.15);color:var(--accent-cyan);font-size:.9rem"><i class="fas fa-chart-line"></i></div>
+      <h3>Equity Buildup Over Time</h3>
+    </div>
+    <div class="card-body">
+      <div style="height:300px"><canvas id="equityChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Amortization -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:rgba(99,102,241,.15);color:var(--accent-purple);font-size:.9rem"><i class="fas fa-table"></i></div>
+      <h3>Amortization Schedule</h3>
+      <select class="form-input" id="amorView" onchange="renderAmor()" style="margin-left:auto;width:130px;padding:.35rem .6rem;font-size:.8rem">
+        <option value="yearly">Yearly Summary</option>
+        <option value="monthly">Monthly Detail</option>
+      </select>
+    </div>
+    <div class="card-body">
+      <div class="table-wrap" id="amorTable"></div>
+      <div class="action-row">
+        <button class="btn btn-gold" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        <button class="btn btn-outline" onclick="copyResult()"><i class="fas fa-copy"></i> Copy Summary</button>
+        <button class="btn btn-outline" onclick="shareResult()"><i class="fas fa-share-alt"></i> Share</button>
+        <button class="btn btn-outline" onclick="resetCalc()"><i class="fas fa-redo"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let sym='$';
+let pitiChart=null,equityChart=null;
+let amortData=[];
+let lastR={};
+
+function updateSym(){
+  const sel=document.getElementById('currency');
+  sym=sel.value;
+  document.querySelectorAll('#sym1,#sym2').forEach(e=>e.textContent=sym);
+  calculate();
+}
+
+function syncHP(v){document.getElementById('homePrice').value=v;dpPctChanged();calculate();}
+function syncDP(v){document.getElementById('downPaymentPct').value=v;dpPctChanged();calculate();}
+function syncRate(v){document.getElementById('rate').value=v;updateDisps();calculate();}
+function syncTerm(v){document.getElementById('term').value=v;updateDisps();calculate();}
+function syncInput(sid,v,mn,mx){const cl=Math.max(mn,Math.min(mx,parseFloat(v)||mn));document.getElementById(sid).value=cl;}
+
+function dpAmountChanged(){
+  const hp=parseFloat(document.getElementById('homePrice').value)||0;
+  const dp=parseFloat(document.getElementById('downPayment').value)||0;
+  if(hp>0) document.getElementById('downPaymentPct').value=((dp/hp)*100).toFixed(1);
+  document.getElementById('dpSlider').value=Math.min(50,(dp/hp*100));
+  updateDisps();
+}
+function dpPctChanged(){
+  const hp=parseFloat(document.getElementById('homePrice').value)||0;
+  const pct=parseFloat(document.getElementById('downPaymentPct').value)||0;
+  document.getElementById('downPayment').value=(hp*pct/100).toFixed(0);
+  document.getElementById('dpSlider').value=Math.min(50,pct);
+  updateDisps();
+}
+
+function updateDisps(){
+  const hp=parseFloat(document.getElementById('homePrice').value)||0;
+  const dp=parseFloat(document.getElementById('downPayment').value)||0;
+  const pct=parseFloat(document.getElementById('downPaymentPct').value)||0;
+  const rate=parseFloat(document.getElementById('rate').value)||0;
+  const term=parseFloat(document.getElementById('term').value)||0;
+  document.getElementById('hpDisp').textContent=`${sym}${fmtN(hp)}`;
+  document.getElementById('dpDisp').textContent=`${pct.toFixed(1)}% — ${sym}${fmtN(dp)}`;
+  document.getElementById('rateDisp').textContent=`${rate}%`;
+  document.getElementById('termDisp').textContent=`${term} Year${term!==1?'s':''}`;
+}
+
+function calculate(){
+  updateDisps();
+  const hp=parseFloat(document.getElementById('homePrice').value)||0;
+  const dp=parseFloat(document.getElementById('downPayment').value)||0;
+  const annualRate=parseFloat(document.getElementById('rate').value)||0;
+  const term=parseFloat(document.getElementById('term').value)||0;
+  const propTaxPct=parseFloat(document.getElementById('propTaxPct').value)||0;
+  const insPct=parseFloat(document.getElementById('insurancePct').value)||0;
+  const pmi=parseFloat(document.getElementById('pmi').value)||0;
+  const hoa=parseFloat(document.getElementById('hoa').value)||0;
+  if(hp<=0||annualRate<=0||term<=0) return;
+
+  const loanAmt=hp-dp;
+  const n=term*12;
+  const r=annualRate/12/100;
+  const pi=loanAmt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  const monthlyTax=hp*propTaxPct/100/12;
+  const monthlyIns=hp*insPct/100/12;
+  const totalMonthly=pi+monthlyTax+monthlyIns+pmi+hoa;
+
+  // Build amortization
+  amortData=[];
+  let balance=loanAmt;
+  let totalInterest=0;
+  for(let m=1;m<=n&&balance>0.01;m++){
+    const intPart=balance*r;
+    const prinPart=Math.min(pi-intPart,balance);
+    balance=Math.max(0,balance-prinPart);
+    totalInterest+=intPart;
+    amortData.push({month:m,pi:pi,principal:prinPart,interest:intPart,balance,cumPrincipal:loanAmt-balance,equity:dp+(loanAmt-balance)});
+  }
+
+  // Equity at 5 years
+  const eq5=amortData[59]?dp+amortData[59].cumPrincipal:dp;
+
+  // Payoff date
+  const payoff=new Date();
+  payoff.setMonth(payoff.getMonth()+amortData.length);
+  const payoffStr=payoff.toLocaleDateString('en',{month:'short',year:'numeric'});
+
+  lastR={hp,dp,loanAmt,pi,monthlyTax,monthlyIns,pmi,hoa,totalMonthly,totalInterest,annualRate,term,n};
+
+  // Update UI
+  document.getElementById('totalPayment').textContent=`${sym}${fmtN(totalMonthly)}`;
+  document.getElementById('paymentNote').textContent=`${sym}${fmtN(pi)} P&I + ${sym}${fmtN(monthlyTax)} Tax + ${sym}${fmtN(monthlyIns)} Ins${pmi>0?` + ${sym}${fmtN(pmi)} PMI`:''}${hoa>0?` + ${sym}${fmtN(hoa)} HOA`:''}`;
+  document.getElementById('piAmt').textContent=`${sym}${fmtN(pi)}`;
+  document.getElementById('taxAmt').textContent=`${sym}${fmtN(monthlyTax)}`;
+  document.getElementById('insAmt').textContent=`${sym}${fmtN(monthlyIns)}`;
+  document.getElementById('hoaAmt').textContent=`${sym}${fmtN(pmi+hoa)}`;
+  document.getElementById('propTaxMo').textContent=`≈ ${sym}${fmtN(monthlyTax)}/mo`;
+  document.getElementById('insuranceMo').textContent=`≈ ${sym}${fmtN(monthlyIns)}/mo`;
+
+  // Bars
+  const setBar=(id,pct)=>{document.getElementById(id).style.width=Math.min(100,pct)+'%';};
+  setBar('piBar',(pi/totalMonthly)*100);
+  setBar('taxBar',(monthlyTax/totalMonthly)*100);
+  setBar('insBar',(monthlyIns/totalMonthly)*100);
+  setBar('hoaBar',((pmi+hoa)/totalMonthly)*100);
+
+  document.getElementById('loanAmt').textContent=`${sym}${fmtN(loanAmt)}`;
+  document.getElementById('totalInt').textContent=`${sym}${fmtN(totalInterest)}`;
+  document.getElementById('totalCost').textContent=`${sym}${fmtN(dp+loanAmt+totalInterest)}`;
+  document.getElementById('downPay').textContent=`${sym}${fmtN(dp)}`;
+  document.getElementById('payoffDate').textContent=payoffStr;
+  document.getElementById('equity5yr').textContent=`${sym}${fmtN(eq5)}`;
+
+  renderPITIChart(pi,monthlyTax,monthlyIns,pmi,hoa);
+  renderEquityChart(dp,loanAmt);
+  renderAmor();
+}
+
+function renderPITIChart(pi,tax,ins,pmi,hoa){
+  const ctx=document.getElementById('pitiChart').getContext('2d');
+  if(pitiChart)pitiChart.destroy();
+  const labels=['P & I','Property Tax','Insurance'];
+  const data=[pi,tax,ins];
+  const colors=['#6366f1','#f59e0b','#06b6d4'];
+  if(pmi>0){labels.push('PMI');data.push(pmi);colors.push('#ec4899');}
+  if(hoa>0){labels.push('HOA');data.push(hoa);colors.push('#10b981');}
+  pitiChart=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:0,hoverOffset:8}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+      plugins:{legend:{position:'right',labels:{color:'#94a3b8',font:{size:11},usePointStyle:true}},
+        tooltip:{callbacks:{label:(c)=>`${c.label}: ${sym}${fmtN(c.raw)}/mo`}}}}
+  });
+}
+
+function renderEquityChart(dp,loanAmt){
+  const ctx=document.getElementById('equityChart').getContext('2d');
+  if(equityChart)equityChart.destroy();
+  const step=Math.max(1,Math.floor(amortData.length/36));
+  const labels=[],balances=[],equities=[];
+  amortData.forEach((r,i)=>{
+    if(i%step===0||i===amortData.length-1){
+      labels.push(`Y${Math.ceil(r.month/12)}`);
+      balances.push(r.balance.toFixed(0));
+      equities.push(r.equity.toFixed(0));
+    }
+  });
+  equityChart=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {label:'Loan Balance',data:balances,borderColor:'#ef4444',backgroundColor:'rgba(239,68,68,.08)',fill:true,tension:.4,pointRadius:0,borderWidth:2},
+        {label:'Equity',data:equities,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.4,pointRadius:0,borderWidth:2}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{
+        x:{ticks:{color:'#64748b',font:{size:10},maxTicksLimit:10},grid:{color:'rgba(255,255,255,.04)'}},
+        y:{ticks:{color:'#64748b',font:{size:10},callback:v=>`${sym}${fmtN(v)}`},grid:{color:'rgba(255,255,255,.04)'}}
+      },
+      plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${sym}${fmtN(c.raw)}`}}}
+    }
+  });
+}
+
+function renderAmor(){
+  if(!amortData.length){document.getElementById('amorTable').innerHTML='<p style="color:var(--text-muted);text-align:center;padding:2rem">Calculate to see amortization</p>';return;}
+  const mode=document.getElementById('amorView').value;
+  if(mode==='yearly'){
+    const years={};
+    amortData.forEach(r=>{
+      const yr=Math.ceil(r.month/12);
+      if(!years[yr])years[yr]={year:yr,totalPI:0,principal:0,interest:0,balance:0,equity:0};
+      years[yr].totalPI+=r.pi;years[yr].principal+=r.principal;years[yr].interest+=r.interest;years[yr].balance=r.balance;years[yr].equity=r.equity;
+    });
+    document.getElementById('amorTable').innerHTML=`<table>
+      <thead><tr><th>Year</th><th>Total P&amp;I</th><th>Principal</th><th>Interest</th><th>Balance</th><th>Equity</th></tr></thead>
+      <tbody>${Object.values(years).map(r=>`<tr>
+        <td>Year ${r.year}</td>
+        <td>${sym}${fmtN(r.totalPI)}</td>
+        <td style="color:var(--accent-green)">${sym}${fmtN(r.principal)}</td>
+        <td style="color:var(--accent-red)">${sym}${fmtN(r.interest)}</td>
+        <td style="color:var(--accent-cyan)">${sym}${fmtN(r.balance)}</td>
+        <td style="color:var(--accent-gold)">${sym}${fmtN(r.equity)}</td>
+      </tr>`).join('')}</tbody>
+    </table>`;
+  } else {
+    const rows=amortData.slice(0,60);
+    document.getElementById('amorTable').innerHTML=`<table>
+      <thead><tr><th>Month</th><th>EMI (P&amp;I)</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+      <tbody>${rows.map(r=>`<tr>
+        <td>Month ${r.month}</td>
+        <td>${sym}${fmtN(r.pi)}</td>
+        <td style="color:var(--accent-green)">${sym}${fmtN(r.principal)}</td>
+        <td style="color:var(--accent-red)">${sym}${fmtN(r.interest)}</td>
+        <td style="color:var(--accent-cyan)">${sym}${fmtN(r.balance)}</td>
+      </tr>`).join('')}</tbody>
+    </table><p style="font-size:.78rem;color:var(--text-muted);margin-top:.5rem;text-align:right">Showing first 60 months. Download PDF for full schedule.</p>`;
+  }
+}
+
+function downloadPDF(){
+  if(!amortData.length){showToast('Calculate first.','error');return;}
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'landscape'});
+  doc.setFillColor(16,185,129);
+  doc.rect(0,0,297,22,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(16);
+  doc.text('MORTGAGE CALCULATOR REPORT (PITI)',148.5,12,{align:'center'});
+  doc.setFontSize(9);
+  doc.setFont('helvetica','normal');
+  doc.text('HashmiTools.com',148.5,18,{align:'center'});
+
+  const {hp,dp,loanAmt,pi,monthlyTax,monthlyIns,pmi,hoa,totalMonthly,totalInterest,annualRate,term}=lastR;
+  doc.setTextColor(30,41,59);
+  doc.setFontSize(9);
+  let y=29;
+  doc.text(`Home Price: ${sym}${fmtN(hp)}  |  Down: ${sym}${fmtN(dp)}  |  Loan: ${sym}${fmtN(loanAmt)}  |  Rate: ${annualRate}%  |  Term: ${term} yrs  |  Monthly PITI: ${sym}${fmtN(totalMonthly)}`,14,y);
+  y+=6;
+  doc.text(`P&I: ${sym}${fmtN(pi)}  |  Tax: ${sym}${fmtN(monthlyTax)}  |  Ins: ${sym}${fmtN(monthlyIns)}  |  PMI+HOA: ${sym}${fmtN(pmi+hoa)}  |  Total Interest: ${sym}${fmtN(totalInterest)}`,14,y);
+  y+=4;
+
+  // Yearly table
+  const years={};
+  amortData.forEach(r=>{
+    const yr=Math.ceil(r.month/12);
+    if(!years[yr])years[yr]={year:yr,principal:0,interest:0,balance:0,equity:0};
+    years[yr].principal+=r.principal;years[yr].interest+=r.interest;years[yr].balance=r.balance;years[yr].equity=r.equity;
+  });
+  doc.autoTable({
+    startY:y+2,
+    head:[['Year','Principal Paid','Interest Paid','Balance Remaining','Equity Built']],
+    body:Object.values(years).map(r=>[`Year ${r.year}`,`${sym}${fmtN(r.principal)}`,`${sym}${fmtN(r.interest)}`,`${sym}${fmtN(r.balance)}`,`${sym}${fmtN(r.equity)}`]),
+    theme:'striped',
+    headStyles:{fillColor:[16,185,129],textColor:255,fontStyle:'bold',fontSize:9},
+    bodyStyles:{fontSize:8},
+    columnStyles:{0:{halign:'center'},1:{halign:'right'},2:{halign:'right'},3:{halign:'right'},4:{halign:'right'}},
+    alternateRowStyles:{fillColor:[248,250,252]},
+    margin:{left:14,right:14}
+  });
+  doc.save('mortgage-piti-report.pdf');
+  showToast('PDF downloaded!','success');
+}
+
+function copyResult(){
+  if(!lastR.totalMonthly) return;
+  const t=`Mortgage Summary\nHome: ${sym}${fmtN(lastR.hp)} | Down: ${sym}${fmtN(lastR.dp)}\nMonthly PITI: ${sym}${fmtN(lastR.totalMonthly)}\nP&I: ${sym}${fmtN(lastR.pi)} | Tax: ${sym}${fmtN(lastR.monthlyTax)} | Ins: ${sym}${fmtN(lastR.monthlyIns)}\nTotal Interest: ${sym}${fmtN(lastR.totalInterest)}\nHashmiTools.com`;
+  navigator.clipboard.writeText(t).then(()=>showToast('Copied!','success'));
+}
+
+function shareResult(){
+  if(!lastR.totalMonthly) return;
+  const t=`My Mortgage: ${sym}${fmtN(lastR.totalMonthly)}/mo for ${lastR.term}yrs | Total Interest: ${sym}${fmtN(lastR.totalInterest)} | HashmiTools.com`;
+  if(navigator.share)navigator.share({title:'Mortgage Calculation',text:t});
+  else window.open(`https://wa.me/?text=${encodeURIComponent(t)}`);
+}
+
+function resetCalc(){
+  document.getElementById('homePrice').value=300000;
+  document.getElementById('downPayment').value=60000;
+  document.getElementById('downPaymentPct').value=20;
+  document.getElementById('rate').value=6.5;
+  document.getElementById('term').value=30;
+  document.getElementById('propTaxPct').value=1.2;
+  document.getElementById('insurancePct').value=0.5;
+  document.getElementById('pmi').value=0;
+  document.getElementById('hoa').value=0;
+  amortData=[];
+  if(pitiChart){pitiChart.destroy();pitiChart=null;}
+  if(equityChart){equityChart.destroy();equityChart=null;}
+  document.getElementById('amorTable').innerHTML='';
+  lastR={};
+  showToast('Reset.','info');
+}
+
+function fmtN(n){return parseFloat(n||0).toLocaleString('en',{minimumFractionDigits:0,maximumFractionDigits:0});}
+
+function toggleTheme(){
+  const h=document.documentElement;
+  const n=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',n);
+  document.getElementById('themeIcon').className=n==='dark'?'fas fa-moon':'fas fa-sun';
+  localStorage.setItem('theme',n);
+}
+
+function showToast(msg,type='info'){
+  let tc=document.getElementById('tc');
+  if(!tc){tc=document.createElement('div');tc.id='tc';tc.style.cssText='position:fixed;top:80px;right:1rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem';document.body.appendChild(tc);}
+  const c={success:'#10b981',error:'#ef4444',info:'#6366f1'};
+  const t=document.createElement('div');
+  t.style.cssText=`background:var(--bg-card);border:1px solid ${c[type]};color:var(--text-primary);padding:.75rem 1.25rem;border-radius:8px;font-size:.9rem;box-shadow:0 4px 20px rgba(0,0,0,.3);animation:si .3s ease`;
+  t.innerHTML=`<span style="color:${c[type]}">●</span> ${msg}`;
+  tc.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const s=localStorage.getItem('theme')||'dark';
+  document.documentElement.setAttribute('data-theme',s);
+  document.getElementById('themeIcon').className=s==='dark'?'fas fa-moon':'fas fa-sun';
+  calculate();
+});
+</script>
+<style>@keyframes si{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}</style>
+</body>
+</html>

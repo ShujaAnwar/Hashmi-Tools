@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trending Tools – Most Popular Free Online Tools | HashmiTools</title>
+  <meta name="description" content="Discover the most popular and trending free online tools on HashmiTools.com. Zakat Calculator, EMI Calculator, BMI Calculator, Password Generator & more." />
+  <link rel="canonical" href="https://hashmitools.com/trending.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/tools.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="trending.html" class="nav-link active">Trending</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search 100+ tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <section style="padding:calc(var(--nav-height) + 40px) 0 40px;background:var(--bg-secondary);text-align:center;">
+    <div class="container">
+      <div class="section-badge" style="margin-bottom:14px;">🔥 Most Popular</div>
+      <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:12px;">Trending <span class="gradient-text">Tools</span></h1>
+      <p style="color:var(--text-secondary);max-width:500px;margin:0 auto;">The most-used tools by thousands of users every day</p>
+    </div>
+  </section>
+
+  <div class="ad-container"><div class="ad-placeholder" style="max-width:1280px;margin:0 auto;padding:0 24px;"><span>Advertisement</span></div></div>
+
+  <main style="padding:60px 0;">
+    <div class="container">
+      <!-- Category Filter -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;" id="trendFilter">
+        <button class="filter-btn active" onclick="filterTools('all',this)">All Tools</button>
+        <button class="filter-btn" onclick="filterTools('islamic',this)">🕌 Islamic</button>
+        <button class="filter-btn" onclick="filterTools('finance',this)">💰 Finance</button>
+        <button class="filter-btn" onclick="filterTools('developer',this)">💻 Developer</button>
+        <button class="filter-btn" onclick="filterTools('health',this)">❤️ Health</button>
+        <button class="filter-btn" onclick="filterTools('ai',this)">🤖 AI</button>
+        <button class="filter-btn" onclick="filterTools('pakistan',this)">🇵🇰 Pakistan</button>
+      </div>
+
+      <div id="allToolsGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+        <!-- Tools with rank badges -->
+        <a href="tools/zakat-calculator.html" class="tool-card" data-cat="islamic" style="position:relative;">
+          <div style="position:absolute;top:-8px;left:-8px;background:#f59e0b;color:white;font-size:0.7rem;font-weight:800;padding:3px 8px;border-radius:50px;">#1</div>
+          <div class="tool-card-icon islamic-bg">🕌</div>
+          <div class="tool-card-info">
+            <h4>Zakat Calculator</h4>
+            <p>Calculate annual Zakat with Gold & Silver Nisab</p>
+            <div class="tool-meta"><span class="tool-category-tag islamic-tag">Islamic</span><span class="tool-usage"><i class="fas fa-fire"></i> 12.5K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/emi-calculator.html" class="tool-card" data-cat="finance">
+          <div style="position:absolute;top:-8px;left:-8px;background:#6366f1;color:white;font-size:0.7rem;font-weight:800;padding:3px 8px;border-radius:50px;position:relative;width:fit-content;margin-bottom:-12px;">#2</div>
+          <div class="tool-card-icon finance-bg">💰</div>
+          <div class="tool-card-info">
+            <h4>EMI Calculator</h4>
+            <p>Loan EMI with amortization & charts</p>
+            <div class="tool-meta"><span class="tool-category-tag finance-tag">Finance</span><span class="tool-usage"><i class="fas fa-fire"></i> 9.8K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/bmi-calculator.html" class="tool-card" data-cat="health">
+          <div class="tool-card-icon health-bg">❤️</div>
+          <div class="tool-card-info">
+            <h4>BMI Calculator</h4>
+            <p>Check Body Mass Index with health advice</p>
+            <div class="tool-meta"><span class="tool-category-tag health-tag">Health</span><span class="tool-usage"><i class="fas fa-fire"></i> 8.2K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/json-formatter.html" class="tool-card" data-cat="developer">
+          <div class="tool-card-icon dev-bg">{ }</div>
+          <div class="tool-card-info">
+            <h4>JSON Formatter</h4>
+            <p>Format, validate & beautify JSON</p>
+            <div class="tool-meta"><span class="tool-category-tag dev-tag">Developer</span><span class="tool-usage"><i class="fas fa-fire"></i> 7.5K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/password-generator.html" class="tool-card" data-cat="developer">
+          <div class="tool-card-icon dev-bg">🔐</div>
+          <div class="tool-card-info">
+            <h4>Password Generator</h4>
+            <p>Generate ultra-secure passwords</p>
+            <div class="tool-meta"><span class="tool-category-tag dev-tag">Developer</span><span class="tool-usage"><i class="fas fa-fire"></i> 6.9K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/currency-converter.html" class="tool-card" data-cat="finance">
+          <div class="tool-card-icon finance-bg">💱</div>
+          <div class="tool-card-info">
+            <h4>Currency Converter</h4>
+            <p>Convert 30+ currencies instantly</p>
+            <div class="tool-meta"><span class="tool-category-tag finance-tag">Finance</span><span class="tool-usage"><i class="fas fa-fire"></i> 6.1K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/qr-generator.html" class="tool-card" data-cat="developer">
+          <div class="tool-card-icon dev-bg">▦</div>
+          <div class="tool-card-info">
+            <h4>QR Code Generator</h4>
+            <p>Generate custom QR codes for any URL</p>
+            <div class="tool-meta"><span class="tool-category-tag dev-tag">Developer</span><span class="tool-usage"><i class="fas fa-fire"></i> 5.8K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/ai-hashtag.html" class="tool-card" data-cat="ai">
+          <div class="tool-card-icon ai-bg">#️⃣</div>
+          <div class="tool-card-info">
+            <h4>AI Hashtag Generator</h4>
+            <p>Generate trending hashtags for social media</p>
+            <div class="tool-meta"><span class="tool-category-tag ai-tag">AI</span><span class="tool-usage"><i class="fas fa-fire"></i> 5.2K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/pakistan-tax.html" class="tool-card" data-cat="pakistan finance">
+          <div class="tool-card-icon pakistan-bg">🇵🇰</div>
+          <div class="tool-card-info">
+            <h4>Pakistan Tax Calculator</h4>
+            <p>FBR income tax for 2024-25</p>
+            <div class="tool-meta"><span class="tool-category-tag pakistan-tag">Pakistan</span><span class="tool-usage"><i class="fas fa-fire"></i> 4.7K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/age-calculator.html" class="tool-card" data-cat="health">
+          <div class="tool-card-icon health-bg">🎂</div>
+          <div class="tool-card-info">
+            <h4>Age Calculator</h4>
+            <p>Exact age with birthday countdown</p>
+            <div class="tool-meta"><span class="tool-category-tag health-tag">Health</span><span class="tool-usage"><i class="fas fa-fire"></i> 4.5K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/zakat-calculator.html" class="tool-card" data-cat="islamic">
+          <div class="tool-card-icon islamic-bg">⚖️</div>
+          <div class="tool-card-info">
+            <h4>Inheritance Calculator</h4>
+            <p>Islamic Faraid inheritance shares</p>
+            <div class="tool-meta"><span class="tool-category-tag islamic-tag">Islamic</span><span class="tool-usage"><i class="fas fa-fire"></i> 3.8K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+        <a href="tools/ai-hashtag.html" class="tool-card" data-cat="ai">
+          <div class="tool-card-icon ai-bg">📝</div>
+          <div class="tool-card-info">
+            <h4>AI Blog Title Generator</h4>
+            <p>Generate SEO-optimized blog titles</p>
+            <div class="tool-meta"><span class="tool-category-tag ai-tag">AI</span><span class="tool-usage"><i class="fas fa-fire"></i> 3.5K/mo</span></div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;margin-top:48px;">
+        <p style="color:var(--text-muted);margin-bottom:16px;">Can't find what you're looking for?</p>
+        <a href="index.html#categories" class="btn btn-primary btn-lg"><i class="fas fa-th-large"></i> Browse All Categories</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div></div></div></footer>
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="js/main.js"></script>
+  <script>
+  function filterTools(cat, btn) {
+    document.querySelectorAll('#trendFilter .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#allToolsGrid .tool-card').forEach(card => {
+      const cardCat = card.dataset.cat || '';
+      card.style.display = cat === 'all' || cardCat.includes(cat) ? 'flex' : 'none';
+    });
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Tools Hub — Hashtag, Blog Title, Caption, Humanizer, Resume | IslamiTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/tools.css"/>
+<style>
+/* ── tool tabs ── */
+.ai-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  background: var(--input-bg);
+  padding: 6px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border-color);
+}
+.ai-tab {
+  flex: 1;
+  min-width: 110px;
+  padding: 0.6rem 0.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  text-align: center;
+}
+.ai-tab.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(99,102,241,0.3);
+}
+
+/* ── API key setup ── */
+.api-setup {
+  background: rgba(245,158,11,0.08);
+  border: 1.5px solid #f59e0b;
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.api-setup-icon { font-size: 1.8rem; flex-shrink: 0; }
+.api-setup-content { flex: 1; min-width: 200px; }
+.api-setup-content h4 { font-weight: 700; color: #92400e; margin-bottom: 4px; font-size: 0.9rem; }
+[data-theme="dark"] .api-setup-content h4 { color: #fbbf24; }
+.api-setup-content p { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
+.api-key-row { display: flex; gap: 0.5rem; }
+.api-key-row input {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-family: monospace;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.api-key-row input:focus { border-color: var(--accent); }
+.api-key-row button {
+  padding: 0.55rem 1rem;
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.api-status {
+  font-size: 0.76rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+.api-status.ok   { color: #22c55e; }
+.api-status.none { color: #f59e0b; }
+
+/* ── tool panel ── */
+.tool-panel { display: none; }
+.tool-panel.active { display: block; }
+
+.input-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.input-card h3 {
+  font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--text-muted); margin-bottom: 0.9rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.field-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 0.85rem; }
+.field-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); }
+.field-input, textarea.field-input {
+  padding: 0.65rem 0.8rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color 0.2s; width: 100%;
+  resize: vertical;
+}
+.field-input:focus, textarea.field-input:focus { border-color: var(--accent); }
+
+.options-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+.opt-chip {
+  padding: 0.35rem 0.85rem;
+  border-radius: 99px;
+  border: 1.5px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.opt-chip.selected { border-color: var(--accent); background: var(--accent); color: #fff; }
+
+/* generate button */
+.gen-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s, transform 0.1s;
+  margin-top: 0.25rem;
+}
+.gen-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.gen-btn:active { transform: translateY(0); }
+.gen-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* spinner */
+.spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* output box */
+.output-box {
+  background: var(--input-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 80px;
+  position: relative;
+  margin-top: 1rem;
+}
+.output-box.empty { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; }
+.output-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+.out-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 5px;
+}
+.out-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* hashtag chips */
+.hashtag-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.htag {
+  padding: 5px 12px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.3);
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.htag:hover { background: var(--accent); color: #fff; }
+
+/* output text */
+.output-text {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* title cards */
+.title-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.title-item {
+  padding: 0.75rem 1rem;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.title-item:hover { border-color: var(--accent); color: var(--accent); }
+.title-num { font-size: 0.72rem; color: var(--text-muted); flex-shrink: 0; }
+
+/* char count */
+.char-count { font-size: 0.72rem; color: var(--text-muted); text-align: right; margin-top: 3px; }
+
+/* usage note */
+.usage-note {
+  background: rgba(99,102,241,0.06);
+  border: 1.5px solid rgba(99,102,241,0.2);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+.usage-note b { color: var(--accent); }
+
+/* skeleton loader */
+.skeleton { animation: shimmer 1.5s infinite; }
+@keyframes shimmer {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+.skel-line { height: 16px; background: var(--border-color); border-radius: 6px; margin-bottom: 8px; }
+
+/* toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: #1e293b; color: #fff;
+  padding: 0.75rem 1.25rem; border-radius: 10px;
+  font-size: 0.85rem; font-weight: 500; z-index: 9999;
+  transform: translateY(60px); opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; max-width: 320px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.section-divider { border: none; border-top: 1.5px solid var(--border-color); margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <span class="brand-icon"><i class="fas fa-crescent"></i></span>
+      <span class="brand-text">IslamiTools</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="tool-hero">
+  <div class="tool-hero-content">
+    <div class="tool-hero-icon" style="background:linear-gradient(135deg,#6366f1,#a855f7,#ec4899)">
+      <i class="fas fa-robot"></i>
+    </div>
+    <div>
+      <h1 class="tool-hero-title">AI Tools Hub</h1>
+      <p class="tool-hero-desc">5 real AI tools powered by Hugging Face: Hashtag Generator, Blog Titles, Caption Writer, Text Humanizer & Resume Summary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="tool-main">
+<div class="tool-container">
+
+  <!-- API Key Setup -->
+  <div class="api-setup" id="apiSetupBox">
+    <div class="api-setup-icon">🔑</div>
+    <div class="api-setup-content">
+      <h4>Hugging Face API Key Required</h4>
+      <p>These tools use real AI models via Hugging Face Inference API. Get your <b>free</b> API token at <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700">huggingface.co/settings/tokens</a> (free tier: thousands of requests/day). Your key is saved only in your browser's localStorage.</p>
+      <div class="api-key-row">
+        <input type="password" id="apiKeyInput" placeholder="hf_xxxxxxxxxxxxxxxxxxxxxx" autocomplete="off"/>
+        <button onclick="saveApiKey()"><i class="fas fa-save"></i> Save Key</button>
+      </div>
+      <div class="api-status none" id="apiStatus">⚠ No API key saved — enter your key above</div>
+    </div>
+  </div>
+
+  <!-- Usage note -->
+  <div class="usage-note">
+    <b>How it works:</b> Each tool sends your text to a specialized Hugging Face model using your API key. Results are real AI-generated outputs — not templates. Processing takes 2–10 seconds. Models used: <b>mistralai/Mistral-7B-Instruct</b> for text generation tasks.
+  </div>
+
+  <!-- Tool Tabs -->
+  <div class="ai-tabs" role="tablist">
+    <button class="ai-tab active" onclick="setTool('hashtag')" role="tab">#️⃣ Hashtag Generator</button>
+    <button class="ai-tab" onclick="setTool('title')" role="tab">📝 Blog Titles</button>
+    <button class="ai-tab" onclick="setTool('caption')" role="tab">💬 Caption Writer</button>
+    <button class="ai-tab" onclick="setTool('humanizer')" role="tab">🤖 Text Humanizer</button>
+    <button class="ai-tab" onclick="setTool('resume')" role="tab">📋 Resume Summary</button>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL 1: HASHTAG GENERATOR         -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tool-panel active" id="panel_hashtag">
+    <div class="input-card">
+      <h3><i class="fas fa-hashtag" style="color:var(--accent)"></i> Hashtag Generator</h3>
+      <div class="field-group">
+        <label>Topic / Content Description</label>
+        <textarea class="field-input" id="ht_topic" rows="3" placeholder="e.g. A stunning sunset photo at the beach during golden hour..." oninput="charCount('ht_topic','ht_cc',500)"></textarea>
+        <div class="char-count" id="ht_cc">0 / 500</div>
+      </div>
+      <div class="field-group">
+        <label>Platform</label>
+        <div class="options-row" id="ht_platform">
+          <span class="opt-chip selected" onclick="selectOpt(this,'ht_platform')">Instagram</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_platform')">Twitter/X</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_platform')">LinkedIn</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_platform')">TikTok</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_platform')">YouTube</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Hashtag Count</label>
+        <div class="options-row" id="ht_count">
+          <span class="opt-chip" onclick="selectOpt(this,'ht_count')">10</span>
+          <span class="opt-chip selected" onclick="selectOpt(this,'ht_count')">20</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_count')">30</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Niche / Style</label>
+        <div class="options-row" id="ht_niche">
+          <span class="opt-chip selected" onclick="selectOpt(this,'ht_niche')">General</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_niche')">Fashion</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_niche')">Travel</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_niche')">Food</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_niche')">Tech</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_niche')">Fitness</span>
+          <span class="opt-chip" onclick="selectOpt(this,'ht_niche')">Islamic</span>
+        </div>
+      </div>
+      <button class="gen-btn" id="btn_hashtag" onclick="generateHashtags()">
+        <i class="fas fa-magic"></i> Generate Hashtags
+      </button>
+    </div>
+    <div id="ht_output" class="output-box empty">✨ Your hashtags will appear here</div>
+    <div class="output-actions" id="ht_actions" style="display:none">
+      <button class="out-btn" onclick="copyOutput('ht_output')"><i class="fas fa-copy"></i> Copy All</button>
+      <button class="out-btn" onclick="clearOutput('hashtag')"><i class="fas fa-trash"></i> Clear</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL 2: BLOG TITLE GENERATOR      -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tool-panel" id="panel_title">
+    <div class="input-card">
+      <h3><i class="fas fa-heading" style="color:#22c55e"></i> Blog Title Generator</h3>
+      <div class="field-group">
+        <label>Blog Topic / Keywords</label>
+        <textarea class="field-input" id="bt_topic" rows="3" placeholder="e.g. benefits of intermittent fasting for weight loss..." oninput="charCount('bt_topic','bt_cc',400)"></textarea>
+        <div class="char-count" id="bt_cc">0 / 400</div>
+      </div>
+      <div class="field-group">
+        <label>Title Style</label>
+        <div class="options-row" id="bt_style">
+          <span class="opt-chip selected" onclick="selectOpt(this,'bt_style')">How-To</span>
+          <span class="opt-chip" onclick="selectOpt(this,'bt_style')">Listicle</span>
+          <span class="opt-chip" onclick="selectOpt(this,'bt_style')">Question</span>
+          <span class="opt-chip" onclick="selectOpt(this,'bt_style')">SEO-Optimized</span>
+          <span class="opt-chip" onclick="selectOpt(this,'bt_style')">Clickbait</span>
+          <span class="opt-chip" onclick="selectOpt(this,'bt_style')">Authority</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Number of Titles</label>
+        <div class="options-row" id="bt_num">
+          <span class="opt-chip" onclick="selectOpt(this,'bt_num')">3</span>
+          <span class="opt-chip selected" onclick="selectOpt(this,'bt_num')">5</span>
+          <span class="opt-chip" onclick="selectOpt(this,'bt_num')">10</span>
+        </div>
+      </div>
+      <button class="gen-btn" id="btn_title" onclick="generateTitles()">
+        <i class="fas fa-lightbulb"></i> Generate Blog Titles
+      </button>
+    </div>
+    <div id="bt_output" class="output-box empty">📝 Blog title suggestions will appear here</div>
+    <div class="output-actions" id="bt_actions" style="display:none">
+      <button class="out-btn" onclick="copyOutput('bt_output')"><i class="fas fa-copy"></i> Copy All</button>
+      <button class="out-btn" onclick="clearOutput('title')"><i class="fas fa-trash"></i> Clear</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL 3: CAPTION WRITER            -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tool-panel" id="panel_caption">
+    <div class="input-card">
+      <h3><i class="fas fa-pen-nib" style="color:#f59e0b"></i> Caption Writer</h3>
+      <div class="field-group">
+        <label>Describe your post / image</label>
+        <textarea class="field-input" id="cap_desc" rows="3" placeholder="e.g. I'm at the top of a mountain after a 6-hour hike, feeling accomplished..." oninput="charCount('cap_desc','cap_cc',500)"></textarea>
+        <div class="char-count" id="cap_cc">0 / 500</div>
+      </div>
+      <div class="field-group">
+        <label>Tone</label>
+        <div class="options-row" id="cap_tone">
+          <span class="opt-chip selected" onclick="selectOpt(this,'cap_tone')">Inspirational</span>
+          <span class="opt-chip" onclick="selectOpt(this,'cap_tone')">Funny</span>
+          <span class="opt-chip" onclick="selectOpt(this,'cap_tone')">Professional</span>
+          <span class="opt-chip" onclick="selectOpt(this,'cap_tone')">Casual</span>
+          <span class="opt-chip" onclick="selectOpt(this,'cap_tone')">Emotional</span>
+          <span class="opt-chip" onclick="selectOpt(this,'cap_tone')">Islamic</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Caption Length</label>
+        <div class="options-row" id="cap_len">
+          <span class="opt-chip" onclick="selectOpt(this,'cap_len')">Short (1-2 lines)</span>
+          <span class="opt-chip selected" onclick="selectOpt(this,'cap_len')">Medium (3-5 lines)</span>
+          <span class="opt-chip" onclick="selectOpt(this,'cap_len')">Long (paragraph)</span>
+        </div>
+      </div>
+      <button class="gen-btn" id="btn_caption" onclick="generateCaption()">
+        <i class="fas fa-comment-dots"></i> Write Caption
+      </button>
+    </div>
+    <div id="cap_output" class="output-box empty">💬 Your AI-written caption will appear here</div>
+    <div class="output-actions" id="cap_actions" style="display:none">
+      <button class="out-btn" onclick="copyOutput('cap_output')"><i class="fas fa-copy"></i> Copy</button>
+      <button class="out-btn" onclick="regenerate('caption')"><i class="fas fa-sync"></i> Regenerate</button>
+      <button class="out-btn" onclick="clearOutput('caption')"><i class="fas fa-trash"></i> Clear</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL 4: TEXT HUMANIZER            -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tool-panel" id="panel_humanizer">
+    <div class="input-card">
+      <h3><i class="fas fa-user-edit" style="color:#ef4444"></i> AI Text Humanizer</h3>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">Rewrites AI-generated text to sound naturally human — bypasses AI detectors by rephrasing while preserving meaning.</p>
+      <div class="field-group">
+        <label>AI-Generated Text to Humanize</label>
+        <textarea class="field-input" id="hum_input" rows="6" placeholder="Paste AI-generated content here (GPT, Claude, etc.)..." oninput="charCount('hum_input','hum_cc',2000)"></textarea>
+        <div class="char-count" id="hum_cc">0 / 2000</div>
+      </div>
+      <div class="field-group">
+        <label>Humanization Style</label>
+        <div class="options-row" id="hum_style">
+          <span class="opt-chip selected" onclick="selectOpt(this,'hum_style')">Natural & Conversational</span>
+          <span class="opt-chip" onclick="selectOpt(this,'hum_style')">Formal Academic</span>
+          <span class="opt-chip" onclick="selectOpt(this,'hum_style')">Casual Blog</span>
+          <span class="opt-chip" onclick="selectOpt(this,'hum_style')">Professional Email</span>
+        </div>
+      </div>
+      <button class="gen-btn" id="btn_humanizer" onclick="humanizeText()">
+        <i class="fas fa-magic"></i> Humanize Text
+      </button>
+    </div>
+    <div id="hum_output" class="output-box empty">🤖→🧑 Humanized text will appear here</div>
+    <div class="output-actions" id="hum_actions" style="display:none">
+      <button class="out-btn" onclick="copyOutput('hum_output')"><i class="fas fa-copy"></i> Copy</button>
+      <button class="out-btn" onclick="regenerate('humanizer')"><i class="fas fa-sync"></i> Regenerate</button>
+      <button class="out-btn" onclick="clearOutput('humanizer')"><i class="fas fa-trash"></i> Clear</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL 5: RESUME SUMMARY            -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="tool-panel" id="panel_resume">
+    <div class="input-card">
+      <h3><i class="fas fa-file-alt" style="color:#8b5cf6"></i> Resume Summary Generator</h3>
+      <div class="field-group">
+        <label>Your Experience & Skills (bullet points or free-form)</label>
+        <textarea class="field-input" id="res_exp" rows="5" placeholder="e.g.&#10;- 5 years software engineering experience&#10;- Expert in React, Node.js, Python&#10;- Led team of 8 engineers&#10;- Delivered 3 major product launches..." oninput="charCount('res_exp','res_cc',1500)"></textarea>
+        <div class="char-count" id="res_cc">0 / 1500</div>
+      </div>
+      <div class="field-group">
+        <label>Job Title / Target Role</label>
+        <input type="text" class="field-input" id="res_role" placeholder="e.g. Senior Software Engineer, Product Manager..."/>
+      </div>
+      <div class="field-group">
+        <label>Summary Style</label>
+        <div class="options-row" id="res_style">
+          <span class="opt-chip selected" onclick="selectOpt(this,'res_style')">Professional (3 lines)</span>
+          <span class="opt-chip" onclick="selectOpt(this,'res_style')">LinkedIn (paragraph)</span>
+          <span class="opt-chip" onclick="selectOpt(this,'res_style')">Executive (5 bullets)</span>
+          <span class="opt-chip" onclick="selectOpt(this,'res_style')">Entry Level</span>
+        </div>
+      </div>
+      <button class="gen-btn" id="btn_resume" onclick="generateResumeSummary()">
+        <i class="fas fa-file-signature"></i> Generate Summary
+      </button>
+    </div>
+    <div id="res_output" class="output-box empty">📋 Your professional resume summary will appear here</div>
+    <div class="output-actions" id="res_actions" style="display:none">
+      <button class="out-btn" onclick="copyOutput('res_output')"><i class="fas fa-copy"></i> Copy</button>
+      <button class="out-btn" onclick="regenerate('resume')"><i class="fas fa-sync"></i> Regenerate</button>
+      <button class="out-btn" onclick="clearOutput('resume')"><i class="fas fa-trash"></i> Clear</button>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════
+//  THEME
+// ════════════════════════════════════════════
+const savedTheme = localStorage.getItem('theme')||'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme==='dark'?'fas fa-sun':'fas fa-moon';
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const html=document.documentElement;
+  const t=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',t); localStorage.setItem('theme',t);
+  document.getElementById('themeIcon').className=t==='dark'?'fas fa-sun':'fas fa-moon';
+});
+
+function showToast(msg,dur=3000){
+  const t=document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+// ════════════════════════════════════════════
+//  API KEY
+// ════════════════════════════════════════════
+let HF_API_KEY = localStorage.getItem('hf_api_key')||'';
+
+function saveApiKey(){
+  const val=document.getElementById('apiKeyInput').value.trim();
+  if(!val){ showToast('⚠ Please enter your Hugging Face API key'); return; }
+  if(!val.startsWith('hf_')){ showToast('⚠ Key should start with "hf_"'); return; }
+  HF_API_KEY=val;
+  localStorage.setItem('hf_api_key',val);
+  document.getElementById('apiStatus').textContent='✅ API key saved!';
+  document.getElementById('apiStatus').className='api-status ok';
+  showToast('✅ API key saved to browser!');
+}
+
+function initApiKey(){
+  if(HF_API_KEY){
+    document.getElementById('apiKeyInput').value=HF_API_KEY;
+    document.getElementById('apiStatus').textContent='✅ API key loaded from storage';
+    document.getElementById('apiStatus').className='api-status ok';
+  }
+}
+initApiKey();
+
+// ════════════════════════════════════════════
+//  HUGGING FACE API CALL
+//  Model: mistralai/Mistral-7B-Instruct-v0.2
+// ════════════════════════════════════════════
+const HF_MODEL = 'mistralai/Mistral-7B-Instruct-v0.2';
+const HF_URL   = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
+
+async function callHuggingFace(prompt, maxTokens=512) {
+  const key = HF_API_KEY || localStorage.getItem('hf_api_key')||'';
+  if(!key){
+    throw new Error('NO_KEY');
+  }
+  const response = await fetch(HF_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      inputs: prompt,
+      parameters: {
+        max_new_tokens: maxTokens,
+        temperature: 0.75,
+        top_p: 0.9,
+        do_sample: true,
+        return_full_text: false
+      }
+    })
+  });
+
+  if(response.status===503){
+    // Model loading
+    throw new Error('MODEL_LOADING');
+  }
+  if(response.status===401){
+    throw new Error('INVALID_KEY');
+  }
+  if(!response.ok){
+    const err = await response.json().catch(()=>({}));
+    throw new Error(err.error || `HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  if(Array.isArray(data) && data[0]?.generated_text){
+    return data[0].generated_text.trim();
+  }
+  if(data.generated_text){
+    return data.generated_text.trim();
+  }
+  throw new Error('Unexpected API response format');
+}
+
+// ════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════
+function setTool(name) {
+  document.querySelectorAll('.ai-tab').forEach((t,i)=>{
+    const names=['hashtag','title','caption','humanizer','resume'];
+    t.classList.toggle('active', names[i]===name);
+  });
+  document.querySelectorAll('.tool-panel').forEach(p=>{
+    p.classList.toggle('active', p.id===`panel_${name}`);
+  });
+}
+
+function selectOpt(el, groupId) {
+  document.querySelectorAll(`#${groupId} .opt-chip`).forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function getSelected(groupId) {
+  const el=document.querySelector(`#${groupId} .opt-chip.selected`);
+  return el ? el.textContent.trim() : '';
+}
+
+function charCount(inputId, countId, max) {
+  const el=document.getElementById(inputId);
+  const cc=document.getElementById(countId);
+  if(!el||!cc) return;
+  const len=el.value.length;
+  cc.textContent=`${len} / ${max}`;
+  cc.style.color=len>max*0.9?'#ef4444':len>max*0.7?'#f59e0b':'var(--text-muted)';
+}
+
+function setLoading(btnId, loading) {
+  const btn=document.getElementById(btnId);
+  if(!btn) return;
+  btn.disabled=loading;
+  btn.innerHTML=loading
+    ? `<div class="spinner"></div> Generating…`
+    : btn.dataset.originalHtml;
+}
+
+function showSkeleton(outputId) {
+  const el=document.getElementById(outputId);
+  el.className='output-box skeleton';
+  el.innerHTML=`<div>
+    <div class="skel-line" style="width:80%"></div>
+    <div class="skel-line" style="width:60%"></div>
+    <div class="skel-line" style="width:90%"></div>
+    <div class="skel-line" style="width:70%"></div>
+  </div>`;
+}
+
+function showError(outputId, msg) {
+  const el=document.getElementById(outputId);
+  el.className='output-box';
+  el.innerHTML=`<p style="color:#ef4444;font-size:0.85rem;font-weight:600">❌ ${msg}</p>`;
+}
+
+function copyOutput(outputId) {
+  const el=document.getElementById(outputId);
+  const text=el.innerText||el.textContent;
+  navigator.clipboard.writeText(text.trim()).then(()=>showToast('✅ Copied to clipboard!'));
+}
+
+function clearOutput(tool) {
+  const map={hashtag:'ht',title:'bt',caption:'cap',humanizer:'hum',resume:'res'};
+  const pfx=map[tool];
+  const el=document.getElementById(pfx+'_output');
+  el.className='output-box empty';
+  el.innerHTML=`<span style="color:var(--text-muted);font-size:0.85rem">Output cleared</span>`;
+  document.getElementById(pfx+'_actions').style.display='none';
+}
+
+function regenerate(tool) {
+  const fns={hashtag:generateHashtags,title:generateTitles,caption:generateCaption,humanizer:humanizeText,resume:generateResumeSummary};
+  if(fns[tool]) fns[tool]();
+}
+
+function handleApiError(outputId, err) {
+  if(err.message==='NO_KEY'){
+    showError(outputId,'No API key found. Please enter your Hugging Face API key above.');
+    document.getElementById('apiSetupBox').scrollIntoView({behavior:'smooth'});
+  } else if(err.message==='INVALID_KEY'){
+    showError(outputId,'Invalid API key. Please check your Hugging Face token.');
+  } else if(err.message==='MODEL_LOADING'){
+    showError(outputId,'Model is loading on Hugging Face servers (cold start). Please wait 30 seconds and try again.');
+  } else {
+    showError(outputId, `API Error: ${err.message}`);
+  }
+}
+
+// Save original button HTML for restore
+document.querySelectorAll('.gen-btn').forEach(btn=>{
+  btn.dataset.originalHtml=btn.innerHTML;
+});
+
+// ════════════════════════════════════════════
+//  1. HASHTAG GENERATOR
+// ════════════════════════════════════════════
+async function generateHashtags() {
+  const topic    = document.getElementById('ht_topic').value.trim();
+  const platform = getSelected('ht_platform');
+  const count    = getSelected('ht_count')||'20';
+  const niche    = getSelected('ht_niche');
+
+  if(!topic){ showToast('⚠ Please describe your content first'); return; }
+
+  setLoading('btn_hashtag', true);
+  showSkeleton('ht_output');
+  document.getElementById('ht_actions').style.display='none';
+
+  const prompt = `[INST] Generate exactly ${count} relevant hashtags for a ${niche} ${platform} post about: "${topic}".
+
+Rules:
+- Output ONLY the hashtags, one per line
+- Each hashtag starts with #
+- Mix popular and niche hashtags
+- No explanations, no numbering, no extra text
+- Just the hashtags, nothing else [/INST]`;
+
+  try {
+    const raw = await callHuggingFace(prompt, 400);
+    // Parse hashtags from response
+    const tags = raw.split(/[\n\s,]+/)
+      .map(t=>t.trim())
+      .filter(t=>t.startsWith('#') && t.length>2 && t.length<50)
+      .slice(0, parseInt(count));
+
+    if(tags.length===0) throw new Error('No hashtags found in response. Try again.');
+
+    const el=document.getElementById('ht_output');
+    el.className='output-box';
+    el.innerHTML=`<div class="hashtag-grid">${tags.map(t=>`<span class="htag" onclick="navigator.clipboard.writeText('${t}').then(()=>showToast('Copied: ${t}'))" title="Click to copy">${t}</span>`).join('')}</div>
+      <p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem">Click any hashtag to copy it individually</p>`;
+    document.getElementById('ht_actions').style.display='flex';
+    showToast(`✅ Generated ${tags.length} hashtags!`);
+  } catch(err) {
+    handleApiError('ht_output', err);
+  }
+  setLoading('btn_hashtag', false);
+}
+
+// ════════════════════════════════════════════
+//  2. BLOG TITLE GENERATOR
+// ════════════════════════════════════════════
+async function generateTitles() {
+  const topic = document.getElementById('bt_topic').value.trim();
+  const style = getSelected('bt_style');
+  const num   = getSelected('bt_num')||'5';
+
+  if(!topic){ showToast('⚠ Please enter your blog topic'); return; }
+
+  setLoading('btn_title', true);
+  showSkeleton('bt_output');
+  document.getElementById('bt_actions').style.display='none';
+
+  const prompt = `[INST] Generate exactly ${num} ${style}-style blog post titles about: "${topic}".
+
+Requirements:
+- Each title on a new line
+- Titles should be compelling and SEO-friendly
+- ${style==='Listicle'?'Include numbers (e.g. "7 Ways to...")':''}
+- ${style==='How-To'?'Start with "How to..."':''}
+- ${style==='Question'?'End with a question mark':''}
+- Output ONLY the numbered list of titles, nothing else [/INST]`;
+
+  try {
+    const raw = await callHuggingFace(prompt, 350);
+    const lines = raw.split('\n')
+      .map(l=>l.replace(/^\d+[\.\)]\s*/,'').trim())
+      .filter(l=>l.length>10 && l.length<200);
+
+    if(lines.length===0) throw new Error('Could not parse titles. Please try again.');
+
+    const el=document.getElementById('bt_output');
+    el.className='output-box';
+    el.innerHTML=`<div class="title-list">${lines.slice(0,parseInt(num)).map((t,i)=>`
+      <div class="title-item" onclick="navigator.clipboard.writeText(${JSON.stringify(t)}).then(()=>showToast('✅ Copied!'))" title="Click to copy">
+        <span>${t}</span>
+        <span class="title-num">#${i+1}</span>
+      </div>`).join('')}</div>
+      <p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem">Click any title to copy it</p>`;
+    document.getElementById('bt_actions').style.display='flex';
+    showToast(`✅ Generated ${lines.length} blog titles!`);
+  } catch(err) {
+    handleApiError('bt_output', err);
+  }
+  setLoading('btn_title', false);
+}
+
+// ════════════════════════════════════════════
+//  3. CAPTION WRITER
+// ════════════════════════════════════════════
+async function generateCaption() {
+  const desc = document.getElementById('cap_desc').value.trim();
+  const tone = getSelected('cap_tone');
+  const len  = getSelected('cap_len');
+
+  if(!desc){ showToast('⚠ Please describe your post or image'); return; }
+
+  setLoading('btn_caption', true);
+  showSkeleton('cap_output');
+  document.getElementById('cap_actions').style.display='none';
+
+  const lengthGuide = len.includes('Short')?'1-2 sentences':len.includes('Long')?'3-4 sentences (a full paragraph)':'2-4 sentences';
+  const prompt = `[INST] Write a ${tone.toLowerCase()} social media caption for this post: "${desc}".
+
+Requirements:
+- Length: ${lengthGuide}
+- Tone: ${tone}
+- ${tone==='Islamic'?'Include relevant Islamic references, duas or Quranic wisdom':''}
+- ${tone==='Funny'?'Be genuinely witty and humorous':''}
+- End with 1-2 relevant emojis
+- Write ONLY the caption text, no explanations [/INST]`;
+
+  try {
+    const raw = await callHuggingFace(prompt, 300);
+    const caption = raw.replace(/^["']|["']$/g,'').trim();
+
+    const el=document.getElementById('cap_output');
+    el.className='output-box';
+    el.innerHTML=`<div class="output-text">${escapeHtml(caption)}</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem">${caption.length} characters</div>`;
+    document.getElementById('cap_actions').style.display='flex';
+    showToast('✅ Caption generated!');
+  } catch(err) {
+    handleApiError('cap_output', err);
+  }
+  setLoading('btn_caption', false);
+}
+
+// ════════════════════════════════════════════
+//  4. TEXT HUMANIZER
+// ════════════════════════════════════════════
+async function humanizeText() {
+  const input = document.getElementById('hum_input').value.trim();
+  const style = getSelected('hum_style');
+
+  if(!input){ showToast('⚠ Please paste the AI-generated text to humanize'); return; }
+  if(input.length<20){ showToast('⚠ Text is too short'); return; }
+
+  setLoading('btn_humanizer', true);
+  showSkeleton('hum_output');
+  document.getElementById('hum_actions').style.display='none';
+
+  const prompt = `[INST] Rewrite the following AI-generated text to sound completely human-written and natural. Use a ${style.toLowerCase()} writing style.
+
+Rules:
+- Vary sentence structure and length
+- Use natural transitions and connective phrases
+- Avoid robotic, repetitive patterns
+- Keep all the original information and meaning
+- Do NOT add new information
+- Output ONLY the rewritten text, nothing else
+
+Original text:
+${input} [/INST]`;
+
+  try {
+    const raw = await callHuggingFace(prompt, Math.min(600, input.length*2));
+    const humanized = raw.replace(/^["']|["']$/g,'').trim();
+
+    const el=document.getElementById('hum_output');
+    el.className='output-box';
+    el.innerHTML=`<div class="output-text">${escapeHtml(humanized)}</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem">
+        Original: ${input.length} chars → Humanized: ${humanized.length} chars
+      </div>`;
+    document.getElementById('hum_actions').style.display='flex';
+    showToast('✅ Text humanized!');
+  } catch(err) {
+    handleApiError('hum_output', err);
+  }
+  setLoading('btn_humanizer', false);
+}
+
+// ════════════════════════════════════════════
+//  5. RESUME SUMMARY GENERATOR
+// ════════════════════════════════════════════
+async function generateResumeSummary() {
+  const exp   = document.getElementById('res_exp').value.trim();
+  const role  = document.getElementById('res_role').value.trim();
+  const style = getSelected('res_style');
+
+  if(!exp){ showToast('⚠ Please describe your experience and skills'); return; }
+
+  setLoading('btn_resume', true);
+  showSkeleton('res_output');
+  document.getElementById('res_actions').style.display='none';
+
+  const formatGuide = style.includes('bullets')?'5 bullet points starting with •':
+                      style.includes('LinkedIn')?'2-3 paragraph professional summary':
+                      style.includes('Entry')?'2 sentences suitable for entry-level':
+                      '3 concise, impactful sentences';
+
+  const prompt = `[INST] Write a ${style} resume/CV professional summary for a ${role||'professional'} based on this experience:
+
+${exp}
+
+Requirements:
+- Format: ${formatGuide}
+- Use strong action verbs
+- Highlight key achievements and skills
+- Keep it ATS-friendly
+- Output ONLY the summary text, nothing else [/INST]`;
+
+  try {
+    const raw = await callHuggingFace(prompt, 400);
+    const summary = raw.replace(/^["']|["']$/g,'').trim();
+
+    const el=document.getElementById('res_output');
+    el.className='output-box';
+    el.innerHTML=`<div class="output-text">${escapeHtml(summary)}</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem">${summary.length} characters • Ready to copy into your CV</div>`;
+    document.getElementById('res_actions').style.display='flex';
+    showToast('✅ Resume summary generated!');
+  } catch(err) {
+    handleApiError('res_output', err);
+  }
+  setLoading('btn_resume', false);
+}
+
+// ════════════════════════════════════════════
+//  UTILITY
+// ════════════════════════════════════════════
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+            .replace(/"/g,'&quot;').replace(/\n/g,'<br>');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Water Intake Calculator — Daily Hydration | IslamiTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/tools.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.input-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.input-card h3 {
+  font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--text-muted); margin-bottom: 1rem;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 640px){ .form-grid { grid-template-columns: 1fr; } }
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); }
+.field-input {
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.9rem; font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  outline: none; transition: border-color 0.2s; width: 100%;
+}
+.field-input:focus { border-color: var(--accent); }
+
+/* ── water display ── */
+.water-hero {
+  background: linear-gradient(135deg, #0ea5e9, #3b82f6, #8b5cf6);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.water-hero::before {
+  content: '💧';
+  position: absolute;
+  font-size: 8rem;
+  opacity: 0.07;
+  top: -10px; right: -10px;
+  transform: rotate(20deg);
+}
+.water-amount {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.water-unit { font-size: 1rem; opacity: 0.85; margin-top: 4px; }
+.water-glasses { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; opacity: 0.9; }
+
+/* ── result grid ── */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px,1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.result-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+.result-card .r-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); }
+.result-card .r-value { font-size: 1.4rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: var(--text-primary); margin: 0.2rem 0; }
+
+/* ── water tracker ── */
+.tracker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+.glass-btn {
+  width: 52px; height: 52px;
+  border-radius: 10px;
+  border: 2px solid var(--border-color);
+  background: var(--input-bg);
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.glass-btn.filled { background: #0ea5e9; border-color: #0ea5e9; }
+.glass-btn:hover { transform: scale(1.08); }
+
+/* ── tips list ── */
+.tips-list { list-style: none; padding: 0; margin: 0; }
+.tips-list li {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+.tips-list li:last-child { border: none; }
+.tips-list .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+/* ── schedule table ── */
+.schedule-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.schedule-table th { background: var(--accent); color: #fff; padding: 0.6rem 0.9rem; text-align: left; }
+.schedule-table td { padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--border-color); color: var(--text-primary); }
+.schedule-table tr:nth-child(even) td { background: var(--input-bg); }
+
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: #1e293b; color: #fff;
+  padding: 0.75rem 1.25rem; border-radius: 10px;
+  font-size: 0.85rem; font-weight: 500; z-index: 9999;
+  transform: translateY(60px); opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.section-divider { border: none; border-top: 1.5px solid var(--border-color); margin: 1.5rem 0; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <span class="brand-icon"><i class="fas fa-crescent"></i></span>
+      <span class="brand-text">IslamiTools</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+  </div>
+</nav>
+
+<section class="tool-hero">
+  <div class="tool-hero-content">
+    <div class="tool-hero-icon" style="background:linear-gradient(135deg,#0ea5e9,#3b82f6)">
+      <i class="fas fa-tint"></i>
+    </div>
+    <div>
+      <h1 class="tool-hero-title">Water Intake Calculator</h1>
+      <p class="tool-hero-desc">Calculate your daily water intake based on weight, activity level, climate, and health goals. Includes a daily tracker.</p>
+    </div>
+  </div>
+</section>
+
+<main class="tool-main">
+<div class="tool-container">
+
+  <div class="input-card">
+    <h3><i class="fas fa-user" style="color:var(--accent)"></i> Personal Details</h3>
+    <div class="form-grid">
+      <div class="field-group">
+        <label>Weight</label>
+        <div style="display:flex;gap:0.5rem">
+          <input type="number" class="field-input" id="weight" value="70" min="20" max="300" oninput="calculate()" style="flex:1"/>
+          <select class="field-input" id="weightUnit" onchange="calculate()" style="width:auto;flex-shrink:0">
+            <option value="kg">kg</option>
+            <option value="lbs">lbs</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Age</label>
+        <input type="number" class="field-input" id="age" value="25" min="1" max="100" oninput="calculate()"/>
+      </div>
+      <div class="field-group">
+        <label>Gender</label>
+        <select class="field-input" id="gender" onchange="calculate()">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Activity Level</label>
+        <select class="field-input" id="activity" onchange="calculate()">
+          <option value="sedentary">Sedentary (desk job)</option>
+          <option value="light" selected>Lightly Active (1–3 days/wk)</option>
+          <option value="moderate">Moderately Active (3–5 days/wk)</option>
+          <option value="very">Very Active (6–7 days/wk)</option>
+          <option value="athlete">Athlete / Intense training</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Climate</label>
+        <select class="field-input" id="climate" onchange="calculate()">
+          <option value="temperate" selected>Temperate</option>
+          <option value="hot">Hot / Humid</option>
+          <option value="cold">Cold</option>
+          <option value="high_altitude">High Altitude</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Health Condition</label>
+        <select class="field-input" id="health" onchange="calculate()">
+          <option value="normal" selected>Normal / Healthy</option>
+          <option value="pregnant">Pregnant</option>
+          <option value="breastfeeding">Breastfeeding</option>
+          <option value="kidney">Kidney Concern (reduced)</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+      <button onclick="calculate()" style="flex:1;padding:0.7rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.95rem;cursor:pointer;min-width:120px"><i class="fas fa-tint"></i> Calculate</button>
+      <button onclick="copyResult()" style="padding:0.7rem 1rem;background:transparent;color:var(--text-secondary);border:1.5px solid var(--border-color);border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer"><i class="fas fa-copy"></i> Copy</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsArea" class="hidden">
+
+    <div class="water-hero">
+      <div class="water-amount" id="waterLitres">2.5L</div>
+      <div class="water-unit">Daily Water Intake</div>
+      <div class="water-glasses" id="waterGlasses">≈ 10 glasses (250ml each)</div>
+    </div>
+
+    <div class="result-grid" id="resultCards"></div>
+
+    <!-- Daily Tracker -->
+    <div class="input-card">
+      <h3><i class="fas fa-check-circle" style="color:#0ea5e9"></i> Today's Tracker</h3>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">Click glasses to track your intake today. Progress resets at midnight.</p>
+      <div class="tracker-grid" id="trackerGlasses"></div>
+      <div style="margin-top:0.75rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:150px">
+          <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:4px">Progress: <span id="trackerPct">0%</span></div>
+          <div style="height:8px;border-radius:99px;background:var(--border-color);overflow:hidden">
+            <div id="trackerBar" style="height:100%;border-radius:99px;background:linear-gradient(90deg,#0ea5e9,#3b82f6);transition:width 0.4s;width:0%"></div>
+          </div>
+        </div>
+        <button onclick="resetTracker()" style="padding:0.5rem 0.9rem;border:1.5px solid var(--border-color);border-radius:8px;background:transparent;color:var(--text-secondary);font-size:0.78rem;font-weight:600;cursor:pointer"><i class="fas fa-undo"></i> Reset</button>
+      </div>
+      <div id="trackerMsg" style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-muted)"></div>
+    </div>
+
+    <!-- Hourly Schedule -->
+    <div class="input-card">
+      <h3><i class="fas fa-clock" style="color:#f59e0b"></i> Recommended Drinking Schedule</h3>
+      <div style="overflow-x:auto">
+        <table class="schedule-table" id="scheduleTable"></table>
+      </div>
+    </div>
+
+    <!-- Hydration Chart -->
+    <div class="input-card">
+      <h3><i class="fas fa-chart-bar" style="color:#8b5cf6"></i> Intake by Activity Level Comparison</h3>
+      <div style="position:relative;height:240px">
+        <canvas id="waterChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Hydration Tips -->
+    <div class="input-card">
+      <h3><i class="fas fa-lightbulb" style="color:#f59e0b"></i> Hydration Tips</h3>
+      <ul class="tips-list" id="tipsList"></ul>
+    </div>
+
+  </div>
+
+</div>
+</main>
+
+<div class="toast" id="toast"></div>
+<script>
+const savedTheme = localStorage.getItem('theme')||'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme==='dark'?'fas fa-sun':'fas fa-moon';
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const html=document.documentElement;
+  const t=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',t); localStorage.setItem('theme',t);
+  document.getElementById('themeIcon').className=t==='dark'?'fas fa-sun':'fas fa-moon';
+});
+function showToast(msg,dur=2500){
+  const t=document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+let targetGlasses=8, trackerFilled=0, waterChartInst=null;
+
+// Load tracker from localStorage
+function loadTracker(){
+  const saved = JSON.parse(localStorage.getItem('waterTracker')||'{}');
+  const today = new Date().toDateString();
+  if(saved.date===today){ trackerFilled=saved.filled||0; }
+  else { trackerFilled=0; localStorage.removeItem('waterTracker'); }
+}
+function saveTracker(){
+  localStorage.setItem('waterTracker', JSON.stringify({date:new Date().toDateString(), filled:trackerFilled}));
+}
+
+function calculate(){
+  let weightKg = parseFloat(document.getElementById('weight').value)||70;
+  if(document.getElementById('weightUnit').value==='lbs') weightKg *= 0.453592;
+  const age      = parseInt(document.getElementById('age').value)||25;
+  const gender   = document.getElementById('gender').value;
+  const activity = document.getElementById('activity').value;
+  const climate  = document.getElementById('climate').value;
+  const health   = document.getElementById('health').value;
+
+  // Base: 35 ml per kg body weight (standard medical guideline)
+  let base = weightKg * 35; // ml
+
+  // Activity multiplier
+  const actMul = {sedentary:0.9, light:1.0, moderate:1.2, very:1.4, athlete:1.6};
+  base *= actMul[activity]||1.0;
+
+  // Age adjustment
+  if(age>65) base *= 0.95;
+  else if(age<18) base *= 0.85;
+
+  // Climate
+  const climMul = {temperate:1.0, hot:1.2, cold:0.9, high_altitude:1.1};
+  base *= climMul[climate]||1.0;
+
+  // Gender (males need ~10% more)
+  if(gender==='male') base *= 1.05;
+
+  // Health
+  if(health==='pregnant')       base += 300;
+  else if(health==='breastfeeding') base += 700;
+  else if(health==='kidney')    base = Math.min(base, 1500);
+
+  base = Math.round(base / 50) * 50; // round to 50ml
+
+  const litres     = (base/1000).toFixed(1);
+  const glasses250 = Math.round(base/250);
+  const glasses300 = Math.round(base/300);
+  targetGlasses    = glasses250;
+
+  document.getElementById('resultsArea').classList.remove('hidden');
+  document.getElementById('waterLitres').textContent = litres+'L';
+  document.getElementById('waterGlasses').textContent = `≈ ${glasses250} glasses (250ml) or ${glasses300} mugs (300ml)`;
+
+  // Result cards
+  const cards=[
+    {label:'Daily Target',value:litres+'L',icon:'💧'},
+    {label:'250ml Glasses',value:glasses250,icon:'🥛'},
+    {label:'300ml Mugs',value:glasses300,icon:'☕'},
+    {label:'Per Hour (16h)',value:Math.round(base/16)+'ml',icon:'⏱'},
+    {label:'Waking Intervals',value:'Every '+Math.round(16*60/glasses250)+' min',icon:'⏰'},
+    {label:'With Activity',value:`+${Math.round(actMul[activity]*100-100||0)}%`,icon:'🏃'},
+  ];
+  document.getElementById('resultCards').innerHTML=cards.map(c=>`
+    <div class="result-card">
+      <div style="font-size:1.5rem">${c.icon}</div>
+      <div class="r-label">${c.label}</div>
+      <div class="r-value">${c.value}</div>
+    </div>`).join('');
+
+  // Render tracker
+  renderTracker();
+
+  // Schedule table (6am to 10pm, distribute glasses)
+  renderSchedule(base, glasses250);
+
+  // Bar chart comparison
+  renderChart(weightKg, climate, gender, age, health);
+
+  // Tips
+  renderTips(activity, climate, health, base);
+}
+
+function renderTracker(){
+  loadTracker();
+  const grid=document.getElementById('trackerGlasses');
+  grid.innerHTML='';
+  for(let i=0;i<targetGlasses;i++){
+    const btn=document.createElement('button');
+    btn.className='glass-btn'+(i<trackerFilled?' filled':'');
+    btn.textContent='💧';
+    btn.title=i<trackerFilled?'Click to unfill':'Click to fill';
+    btn.onclick=()=>{
+      if(i<trackerFilled){ trackerFilled=i; }
+      else { trackerFilled=i+1; }
+      saveTracker(); renderTracker();
+    };
+    grid.appendChild(btn);
+  }
+  const pct=Math.round(trackerFilled/targetGlasses*100);
+  document.getElementById('trackerBar').style.width=pct+'%';
+  document.getElementById('trackerPct').textContent=pct+'%';
+  const msgs=['Keep going! Stay hydrated 💧','Great start!','Halfway there 🌊','Almost done! 💪','Goal reached! 🎉 Amazing!'];
+  const msgIdx=Math.min(Math.floor(pct/25), msgs.length-1);
+  document.getElementById('trackerMsg').textContent=pct===100?msgs[4]:msgs[msgIdx];
+}
+
+function resetTracker(){
+  trackerFilled=0; saveTracker(); renderTracker();
+  showToast('↩ Tracker reset');
+}
+
+function renderSchedule(totalMl, glasses){
+  const slots=[
+    ['6:00 AM','Wake up'],['7:30 AM','Before breakfast'],['9:00 AM','Mid-morning'],
+    ['11:00 AM','Late morning'],['1:00 PM','Before lunch'],['3:00 PM','Afternoon'],
+    ['5:00 PM','Before workout/evening'],['7:00 PM','Before dinner'],
+    ['9:00 PM','After dinner'],['10:00 PM','Before bed']
+  ];
+  const perGlass = Math.round(totalMl/glasses);
+  let html=`<thead><tr><th>Time</th><th>Occasion</th><th>Amount</th><th>Cumulative</th></tr></thead><tbody>`;
+  let cumulative=0;
+  const distribute=[];
+  for(let i=0;i<slots.length;i++){
+    const g = i<glasses ? (i===slots.length-1?glasses-distribute.reduce((a,b)=>a+b,0):Math.ceil(glasses/slots.length)) : 0;
+    distribute.push(g>0?1:0);
+  }
+  // Evenly spread glasses across time slots
+  let remaining=glasses;
+  const perSlot=Math.ceil(glasses/slots.length);
+  slots.forEach(([time,occ],i)=>{
+    const g = remaining>0?Math.min(perSlot,remaining):0;
+    remaining-=g;
+    const ml=g*perGlass;
+    cumulative+=ml;
+    if(ml>0){
+      html+=`<tr><td>${time}</td><td>${occ}</td><td>${g} glass${g>1?'es':''} (${ml}ml)</td><td>${(cumulative/1000).toFixed(1)}L</td></tr>`;
+    }
+  });
+  html+=`</tbody>`;
+  document.getElementById('scheduleTable').innerHTML=html;
+}
+
+function renderChart(weightKg, climate, gender, age, health){
+  if(waterChartInst){waterChartInst.destroy();waterChartInst=null;}
+  const levels=['Sedentary','Light','Moderate','Very Active','Athlete'];
+  const muls=[0.9,1.0,1.2,1.4,1.6];
+  const climMul={temperate:1.0,hot:1.2,cold:0.9,high_altitude:1.1};
+  const curClim=climMul[document.getElementById('climate').value]||1.0;
+  const genMul=gender==='male'?1.05:1.0;
+  const vals=muls.map(m=>{
+    let v=weightKg*35*m*curClim*genMul;
+    if(health==='pregnant')v+=300;
+    if(health==='breastfeeding')v+=700;
+    if(health==='kidney')v=Math.min(v,1500);
+    return parseFloat((v/1000).toFixed(2));
+  });
+  const curIdx=['sedentary','light','moderate','very','athlete'].indexOf(document.getElementById('activity').value);
+  const colors=vals.map((_,i)=>i===curIdx?'#0ea5e9':'rgba(14,165,233,0.35)');
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const ctx=document.getElementById('waterChart').getContext('2d');
+  waterChartInst=new Chart(ctx,{
+    type:'bar',
+    data:{labels:levels,datasets:[{label:'Daily Water (L)',data:vals,backgroundColor:colors,borderRadius:6}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw}L per day`}}},
+      scales:{
+        x:{grid:{color:isDark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)'},ticks:{color:isDark?'#94a3b8':'#64748b'}},
+        y:{grid:{color:isDark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)'},ticks:{color:isDark?'#94a3b8':'#64748b',callback:v=>v+'L'}}
+      }
+    }
+  });
+}
+
+function renderTips(activity, climate, health, base){
+  const tips=[
+    {icon:'🌅',text:'Start your day with 1-2 glasses of water immediately after waking up.'},
+    {icon:'🍋',text:'Add lemon, cucumber, or mint to infuse water for better taste and compliance.'},
+    {icon:'⏰',text:`Set hourly reminders to drink ${Math.round(base/16)}ml every hour for 16 waking hours.`},
+    {icon:'🥤',text:'Keep a water bottle at your desk, bedside, and in your bag at all times.'},
+    {icon:'🍎',text:'Eat water-rich foods: cucumbers (96%), watermelon (92%), lettuce (95%), oranges (87%).'},
+    {icon:'☕',text:'Coffee and tea count towards hydration but are mild diuretics — limit to 3-4 cups/day.'},
+  ];
+  if(climate==='hot') tips.push({icon:'🌞',text:'In hot weather, increase intake by 500–1000ml extra and avoid going outside during peak heat.'});
+  if(activity==='athlete'||activity==='very') tips.push({icon:'🏋️',text:'Drink 500ml 2 hours before exercise and 150–250ml every 15-20 minutes during workout.'});
+  if(health==='pregnant') tips.push({icon:'🤰',text:'Pregnant women need extra 300ml/day. Sip slowly throughout the day to avoid nausea.'});
+  if(health==='breastfeeding') tips.push({icon:'👶',text:'Breastfeeding moms need +700ml extra. Drink a glass each time you nurse.'});
+  document.getElementById('tipsList').innerHTML=tips.map(t=>`<li><span class="tip-icon">${t.icon}</span><span>${t.text}</span></li>`).join('');
+}
+
+function copyResult(){
+  const litres=document.getElementById('waterLitres').textContent;
+  const glasses=document.getElementById('waterGlasses').textContent;
+  navigator.clipboard.writeText(`Daily Water Intake: ${litres}\n${glasses}`).then(()=>showToast('✅ Copied!'));
+}
+
+calculate();
+</script>
+</body>
+</html>

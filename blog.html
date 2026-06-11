@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – Islamic Finance, AI Tools, Pakistan Business Guides | HashmiTools</title>
+  <meta name="description" content="HashmiTools Blog – Expert guides on Islamic Finance, Zakat, Pakistan Tax, AI Tools, Freelancing, and Digital Productivity. Learn and grow." />
+  <meta name="keywords" content="zakat guide, pakistan income tax, ai tools guide, freelancing tips, islamic finance, digital tools" />
+  <link rel="canonical" href="https://hashmitools.com/blog.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/tools.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="blog.html" class="nav-link active">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <!-- Hero -->
+  <section class="blog-hero" style="text-align:center;">
+    <div class="container">
+      <div class="section-badge" style="margin-bottom:14px;">📝 Knowledge Hub</div>
+      <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:14px;">
+        HashmiTools <span class="gradient-text">Blog</span>
+      </h1>
+      <p style="font-size:1rem;color:var(--text-secondary);max-width:500px;margin:0 auto 24px;">
+        Expert guides on Islamic Finance, Zakat, Pakistan Tax, AI Tools, Freelancing & Productivity
+      </p>
+      <!-- Blog Search -->
+      <div style="max-width:480px;margin:0 auto;">
+        <div class="hero-search-box" style="max-width:480px;">
+          <i class="fas fa-search"></i>
+          <input type="text" id="blogSearch" placeholder="Search articles..." oninput="filterPosts(this.value)" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad Banner -->
+  <div class="ad-container"><div class="ad-placeholder" style="max-width:1280px;margin:0 auto;padding:0 24px;"><span>Advertisement</span></div></div>
+
+  <main class="blog-listing">
+    <div class="container">
+
+      <!-- Category Filter -->
+      <div class="blog-category-filter" id="categoryFilter">
+        <button class="filter-btn active" onclick="filterByCategory('all',this)">All Posts</button>
+        <button class="filter-btn" onclick="filterByCategory('islamic',this)">🕌 Islamic</button>
+        <button class="filter-btn" onclick="filterByCategory('finance',this)">💰 Finance</button>
+        <button class="filter-btn" onclick="filterByCategory('ai',this)">🤖 AI & Tech</button>
+        <button class="filter-btn" onclick="filterByCategory('freelancing',this)">💻 Freelancing</button>
+        <button class="filter-btn" onclick="filterByCategory('pakistan',this)">🇵🇰 Pakistan</button>
+        <button class="filter-btn" onclick="filterByCategory('productivity',this)">⚡ Productivity</button>
+      </div>
+
+      <!-- Blog Posts Grid -->
+      <div class="blog-listing-grid" id="blogGrid">
+
+        <!-- Post 1 -->
+        <article class="blog-card" data-cat="islamic">
+          <div class="blog-image" style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">Islamic Finance</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">🕌</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> May 2025</span><span><i class="fas fa-clock"></i> 8 min</span></div>
+            <h3>Complete Guide to Calculating Zakat on Savings & Investments in 2025</h3>
+            <p>A comprehensive breakdown of how to calculate Zakat on bank savings, stocks, mutual funds and business assets.</p>
+            <a href="blog/zakat-guide-2025.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article class="blog-card" data-cat="finance pakistan">
+          <div class="blog-image" style="background:linear-gradient(135deg,#0c4a6e,#0369a1);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">Pakistan Tax</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">🇵🇰</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> May 2025</span><span><i class="fas fa-clock"></i> 6 min</span></div>
+            <h3>Pakistan Income Tax 2024-25: Complete FBR Tax Slabs Guide</h3>
+            <p>Everything you need to know about the latest Pakistan income tax slabs for salaried and business persons.</p>
+            <a href="blog/pakistan-tax-guide.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 3 -->
+        <article class="blog-card" data-cat="ai">
+          <div class="blog-image" style="background:linear-gradient(135deg,#064e3b,#065f46);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">AI Tools</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">🤖</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> Apr 2025</span><span><i class="fas fa-clock"></i> 5 min</span></div>
+            <h3>10 Best Free AI Tools Every Freelancer Must Use in 2025</h3>
+            <p>Boost your productivity and income with these powerful free AI tools every freelancer should know.</p>
+            <a href="blog/ai-tools-freelancers.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 4 -->
+        <article class="blog-card" data-cat="freelancing">
+          <div class="blog-image" style="background:linear-gradient(135deg,#7c2d12,#9a3412);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">Freelancing</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">💻</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> Apr 2025</span><span><i class="fas fa-clock"></i> 7 min</span></div>
+            <h3>How to Start Freelancing in Pakistan in 2025: Step-by-Step Guide</h3>
+            <p>A complete guide for Pakistani professionals looking to start their freelancing career on Upwork, Fiverr and Toptal.</p>
+            <a href="blog/freelancing-pakistan-guide.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 5 -->
+        <article class="blog-card" data-cat="islamic">
+          <div class="blog-image" style="background:linear-gradient(135deg,#14532d,#166534);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">Islamic</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">📿</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> Mar 2025</span><span><i class="fas fa-clock"></i> 10 min</span></div>
+            <h3>Islamic Inheritance (Faraid): How to Distribute Property According to Quran</h3>
+            <p>A simplified explanation of Islamic inheritance law — who gets what and how to calculate shares correctly.</p>
+            <a href="blog/islamic-inheritance-guide.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 6 -->
+        <article class="blog-card" data-cat="productivity">
+          <div class="blog-image" style="background:linear-gradient(135deg,#4c1d95,#5b21b6);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">Productivity</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">⚡</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> Mar 2025</span><span><i class="fas fa-clock"></i> 4 min</span></div>
+            <h3>15 Developer Tools Every Programmer Should Bookmark in 2025</h3>
+            <p>Essential online developer tools that save hours of coding time — JSON formatters, QR generators, and more.</p>
+            <a href="blog/developer-tools-2025.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 7 -->
+        <article class="blog-card" data-cat="finance">
+          <div class="blog-image" style="background:linear-gradient(135deg,#1e3a5f,#1d4ed8);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">Finance</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">📈</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> Feb 2025</span><span><i class="fas fa-clock"></i> 6 min</span></div>
+            <h3>EMI vs Cash Payment: Which is Smarter for Buying a Car or Home in Pakistan?</h3>
+            <p>A data-driven analysis of when to take a loan vs paying cash, with real calculations using Pakistan's interest rates.</p>
+            <a href="blog/emi-vs-cash-pakistan.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 8 -->
+        <article class="blog-card" data-cat="ai">
+          <div class="blog-image" style="background:linear-gradient(135deg,#1c1917,#292524);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">AI Guide</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">🧠</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> Feb 2025</span><span><i class="fas fa-clock"></i> 5 min</span></div>
+            <h3>How to Use AI Hashtag Generator to Get 10x More Reach on Instagram</h3>
+            <p>Step-by-step guide to using AI hashtag tools to massively increase your social media engagement.</p>
+            <a href="blog/ai-hashtag-instagram.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Post 9 -->
+        <article class="blog-card" data-cat="pakistan">
+          <div class="blog-image" style="background:linear-gradient(135deg,#14532d,#15803d);min-height:200px;display:flex;align-items:flex-end;padding:16px;position:relative;">
+            <div class="blog-category-tag">Pakistan</div>
+            <div class="blog-emoji-icon" style="position:absolute;bottom:16px;right:16px;font-size:2.5rem;">🏦</div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta"><span><i class="fas fa-calendar"></i> Jan 2025</span><span><i class="fas fa-clock"></i> 8 min</span></div>
+            <h3>Best Banks in Pakistan for Saving Accounts in 2025 – Interest Rates Compared</h3>
+            <p>A comprehensive comparison of Pakistan's major banks' saving account rates, features, and minimum balances.</p>
+            <a href="blog/pakistan-banks-savings-2025.html" class="blog-read-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Load More / Pagination -->
+      <div style="text-align:center;margin-top:40px;" id="noResults" style="display:none;"></div>
+      <div style="text-align:center;margin-top:40px;">
+        <button class="btn btn-outline" id="loadMoreBtn" onclick="loadMore()">
+          <i class="fas fa-plus"></i> Load More Articles
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Newsletter Section -->
+  <section style="padding:80px 0;background:var(--bg-secondary);">
+    <div class="container">
+      <div class="cta-content" style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:24px;padding:48px 32px;text-align:center;position:relative;overflow:hidden;">
+        <div class="cta-orb"></div>
+        <div style="font-size:2.5rem;margin-bottom:12px;">📬</div>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:10px;">Stay Updated</h2>
+        <p style="color:var(--text-secondary);margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto;">Get the latest guides, tool updates, and Islamic finance tips delivered to your inbox. No spam, ever.</p>
+        <div style="display:flex;max-width:420px;margin:0 auto;gap:8px;">
+          <input type="email" id="newsletterEmail" class="form-input" placeholder="your@email.com" style="flex:1;" />
+          <button class="btn btn-primary" onclick="subscribeNewsletter()"><i class="fas fa-paper-plane"></i> Subscribe</button>
+        </div>
+        <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">We respect your privacy. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-bottom"><div class="container"><div class="footer-bottom-content">
+      <p>© 2025 <strong>HashmiTools.com</strong></p>
+      <div class="footer-bottom-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div></div></div>
+  </footer>
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="js/main.js"></script>
+  <script>
+  let activeCategory = 'all';
+
+  function filterByCategory(cat, btn) {
+    activeCategory = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterPosts(document.getElementById('blogSearch').value);
+  }
+
+  function filterPosts(query) {
+    const posts = document.querySelectorAll('.blog-card');
+    const q = query.toLowerCase().trim();
+    let visible = 0;
+    posts.forEach(post => {
+      const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
+      const cat = post.dataset.cat || '';
+      const matchesQuery = !q || title.includes(q);
+      const matchesCat = activeCategory === 'all' || cat.includes(activeCategory);
+      const show = matchesQuery && matchesCat;
+      post.style.display = show ? 'block' : 'none';
+      if (show) visible++;
+    });
+    const noResults = document.getElementById('noResults');
+    if (visible === 0) {
+      noResults.style.display = 'block';
+      noResults.innerHTML = '<div style="padding:40px;color:var(--text-muted);">No articles found for your search. Try different keywords.</div>';
+    } else {
+      noResults.style.display = 'none';
+    }
+  }
+
+  function loadMore() {
+    HashmiTools.showToast('More articles coming soon! Subscribe to our newsletter to be notified.', 'info', 4000);
+  }
+
+  function subscribeNewsletter() {
+    const email = document.getElementById('newsletterEmail').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      HashmiTools.showToast('Please enter a valid email address.', 'error');
+      return;
+    }
+    HashmiTools.showToast(`✅ Subscribed successfully! Welcome to HashmiTools newsletter.`, 'success', 4000);
+    document.getElementById('newsletterEmail').value = '';
+  }
+  </script>
+</body>
+</html>

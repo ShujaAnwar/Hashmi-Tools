@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator – Free Custom QR Code Online | HashmiTools</title>
+  <meta name="description" content="Free QR Code generator. Create custom QR codes for URLs, text, email, phone, WiFi, vCard. Download PNG, SVG. No registration required." />
+  <meta name="keywords" content="qr code generator, free qr code, custom qr code, qr code maker, generate qr code online" />
+  <link rel="canonical" href="https://hashmitools.com/tools/qr-generator.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="developer.html" class="nav-link active">Developer Tools</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search 100+ tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <section class="tool-page-header">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="developer.html">Developer Tools</a><i class="fas fa-chevron-right"></i><span>QR Code Generator</span></nav>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:3rem;">▦</div>
+        <div>
+          <h1 class="tool-title">QR Code Generator</h1>
+          <p class="tool-desc">Generate free custom QR codes for URLs, text, WiFi, vCard, email and more</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-container"><div class="ad-placeholder" style="max-width:1280px;margin:0 auto;padding:0 24px;"><span>Advertisement</span></div></div>
+
+  <main class="tool-main">
+    <div class="container">
+      <div class="tool-layout">
+        <div>
+          <!-- QR Type Tabs -->
+          <div class="tabs" id="qrTypeTabs" style="margin-bottom:20px;flex-wrap:wrap;">
+            <button class="tab-btn active" onclick="setQRType('url',this)">🔗 URL</button>
+            <button class="tab-btn" onclick="setQRType('text',this)">📝 Text</button>
+            <button class="tab-btn" onclick="setQRType('email',this)">📧 Email</button>
+            <button class="tab-btn" onclick="setQRType('phone',this)">📞 Phone</button>
+            <button class="tab-btn" onclick="setQRType('wifi',this)">📶 WiFi</button>
+            <button class="tab-btn" onclick="setQRType('vcard',this)">👤 vCard</button>
+            <button class="tab-btn" onclick="setQRType('sms',this)">💬 SMS</button>
+          </div>
+
+          <!-- Input Forms -->
+          <div class="tool-box" style="margin-bottom:20px;">
+            <div class="tool-box-header"><i class="fas fa-keyboard"></i> QR Code Content</div>
+            <div class="tool-box-body">
+
+              <!-- URL -->
+              <div id="form-url">
+                <div class="form-group">
+                  <label class="form-label">Website URL</label>
+                  <input type="url" class="form-input" id="urlInput" placeholder="https://hashmitools.com" value="https://hashmitools.com" oninput="generateQR()" />
+                </div>
+              </div>
+
+              <!-- Text -->
+              <div id="form-text" style="display:none;">
+                <div class="form-group">
+                  <label class="form-label">Text Content</label>
+                  <textarea class="form-textarea" id="textInput" placeholder="Enter any text here..." oninput="generateQR()"></textarea>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div id="form-email" style="display:none;">
+                <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" id="emailTo" placeholder="recipient@example.com" oninput="generateQR()" /></div>
+                <div class="form-group"><label class="form-label">Subject (optional)</label><input type="text" class="form-input" id="emailSubject" placeholder="Email subject" oninput="generateQR()" /></div>
+                <div class="form-group"><label class="form-label">Body (optional)</label><textarea class="form-textarea" id="emailBody" placeholder="Email body..." oninput="generateQR()" style="min-height:80px;"></textarea></div>
+              </div>
+
+              <!-- Phone -->
+              <div id="form-phone" style="display:none;">
+                <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" id="phoneInput" placeholder="+92 300 1234567" oninput="generateQR()" /></div>
+              </div>
+
+              <!-- WiFi -->
+              <div id="form-wifi" style="display:none;">
+                <div class="form-group"><label class="form-label">Network Name (SSID)</label><input type="text" class="form-input" id="wifiSSID" placeholder="My WiFi Network" oninput="generateQR()" /></div>
+                <div class="form-group"><label class="form-label">Password</label><input type="text" class="form-input" id="wifiPassword" placeholder="WiFi password" oninput="generateQR()" /></div>
+                <div class="form-group">
+                  <label class="form-label">Security Type</label>
+                  <select class="form-select" id="wifiSecurity" onchange="generateQR()">
+                    <option value="WPA">WPA/WPA2</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">None (Open)</option>
+                  </select>
+                </div>
+                <label class="checkbox-item" style="margin-bottom:12px;font-size:0.875rem;"><input type="checkbox" id="wifiHidden" onchange="generateQR()" /><span>Hidden Network</span></label>
+              </div>
+
+              <!-- vCard -->
+              <div id="form-vcard" style="display:none;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                  <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" id="vcFirstName" placeholder="Hassan" oninput="generateQR()" /></div>
+                  <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" id="vcLastName" placeholder="Hashmi" oninput="generateQR()" /></div>
+                </div>
+                <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" id="vcPhone" placeholder="+92 300 1234567" oninput="generateQR()" /></div>
+                <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="vcEmail" placeholder="hassan@example.com" oninput="generateQR()" /></div>
+                <div class="form-group"><label class="form-label">Website</label><input type="url" class="form-input" id="vcWebsite" placeholder="https://hashmitools.com" oninput="generateQR()" /></div>
+                <div class="form-group"><label class="form-label">Company</label><input type="text" class="form-input" id="vcCompany" placeholder="HashmiTools.com" oninput="generateQR()" /></div>
+              </div>
+
+              <!-- SMS -->
+              <div id="form-sms" style="display:none;">
+                <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" id="smsPhone" placeholder="+92 300 1234567" oninput="generateQR()" /></div>
+                <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" id="smsMessage" placeholder="Enter SMS message..." oninput="generateQR()" style="min-height:80px;"></textarea></div>
+              </div>
+
+              <!-- Customize -->
+              <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border-glass);">
+                <h4 style="font-size:0.875rem;font-weight:700;margin-bottom:12px;">🎨 Customize</h4>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex-wrap:wrap;">
+                  <div>
+                    <label class="form-label">Size</label>
+                    <select class="form-select" id="qrSize" onchange="generateQR()">
+                      <option value="200">200×200</option>
+                      <option value="300" selected>300×300</option>
+                      <option value="400">400×400</option>
+                      <option value="500">500×500</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="form-label">Error Correction</label>
+                    <select class="form-select" id="qrError" onchange="generateQR()">
+                      <option value="L">L (Low 7%)</option>
+                      <option value="M" selected>M (Medium 15%)</option>
+                      <option value="Q">Q (High 25%)</option>
+                      <option value="H">H (Max 30%)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="form-label">Margin</label>
+                    <select class="form-select" id="qrMargin" onchange="generateQR()">
+                      <option value="1">Small</option>
+                      <option value="2" selected>Medium</option>
+                      <option value="4">Large</option>
+                    </select>
+                  </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+                  <div>
+                    <label class="form-label">Foreground Color</label>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                      <input type="color" id="qrFgColor" value="#000000" onchange="generateQR()" style="width:44px;height:36px;border-radius:6px;cursor:pointer;border:1px solid var(--border-glass);" />
+                      <input type="text" class="form-input" id="qrFgHex" value="#000000" oninput="syncColor('Fg')" style="font-family:monospace;" />
+                    </div>
+                  </div>
+                  <div>
+                    <label class="form-label">Background Color</label>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                      <input type="color" id="qrBgColor" value="#ffffff" onchange="generateQR()" style="width:44px;height:36px;border-radius:6px;cursor:pointer;border:1px solid var(--border-glass);" />
+                      <input type="text" class="form-input" id="qrBgHex" value="#ffffff" oninput="syncColor('Bg')" style="font-family:monospace;" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Logo Embedding -->
+              <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border-glass);">
+                <h4 style="font-size:0.875rem;font-weight:700;margin-bottom:12px;">🖼️ Logo Overlay (Optional)</h4>
+                <p style="font-size:0.76rem;color:var(--text-muted);margin-bottom:10px;">Embed a logo in the center. Requires error correction H (30%) for best scan reliability.</p>
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                  <label for="logoUpload" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--accent,#6366f1);color:#fff;border-radius:8px;cursor:pointer;font-size:0.82rem;font-weight:600;">
+                    <i class="fas fa-upload"></i> Upload Logo
+                  </label>
+                  <input type="file" id="logoUpload" accept="image/*" style="display:none" onchange="handleLogoUpload(event)"/>
+                  <button onclick="removeLogo()" id="removeLogoBtn" style="display:none;padding:8px 14px;background:transparent;border:1.5px solid var(--border-glass);border-radius:8px;color:var(--text-secondary);font-size:0.82rem;font-weight:600;cursor:pointer;"><i class="fas fa-times"></i> Remove</button>
+                </div>
+                <div id="logoPreviewWrap" style="display:none;margin-top:10px;display:none;align-items:center;gap:10px;padding:8px;background:var(--bg-glass);border-radius:8px;border:1px solid var(--border-glass);">
+                  <img id="logoThumb" style="width:40px;height:40px;object-fit:contain;border-radius:4px;border:1px solid var(--border-glass);"/>
+                  <div style="font-size:0.78rem;color:var(--text-muted);">
+                    <div id="logoFileName">logo.png</div>
+                    <div style="margin-top:3px;">Logo size: <select id="logoSize" onchange="generateQR()" style="padding:2px 6px;border-radius:4px;border:1px solid var(--border-glass);background:var(--input-bg,#fff);color:var(--text-primary);font-size:0.75rem;">
+                      <option value="0.15">Small (15%)</option>
+                      <option value="0.20" selected>Medium (20%)</option>
+                      <option value="0.25">Large (25%)</option>
+                      <option value="0.30">X-Large (30%)</option>
+                    </select></div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary w-full" onclick="generateQR()" style="padding:14px;font-size:1rem;margin-top:16px;">
+                <i class="fas fa-qrcode"></i> Generate QR Code
+              </button>
+            </div>
+          </div>
+
+          <!-- FAQ -->
+          <div class="faq-section">
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:16px;">FAQ</h3>
+            <div class="faq-item"><div class="faq-question">Are these QR codes permanent? <span class="faq-icon">+</span></div><div class="faq-answer">Yes! Static QR codes (URL, text, WiFi) are permanent and will work forever. They don't expire. However, if you link to a URL and that URL changes, the QR code will point to the old URL.</div></div>
+            <div class="faq-item"><div class="faq-question">What size should I use? <span class="faq-icon">+</span></div><div class="faq-answer">For print, use at least 300×300 pixels at 300 DPI. For websites, 200×200 is sufficient. For billboards or banners, use 500×500 or higher.</div></div>
+            <div class="faq-item"><div class="faq-question">What is error correction level? <span class="faq-icon">+</span></div><div class="faq-answer">Error correction allows QR codes to be read even when partially damaged or obscured. Higher levels (H=30%) are more reliable but create more complex codes. Use H level if your QR code might get scratched or dirty.</div></div>
+          </div>
+        </div>
+
+        <!-- Right: QR Preview + Sidebar -->
+        <aside>
+          <!-- QR Preview -->
+          <div class="tool-box" style="margin-bottom:16px;position:sticky;top:90px;">
+            <div class="tool-box-header"><i class="fas fa-qrcode"></i> QR Code Preview</div>
+            <div class="tool-box-body" style="text-align:center;">
+              <div id="qrPreview" style="display:flex;align-items:center;justify-content:center;min-height:200px;margin-bottom:16px;background:white;border-radius:10px;padding:12px;">
+                <canvas id="qrCanvas"></canvas>
+              </div>
+
+              <div id="qrContentDisplay" style="font-size:0.75rem;color:var(--text-muted);margin-bottom:12px;word-break:break-all;max-height:40px;overflow:hidden;text-overflow:ellipsis;"></div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+                <button class="btn btn-primary" onclick="downloadQR('png')" style="padding:10px 12px;font-size:0.85rem;"><i class="fas fa-download"></i> PNG</button>
+                <button class="btn btn-outline" onclick="downloadQR('svg')" style="padding:10px 12px;font-size:0.85rem;"><i class="fas fa-download"></i> SVG</button>
+              </div>
+
+              <button class="copy-btn w-full" onclick="copyQRImage()" style="margin-bottom:8px;justify-content:center;"><i class="fas fa-copy"></i> Copy Image</button>
+
+              <div style="font-size:0.75rem;color:var(--text-muted);">
+                <div id="qrStats" style="margin-top:8px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-ad">Advertisement (300×250)</div>
+
+          <div class="tool-box" style="margin-top:16px;">
+            <div class="tool-box-header"><i class="fas fa-th"></i> Related Tools</div>
+            <div class="tool-box-body" style="display:flex;flex-direction:column;gap:8px;">
+              <a href="password-generator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🔐 Password Generator</a>
+              <a href="json-formatter.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">{ } JSON Formatter</a>
+              <a href="url-encoder.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🔗 URL Encoder</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></div></footer>
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../js/main.js"></script>
+  <script>
+  let currentQRType = 'url';
+  let logoImage = null; // HTMLImageElement for embedded logo
+
+  function handleLogoUpload(event) {
+    const file = event.target.files[0];
+    if(!file) return;
+    // Auto-switch error correction to H for logo reliability
+    document.getElementById('qrError').value = 'H';
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      logoImage = new Image();
+      logoImage.onload = () => {
+        // Show preview
+        document.getElementById('logoThumb').src = e.target.result;
+        document.getElementById('logoFileName').textContent = file.name;
+        const wrap = document.getElementById('logoPreviewWrap');
+        wrap.style.display = 'flex';
+        document.getElementById('removeLogoBtn').style.display = 'inline-flex';
+        generateQR();
+        if(typeof HashmiTools !== 'undefined') HashmiTools.showToast('Logo added! Error correction set to H.', 'success');
+      };
+      logoImage.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeLogo() {
+    logoImage = null;
+    document.getElementById('logoUpload').value = '';
+    document.getElementById('logoPreviewWrap').style.display = 'none';
+    document.getElementById('removeLogoBtn').style.display = 'none';
+    generateQR();
+  }
+
+  function setQRType(type, btn) {
+    currentQRType = type;
+    document.querySelectorAll('#qrTypeTabs .tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    ['url','text','email','phone','wifi','vcard','sms'].forEach(t => {
+      document.getElementById(`form-${t}`).style.display = t === type ? 'block' : 'none';
+    });
+    generateQR();
+  }
+
+  function getQRContent() {
+    switch(currentQRType) {
+      case 'url': return document.getElementById('urlInput').value.trim() || 'https://hashmitools.com';
+      case 'text': return document.getElementById('textInput').value.trim();
+      case 'email': {
+        const to = document.getElementById('emailTo').value.trim();
+        const subj = document.getElementById('emailSubject').value.trim();
+        const body = document.getElementById('emailBody').value.trim();
+        let result = `mailto:${to}`;
+        const params = [];
+        if (subj) params.push(`subject=${encodeURIComponent(subj)}`);
+        if (body) params.push(`body=${encodeURIComponent(body)}`);
+        if (params.length) result += '?' + params.join('&');
+        return result;
+      }
+      case 'phone': return `tel:${document.getElementById('phoneInput').value.trim()}`;
+      case 'wifi': {
+        const ssid = document.getElementById('wifiSSID').value.trim();
+        const pwd = document.getElementById('wifiPassword').value.trim();
+        const sec = document.getElementById('wifiSecurity').value;
+        const hidden = document.getElementById('wifiHidden').checked ? 'true' : 'false';
+        return `WIFI:T:${sec};S:${ssid};P:${pwd};H:${hidden};;`;
+      }
+      case 'vcard': {
+        const fn = document.getElementById('vcFirstName').value.trim();
+        const ln = document.getElementById('vcLastName').value.trim();
+        const phone = document.getElementById('vcPhone').value.trim();
+        const email = document.getElementById('vcEmail').value.trim();
+        const url = document.getElementById('vcWebsite').value.trim();
+        const org = document.getElementById('vcCompany').value.trim();
+        return `BEGIN:VCARD\nVERSION:3.0\nN:${ln};${fn}\nFN:${fn} ${ln}\nTEL:${phone}\nEMAIL:${email}\nURL:${url}\nORG:${org}\nEND:VCARD`;
+      }
+      case 'sms': {
+        const phone = document.getElementById('smsPhone').value.trim();
+        const msg = document.getElementById('smsMessage').value.trim();
+        return `SMSTO:${phone}:${msg}`;
+      }
+      default: return '';
+    }
+  }
+
+  function syncColor(type) {
+    const hex = document.getElementById(`qr${type}Hex`).value;
+    if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+      document.getElementById(`qr${type}Color`).value = hex;
+      generateQR();
+    }
+  }
+
+  function generateQR() {
+    const content = getQRContent();
+    if (!content) {
+      document.getElementById('qrContentDisplay').textContent = 'Enter content above';
+      return;
+    }
+
+    const size = parseInt(document.getElementById('qrSize').value);
+    const errLevel = document.getElementById('qrError').value;
+    const margin = parseInt(document.getElementById('qrMargin').value);
+    const fgColor = document.getElementById('qrFgColor').value;
+    const bgColor = document.getElementById('qrBgColor').value;
+
+    const canvas = document.getElementById('qrCanvas');
+
+    QRCode.toCanvas(canvas, content, {
+      width: size,
+      margin: margin,
+      errorCorrectionLevel: errLevel,
+      color: { dark: fgColor, light: bgColor }
+    }, (err) => {
+      if (err) { console.error(err); return; }
+
+      // ── LOGO OVERLAY ──
+      if (logoImage) {
+        const ctx = canvas.getContext('2d');
+        const logoSizePct = parseFloat(document.getElementById('logoSize').value) || 0.20;
+        const logoW = Math.round(size * logoSizePct);
+        const logoH = Math.round(size * logoSizePct);
+        const logoX = Math.round((size - logoW) / 2);
+        const logoY = Math.round((size - logoH) / 2);
+
+        // White rounded background for logo
+        const pad = 6;
+        const radius = 10;
+        ctx.save();
+        ctx.beginPath();
+        ctx.roundRect
+          ? ctx.roundRect(logoX - pad, logoY - pad, logoW + pad*2, logoH + pad*2, radius)
+          : (()=>{ ctx.rect(logoX - pad, logoY - pad, logoW + pad*2, logoH + pad*2); })();
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.restore();
+
+        // Draw logo
+        ctx.save();
+        ctx.beginPath();
+        if(ctx.roundRect){
+          ctx.roundRect(logoX, logoY, logoW, logoH, 6);
+          ctx.clip();
+        }
+        ctx.drawImage(logoImage, logoX, logoY, logoW, logoH);
+        ctx.restore();
+      }
+
+      document.getElementById('qrContentDisplay').textContent = content.length > 80 ? content.substring(0,80) + '...' : content;
+      const logoInfo = logoImage ? ' | Logo: ✓' : '';
+      document.getElementById('qrStats').innerHTML = `Size: ${size}×${size}px | Error: ${errLevel} | Chars: ${content.length}${logoInfo}`;
+    });
+  }
+
+  function downloadQR(format) {
+    const canvas = document.getElementById('qrCanvas');
+    if (!canvas.toDataURL) { HashmiTools.showToast('Generate a QR code first!', 'error'); return; }
+
+    if (format === 'png') {
+      const url = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'hashmitools-qr.png';
+      a.click();
+      HashmiTools.showToast('QR Code downloaded as PNG!', 'success');
+    } else {
+      // SVG download
+      const content = getQRContent();
+      QRCode.toString(content, { type: 'svg', width: parseInt(document.getElementById('qrSize').value), errorCorrectionLevel: document.getElementById('qrError').value }, (err, svg) => {
+        if (!err) {
+          const blob = new Blob([svg], { type: 'image/svg+xml' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href = url; a.download = 'hashmitools-qr.svg'; a.click();
+          URL.revokeObjectURL(url);
+          HashmiTools.showToast('QR Code downloaded as SVG!', 'success');
+        }
+      });
+    }
+  }
+
+  async function copyQRImage() {
+    const canvas = document.getElementById('qrCanvas');
+    canvas.toBlob(async blob => {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        HashmiTools.showToast('QR Code copied to clipboard!', 'success');
+      } catch(e) { HashmiTools.showToast('Copy not supported. Please right-click and copy image.', 'info'); }
+    });
+  }
+
+  generateQR();
+  HashmiTools.trackToolView('QR Code Generator', 'tools/qr-generator.html', '▦');
+  </script>
+</body>
+</html>

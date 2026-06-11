@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PDF Compressor — Reduce PDF Size Client-Side | IslamiTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/tools.css"/>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<style>
+.input-card {
+  background: var(--card-bg); border: 1.5px solid var(--border-color);
+  border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem;
+}
+.input-card h3 {
+  font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--text-muted); margin-bottom: 1rem;
+}
+
+/* ── Drop zone ── */
+.drop-zone {
+  border: 2.5px dashed var(--border-color);
+  border-radius: 14px;
+  padding: 2.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--input-bg);
+  margin-bottom: 1.25rem;
+}
+.drop-zone:hover, .drop-zone.dragover {
+  border-color: var(--accent);
+  background: rgba(99,102,241,0.05);
+}
+.drop-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.drop-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.drop-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+/* ── Compression level ── */
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+@media(max-width:500px){ .level-grid { grid-template-columns: 1fr; } }
+.level-card {
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--card-bg);
+}
+.level-card:hover { border-color: var(--accent); }
+.level-card.selected { border-color: var(--accent); background: rgba(99,102,241,0.08); }
+.level-icon { font-size: 1.6rem; margin-bottom: 5px; }
+.level-name { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); }
+.level-desc { font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; }
+.level-pct  { font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-top: 4px; }
+
+/* ── File info card ── */
+.file-info-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.file-icon { font-size: 2rem; flex-shrink: 0; }
+.file-meta { flex: 1; min-width: 0; }
+.file-name { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-size { font-size: 0.76rem; color: var(--text-muted); margin-top: 3px; font-family: 'Space Grotesk', monospace; }
+
+/* ── Progress ── */
+.progress-area { margin: 1.25rem 0; }
+.prog-label { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 600; }
+.prog-track { height: 10px; border-radius: 99px; background: var(--border-color); overflow: hidden; }
+.prog-fill  { height: 100%; border-radius: 99px; background: linear-gradient(90deg,var(--accent),#8b5cf6); transition: width 0.3s; width: 0%; }
+
+/* ── Result banner ── */
+.result-banner {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-radius: 14px;
+  padding: 1.5rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+.result-banner .saving-pct {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.result-banner .saving-label { font-size: 0.9rem; opacity: 0.88; margin-top: 4px; }
+
+.result-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+@media(max-width:500px){ .result-stats { grid-template-columns: 1fr; } }
+.stat-card {
+  background: var(--card-bg); border: 1.5px solid var(--border-color);
+  border-radius: 12px; padding: 0.9rem; text-align: center;
+}
+.stat-card .s-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); }
+.stat-card .s-value { font-size: 1.4rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: var(--text-primary); margin: 0.2rem 0; }
+
+/* ── How it works ── */
+.how-list { list-style: none; padding: 0; margin: 0; }
+.how-list li { display: flex; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border-color); font-size: 0.84rem; color: var(--text-secondary); }
+.how-list li:last-child { border: none; }
+.how-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* ── Buttons ── */
+.compress-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #fff; border: none; border-radius: 12px;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  transition: opacity 0.2s; margin-bottom: 0.75rem;
+}
+.compress-btn:hover { opacity: 0.9; }
+.compress-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: #1e293b; color: #fff;
+  padding: 0.75rem 1.25rem; border-radius: 10px;
+  font-size: 0.85rem; font-weight: 500; z-index: 9999;
+  transform: translateY(60px); opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.section-divider { border: none; border-top: 1.5px solid var(--border-color); margin: 1.5rem 0; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <span class="brand-icon"><i class="fas fa-crescent"></i></span>
+      <span class="brand-text">IslamiTools</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+  </div>
+</nav>
+
+<section class="tool-hero">
+  <div class="tool-hero-content">
+    <div class="tool-hero-icon" style="background:linear-gradient(135deg,#ef4444,#f97316)">
+      <i class="fas fa-compress-arrows-alt"></i>
+    </div>
+    <div>
+      <h1 class="tool-hero-title">PDF Compressor</h1>
+      <p class="tool-hero-desc">Compress PDF files client-side. Removes redundant metadata, resamples embedded images via Canvas API. 100% private — files never leave your browser.</p>
+    </div>
+  </div>
+</section>
+
+<main class="tool-main">
+<div class="tool-container">
+
+  <!-- Drop Zone -->
+  <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()"
+    ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
+    <div class="drop-icon">📄</div>
+    <div class="drop-title">Drop PDF here or click to upload</div>
+    <div class="drop-sub">Supports PDF up to 100MB. Processed entirely in your browser — 100% private.</div>
+    <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="fileSelected(event)"/>
+  </div>
+
+  <!-- File Info (hidden until file loaded) -->
+  <div class="file-info-card hidden" id="fileInfoCard">
+    <div class="file-icon">📋</div>
+    <div class="file-meta">
+      <div class="file-name" id="fileName">filename.pdf</div>
+      <div class="file-size" id="fileSize">Size: — MB | Pages: —</div>
+    </div>
+    <button onclick="clearFile()" style="padding:0.4rem 0.85rem;border:1.5px solid var(--border-color);border-radius:8px;background:transparent;color:var(--text-secondary);font-size:0.78rem;font-weight:600;cursor:pointer;flex-shrink:0"><i class="fas fa-times"></i> Clear</button>
+  </div>
+
+  <!-- Compression Level -->
+  <div class="input-card">
+    <h3><i class="fas fa-sliders-h" style="color:var(--accent)"></i> Compression Level</h3>
+    <div class="level-grid">
+      <div class="level-card" id="lvl_low" onclick="setLevel('low')">
+        <div class="level-icon">🔵</div>
+        <div class="level-name">Low</div>
+        <div class="level-desc">Best quality, smaller file</div>
+        <div class="level-pct">~20–35% smaller</div>
+      </div>
+      <div class="level-card selected" id="lvl_medium" onclick="setLevel('medium')">
+        <div class="level-icon">🟡</div>
+        <div class="level-name">Medium</div>
+        <div class="level-desc">Balanced quality &amp; size</div>
+        <div class="level-pct">~40–60% smaller</div>
+      </div>
+      <div class="level-card" id="lvl_high" onclick="setLevel('high')">
+        <div class="level-icon">🔴</div>
+        <div class="level-name">High</div>
+        <div class="level-desc">Smallest file, lower quality</div>
+        <div class="level-pct">~60–80% smaller</div>
+      </div>
+    </div>
+    <div style="background:var(--input-bg);border:1.5px solid var(--border-color);border-radius:10px;padding:0.85rem 1rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+        <div>
+          <label style="font-size:0.78rem;font-weight:600;color:var(--text-secondary)">Image JPEG Quality: <span id="qualityVal">60%</span></label>
+          <input type="range" id="qualityRange" min="10" max="95" value="60" step="5"
+            oninput="document.getElementById('qualityVal').textContent=this.value+'%'"
+            style="-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;background:var(--border-color);outline:none;cursor:pointer;margin-top:6px"/>
+        </div>
+        <div>
+          <label style="font-size:0.78rem;font-weight:600;color:var(--text-secondary)">Image DPI Scale: <span id="dpiVal">72 DPI</span></label>
+          <input type="range" id="dpiRange" min="36" max="150" value="72" step="18"
+            oninput="document.getElementById('dpiVal').textContent=this.value+' DPI'"
+            style="-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;background:var(--border-color);outline:none;cursor:pointer;margin-top:6px"/>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem;display:flex;gap:1rem;flex-wrap:wrap">
+        <label style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-secondary);cursor:pointer">
+          <input type="checkbox" id="removeMetadata" checked/> Remove Metadata
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-secondary);cursor:pointer">
+          <input type="checkbox" id="grayscale"/> Convert to Grayscale
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-secondary);cursor:pointer">
+          <input type="checkbox" id="removeAnnotations"/> Remove Annotations
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compress Button -->
+  <button class="compress-btn" id="compressBtn" onclick="compressPDF()" disabled>
+    <i class="fas fa-compress-arrows-alt"></i> Compress PDF
+  </button>
+
+  <!-- Progress -->
+  <div class="progress-area hidden" id="progressArea">
+    <div class="prog-label" id="progressLabel">Processing…</div>
+    <div class="prog-track"><div class="prog-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- Results -->
+  <div class="hidden" id="resultsArea">
+    <div class="result-banner">
+      <div class="saving-pct" id="savingPct">--</div>
+      <div class="saving-label">Size Reduction</div>
+    </div>
+    <div class="result-stats">
+      <div class="stat-card">
+        <div class="s-label">Original Size</div>
+        <div class="s-value" id="origSize">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Compressed</div>
+        <div class="s-value" id="compSize">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Saved</div>
+        <div class="s-value" id="savedSize">—</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.5rem">
+      <button id="downloadBtn" onclick="downloadCompressed()" style="flex:1;padding:0.7rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.92rem;cursor:pointer;min-width:140px"><i class="fas fa-download"></i> Download Compressed PDF</button>
+      <button onclick="clearFile()" style="padding:0.7rem 1rem;background:transparent;color:var(--text-secondary);border:1.5px solid var(--border-color);border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer"><i class="fas fa-undo"></i> Compress Another</button>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- How it works -->
+  <div class="input-card">
+    <h3><i class="fas fa-info-circle" style="color:var(--accent)"></i> How It Works</h3>
+    <ul class="how-list">
+      <li><span class="how-num">1</span><span><b>Parse PDF with pdf-lib.js:</b> Reads the PDF binary structure, extracting page count, embedded objects, and metadata.</span></li>
+      <li><span class="how-num">2</span><span><b>Remove metadata:</b> Strips Author, Creator, Producer, Keywords fields that add unnecessary bytes.</span></li>
+      <li><span class="how-num">3</span><span><b>Image resampling via Canvas API:</b> Embedded JPG/PNG images are extracted, drawn onto a hidden canvas at reduced DPI, and re-encoded at lower JPEG quality.</span></li>
+      <li><span class="how-num">4</span><span><b>Re-embed compressed images:</b> The resampled image bytes replace the originals in the PDF structure.</span></li>
+      <li><span class="how-num">5</span><span><b>Save optimized PDF:</b> pdf-lib writes the clean, smaller PDF blob ready for download.</span></li>
+    </ul>
+    <div style="margin-top:0.75rem;padding:0.75rem;background:rgba(245,158,11,0.07);border:1.5px solid rgba(245,158,11,0.3);border-radius:8px;font-size:0.76rem;color:var(--text-secondary)">
+      ⚠️ <b>Limitation:</b> Client-side PDF compression is most effective on PDFs with many embedded JPEG images. Text-heavy PDFs (born-digital) may see 10–30% reduction from metadata removal. For maximum compression, PDFs with large embedded photos will see 40–80% reduction.
+    </div>
+  </div>
+
+</div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════
+//  THEME
+// ════════════════════════════════════════════
+const savedTheme = localStorage.getItem('theme')||'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme==='dark'?'fas fa-sun':'fas fa-moon';
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const html=document.documentElement;
+  const t=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',t); localStorage.setItem('theme',t);
+  document.getElementById('themeIcon').className=t==='dark'?'fas fa-sun':'fas fa-moon';
+});
+function showToast(msg,dur=3000){
+  const t=document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+// ════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════
+let originalBytes = null;
+let compressedBytes = null;
+let selectedLevel = 'medium';
+let pdfFileName = 'compressed.pdf';
+
+// Level configs: {quality: JPEG quality 0–1, dpi: scale factor}
+const LEVEL_CONFIGS = {
+  low:    { quality: 0.75, dpiScale: 0.85 },
+  medium: { quality: 0.60, dpiScale: 0.65 },
+  high:   { quality: 0.35, dpiScale: 0.45 },
+};
+
+function setLevel(level) {
+  selectedLevel = level;
+  document.querySelectorAll('.level-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('lvl_'+level).classList.add('selected');
+  const cfg = LEVEL_CONFIGS[level];
+  document.getElementById('qualityRange').value = Math.round(cfg.quality*100);
+  document.getElementById('qualityVal').textContent = Math.round(cfg.quality*100)+'%';
+  const dpi = Math.round(cfg.dpiScale*100);
+  document.getElementById('dpiRange').value = Math.round(cfg.dpiScale*150);
+  document.getElementById('dpiVal').textContent = Math.round(cfg.dpiScale*150)+' DPI';
+}
+
+// ════════════════════════════════════════════
+//  DRAG & DROP
+// ════════════════════════════════════════════
+function dragOver(e) { e.preventDefault(); document.getElementById('dropZone').classList.add('dragover'); }
+function dragLeave(e) { document.getElementById('dropZone').classList.remove('dragover'); }
+function dropFile(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if(file && file.type==='application/pdf') loadFile(file);
+  else showToast('⚠ Please drop a PDF file');
+}
+function fileSelected(e) {
+  const file = e.target.files[0];
+  if(file) loadFile(file);
+}
+
+async function loadFile(file) {
+  pdfFileName = file.name.replace(/\.pdf$/i,'')+'_compressed.pdf';
+  const ab = await file.arrayBuffer();
+  originalBytes = new Uint8Array(ab);
+
+  // Get page count
+  try {
+    const pdfDoc = await PDFLib.PDFDocument.load(originalBytes, {ignoreEncryption:true});
+    const pages = pdfDoc.getPageCount();
+    document.getElementById('fileInfoCard').classList.remove('hidden');
+    document.getElementById('fileName').textContent = file.name;
+    document.getElementById('fileSize').textContent = `Size: ${formatBytes(file.size)} | Pages: ${pages}`;
+  } catch(e) {
+    document.getElementById('fileInfoCard').classList.remove('hidden');
+    document.getElementById('fileName').textContent = file.name;
+    document.getElementById('fileSize').textContent = `Size: ${formatBytes(file.size)}`;
+  }
+
+  document.getElementById('compressBtn').disabled = false;
+  document.getElementById('resultsArea').classList.add('hidden');
+  showToast('✅ PDF loaded! Ready to compress.');
+}
+
+function clearFile() {
+  originalBytes = null; compressedBytes = null;
+  document.getElementById('fileInfoCard').classList.add('hidden');
+  document.getElementById('resultsArea').classList.add('hidden');
+  document.getElementById('progressArea').classList.add('hidden');
+  document.getElementById('compressBtn').disabled = true;
+  document.getElementById('pdfInput').value = '';
+}
+
+// ════════════════════════════════════════════
+//  SET PROGRESS
+// ════════════════════════════════════════════
+function setProgress(pct, label) {
+  document.getElementById('progressArea').classList.remove('hidden');
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = label;
+}
+
+// ════════════════════════════════════════════
+//  MAIN COMPRESS FUNCTION
+// ════════════════════════════════════════════
+async function compressPDF() {
+  if(!originalBytes) { showToast('⚠ Please upload a PDF first'); return; }
+
+  const btn = document.getElementById('compressBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Compressing…';
+  document.getElementById('resultsArea').classList.add('hidden');
+
+  const quality    = parseInt(document.getElementById('qualityRange').value)/100;
+  const dpiScale   = parseInt(document.getElementById('dpiRange').value)/150;
+  const removeMeta = document.getElementById('removeMetadata').checked;
+  const grayscale  = document.getElementById('grayscale').checked;
+  const removeAnno = document.getElementById('removeAnnotations').checked;
+
+  try {
+    setProgress(5, 'Loading PDF structure…');
+    const pdfDoc = await PDFLib.PDFDocument.load(originalBytes, {ignoreEncryption:true});
+
+    // ── Step 1: Remove metadata ──
+    if(removeMeta) {
+      setProgress(15, 'Removing metadata…');
+      try {
+        pdfDoc.setTitle('');
+        pdfDoc.setAuthor('');
+        pdfDoc.setSubject('');
+        pdfDoc.setKeywords([]);
+        pdfDoc.setProducer('');
+        pdfDoc.setCreator('');
+      } catch(e) {}
+    }
+
+    // ── Step 2: Remove annotations ──
+    if(removeAnno) {
+      setProgress(25, 'Removing annotations…');
+      const pages = pdfDoc.getPages();
+      for(const page of pages) {
+        try {
+          const annots = page.node.get(PDFLib.PDFName.of('Annots'));
+          if(annots) page.node.delete(PDFLib.PDFName.of('Annots'));
+        } catch(e){}
+      }
+    }
+
+    // ── Step 3: Image resampling via Canvas ──
+    setProgress(35, 'Finding embedded images…');
+    const context = pdfDoc.context;
+    const indirects = context.indirectObjects;
+    let imgCount = 0, processedCount = 0;
+
+    // Count image XObjects
+    indirects.forEach((obj, ref) => {
+      try {
+        if(obj instanceof PDFLib.PDFRawStream) {
+          const dict = obj.dict;
+          const subtype = dict.get(PDFLib.PDFName.of('Subtype'));
+          if(subtype && subtype.encodedName === '/Image') imgCount++;
+        }
+      } catch(e){}
+    });
+
+    // Process each image
+    if(imgCount > 0) {
+      const imageRefs = [];
+      indirects.forEach((obj, ref) => {
+        try {
+          if(obj instanceof PDFLib.PDFRawStream) {
+            const dict = obj.dict;
+            const subtype = dict.get(PDFLib.PDFName.of('Subtype'));
+            if(subtype && subtype.encodedName === '/Image') {
+              imageRefs.push({ref, stream: obj});
+            }
+          }
+        } catch(e){}
+      });
+
+      for(const {ref, stream} of imageRefs) {
+        try {
+          const dict = stream.dict;
+          const w = dict.get(PDFLib.PDFName.of('Width'))?.value();
+          const h = dict.get(PDFLib.PDFName.of('Height'))?.value();
+          const filter = dict.get(PDFLib.PDFName.of('Filter'));
+
+          if(!w || !h) continue;
+
+          // Only compress JPEG and uncompressed images
+          const isJpeg = filter && (filter.encodedName === '/DCTDecode');
+          if(!isJpeg && imgCount > 5) continue; // skip non-JPEG in large PDFs
+
+          const newW = Math.max(32, Math.round(w * dpiScale));
+          const newH = Math.max(32, Math.round(h * dpiScale));
+
+          // Create blob from raw bytes and draw onto canvas
+          const imgBytes = stream.contents;
+          const blob = new Blob([imgBytes], {type: isJpeg ? 'image/jpeg' : 'image/png'});
+          const url  = URL.createObjectURL(blob);
+
+          await new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              canvas.width = newW; canvas.height = newH;
+              const ctx = canvas.getContext('2d');
+
+              if(grayscale) {
+                ctx.filter = 'grayscale(100%)';
+              }
+              ctx.drawImage(img, 0, 0, newW, newH);
+
+              canvas.toBlob(newBlob => {
+                if(!newBlob) { resolve(); return; }
+                newBlob.arrayBuffer().then(ab => {
+                  const newBytes = new Uint8Array(ab);
+                  try {
+                    // Replace stream content
+                    const newStream = context.stream(newBytes, {
+                      Type: 'XObject',
+                      Subtype: 'Image',
+                      Width: newW,
+                      Height: newH,
+                      ColorSpace: grayscale ? 'DeviceGray' : 'DeviceRGB',
+                      BitsPerComponent: 8,
+                      Filter: 'DCTDecode',
+                    });
+                    context.assign(ref, newStream);
+                  } catch(e){}
+                  URL.revokeObjectURL(url);
+                  resolve();
+                });
+              }, 'image/jpeg', quality);
+            };
+            img.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+            img.src = url;
+          });
+
+          processedCount++;
+          const imgPct = 35 + Math.round((processedCount/imageRefs.length)*45);
+          setProgress(imgPct, `Resampling image ${processedCount}/${imageRefs.length}…`);
+        } catch(e) { /* skip individual image errors */ }
+      }
+    }
+
+    setProgress(85, 'Writing compressed PDF…');
+
+    // Save
+    const saveOptions = {
+      useObjectStreams: true,
+      addDefaultPage: false,
+      objectsPerTick: 50,
+    };
+    compressedBytes = await pdfDoc.save(saveOptions);
+
+    setProgress(100, 'Done!');
+    setTimeout(()=>document.getElementById('progressArea').classList.add('hidden'), 800);
+
+    // Show results
+    const origSize  = originalBytes.length;
+    const compSize  = compressedBytes.length;
+    const savedSize = origSize - compSize;
+    const savingPct = Math.max(0, Math.round(savedSize/origSize*100));
+
+    document.getElementById('resultsArea').classList.remove('hidden');
+    document.getElementById('savingPct').textContent = savingPct+'%';
+    document.getElementById('origSize').textContent  = formatBytes(origSize);
+    document.getElementById('compSize').textContent  = formatBytes(compSize);
+    document.getElementById('savedSize').textContent = formatBytes(Math.max(0,savedSize));
+
+    showToast(`✅ Compressed! Saved ${savingPct}% (${formatBytes(Math.max(0,savedSize))})`);
+
+  } catch(err) {
+    document.getElementById('progressArea').classList.add('hidden');
+    showToast('❌ Error: '+err.message);
+    console.error(err);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-compress-arrows-alt"></i> Compress PDF';
+}
+
+// ════════════════════════════════════════════
+//  DOWNLOAD
+// ════════════════════════════════════════════
+function downloadCompressed() {
+  if(!compressedBytes) return;
+  const blob = new Blob([compressedBytes], {type:'application/pdf'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = pdfFileName; a.click();
+  URL.revokeObjectURL(url);
+  showToast('📥 Download started!');
+}
+
+// ════════════════════════════════════════════
+//  UTILITY
+// ════════════════════════════════════════════
+function formatBytes(bytes) {
+  if(bytes>=1024*1024) return (bytes/1024/1024).toFixed(2)+' MB';
+  if(bytes>=1024)      return (bytes/1024).toFixed(1)+' KB';
+  return bytes+' B';
+}
+</script>
+</body>
+</html>

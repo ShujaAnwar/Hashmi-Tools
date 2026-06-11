@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Tools – QR Generator, Base64, URL Encoder, JSON, HEX RGB | HashmiTools.com</title>
+  <meta name="description" content="Free developer tools: QR Code Generator with logo, Base64 Encoder/Decoder, URL Encoder, JSON Formatter/Validator, HEX-RGB-HSL converter, Password Generator. All browser-based." />
+  <meta name="keywords" content="qr code generator, base64 encoder decoder, url encoder decoder, json formatter, hex to rgb, password generator, developer tools free, online developer utilities" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://hashmitools.com/tools/developer.html" />
+  <meta property="og:title" content="Developer Tools – Free Online Coding Utilities | HashmiTools.com" />
+  <meta property="og:description" content="QR Generator, Base64, URL Encoder, JSON Formatter, HEX-RGB Converter & Password Generator — all free & instant." />
+  <meta property="og:url" content="https://hashmitools.com/tools/developer.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .category-hero { background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 50%, #6366f1 100%); padding: 80px 0 60px; text-align: center; position: relative; overflow: hidden; }
+    .category-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 70%); }
+    .hero-icon { font-size: 72px; margin-bottom: 16px; }
+    .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #fff; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+    .hero-desc { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 600px; margin: 0 auto 24px; }
+    .hero-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
+    .hero-stat strong { display: block; font-size: 1.8rem; font-weight: 800; color: #fff; }
+    .hero-stat span { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+    .breadcrumb { background: var(--bg-secondary); padding: 12px 0; border-bottom: 1px solid var(--border-glass); }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb-inner a { color: #818cf8; }
+    .tools-section { padding: 60px 0; }
+    .section-title { font-size: 1.8rem; font-weight: 700; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; }
+    .section-subtitle { color: var(--text-secondary); }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
+    .tool-card { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 16px; padding: 28px; transition: all 0.3s ease; text-decoration: none; display: block; position: relative; overflow: hidden; }
+    .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(135deg, #4338ca, #6366f1); }
+    .tool-card:hover { transform: translateY(-6px); border-color: #818cf8; box-shadow: 0 20px 40px rgba(99,102,241,0.2); }
+    .tool-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .tool-name { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+    .tool-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
+    .tool-features { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .feature-tag { background: rgba(99,102,241,0.12); color: #a5b4fc; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(99,102,241,0.25); }
+    .tool-cta { display: inline-flex; align-items: center; gap: 6px; color: #a5b4fc; font-weight: 600; font-size: 0.9rem; }
+    .tool-badge { position: absolute; top: 16px; right: 16px; background: linear-gradient(135deg, #4338ca, #6366f1); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .ad-slot { background: var(--bg-secondary); border: 1px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 32px 0; }
+    .faq-section { padding: 60px 0; background: var(--bg-secondary); }
+    .faq-item { margin-bottom: 16px; }
+    .faq-q { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-primary); transition: all 0.3s ease; }
+    .faq-q:hover, .faq-q.active { border-color: #818cf8; background: rgba(99,102,241,0.08); }
+    .faq-a { display: none; padding: 16px 24px; color: var(--text-secondary); line-height: 1.7; border: 1px solid var(--border-glass); border-top: none; border-radius: 0 0 12px 12px; background: var(--bg-card); }
+    .faq-a.open { display: block; }
+    @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="developer.html" class="nav-link active">Developer</a>
+        <a href="ai.html" class="nav-link">AI Tools</a>
+        <a href="pdf.html" class="nav-link">PDF Tools</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="category-hero">
+    <div class="hero-icon">💻</div>
+    <h1 class="hero-title">Developer Tools</h1>
+    <p class="hero-desc">Essential coding utilities — QR codes, encoding, color conversion, JSON formatting & security tools.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>7</strong><span>Tools Available</span></div>
+      <div class="hero-stat"><strong>Zero</strong><span>Server Calls</span></div>
+      <div class="hero-stat"><strong>Instant</strong><span>Results</span></div>
+    </div>
+  </section>
+
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size:0.7rem"></i>
+        <span>Developer Tools</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container"><div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567894" data-ad-format="auto" data-full-width-responsive="true"></ins><p>Advertisement</p></div></div>
+
+  <section class="tools-section">
+    <div class="container">
+      <h2 class="section-title">All Developer Tools</h2>
+      <p class="section-subtitle">Lightweight, fast, browser-based utilities for developers and designers</p>
+      <div class="tools-grid">
+
+        <a href="qr-generator.html" class="tool-card">
+          <span class="tool-badge">⭐ Popular</span>
+          <div class="tool-icon">📱</div>
+          <h3 class="tool-name">QR Code Generator</h3>
+          <p class="tool-desc">Generate QR codes with logo embedding, custom colors, error correction levels, and download in PNG/SVG. Canvas-based rendering.</p>
+          <div class="tool-features"><span class="feature-tag">Logo Embed</span><span class="feature-tag">Custom Colors</span><span class="feature-tag">PNG/SVG</span><span class="feature-tag">Error Correction</span></div>
+          <span class="tool-cta">Generate QR <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="base64.html" class="tool-card">
+          <div class="tool-icon">🔐</div>
+          <h3 class="tool-name">Base64 Encoder/Decoder</h3>
+          <p class="tool-desc">4-mode Base64 operations: encode/decode text, encode images to data URLs, decode Base64 to file. btoa/atob API with file input.</p>
+          <div class="tool-features"><span class="feature-tag">Text Encode</span><span class="feature-tag">Image to URL</span><span class="feature-tag">File Decode</span><span class="feature-tag">4 Modes</span></div>
+          <span class="tool-cta">Encode/Decode <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="url-encoder.html" class="tool-card">
+          <div class="tool-icon">🔗</div>
+          <h3 class="tool-name">URL Encoder/Decoder</h3>
+          <p class="tool-desc">Encode/decode URLs with encodeURIComponent, encodeURI, form encoding modes. Parse URL parameters, validate URLs, live preview.</p>
+          <div class="tool-features"><span class="feature-tag">4 Modes</span><span class="feature-tag">URL Parse</span><span class="feature-tag">Param Extract</span><span class="feature-tag">Validate</span></div>
+          <span class="tool-cta">Encode URL <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="hex-rgb.html" class="tool-card">
+          <span class="tool-badge">🔥 Hot</span>
+          <div class="tool-icon">🎨</div>
+          <h3 class="tool-name">HEX ↔ RGB ↔ HSL Color Converter</h3>
+          <p class="tool-desc">Full color format conversion: HEX, RGB, HSL, CMYK. Color picker, 4 preset palettes (Tailwind/Material/CSS/Islamic), gradient builder, WCAG contrast.</p>
+          <div class="tool-features"><span class="feature-tag">HEX/RGB/HSL/CMYK</span><span class="feature-tag">Tailwind Palette</span><span class="feature-tag">WCAG Check</span><span class="feature-tag">Gradient</span></div>
+          <span class="tool-cta">Convert Colors <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="json-formatter.html" class="tool-card">
+          <div class="tool-icon">📋</div>
+          <h3 class="tool-name">JSON Formatter & Validator</h3>
+          <p class="tool-desc">Format, validate, minify, and beautify JSON. Tree view, syntax highlighting, error detection with line numbers, and copy to clipboard.</p>
+          <div class="tool-features"><span class="feature-tag">Format/Minify</span><span class="feature-tag">Validate</span><span class="feature-tag">Tree View</span><span class="feature-tag">Error Line</span></div>
+          <span class="tool-cta">Format JSON <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="password-generator.html" class="tool-card">
+          <div class="tool-icon">🔑</div>
+          <h3 class="tool-name">Password Generator</h3>
+          <p class="tool-desc">Generate cryptographically secure passwords. Custom length, character sets, exclude ambiguous chars, strength meter, bulk generate up to 50.</p>
+          <div class="tool-features"><span class="feature-tag">Crypto-Secure</span><span class="feature-tag">Custom Rules</span><span class="feature-tag">Strength Meter</span><span class="feature-tag">Bulk Generate</span></div>
+          <span class="tool-cta">Generate Password <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="typing-test.html" class="tool-card">
+          <div class="tool-icon">⌨️</div>
+          <h3 class="tool-name">Typing Speed Test</h3>
+          <p class="tool-desc">Live 1-minute typing test with real-time WPM tracking, accuracy percentage, and shareable results. Multiple difficulty levels.</p>
+          <div class="tool-features"><span class="feature-tag">Real-time WPM</span><span class="feature-tag">Accuracy</span><span class="feature-tag">Share Results</span><span class="feature-tag">3 Levels</span></div>
+          <span class="tool-cta">Test Typing Speed <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="ad-slot"><p>Advertisement — 336×280</p></div></div>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div id="faqList">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Are the generated passwords truly secure? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Yes! Our password generator uses the Web Crypto API (window.crypto.getRandomValues) which provides cryptographically secure random numbers. This is the same level of randomness used by professional security tools. Passwords are generated entirely in your browser and never transmitted.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">What is the difference between encodeURI and encodeURIComponent? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">encodeURI encodes a complete URL, preserving characters like /, ?, #, & that have special meaning in URLs. encodeURIComponent encodes a URL component (like a query parameter value), encoding ALL special characters including those preserved by encodeURI. Use encodeURIComponent when encoding values that will be inserted into URLs.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Can I embed a custom logo in QR codes? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Yes! Our QR Generator supports logo embedding. Upload any image and it will be placed in the center of the QR code with a white background pad. We automatically set error correction to 'H' (30%) when a logo is added to ensure the QR code remains scannable even with the logo overlay.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Does HEX-RGB converter support alpha transparency? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Yes! Our color converter supports 8-digit HEX codes (#RRGGBBAA) for alpha transparency, as well as rgba() and hsla() CSS functions. The WCAG contrast checker uses the opacity-adjusted color for accurate accessibility compliance testing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:var(--bg-secondary);padding:40px 0;text-align:center;border-top:1px solid var(--border-glass);">
+    <div class="container">
+      <p style="color:var(--text-secondary)">© 2025 <a href="../index.html" style="color:#818cf8">HashmiTools.com</a> — Free Developer Tools</p>
+      <div style="display:flex;gap:24px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+        <a href="../privacy.html" style="color:var(--text-muted);font-size:0.9rem">Privacy Policy</a>
+        <a href="../terms.html" style="color:var(--text-muted);font-size:0.9rem">Terms</a>
+        <a href="../contact.html" style="color:var(--text-muted);font-size:0.9rem">Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const t = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n); localStorage.setItem('theme', n);
+      document.getElementById('themeToggle').innerHTML = n === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    });
+    if (t === 'light') document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+    document.getElementById('navHamburger').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('active'); });
+    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+    function toggleFaq(el) { const a = el.nextElementSibling; a.classList.toggle('open'); el.classList.toggle('active'); el.querySelector('i').className = a.classList.contains('open') ? 'fas fa-minus' : 'fas fa-plus'; }
+  </script>
+</body>
+</html>

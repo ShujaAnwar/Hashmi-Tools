@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Tools – Merge, Split, Compress, Convert PDFs Online Free | HashmiTools.com</title>
+  <meta name="description" content="Free online PDF tools: Merge PDF files, Split PDF pages, Compress PDF size, Convert JPG to PDF. No upload required — all processing done in your browser with pdf-lib.js." />
+  <meta name="keywords" content="pdf merge online, pdf split online, compress pdf, jpg to pdf, pdf tools free, online pdf editor, pdf compress without upload" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://hashmitools.com/tools/pdf.html" />
+  <meta property="og:title" content="Free PDF Tools – Merge, Split, Compress Online | HashmiTools.com" />
+  <meta property="og:description" content="Merge, Split, Compress PDFs and Convert JPG to PDF — all free, secure, browser-based. No file upload needed." />
+  <meta property="og:url" content="https://hashmitools.com/tools/pdf.html" />
+  <meta property="og:image" content="https://hashmitools.com/images/og-image.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"CollectionPage","name":"PDF Tools","description":"Free browser-based PDF tools: merge, split, compress, and convert.","url":"https://hashmitools.com/tools/pdf.html","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hashmitools.com/"},{"@type":"ListItem","position":2,"name":"PDF Tools","item":"https://hashmitools.com/tools/pdf.html"}]}}
+  </script>
+  <style>
+    .category-hero { background: linear-gradient(135deg, #92400e 0%, #b45309 50%, #d97706 100%); padding: 80px 0 60px; text-align: center; position: relative; overflow: hidden; }
+    .category-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 70%); }
+    .hero-icon { font-size: 72px; margin-bottom: 16px; }
+    .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #fff; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+    .hero-desc { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 600px; margin: 0 auto 24px; }
+    .hero-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
+    .hero-stat strong { display: block; font-size: 1.8rem; font-weight: 800; color: #fff; }
+    .hero-stat span { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+    .breadcrumb { background: var(--bg-secondary); padding: 12px 0; border-bottom: 1px solid var(--border-glass); }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb-inner a { color: #f59e0b; }
+    .tools-section { padding: 60px 0; }
+    .section-title { font-size: 1.8rem; font-weight: 700; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; }
+    .section-subtitle { color: var(--text-secondary); }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
+    .tool-card { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 16px; padding: 28px; transition: all 0.3s ease; text-decoration: none; display: block; position: relative; overflow: hidden; }
+    .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(135deg, #b45309, #d97706); }
+    .tool-card:hover { transform: translateY(-6px); border-color: #f59e0b; box-shadow: 0 20px 40px rgba(245,158,11,0.2); }
+    .tool-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .tool-name { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+    .tool-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
+    .tool-features { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .feature-tag { background: rgba(245,158,11,0.12); color: #fbbf24; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(245,158,11,0.25); }
+    .tool-cta { display: inline-flex; align-items: center; gap: 6px; color: #fbbf24; font-weight: 600; font-size: 0.9rem; }
+    .tool-badge { position: absolute; top: 16px; right: 16px; background: linear-gradient(135deg, #b45309, #d97706); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .security-banner { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.1)); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; padding: 20px 28px; margin: 32px 0; display: flex; align-items: center; gap: 16px; }
+    .security-banner i { font-size: 2rem; color: #10b981; }
+    .security-banner h3 { color: #10b981; font-weight: 700; margin-bottom: 4px; }
+    .security-banner p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; }
+    .ad-slot { background: var(--bg-secondary); border: 1px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 32px 0; }
+    .faq-section { padding: 60px 0; background: var(--bg-secondary); }
+    .faq-item { margin-bottom: 16px; }
+    .faq-q { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-primary); transition: all 0.3s ease; }
+    .faq-q:hover, .faq-q.active { border-color: #f59e0b; background: rgba(245,158,11,0.08); }
+    .faq-a { display: none; padding: 16px 24px; color: var(--text-secondary); line-height: 1.7; border: 1px solid var(--border-glass); border-top: none; border-radius: 0 0 12px 12px; background: var(--bg-card); }
+    .faq-a.open { display: block; }
+    @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="pdf.html" class="nav-link active">PDF Tools</a>
+        <a href="developer.html" class="nav-link">Developer</a>
+        <a href="finance.html" class="nav-link">Finance</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="category-hero">
+    <div class="hero-icon">📄</div>
+    <h1 class="hero-title">PDF Tools</h1>
+    <p class="hero-desc">Merge, Split, Compress & Convert PDFs — 100% free, browser-based, no server upload needed.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>4</strong><span>Tools Available</span></div>
+      <div class="hero-stat"><strong>0</strong><span>Files Uploaded</span></div>
+      <div class="hero-stat"><strong>100%</strong><span>Private & Secure</span></div>
+    </div>
+  </section>
+
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size:0.7rem"></i>
+        <span>PDF Tools</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567892" data-ad-format="auto" data-full-width-responsive="true"></ins><p>Advertisement</p></div>
+
+    <div class="security-banner">
+      <i class="fas fa-shield-alt"></i>
+      <div>
+        <h3>🔒 100% Private — Zero Server Upload</h3>
+        <p>All PDF processing happens entirely in your browser using pdf-lib.js and jsPDF. Your files never leave your device. No data is sent to any server.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="tools-section">
+    <div class="container">
+      <h2 class="section-title">All PDF Tools</h2>
+      <p class="section-subtitle">Professional PDF operations powered by pdf-lib.js — no registration, no limits</p>
+      <div class="tools-grid">
+
+        <a href="pdf-merge.html" class="tool-card">
+          <span class="tool-badge">⭐ Popular</span>
+          <div class="tool-icon">📎</div>
+          <h3 class="tool-name">PDF Merge</h3>
+          <p class="tool-desc">Combine multiple PDF files into one. Drag & drop to reorder, set page ranges, and download the merged PDF instantly.</p>
+          <div class="tool-features"><span class="feature-tag">Drag & Drop</span><span class="feature-tag">Reorder Pages</span><span class="feature-tag">Page Ranges</span><span class="feature-tag">pdf-lib.js</span></div>
+          <span class="tool-cta">Merge PDFs <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="pdf-split.html" class="tool-card">
+          <div class="tool-icon">✂️</div>
+          <h3 class="tool-name">PDF Split</h3>
+          <p class="tool-desc">Split a PDF by page range, extract specific pages, split every N pages, or split into individual pages. 4 split modes available.</p>
+          <div class="tool-features"><span class="feature-tag">4 Split Modes</span><span class="feature-tag">Page Extract</span><span class="feature-tag">Range Split</span><span class="feature-tag">Batch</span></div>
+          <span class="tool-cta">Split PDF <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="pdf-compress.html" class="tool-card">
+          <span class="tool-badge">🔥 Hot</span>
+          <div class="tool-icon">🗜️</div>
+          <h3 class="tool-name">PDF Compress</h3>
+          <p class="tool-desc">Reduce PDF file size by resampling embedded images using Canvas API. Choose compression quality from 10% to 90%. Remove metadata.</p>
+          <div class="tool-features"><span class="feature-tag">Canvas Resample</span><span class="feature-tag">Quality Slider</span><span class="feature-tag">Metadata Remove</span><span class="feature-tag">Progress Bar</span></div>
+          <span class="tool-cta">Compress PDF <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="jpg-to-pdf.html" class="tool-card">
+          <div class="tool-icon">🖼️</div>
+          <h3 class="tool-name">JPG/Image to PDF</h3>
+          <p class="tool-desc">Convert JPG, PNG, WebP images to PDF. Multi-image support with drag-to-reorder, custom page sizes (A4, Letter, etc.), and margins.</p>
+          <div class="tool-features"><span class="feature-tag">Multi-Image</span><span class="feature-tag">A4/Letter</span><span class="feature-tag">Custom Margins</span><span class="feature-tag">jsPDF</span></div>
+          <span class="tool-cta">Convert to PDF <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="ad-slot"><p>Advertisement — 336×280</p></div></div>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div id="faqList">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Are my PDF files safe? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Absolutely. All processing is done entirely in your browser using JavaScript libraries (pdf-lib.js and jsPDF). Your files are never uploaded to any server, never stored anywhere, and never accessible by anyone. Everything stays on your device.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">What is the maximum file size I can process? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Since processing happens in your browser, the limit depends on your device's RAM. Generally, files up to 50MB work well on most devices. Very large files (100MB+) may be slow on older devices. For best results, we recommend files under 30MB.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">How much can PDF Compress reduce file size? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Compression results vary based on content. PDFs with many images can often be reduced by 50-80%. Text-heavy PDFs with fewer images may see 10-30% reduction. Our tool uses Canvas API JPEG resampling which is most effective on image-heavy documents.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Can I merge password-protected PDFs? <i class="fas fa-plus"></i></div>
+          <div class="faq-a">Currently our tools work best with unprotected PDFs. Password-protected PDFs require decryption which is not supported in the current version. Please remove the password protection first using your PDF reader, then use our tools.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:var(--bg-secondary);padding:40px 0;text-align:center;border-top:1px solid var(--border-glass);">
+    <div class="container">
+      <p style="color:var(--text-secondary)">© 2025 <a href="../index.html" style="color:#f59e0b">HashmiTools.com</a> — Free PDF Tools</p>
+      <div style="display:flex;gap:24px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+        <a href="../privacy.html" style="color:var(--text-muted);font-size:0.9rem">Privacy Policy</a>
+        <a href="../terms.html" style="color:var(--text-muted);font-size:0.9rem">Terms</a>
+        <a href="../contact.html" style="color:var(--text-muted);font-size:0.9rem">Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const t = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      localStorage.setItem('theme', n);
+      document.getElementById('themeToggle').innerHTML = n === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    });
+    if (t === 'light') document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+    document.getElementById('navHamburger').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('active'); });
+    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+    function toggleFaq(el) { const a = el.nextElementSibling; a.classList.toggle('open'); el.classList.toggle('active'); el.querySelector('i').className = a.classList.contains('open') ? 'fas fa-minus' : 'fas fa-plus'; }
+  </script>
+</body>
+</html>

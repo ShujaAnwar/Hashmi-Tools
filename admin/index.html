@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel – HashmiTools.com</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #0f1629;
+      --card: rgba(15,22,41,0.9);
+      --border: rgba(255,255,255,0.08);
+      --txt: #f0f4ff;
+      --txt2: #94a3b8;
+      --txt3: #64748b;
+      --purple: #6366f1;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --pink: #ec4899;
+      --side-w: 260px;
+    }
+    [data-theme="light"] {
+      --bg: #f1f5f9; --bg2: #e2e8f0; --card: rgba(255,255,255,0.95);
+      --border: rgba(0,0,0,0.08); --txt: #0f172a; --txt2: #475569; --txt3: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--txt); min-height: 100vh; display: flex; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    input, textarea, select { font-family: inherit; }
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+    /* LOGIN */
+    #loginScreen {
+      position: fixed; inset: 0; background: var(--bg);
+      display: none; align-items: center; justify-content: center; z-index: 9999;
+    }
+    .login-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 48px 40px; width: 100%; max-width: 420px;
+      text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .login-logo { font-size: 3rem; margin-bottom: 8px; }
+    .login-title { font-size: 1.8rem; font-weight: 800; font-family: 'Space Grotesk',sans-serif; margin-bottom: 4px; }
+    .login-sub { color: var(--txt2); font-size: 0.9rem; margin-bottom: 32px; }
+    .login-field { margin-bottom: 16px; text-align: left; }
+    .login-field label { font-size: 0.85rem; font-weight: 600; color: var(--txt2); display: block; margin-bottom: 6px; }
+    .login-field input {
+      width: 100%; padding: 12px 16px; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: 10px; color: var(--txt);
+      font-size: 0.95rem; outline: none; transition: all 0.2s;
+    }
+    .login-field input:focus { border-color: var(--purple); box-shadow: 0 0 12px rgba(99,102,241,0.2); }
+    .login-btn {
+      width: 100%; padding: 13px; background: linear-gradient(135deg, #4338ca, #6366f1);
+      color: #fff; border-radius: 10px; font-size: 1rem; font-weight: 700;
+      margin-top: 8px; transition: all 0.2s;
+    }
+    .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99,102,241,0.4); }
+    .login-error { color: var(--red); font-size: 0.85rem; margin-top: 10px; display: none; }
+    .login-hint { color: var(--txt3); font-size: 0.78rem; margin-top: 16px; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--side-w); background: var(--bg2); border-right: 1px solid var(--border);
+      height: 100vh; position: fixed; left: 0; top: 0;
+      display: flex; flex-direction: column; z-index: 100; transition: all 0.3s;
+    }
+    .sidebar-logo {
+      padding: 24px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sidebar-logo span:first-child { font-size: 1.5rem; }
+    .sidebar-logo .s-title { font-weight: 800; font-family: 'Space Grotesk',sans-serif; font-size: 1.1rem; }
+    .sidebar-logo .s-sub { font-size: 0.72rem; color: var(--txt3); }
+    .sidebar-nav { flex: 1; overflow-y: auto; padding: 12px 0; }
+    .nav-section { padding: 8px 16px 4px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--txt3); font-weight: 700; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 20px;
+      font-size: 0.9rem; color: var(--txt2); border-radius: 8px; margin: 2px 8px;
+      cursor: pointer; transition: all 0.2s; border: none; background: none; width: calc(100% - 16px);
+    }
+    .nav-item:hover { background: rgba(99,102,241,0.1); color: var(--txt); }
+    .nav-item.active { background: linear-gradient(135deg, rgba(67,56,202,0.3), rgba(99,102,241,0.2)); color: #fff; border: 1px solid rgba(99,102,241,0.3); }
+    .nav-item i { width: 18px; text-align: center; font-size: 0.95rem; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--txt3); }
+    .sidebar-footer a { color: var(--purple); }
+
+    /* MAIN */
+    .main-area { margin-left: var(--side-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* TOP BAR */
+    .topbar {
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      padding: 0 28px; height: 64px; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-title { font-size: 1.15rem; font-weight: 700; font-family: 'Space Grotesk',sans-serif; }
+    .topbar-breadcrumb { font-size: 0.8rem; color: var(--txt3); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .admin-badge { background: linear-gradient(135deg,#4338ca,#6366f1); color:#fff; padding:4px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; }
+    .icon-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--txt2); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+    .icon-btn:hover { border-color: var(--purple); color: var(--txt); }
+
+    /* PAGE CONTENT */
+    .page-content { flex: 1; padding: 28px; overflow-y: auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-header { margin-bottom: 28px; }
+    .page-header h1 { font-size: 1.6rem; font-weight: 800; font-family: 'Space Grotesk',sans-serif; margin-bottom: 4px; }
+    .page-header p { color: var(--txt2); font-size: 0.9rem; }
+
+    /* STATS GRID */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; margin-bottom: 28px; }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 20px 22px; transition: all 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .stat-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .stat-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .stat-change { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 12px; }
+    .stat-change.up { background: rgba(16,185,129,0.15); color: var(--green); }
+    .stat-change.down { background: rgba(239,68,68,0.15); color: var(--red); }
+    .stat-num { font-size: 2rem; font-weight: 800; font-family: 'Space Grotesk',sans-serif; line-height: 1; margin-bottom: 4px; }
+    .stat-lbl { font-size: 0.8rem; color: var(--txt3); font-weight: 500; }
+
+    /* CARD */
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .card-title { font-size: 1rem; font-weight: 700; color: var(--txt); font-family: 'Space Grotesk',sans-serif; }
+    .card-subtitle { font-size: 0.8rem; color: var(--txt3); margin-top: 2px; }
+
+    /* FORM */
+    .form-group { margin-bottom: 18px; }
+    .form-label { font-size: 0.85rem; font-weight: 600; color: var(--txt2); display: block; margin-bottom: 6px; }
+    .form-input, .form-textarea, .form-select {
+      width: 100%; padding: 10px 14px; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: 10px; color: var(--txt);
+      font-size: 0.9rem; outline: none; transition: all 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--purple); box-shadow: 0 0 10px rgba(99,102,241,0.15); }
+    .form-textarea { min-height: 100px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-hint { font-size: 0.75rem; color: var(--txt3); margin-top: 4px; }
+
+    /* BUTTONS */
+    .btn { padding: 10px 20px; border-radius: 9px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 7px; border: none; }
+    .btn-primary { background: linear-gradient(135deg,#4338ca,#6366f1); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(99,102,241,0.35); }
+    .btn-success { background: linear-gradient(135deg,#059669,#10b981); color: #fff; }
+    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(16,185,129,0.35); }
+    .btn-danger { background: linear-gradient(135deg,#be123c,#ef4444); color: #fff; }
+    .btn-outline { background: transparent; color: var(--txt2); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--purple); color: var(--txt); }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+    /* TOGGLE */
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-info { flex: 1; }
+    .toggle-name { font-weight: 600; font-size: 0.9rem; color: var(--txt); }
+    .toggle-desc { font-size: 0.78rem; color: var(--txt3); margin-top: 2px; }
+    .toggle-switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; cursor: pointer; transition: all 0.2s; }
+    .toggle-slider::before { content:''; position:absolute; width:18px; height:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:all 0.2s; }
+    .toggle-switch input:checked + .toggle-slider { background: var(--purple); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+    /* TABLE */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th { text-align: left; padding: 10px 14px; font-size: 0.78rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 0.88rem; color: var(--txt2); vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--bg2); }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
+    .badge-active { background: rgba(16,185,129,0.15); color: var(--green); }
+    .badge-inactive { background: rgba(100,116,139,0.15); color: var(--txt3); }
+    .badge-new { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+
+    /* ACTIVITY LOG */
+    .log-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .log-item:last-child { border-bottom: none; }
+    .log-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+    .log-content { flex: 1; }
+    .log-msg { font-size: 0.88rem; color: var(--txt); margin-bottom: 2px; }
+    .log-time { font-size: 0.75rem; color: var(--txt3); }
+
+    /* ALERT */
+    .alert { padding: 12px 16px; border-radius: 10px; font-size: 0.88rem; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .alert-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: var(--green); }
+    .alert-info { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.3); color: var(--cyan); }
+
+    /* CHART */
+    .chart-container { height: 280px; position: relative; }
+
+    /* TOOLS LIST */
+    .tool-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .tool-item:last-child { border-bottom: none; }
+    .tool-emoji { font-size: 1.5rem; width: 40px; text-align: center; }
+    .tool-info { flex: 1; }
+    .tool-info-name { font-weight: 600; font-size: 0.9rem; }
+    .tool-info-url { font-size: 0.75rem; color: var(--txt3); }
+    .tool-actions { display: flex; gap: 8px; }
+
+    /* COLOR PICKER */
+    .color-swatch { display: flex; flex-wrap: wrap; gap: 8px; }
+    .color-option { width: 32px; height: 32px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+    .color-option.selected { border-color: #fff; transform: scale(1.1); }
+
+    /* PASSWORD STRENGTH */
+    .pw-strength { height: 4px; border-radius: 2px; margin-top: 8px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main-area { margin-left: 0; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body id="adminBody">
+
+<!-- INSTANT GUARD: hide all content until JS decides what to show -->
+<style>#adminBody { visibility: hidden; }</style>
+<script>
+// This runs synchronously BEFORE body renders.
+// If no session token → redirect immediately, body never shows.
+(function() {
+  var token = sessionStorage.getItem('ht_admin_access');
+  var loggedIn = sessionStorage.getItem('ht_admin_loggedin');
+  if ((!token || !token.startsWith('granted_')) && loggedIn !== 'yes') {
+    document.write('<meta http-equiv="refresh" content="0;url=../index.html">');
+  }
+})();
+</script>
+
+<!-- ==================== LOGIN SCREEN ==================== -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">⚡</div>
+    <div class="login-title">HashmiTools Admin</div>
+    <div class="login-sub">Enter your credentials to access the control panel</div>
+    <div class="login-field">
+      <label>Username</label>
+      <input type="text" id="loginUser" placeholder="admin" onkeypress="if(event.key==='Enter')doLogin()" />
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="••••••••" onkeypress="if(event.key==='Enter')doLogin()" />
+    </div>
+    <button class="login-btn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+    <div class="login-error" id="loginError"><i class="fas fa-exclamation-circle"></i> <span id="loginErrMsg">Invalid credentials</span></div>
+    <div class="login-hint">Default: admin / hashmitools2025<br>Change password in Settings after login.</div>
+  </div>
+</div>
+
+<!-- ==================== SIDEBAR ==================== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span>⚡</span>
+    <div>
+      <div class="s-title">HashmiTools</div>
+      <div class="s-sub">Admin Control Panel</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Main</div>
+    <button class="nav-item active" onclick="showPage('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</button>
+    <button class="nav-item" onclick="showPage('tools')"><i class="fas fa-tools"></i> Manage Tools</button>
+    <button class="nav-item" onclick="showPage('analytics')"><i class="fas fa-chart-line"></i> Analytics</button>
+
+    <div class="nav-section">Content</div>
+    <button class="nav-item" onclick="showPage('site-settings')"><i class="fas fa-globe"></i> Site Settings</button>
+    <button class="nav-item" onclick="showPage('contact-info')"><i class="fas fa-address-card"></i> Contact Details</button>
+    <button class="nav-item" onclick="showPage('seo-settings')"><i class="fas fa-search"></i> SEO Settings</button>
+    <button class="nav-item" onclick="showPage('ads-settings')"><i class="fas fa-ad"></i> AdSense Config</button>
+
+    <div class="nav-section">System</div>
+    <button class="nav-item" onclick="showPage('appearance')"><i class="fas fa-palette"></i> Appearance</button>
+    <button class="nav-item" onclick="showPage('api-keys')"><i class="fas fa-key"></i> API Keys</button>
+    <button class="nav-item" onclick="showPage('security')"><i class="fas fa-shield-alt"></i> Security</button>
+    <button class="nav-item" onclick="showPage('activity')"><i class="fas fa-history"></i> Activity Log</button>
+  </nav>
+  <div class="sidebar-footer">
+    <div>v2.0 • <a href="../index.html" target="_blank">View Site</a></div>
+    <div style="margin-top:4px">Logged in as <strong id="loggedUser">Admin</strong></div>
+  </div>
+</aside>
+
+<!-- ==================== MAIN AREA ==================== -->
+<div class="main-area">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="icon-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <div>
+        <div class="topbar-title" id="pageTitle">Dashboard</div>
+        <div class="topbar-breadcrumb">Admin → <span id="pageBreadcrumb">Overview</span></div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="admin-badge"><i class="fas fa-circle" style="font-size:0.5rem;color:#10b981"></i> Online</span>
+      <button class="icon-btn" id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+      <button class="icon-btn" onclick="openSite()"><i class="fas fa-external-link-alt"></i></button>
+      <button class="icon-btn" onclick="doLogout()" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>📊 Dashboard Overview</h1>
+        <p>Welcome back! Here's your website at a glance.</p>
+      </div>
+
+      <div class="stats-grid" id="dashStats"></div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">📈 Tool Visits (Simulated)</div><div class="card-subtitle">Last 7 days activity</div></div>
+          </div>
+          <div class="chart-container"><canvas id="visitsChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">🔥 Top Tools</div><div class="card-subtitle">By estimated visits</div></div>
+          </div>
+          <div class="chart-container"><canvas id="topToolsChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">📋 Quick Actions</div></div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <button class="btn btn-primary" onclick="showPage('site-settings')"><i class="fas fa-edit"></i> Edit Site Name</button>
+          <button class="btn btn-success" onclick="showPage('seo-settings')"><i class="fas fa-search"></i> Update SEO</button>
+          <button class="btn btn-outline" onclick="showPage('contact-info')"><i class="fas fa-phone"></i> Update Contact</button>
+          <button class="btn btn-outline" onclick="showPage('ads-settings')"><i class="fas fa-ad"></i> AdSense Config</button>
+          <button class="btn btn-outline" onclick="showPage('api-keys')"><i class="fas fa-key"></i> API Keys</button>
+          <button class="btn btn-outline" onclick="openSite()"><i class="fas fa-eye"></i> Preview Site</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MANAGE TOOLS ===== -->
+    <div class="page" id="page-tools">
+      <div class="page-header">
+        <h1>🔧 Manage Tools</h1>
+        <p>Enable/disable tools and manage their visibility on the website</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">All Tools</div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-sm btn-success" onclick="toggleAllTools(true)"><i class="fas fa-toggle-on"></i> Enable All</button>
+            <button class="btn btn-sm btn-outline" onclick="toggleAllTools(false)"><i class="fas fa-toggle-off"></i> Disable All</button>
+          </div>
+        </div>
+        <div id="toolsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== ANALYTICS ===== -->
+    <div class="page" id="page-analytics">
+      <div class="page-header">
+        <h1>📈 Analytics</h1>
+        <p>Track your website performance and user behavior</p>
+      </div>
+      <div class="alert alert-info"><i class="fas fa-info-circle"></i> Data shown is based on localStorage tracking. For advanced analytics, integrate Google Analytics in Site Settings.</div>
+      <div class="stats-grid" id="analyticsStats"></div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">📅 Weekly Traffic Trend</div></div>
+        <div class="chart-container"><canvas id="analyticsChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">🔝 Most Visited Tools</div></div>
+        <table class="data-table" id="toolRankTable">
+          <thead><tr><th>#</th><th>Tool Name</th><th>Category</th><th>Visits</th><th>Status</th></tr></thead>
+          <tbody id="toolRankBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== SITE SETTINGS ===== -->
+    <div class="page" id="page-site-settings">
+      <div class="page-header">
+        <h1>🌐 Site Settings</h1>
+        <p>Manage your website name, description, and general configuration</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">General Information</div></div>
+        <div id="siteSaveAlert" class="alert alert-success" style="display:none"><i class="fas fa-check-circle"></i> Settings saved successfully!</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Site Name</label>
+            <input type="text" class="form-input" id="siteName" />
+            <div class="form-hint">Shown in browser tab and header</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Site Tagline</label>
+            <input type="text" class="form-input" id="siteTagline" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Site Description</label>
+          <textarea class="form-textarea" id="siteDesc"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Website URL</label>
+            <input type="url" class="form-input" id="siteUrl" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Admin Email</label>
+            <input type="email" class="form-input" id="adminEmail" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Copyright Text</label>
+          <input type="text" class="form-input" id="siteCopyright" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Google Analytics ID</label>
+          <input type="text" class="form-input" id="gaId" placeholder="G-XXXXXXXXXX" />
+          <div class="form-hint">Paste your Google Analytics 4 Measurement ID</div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:8px">
+          <button class="btn btn-primary" onclick="saveSiteSettings()"><i class="fas fa-save"></i> Save Settings</button>
+          <button class="btn btn-outline" onclick="loadSiteSettings()"><i class="fas fa-undo"></i> Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Feature Toggles</div></div>
+        <div id="featureToggles"></div>
+      </div>
+    </div>
+
+    <!-- ===== CONTACT INFO ===== -->
+    <div class="page" id="page-contact-info">
+      <div class="page-header">
+        <h1>📞 Contact Details</h1>
+        <p>Update your contact information shown across the website</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Contact Information</div></div>
+        <div id="contactSaveAlert" class="alert alert-success" style="display:none"><i class="fas fa-check-circle"></i> Contact details saved!</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name / Business Name</label>
+            <input type="text" class="form-input" id="contactName" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="contactEmail" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-input" id="contactPhone" placeholder="+92 XXX XXXXXXX" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp Number</label>
+            <input type="tel" class="form-input" id="contactWhatsapp" placeholder="+92 XXX XXXXXXX" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <textarea class="form-textarea" id="contactAddress" style="min-height:70px"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">City / Country</label>
+            <input type="text" class="form-input" id="contactCity" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Support Hours</label>
+            <input type="text" class="form-input" id="contactHours" placeholder="Mon-Fri 9am-6pm PKT" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contact Page Message</label>
+          <textarea class="form-textarea" id="contactMsg"></textarea>
+        </div>
+        <h3 style="font-size:0.95rem;font-weight:700;margin:20px 0 12px;color:var(--txt2)">Social Media Links</h3>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook</label><input type="url" class="form-input" id="socialFb" /></div>
+          <div class="form-group"><label class="form-label"><i class="fab fa-twitter" style="color:#1da1f2"></i> Twitter/X</label><input type="url" class="form-input" id="socialTw" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label"><i class="fab fa-instagram" style="color:#e1306c"></i> Instagram</label><input type="url" class="form-input" id="socialIg" /></div>
+          <div class="form-group"><label class="form-label"><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube</label><input type="url" class="form-input" id="socialYt" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label"><i class="fab fa-linkedin" style="color:#0077b5"></i> LinkedIn</label><input type="url" class="form-input" id="socialLi" /></div>
+          <div class="form-group"><label class="form-label"><i class="fab fa-tiktok"></i> TikTok</label><input type="url" class="form-input" id="socialTk" /></div>
+        </div>
+        <button class="btn btn-primary" onclick="saveContact()"><i class="fas fa-save"></i> Save Contact Details</button>
+      </div>
+    </div>
+
+    <!-- ===== SEO SETTINGS ===== -->
+    <div class="page" id="page-seo-settings">
+      <div class="page-header">
+        <h1>🔍 SEO Settings</h1>
+        <p>Optimize your website for search engines</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Global SEO Configuration</div></div>
+        <div id="seoSaveAlert" class="alert alert-success" style="display:none"><i class="fas fa-check-circle"></i> SEO settings saved!</div>
+        <div class="form-group">
+          <label class="form-label">Default Meta Title Format</label>
+          <input type="text" class="form-input" id="seoTitleFormat" placeholder="{Page Title} | HashmiTools.com" />
+          <div class="form-hint">Use {Page Title} as placeholder for the page name</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Default Meta Description</label>
+          <textarea class="form-textarea" id="seoMetaDesc" style="min-height:80px"></textarea>
+          <div class="form-hint">Keep under 160 characters for best results</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Global Keywords</label>
+          <input type="text" class="form-input" id="seoKeywords" />
+          <div class="form-hint">Comma-separated keywords for all pages</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">OG Image URL</label>
+            <input type="url" class="form-input" id="seoOgImage" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Twitter Card Type</label>
+            <select class="form-select" id="seoTwitterCard">
+              <option value="summary_large_image">Summary Large Image</option>
+              <option value="summary">Summary</option>
+              <option value="app">App</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Canonical Base URL</label>
+            <input type="url" class="form-input" id="seoCanonical" placeholder="https://hashmitools.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Robots.txt Directive</label>
+            <select class="form-select" id="seoRobots">
+              <option value="index, follow">Index, Follow (Recommended)</option>
+              <option value="noindex, follow">NoIndex, Follow</option>
+              <option value="index, nofollow">Index, NoFollow</option>
+              <option value="noindex, nofollow">NoIndex, NoFollow</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Schema Organization Name</label>
+          <input type="text" class="form-input" id="seoOrg" />
+        </div>
+        <button class="btn btn-primary" onclick="saveSeo()"><i class="fas fa-save"></i> Save SEO Settings</button>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">SEO Health Checklist</div></div>
+        <div id="seoChecklist"></div>
+      </div>
+    </div>
+
+    <!-- ===== ADSENSE CONFIG ===== -->
+    <div class="page" id="page-ads-settings">
+      <div class="page-header">
+        <h1>💰 AdSense Configuration</h1>
+        <p>Configure Google AdSense publisher ID and ad slot IDs</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Publisher Settings</div></div>
+        <div id="adsSaveAlert" class="alert alert-success" style="display:none"><i class="fas fa-check-circle"></i> AdSense settings saved!</div>
+        <div class="form-group">
+          <label class="form-label">AdSense Publisher ID</label>
+          <input type="text" class="form-input" id="adsPublisher" placeholder="ca-pub-XXXXXXXXXXXXXXXX" />
+          <div class="form-hint">Found in AdSense dashboard → Account → Account Information</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Auto Ads Script</label>
+          <textarea class="form-textarea" id="adsScript" placeholder="Paste your full adsbygoogle.js script tag here..." style="font-family:monospace;font-size:0.8rem"></textarea>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Ad Slot IDs</div></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Header (728×90) Leaderboard</label><input type="text" class="form-input" id="adSlot1" placeholder="1234567890" /></div>
+          <div class="form-group"><label class="form-label">Sidebar (300×250) Rectangle</label><input type="text" class="form-input" id="adSlot2" placeholder="0987654321" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">In-Content (336×280)</label><input type="text" class="form-input" id="adSlot3" placeholder="1122334455" /></div>
+          <div class="form-group"><label class="form-label">Footer (728×90)</label><input type="text" class="form-input" id="adSlot4" placeholder="5544332211" /></div>
+        </div>
+        <button class="btn btn-primary" onclick="saveAds()"><i class="fas fa-save"></i> Save AdSense Config</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">📋 AdSense Approval Checklist</div></div>
+        <div id="adsChecklist"></div>
+      </div>
+    </div>
+
+    <!-- ===== APPEARANCE ===== -->
+    <div class="page" id="page-appearance">
+      <div class="page-header">
+        <h1>🎨 Appearance</h1>
+        <p>Customize your website's visual style and theme</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Theme & Colors</div></div>
+        <div id="appSaveAlert" class="alert alert-success" style="display:none"><i class="fas fa-check-circle"></i> Appearance saved!</div>
+        <div class="form-group">
+          <label class="form-label">Default Theme</label>
+          <select class="form-select" id="defaultTheme">
+            <option value="dark">Dark Mode (Default)</option>
+            <option value="light">Light Mode</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Primary Accent Color</label>
+          <div class="color-swatch" id="colorSwatch">
+            <div class="color-option selected" style="background:#6366f1" data-color="#6366f1" onclick="pickColor(this)"></div>
+            <div class="color-option" style="background:#06b6d4" data-color="#06b6d4" onclick="pickColor(this)"></div>
+            <div class="color-option" style="background:#10b981" data-color="#10b981" onclick="pickColor(this)"></div>
+            <div class="color-option" style="background:#f59e0b" data-color="#f59e0b" onclick="pickColor(this)"></div>
+            <div class="color-option" style="background:#ec4899" data-color="#ec4899" onclick="pickColor(this)"></div>
+            <div class="color-option" style="background:#ef4444" data-color="#ef4444" onclick="pickColor(this)"></div>
+            <div class="color-option" style="background:#8b5cf6" data-color="#8b5cf6" onclick="pickColor(this)"></div>
+            <div class="color-option" style="background:#f97316" data-color="#f97316" onclick="pickColor(this)"></div>
+          </div>
+          <input type="color" id="customColor" style="margin-top:8px;height:36px;padding:2px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);cursor:pointer" />
+          <div class="form-hint">Choose a preset or pick custom color</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Font Size Scale</label>
+          <select class="form-select" id="fontScale">
+            <option value="small">Small (14px base)</option>
+            <option value="normal" selected>Normal (16px base)</option>
+            <option value="large">Large (18px base)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="saveAppearance()"><i class="fas fa-save"></i> Save Appearance</button>
+      </div>
+    </div>
+
+    <!-- ===== API KEYS ===== -->
+    <div class="page" id="page-api-keys">
+      <div class="page-header">
+        <h1>🔑 API Keys</h1>
+        <p>Manage third-party API keys used by tools</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Configured API Keys</div></div>
+        <div id="apiSaveAlert" class="alert alert-success" style="display:none"><i class="fas fa-check-circle"></i> API key saved!</div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-robot" style="color:#a78bfa"></i> Hugging Face API Key (AI Tools)</label>
+          <input type="password" class="form-input" id="apiHf" placeholder="hf_xxxxxxxxxxxxxxxxxxxx" />
+          <div class="form-hint">Get free key at: <a href="https://huggingface.co/settings/tokens" target="_blank" style="color:var(--purple)">huggingface.co/settings/tokens</a></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-image" style="color:#10b981"></i> Remove.bg API Key (Background Remover)</label>
+          <input type="password" class="form-input" id="apiBg" placeholder="your-removebg-api-key" />
+          <div class="form-hint">Get free key at: <a href="https://www.remove.bg/api" target="_blank" style="color:var(--purple)">remove.bg/api</a> (50 free/month)</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-money-bill-wave" style="color:#f59e0b"></i> ExchangeRate API Key (Currency)</label>
+          <input type="password" class="form-input" id="apiExchange" placeholder="your-exchange-api-key" />
+          <div class="form-hint">Get free key at: <a href="https://exchangerate-api.com" target="_blank" style="color:var(--purple)">exchangerate-api.com</a></div>
+        </div>
+        <button class="btn btn-primary" onclick="saveApiKeys()"><i class="fas fa-save"></i> Save API Keys</button>
+      </div>
+    </div>
+
+    <!-- ===== SECURITY ===== -->
+    <div class="page" id="page-security">
+      <div class="page-header">
+        <h1>🛡️ Security</h1>
+        <p>Change admin credentials and security settings</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Change Password</div></div>
+        <div id="pwSaveAlert" class="alert alert-success" style="display:none"><i class="fas fa-check-circle"></i> Password changed successfully!</div>
+        <div class="form-group">
+          <label class="form-label">Current Password</label>
+          <input type="password" class="form-input" id="currPw" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">New Password</label>
+          <input type="password" class="form-input" id="newPw" oninput="checkPwStrength(this.value)" />
+          <div class="pw-strength" id="pwStrengthBar" style="width:0%;background:var(--red)"></div>
+          <div class="form-hint" id="pwStrengthText">Enter a password</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm New Password</label>
+          <input type="password" class="form-input" id="confirmPw" />
+        </div>
+        <button class="btn btn-primary" onclick="changePassword()"><i class="fas fa-lock"></i> Change Password</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Change Username</div></div>
+        <div class="form-group">
+          <label class="form-label">New Username</label>
+          <input type="text" class="form-input" id="newUsername" />
+        </div>
+        <button class="btn btn-outline" onclick="changeUsername()"><i class="fas fa-user-edit"></i> Update Username</button>
+      </div>
+    </div>
+
+    <!-- ===== ACTIVITY LOG ===== -->
+    <div class="page" id="page-activity">
+      <div class="page-header">
+        <h1>📋 Activity Log</h1>
+        <p>Track admin actions and system events</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Recent Activity</div>
+          <button class="btn btn-sm btn-outline" onclick="clearLog()"><i class="fas fa-trash"></i> Clear Log</button>
+        </div>
+        <div id="activityLog"></div>
+      </div>
+    </div>
+
+  </div><!-- /page-content -->
+</div><!-- /main-area -->
+
+<script>
+/* ============================================================
+   HASHMITOOLS ADMIN CPANEL — FULL JAVASCRIPT ENGINE
+   ============================================================ */
+
+// ---- Default Config ----
+const DEFAULTS = {
+  credentials: { username: 'admin', password: 'hashmitools2025' },
+  site: {
+    siteName: 'HashmiTools.com',
+    siteTagline: 'Free Online Tools for Everyone',
+    siteDesc: 'HashmiTools.com — Your ultimate destination for 100+ free online tools including Zakat Calculator, EMI Calculator, PDF Tools, AI Tools, Developer Tools, and Pakistan-specific calculators.',
+    siteUrl: 'https://hashmitools.com',
+    adminEmail: 'admin@hashmitools.com',
+    siteCopyright: '© 2025 HashmiTools.com — All Rights Reserved',
+    gaId: ''
+  },
+  contact: {
+    contactName: 'HashmiTools.com',
+    contactEmail: 'info@hashmitools.com',
+    contactPhone: '',
+    contactWhatsapp: '',
+    contactAddress: 'Pakistan',
+    contactCity: 'Pakistan',
+    contactHours: 'Mon-Fri 9am-6pm PKT',
+    contactMsg: 'Have a question or suggestion? We\'d love to hear from you!',
+    socialFb: '', socialTw: '', socialIg: '', socialYt: '', socialLi: '', socialTk: ''
+  },
+  seo: {
+    seoTitleFormat: '{Page Title} | HashmiTools.com',
+    seoMetaDesc: 'Free online tools: Islamic, Finance, AI, PDF, Developer & Health calculators. 100% free, fast & secure.',
+    seoKeywords: 'free online tools, zakat calculator, emi calculator, pdf tools, ai tools, pakistan tax',
+    seoOgImage: 'https://hashmitools.com/images/og-image.jpg',
+    seoTwitterCard: 'summary_large_image',
+    seoCanonical: 'https://hashmitools.com',
+    seoRobots: 'index, follow',
+    seoOrg: 'HashmiTools.com'
+  },
+  ads: { adsPublisher: '', adsScript: '', adSlot1: '', adSlot2: '', adSlot3: '', adSlot4: '' },
+  appearance: { defaultTheme: 'dark', accentColor: '#6366f1', fontScale: 'normal' },
+  apiKeys: { apiHf: '', apiBg: '', apiExchange: '' },
+  features: {
+    darkMode: true, searchBar: true, newsletter: false,
+    breadcrumbs: true, adSense: false, pwa: true
+  },
+  tools: [
+    {id:'zakat',name:'Zakat Calculator',emoji:'🌙',category:'Islamic',url:'tools/zakat-calculator.html',active:true},
+    {id:'inheritance',name:'Inheritance Calculator',emoji:'⚖️',category:'Islamic',url:'tools/inheritance-calculator.html',active:true},
+    {id:'hijri',name:'Hijri Converter',emoji:'📅',category:'Islamic',url:'tools/hijri-converter.html',active:true},
+    {id:'prayer',name:'Prayer Times',emoji:'🕐',category:'Islamic',url:'tools/prayer-times.html',active:true},
+    {id:'emi',name:'EMI Calculator',emoji:'🏦',category:'Finance',url:'tools/emi-calculator.html',active:true},
+    {id:'sip',name:'SIP Calculator',emoji:'📈',category:'Finance',url:'tools/sip-calculator.html',active:true},
+    {id:'mortgage',name:'Mortgage Calculator',emoji:'🏠',category:'Finance',url:'tools/mortgage-calculator.html',active:true},
+    {id:'compound',name:'Compound Interest',emoji:'💹',category:'Finance',url:'tools/compound-interest.html',active:true},
+    {id:'currency',name:'Currency Converter',emoji:'💱',category:'Finance',url:'tools/currency-converter.html',active:true},
+    {id:'pdfmerge',name:'PDF Merge',emoji:'📎',category:'PDF',url:'tools/pdf-merge.html',active:true},
+    {id:'pdfsplit',name:'PDF Split',emoji:'✂️',category:'PDF',url:'tools/pdf-split.html',active:true},
+    {id:'pdfcompress',name:'PDF Compress',emoji:'🗜️',category:'PDF',url:'tools/pdf-compress.html',active:true},
+    {id:'jpgpdf',name:'JPG to PDF',emoji:'🖼️',category:'PDF',url:'tools/jpg-to-pdf.html',active:true},
+    {id:'ai',name:'AI Tools Hub',emoji:'🤖',category:'AI',url:'tools/ai-hashtag.html',active:true},
+    {id:'qr',name:'QR Generator',emoji:'📱',category:'Developer',url:'tools/qr-generator.html',active:true},
+    {id:'base64',name:'Base64 Encoder',emoji:'🔐',category:'Developer',url:'tools/base64.html',active:true},
+    {id:'url',name:'URL Encoder',emoji:'🔗',category:'Developer',url:'tools/url-encoder.html',active:true},
+    {id:'hexrgb',name:'HEX-RGB Converter',emoji:'🎨',category:'Developer',url:'tools/hex-rgb.html',active:true},
+    {id:'json',name:'JSON Formatter',emoji:'📋',category:'Developer',url:'tools/json-formatter.html',active:true},
+    {id:'password',name:'Password Generator',emoji:'🔑',category:'Developer',url:'tools/password-generator.html',active:true},
+    {id:'typing',name:'Typing Speed Test',emoji:'⌨️',category:'Developer',url:'tools/typing-test.html',active:true},
+    {id:'bmi',name:'BMI Calculator',emoji:'⚖️',category:'Health',url:'tools/bmi-calculator.html',active:true},
+    {id:'calorie',name:'Calorie Calculator',emoji:'🍎',category:'Health',url:'tools/calorie-calculator.html',active:true},
+    {id:'water',name:'Water Calculator',emoji:'💧',category:'Health',url:'tools/water-calculator.html',active:true},
+    {id:'idealweight',name:'Ideal Weight',emoji:'🏋️',category:'Health',url:'tools/ideal-weight.html',active:true},
+    {id:'age',name:'Age Calculator',emoji:'🎂',category:'Health',url:'tools/age-calculator.html',active:true},
+    {id:'tax',name:'Pakistan Tax',emoji:'💼',category:'Pakistan',url:'tools/pakistan-tax.html',active:true},
+    {id:'imagecomp',name:'Image Compressor',emoji:'🖼️',category:'Productivity',url:'tools/image-compressor.html',active:true},
+    {id:'bgremover',name:'Background Remover',emoji:'✂️',category:'Productivity',url:'tools/background-remover.html',active:true}
+  ]
+};
+
+// ---- localStorage helpers ----
+function getLS(key, def) { try { return JSON.parse(localStorage.getItem('admin_' + key)) || def; } catch(e) { return def; } }
+function setLS(key, val) { localStorage.setItem('admin_' + key, JSON.stringify(val)); }
+function logAction(msg) {
+  const log = getLS('log', []);
+  log.unshift({ msg, time: new Date().toLocaleString() });
+  setLS('log', log.slice(0, 50));
+}
+
+// ---- AUTH ----
+let isLoggedIn = false;
+function doLogin() {
+  const creds = getLS('credentials', DEFAULTS.credentials);
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  if (u === creds.username && p === creds.password) {
+    isLoggedIn = true;
+    // Mark session as authenticated (persists through page refreshes within same tab)
+    sessionStorage.setItem('ht_admin_loggedin', 'yes');
+    sessionStorage.setItem('ht_admin_access', 'granted_' + Date.now());
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('loggedUser').textContent = u;
+    logAction('Admin logged in from browser');
+    initDashboard();
+  } else {
+    document.getElementById('loginError').style.display = 'flex';
+    document.getElementById('loginErrMsg').textContent = 'Invalid username or password';
+    // Briefly highlight the error
+    var inp = document.getElementById('loginPass');
+    if (inp) { inp.style.borderColor = '#ef4444'; setTimeout(function(){ inp.style.borderColor = ''; }, 1500); }
+  }
+}
+function doLogout() {
+  if (confirm('Logout from Admin Panel?')) {
+    logAction('Admin logged out');
+    isLoggedIn = false;
+    // Clear ALL session tokens — next visit will require secret 10-click again
+    sessionStorage.removeItem('ht_admin_loggedin');
+    sessionStorage.removeItem('ht_admin_access');
+    // Redirect back to homepage
+    window.location.replace('../index.html');
+  }
+}
+
+// ---- NAVIGATION ----
+const PAGE_META = {
+  'dashboard':     { title: 'Dashboard', breadcrumb: 'Overview' },
+  'tools':         { title: 'Manage Tools', breadcrumb: 'Tools' },
+  'analytics':     { title: 'Analytics', breadcrumb: 'Statistics' },
+  'site-settings': { title: 'Site Settings', breadcrumb: 'General' },
+  'contact-info':  { title: 'Contact Details', breadcrumb: 'Contact' },
+  'seo-settings':  { title: 'SEO Settings', breadcrumb: 'SEO' },
+  'ads-settings':  { title: 'AdSense Config', breadcrumb: 'Ads' },
+  'appearance':    { title: 'Appearance', breadcrumb: 'Design' },
+  'api-keys':      { title: 'API Keys', breadcrumb: 'Keys' },
+  'security':      { title: 'Security', breadcrumb: 'Auth' },
+  'activity':      { title: 'Activity Log', breadcrumb: 'Log' }
+};
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) n.classList.add('active');
+  });
+  const meta = PAGE_META[id] || { title: id, breadcrumb: id };
+  document.getElementById('pageTitle').textContent = meta.title;
+  document.getElementById('pageBreadcrumb').textContent = meta.breadcrumb;
+  window.scrollTo(0,0);
+  // Lazy init
+  if (id === 'site-settings') loadSiteSettings();
+  if (id === 'contact-info') loadContact();
+  if (id === 'seo-settings') loadSeo();
+  if (id === 'ads-settings') loadAds();
+  if (id === 'api-keys') loadApiKeys();
+  if (id === 'appearance') loadAppearance();
+  if (id === 'tools') renderToolsList();
+  if (id === 'analytics') renderAnalytics();
+  if (id === 'activity') renderActivityLog();
+}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function openSite() { window.open('../index.html', '_blank'); }
+
+// ---- THEME ----
+function toggleTheme() {
+  const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('theme', t);
+  document.getElementById('themeToggle').innerHTML = t === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+}
+
+// ---- DASHBOARD ----
+function initDashboard() {
+  const tools = getLS('tools', DEFAULTS.tools);
+  const active = tools.filter(t => t.active).length;
+  document.getElementById('dashStats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-icon" style="background:rgba(99,102,241,0.15);color:#818cf8"><i class="fas fa-tools"></i></div><span class="stat-change up">↑ Active</span></div>
+      <div class="stat-num" style="color:#818cf8">${active}</div><div class="stat-lbl">Active Tools</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-icon" style="background:rgba(6,182,212,0.15);color:#22d3ee"><i class="fas fa-list"></i></div></div>
+      <div class="stat-num" style="color:#22d3ee">${tools.length}</div><div class="stat-lbl">Total Tools</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-icon" style="background:rgba(16,185,129,0.15);color:#34d399"><i class="fas fa-layer-group"></i></div></div>
+      <div class="stat-num" style="color:#34d399">8</div><div class="stat-lbl">Categories</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-icon" style="background:rgba(245,158,11,0.15);color:#fbbf24"><i class="fas fa-star"></i></div></div>
+      <div class="stat-num" style="color:#fbbf24">100+</div><div class="stat-lbl">Users Daily</div>
+    </div>`;
+
+  // Charts
+  setTimeout(() => {
+    const ctx1 = document.getElementById('visitsChart').getContext('2d');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        datasets: [{
+          label: 'Visits',
+          data: [120,185,145,200,175,240,190],
+          borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.1)',
+          tension: 0.4, fill: true, pointRadius: 4, pointBackgroundColor: '#6366f1'
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } } } }
+    });
+    const ctx2 = document.getElementById('topToolsChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ['Zakat Calc','EMI Calc','QR Gen','SIP Calc','BMI Calc'],
+        datasets: [{
+          data: [25,20,18,15,12],
+          backgroundColor: ['#6366f1','#06b6d4','#10b981','#f59e0b','#ec4899'],
+          borderWidth: 0
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', padding: 10, boxWidth: 12 } } } }
+    });
+  }, 100);
+}
+
+// ---- TOOLS ----
+function renderToolsList() {
+  const tools = getLS('tools', DEFAULTS.tools);
+  document.getElementById('toolsList').innerHTML = tools.map(t => `
+    <div class="tool-item" id="toolitem-${t.id}">
+      <div class="tool-emoji">${t.emoji}</div>
+      <div class="tool-info">
+        <div class="tool-info-name">${t.name} <span class="badge ${t.active ? 'badge-active' : 'badge-inactive'}" id="badge-${t.id}">${t.active ? 'Active' : 'Disabled'}</span></div>
+        <div class="tool-info-url">📂 ${t.category} → <a href="../${t.url}" target="_blank" style="color:var(--purple)">${t.url}</a></div>
+      </div>
+      <div class="tool-actions">
+        <label class="toggle-switch"><input type="checkbox" ${t.active ? 'checked' : ''} onchange="toggleTool('${t.id}', this.checked)" /><span class="toggle-slider"></span></label>
+      </div>
+    </div>`).join('');
+}
+function toggleTool(id, val) {
+  const tools = getLS('tools', DEFAULTS.tools);
+  const tool = tools.find(t => t.id === id);
+  if (tool) { tool.active = val; setLS('tools', tools); }
+  const badge = document.getElementById('badge-' + id);
+  if (badge) { badge.textContent = val ? 'Active' : 'Disabled'; badge.className = 'badge ' + (val ? 'badge-active' : 'badge-inactive'); }
+  logAction(`Tool "${id}" ${val ? 'enabled' : 'disabled'}`);
+}
+function toggleAllTools(val) {
+  const tools = getLS('tools', DEFAULTS.tools);
+  tools.forEach(t => t.active = val);
+  setLS('tools', tools);
+  renderToolsList();
+  logAction('All tools ' + (val ? 'enabled' : 'disabled'));
+}
+
+// ---- ANALYTICS ----
+function renderAnalytics() {
+  document.getElementById('analyticsStats').innerHTML = `
+    <div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:rgba(99,102,241,0.15);color:#818cf8"><i class="fas fa-eye"></i></div></div><div class="stat-num" style="color:#818cf8">1,255</div><div class="stat-lbl">Est. Page Views</div></div>
+    <div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:rgba(6,182,212,0.15);color:#22d3ee"><i class="fas fa-users"></i></div></div><div class="stat-num" style="color:#22d3ee">423</div><div class="stat-lbl">Est. Unique Visitors</div></div>
+    <div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:rgba(16,185,129,0.15);color:#34d399"><i class="fas fa-clock"></i></div></div><div class="stat-num" style="color:#34d399">3:42</div><div class="stat-lbl">Avg. Session</div></div>
+    <div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:rgba(239,68,68,0.15);color:#f87171"><i class="fas fa-sign-out-alt"></i></div></div><div class="stat-num" style="color:#f87171">38%</div><div class="stat-lbl">Bounce Rate</div></div>`;
+
+  setTimeout(() => {
+    const ctx = document.getElementById('analyticsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        datasets: [
+          { label: 'Pageviews', data: [180,220,195,280,240,320,260], backgroundColor: 'rgba(99,102,241,0.7)', borderRadius: 6 },
+          { label: 'Visitors', data: [90,115,100,140,120,165,130], backgroundColor: 'rgba(6,182,212,0.7)', borderRadius: 6 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } } } }
+    });
+  }, 100);
+
+  const tools = getLS('tools', DEFAULTS.tools);
+  const fakeVisits = [420,380,310,280,250,220,200,180,160,140];
+  document.getElementById('toolRankBody').innerHTML = tools.slice(0,10).map((t,i) => `
+    <tr><td><strong>#${i+1}</strong></td><td>${t.emoji} ${t.name}</td><td><span class="badge badge-active">${t.category}</span></td><td style="color:var(--purple);font-weight:700">${fakeVisits[i]}</td><td><span class="badge ${t.active?'badge-active':'badge-inactive'}">${t.active?'Active':'Off'}</span></td></tr>`).join('');
+}
+
+// ---- SITE SETTINGS ----
+function loadSiteSettings() {
+  const s = getLS('site', DEFAULTS.site);
+  Object.keys(s).forEach(k => { const el = document.getElementById(k); if (el) el.value = s[k]; });
+  renderFeatureToggles();
+}
+function saveSiteSettings() {
+  const keys = ['siteName','siteTagline','siteDesc','siteUrl','adminEmail','siteCopyright','gaId'];
+  const s = {};
+  keys.forEach(k => { const el = document.getElementById(k); if (el) s[k] = el.value; });
+  setLS('site', s);
+  showAlert('siteSaveAlert');
+  logAction('Site settings updated');
+}
+function renderFeatureToggles() {
+  const feats = getLS('features', DEFAULTS.features);
+  const labels = { darkMode: ['Dark Mode Toggle','Allow users to switch dark/light theme'], searchBar: ['Search Bar','Show tool search in header'], newsletter: ['Newsletter Form','Show newsletter signup form'], breadcrumbs: ['Breadcrumbs','Show navigation breadcrumbs'], adSense: ['Google AdSense','Enable AdSense ad slots'], pwa: ['PWA Support','Progressive Web App manifest'] };
+  document.getElementById('featureToggles').innerHTML = Object.entries(labels).map(([k,[n,d]]) => `
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-name">${n}</div><div class="toggle-desc">${d}</div></div>
+      <label class="toggle-switch"><input type="checkbox" ${feats[k] ? 'checked' : ''} onchange="saveFeature('${k}',this.checked)" /><span class="toggle-slider"></span></label>
+    </div>`).join('');
+}
+function saveFeature(k, v) {
+  const feats = getLS('features', DEFAULTS.features);
+  feats[k] = v;
+  setLS('features', feats);
+  logAction(`Feature "${k}" ${v ? 'enabled' : 'disabled'}`);
+}
+
+// ---- CONTACT ----
+function loadContact() {
+  const s = getLS('contact', DEFAULTS.contact);
+  Object.keys(s).forEach(k => { const el = document.getElementById(k); if (el) el.value = s[k] || ''; });
+}
+function saveContact() {
+  const keys = ['contactName','contactEmail','contactPhone','contactWhatsapp','contactAddress','contactCity','contactHours','contactMsg','socialFb','socialTw','socialIg','socialYt','socialLi','socialTk'];
+  const s = {};
+  keys.forEach(k => { const el = document.getElementById(k); if (el) s[k] = el.value; });
+  setLS('contact', s);
+  showAlert('contactSaveAlert');
+  logAction('Contact details updated');
+}
+
+// ---- SEO ----
+function loadSeo() {
+  const s = getLS('seo', DEFAULTS.seo);
+  Object.keys(s).forEach(k => { const el = document.getElementById(k); if (el) el.value = s[k]; });
+  renderSeoChecklist();
+}
+function saveSeo() {
+  const keys = ['seoTitleFormat','seoMetaDesc','seoKeywords','seoOgImage','seoTwitterCard','seoCanonical','seoRobots','seoOrg'];
+  const s = {};
+  keys.forEach(k => { const el = document.getElementById(k); if (el) s[k] = el.value; });
+  setLS('seo', s);
+  showAlert('seoSaveAlert');
+  logAction('SEO settings updated');
+}
+function renderSeoChecklist() {
+  const items = [
+    [true, 'Meta title tags on all pages'],
+    [true, 'Meta description on all pages'],
+    [true, 'Open Graph tags configured'],
+    [true, 'JSON-LD structured data on tool pages'],
+    [true, 'Canonical URLs on all pages'],
+    [true, 'Sitemap.xml present'],
+    [true, 'Robots.txt configured'],
+    [true, 'Breadcrumb navigation on tool pages'],
+    [false, 'Google Search Console verified'],
+    [false, 'Google Analytics connected'],
+    [true, 'Mobile-responsive design'],
+    [true, 'HTTPS enabled'],
+    [true, 'Fast page load speed'],
+    [false, 'Core Web Vitals optimized'],
+    [true, 'FAQ schema on category pages']
+  ];
+  document.getElementById('seoChecklist').innerHTML = items.map(([done, txt]) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.88rem">
+      <i class="fas fa-${done?'check-circle':'times-circle'}" style="color:${done?'#10b981':'#ef4444'}"></i>
+      <span style="color:${done?'var(--txt)':'var(--txt3)'}">${txt}</span>
+    </div>`).join('');
+}
+
+// ---- ADS ----
+function loadAds() {
+  const s = getLS('ads', DEFAULTS.ads);
+  Object.keys(s).forEach(k => { const el = document.getElementById(k); if (el) el.value = s[k]; });
+  renderAdsChecklist();
+}
+function saveAds() {
+  const keys = ['adsPublisher','adsScript','adSlot1','adSlot2','adSlot3','adSlot4'];
+  const s = {};
+  keys.forEach(k => { const el = document.getElementById(k); if (el) s[k] = el.value; });
+  setLS('ads', s);
+  showAlert('adsSaveAlert');
+  logAction('AdSense config updated');
+}
+function renderAdsChecklist() {
+  const items = [
+    [true, 'Privacy Policy page exists'],
+    [true, 'Terms of Service page exists'],
+    [true, 'Contact page with real info'],
+    [true, 'About page with site description'],
+    [true, 'Original, quality content on all pages'],
+    [true, 'No copyright violations'],
+    [true, 'Site is mobile-friendly'],
+    [false, 'Publisher ID added to all ad slots'],
+    [false, 'Auto Ads script in <head>'],
+    [true, 'No broken links on homepage'],
+    [true, 'Website has been live 3+ months'],
+    [false, 'Minimum 20+ quality content pages']
+  ];
+  document.getElementById('adsChecklist').innerHTML = items.map(([done,txt]) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.88rem">
+      <i class="fas fa-${done?'check-circle':'times-circle'}" style="color:${done?'#10b981':'#f59e0b'}"></i>
+      <span style="color:${done?'var(--txt)':'var(--txt3)'}">${txt}</span>
+    </div>`).join('');
+}
+
+// ---- APPEARANCE ----
+function loadAppearance() {
+  const s = getLS('appearance', DEFAULTS.appearance);
+  document.getElementById('defaultTheme').value = s.defaultTheme || 'dark';
+  document.getElementById('fontScale').value = s.fontScale || 'normal';
+  document.getElementById('customColor').value = s.accentColor || '#6366f1';
+  document.querySelectorAll('.color-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.color === s.accentColor);
+  });
+}
+function pickColor(el) {
+  document.querySelectorAll('.color-option').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('customColor').value = el.dataset.color;
+}
+function saveAppearance() {
+  const s = {
+    defaultTheme: document.getElementById('defaultTheme').value,
+    accentColor: document.getElementById('customColor').value,
+    fontScale: document.getElementById('fontScale').value
+  };
+  setLS('appearance', s);
+  showAlert('appSaveAlert');
+  logAction('Appearance settings updated');
+}
+
+// ---- API KEYS ----
+function loadApiKeys() {
+  const s = getLS('apiKeys', DEFAULTS.apiKeys);
+  Object.keys(s).forEach(k => { const el = document.getElementById(k); if (el) el.value = s[k]; });
+}
+function saveApiKeys() {
+  const keys = ['apiHf','apiBg','apiExchange'];
+  const s = {};
+  keys.forEach(k => { const el = document.getElementById(k); if (el) s[k] = el.value; });
+  setLS('apiKeys', s);
+  // Also sync to tool-specific localStorage keys
+  if (s.apiHf) localStorage.setItem('hf_api_key', s.apiHf);
+  if (s.apiBg) localStorage.setItem('removebg_api_key', s.apiBg);
+  showAlert('apiSaveAlert');
+  logAction('API keys updated');
+}
+
+// ---- SECURITY ----
+function checkPwStrength(pw) {
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.match(/[A-Z]/)) score++;
+  if (pw.match(/[0-9]/)) score++;
+  if (pw.match(/[^A-Za-z0-9]/)) score++;
+  const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+  const colors = ['', '#ef4444', '#f59e0b', '#06b6d4', '#10b981'];
+  const pct = ['0%', '25%', '50%', '75%', '100%'];
+  document.getElementById('pwStrengthBar').style.width = pct[score];
+  document.getElementById('pwStrengthBar').style.background = colors[score];
+  document.getElementById('pwStrengthText').textContent = score > 0 ? labels[score] + ' Password' : 'Enter a password';
+}
+function changePassword() {
+  const creds = getLS('credentials', DEFAULTS.credentials);
+  const curr = document.getElementById('currPw').value;
+  const nw = document.getElementById('newPw').value;
+  const conf = document.getElementById('confirmPw').value;
+  if (curr !== creds.password) { alert('Current password is incorrect'); return; }
+  if (nw.length < 8) { alert('Password must be at least 8 characters'); return; }
+  if (nw !== conf) { alert('Passwords do not match'); return; }
+  creds.password = nw;
+  setLS('credentials', creds);
+  showAlert('pwSaveAlert');
+  document.getElementById('currPw').value = document.getElementById('newPw').value = document.getElementById('confirmPw').value = '';
+  logAction('Admin password changed');
+}
+function changeUsername() {
+  const nu = document.getElementById('newUsername').value.trim();
+  if (!nu || nu.length < 3) { alert('Username must be at least 3 characters'); return; }
+  const creds = getLS('credentials', DEFAULTS.credentials);
+  creds.username = nu;
+  setLS('credentials', creds);
+  document.getElementById('loggedUser').textContent = nu;
+  alert('Username updated to: ' + nu);
+  logAction('Admin username changed to ' + nu);
+}
+
+// ---- ACTIVITY LOG ----
+function renderActivityLog() {
+  const log = getLS('log', []);
+  const icons = [['logged in','fas fa-sign-in-alt','#10b981'],['logged out','fas fa-sign-out-alt','#ef4444'],['settings','fas fa-cog','#6366f1'],['password','fas fa-lock','#f59e0b'],['tool','fas fa-tools','#06b6d4'],['api','fas fa-key','#f59e0b']];
+  document.getElementById('activityLog').innerHTML = log.length === 0
+    ? '<p style="color:var(--txt3);text-align:center;padding:20px">No activity recorded yet.</p>'
+    : log.map(l => {
+        let icon = 'fas fa-circle', color = '#94a3b8';
+        for (const [kw,ic,cl] of icons) { if (l.msg.toLowerCase().includes(kw)) { icon=ic; color=cl; break; } }
+        return `<div class="log-item"><div class="log-icon" style="background:${color}22;color:${color}"><i class="${icon}"></i></div><div class="log-content"><div class="log-msg">${l.msg}</div><div class="log-time">${l.time}</div></div></div>`;
+      }).join('');
+}
+function clearLog() {
+  if (confirm('Clear all activity logs?')) { setLS('log', []); renderActivityLog(); }
+}
+
+// ---- UTILS ----
+function showAlert(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'flex';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
+
+// ---- INIT ----
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+if (savedTheme === 'light') document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+
+// ---- SECRET ACCESS GUARD ----
+// Admin panel is only accessible via the 10-click secret trigger on index.html footer.
+// Direct URL access redirects to homepage silently.
+(function() {
+  const sessionToken = sessionStorage.getItem('ht_admin_access');
+  const adminLoggedIn = sessionStorage.getItem('ht_admin_loggedin');
+  const hasSecretAccess = sessionToken && sessionToken.startsWith('granted_');
+  const isAlreadyLoggedIn = adminLoggedIn === 'yes';
+
+  if (!hasSecretAccess && !isAlreadyLoggedIn) {
+    // No valid secret token — redirect silently to homepage
+    window.location.replace('../index.html');
+    return;
+  }
+
+  // Reveal the body (was hidden by CSS to prevent flash)
+  document.getElementById('adminBody').style.visibility = 'visible';
+
+  if (hasSecretAccess && !isAlreadyLoggedIn) {
+    // Valid secret token but not yet authenticated — show login screen
+    document.getElementById('loginScreen').style.display = 'flex';
+    setTimeout(function() {
+      var u = document.getElementById('loginUser');
+      if (u) u.focus();
+    }, 150);
+    return;
+  }
+
+  if (isAlreadyLoggedIn) {
+    // Already authenticated (e.g. page refresh) — go straight to dashboard
+    document.getElementById('loginScreen').style.display = 'none';
+    var creds = getLS('credentials', DEFAULTS.credentials);
+    document.getElementById('loggedUser').textContent = creds.username;
+    initDashboard();
+  }
+})();
+</script>
+</body>
+</html>

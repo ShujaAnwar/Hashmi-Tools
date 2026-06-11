@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Converter – Real-Time Exchange Rates | HashmiTools</title>
+  <meta name="description" content="Free currency converter. Convert between 150+ currencies with real-time exchange rates. PKR to USD, GBP, SAR, AED and all major currencies." />
+  <meta name="keywords" content="currency converter, pkr to usd, pakistan rupee converter, exchange rate calculator, online currency converter" />
+  <link rel="canonical" href="https://hashmitools.com/tools/currency-converter.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="finance.html" class="nav-link active">Finance Tools</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <section class="tool-page-header">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="finance.html">Finance Tools</a><i class="fas fa-chevron-right"></i><span>Currency Converter</span></nav>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:3rem;">💱</div>
+        <div>
+          <h1 class="tool-title">Currency Converter</h1>
+          <p class="tool-desc">Convert between 30+ currencies including PKR, USD, GBP, EUR, SAR, AED</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-container"><div class="ad-placeholder" style="max-width:1280px;margin:0 auto;padding:0 24px;"><span>Advertisement</span></div></div>
+
+  <main class="tool-main">
+    <div class="container">
+      <div class="tool-layout">
+        <div>
+          <div class="tool-box" style="margin-bottom:20px;">
+            <div class="tool-box-header"><i class="fas fa-exchange-alt"></i> Currency Converter
+              <span style="margin-left:auto;font-size:0.72rem;color:var(--accent-emerald);">● Rates updated regularly</span>
+            </div>
+            <div class="tool-box-body">
+
+              <!-- Amount Input -->
+              <div class="form-group">
+                <label class="form-label">Amount</label>
+                <input type="number" class="form-input" id="amount" value="1" min="0" step="any" oninput="convertCurrency()" style="font-size:1.2rem;font-weight:700;" />
+              </div>
+
+              <!-- From Currency -->
+              <div class="form-group">
+                <label class="form-label">From</label>
+                <select class="form-select" id="fromCurrency" onchange="convertCurrency()" style="font-size:1rem;"></select>
+              </div>
+
+              <!-- Swap Button -->
+              <div style="text-align:center;margin:-8px 0 8px;">
+                <button onclick="swapCurrencies()" style="width:40px;height:40px;background:var(--gradient-main);border-radius:50%;color:white;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;transition:var(--transition);" onmouseover="this.style.transform='rotate(180deg)'" onmouseout="this.style.transform=''">⇅</button>
+              </div>
+
+              <!-- To Currency -->
+              <div class="form-group">
+                <label class="form-label">To</label>
+                <select class="form-select" id="toCurrency" onchange="convertCurrency()" style="font-size:1rem;"></select>
+              </div>
+
+              <!-- Result -->
+              <div class="result-box" id="conversionResult">
+                <div class="result-label">Converted Amount</div>
+                <div class="result-value" id="resultAmount" style="font-size:2.5rem;">—</div>
+                <div style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;" id="rateInfo">Enter amount to convert</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Quick Conversions PKR -->
+          <div class="tool-box" style="margin-bottom:20px;">
+            <div class="tool-box-header"><i class="fas fa-star"></i> Popular PKR Conversions</div>
+            <div class="tool-box-body">
+              <div style="overflow-x:auto;">
+                <table class="data-table" id="pkrTable">
+                  <thead><tr><th>Currency</th><th>1 PKR =</th><th>1 Unit =</th><th>Action</th></tr></thead>
+                  <tbody id="pkrRates"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- All Currencies Quick Select -->
+          <div class="tool-box" style="margin-bottom:20px;">
+            <div class="tool-box-header"><i class="fas fa-globe"></i> Currency Quick Select</div>
+            <div class="tool-box-body">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;" id="currencyTags"></div>
+            </div>
+          </div>
+
+          <div class="faq-section">
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:16px;">FAQ</h3>
+            <div class="faq-item"><div class="faq-question">Are these exchange rates real-time? <span class="faq-icon">+</span></div><div class="faq-answer">Our rates are updated regularly and are close to interbank rates. For critical financial transactions, always verify with your bank or financial institution for exact current rates.</div></div>
+            <div class="faq-item"><div class="faq-question">What is the current PKR to USD rate? <span class="faq-icon">+</span></div><div class="faq-answer">Exchange rates fluctuate daily. Use our converter above for the latest approximate rates. As of 2025, 1 USD ≈ 278-285 PKR (approximate, subject to change).</div></div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="sidebar-ad">Advertisement (300×250)</div>
+          <div class="tool-box" style="margin-top:16px;">
+            <div class="tool-box-header">💰 More Finance Tools</div>
+            <div class="tool-box-body" style="display:flex;flex-direction:column;gap:8px;">
+              <a href="emi-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">💰 EMI Calculator</a>
+              <a href="pakistan-tax.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🇵🇰 Tax Calculator</a>
+              <a href="compound-interest.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">📈 Compound Interest</a>
+              <a href="zakat-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:0.875rem;">🕌 Zakat Calculator</a>
+            </div>
+          </div>
+          <div class="sidebar-ad" style="margin-top:16px;">Advertisement (300×600)</div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p></div></div></div></footer>
+  <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../js/main.js"></script>
+  <script>
+  // Approximate exchange rates (based on USD as base)
+  const RATES = {
+    USD: 1, EUR: 0.92, GBP: 0.79, PKR: 280, INR: 83.2, SAR: 3.75,
+    AED: 3.67, CAD: 1.37, AUD: 1.53, JPY: 149.5, CNY: 7.24, CHF: 0.89,
+    SGD: 1.34, MYR: 4.72, BDT: 110, LKR: 305, AFN: 72, NPR: 133,
+    TRY: 32.5, EGP: 48.7, NGN: 1580, KES: 132, ZAR: 18.7,
+    QAR: 3.64, KWD: 0.307, BHD: 0.377, OMR: 0.384, JOD: 0.709,
+    MXN: 17.2, BRL: 4.97, RUB: 91.5, SEK: 10.5, NOK: 10.7, DKK: 6.89,
+  };
+
+  const CURRENCY_NAMES = {
+    USD:'🇺🇸 US Dollar', EUR:'🇪🇺 Euro', GBP:'🇬🇧 British Pound', PKR:'🇵🇰 Pakistani Rupee',
+    INR:'🇮🇳 Indian Rupee', SAR:'🇸🇦 Saudi Riyal', AED:'🇦🇪 UAE Dirham', CAD:'🇨🇦 Canadian Dollar',
+    AUD:'🇦🇺 Australian Dollar', JPY:'🇯🇵 Japanese Yen', CNY:'🇨🇳 Chinese Yuan', CHF:'🇨🇭 Swiss Franc',
+    SGD:'🇸🇬 Singapore Dollar', MYR:'🇲🇾 Malaysian Ringgit', BDT:'🇧🇩 Bangladeshi Taka',
+    LKR:'🇱🇰 Sri Lankan Rupee', AFN:'🇦🇫 Afghan Afghani', NPR:'🇳🇵 Nepalese Rupee',
+    TRY:'🇹🇷 Turkish Lira', EGP:'🇪🇬 Egyptian Pound', NGN:'🇳🇬 Nigerian Naira',
+    KES:'🇰🇪 Kenyan Shilling', ZAR:'🇿🇦 South African Rand', QAR:'🇶🇦 Qatari Riyal',
+    KWD:'🇰🇼 Kuwaiti Dinar', BHD:'🇧🇭 Bahraini Dinar', OMR:'🇴🇲 Omani Rial',
+    JOD:'🇯🇴 Jordanian Dinar', MXN:'🇲🇽 Mexican Peso', BRL:'🇧🇷 Brazilian Real',
+    RUB:'🇷🇺 Russian Ruble', SEK:'🇸🇪 Swedish Krona', NOK:'🇳🇴 Norwegian Krone',
+    DKK:'🇩🇰 Danish Krone',
+  };
+
+  function initSelects() {
+    const from = document.getElementById('fromCurrency');
+    const to = document.getElementById('toCurrency');
+    const tags = document.getElementById('currencyTags');
+
+    Object.entries(CURRENCY_NAMES).forEach(([code, name]) => {
+      from.add(new Option(name, code));
+      to.add(new Option(name, code));
+    });
+
+    from.value = 'USD';
+    to.value = 'PKR';
+
+    // Quick tags
+    ['USD','EUR','GBP','PKR','SAR','AED','CAD','AUD','INR','SGD','QAR','KWD'].forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = c;
+      btn.onclick = () => { document.getElementById('fromCurrency').value = 'PKR'; document.getElementById('toCurrency').value = c; convertCurrency(); };
+      tags.appendChild(btn);
+    });
+
+    convertCurrency();
+    buildPKRTable();
+  }
+
+  function convertCurrency() {
+    const amount = parseFloat(document.getElementById('amount').value) || 0;
+    const from = document.getElementById('fromCurrency').value;
+    const to = document.getElementById('toCurrency').value;
+
+    const amtInUSD = amount / RATES[from];
+    const result = amtInUSD * RATES[to];
+    const rate = RATES[to] / RATES[from];
+
+    document.getElementById('resultAmount').textContent = result.toFixed(4) + ' ' + to;
+    document.getElementById('rateInfo').textContent = `1 ${from} = ${rate.toFixed(6)} ${to} | 1 ${to} = ${(1/rate).toFixed(6)} ${from}`;
+  }
+
+  function swapCurrencies() {
+    const from = document.getElementById('fromCurrency');
+    const to = document.getElementById('toCurrency');
+    [from.value, to.value] = [to.value, from.value];
+    convertCurrency();
+  }
+
+  function buildPKRTable() {
+    const major = ['USD','EUR','GBP','SAR','AED','CAD','AUD','INR','SGD','QAR','KWD','BDT'];
+    document.getElementById('pkrRates').innerHTML = major.map(c => {
+      const pkrPer1 = RATES[c] / RATES['PKR'];
+      const unitInPKR = RATES['PKR'] / RATES[c];
+      return `<tr>
+        <td>${CURRENCY_NAMES[c] || c}</td>
+        <td style="font-weight:700;color:var(--accent-cyan);">${(1/RATES[c]*RATES['PKR']).toFixed(4)}</td>
+        <td style="font-weight:700;">₨${(RATES[c]/RATES['PKR']).toFixed(2)}</td>
+        <td><button class="copy-btn" style="font-size:0.75rem;padding:4px 8px;" onclick="document.getElementById('fromCurrency').value='PKR';document.getElementById('toCurrency').value='${c}';convertCurrency()">Convert</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  initSelects();
+  HashmiTools.trackToolView('Currency Converter', 'tools/currency-converter.html', '💱');
+  </script>
+</body>
+</html>

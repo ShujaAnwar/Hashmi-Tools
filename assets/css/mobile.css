@@ -1,0 +1,1354 @@
+/**
+ * HashmiTools.com — Global Mobile Responsive CSS
+ * Covers: index.html + all tool pages
+ * Breakpoints:
+ *   Mobile  : < 480px
+ *   Tablet  : 480px – 768px
+ *   Desktop : > 768px
+ *
+ * Author  : HashmiTools
+ * Version : 1.0.0
+ */
+
+/* ═══════════════════════════════════════════════════════
+   1. RESET & GLOBAL BASE
+═══════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* NO horizontal scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════
+   2. NAVBAR MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .navbar,
+  .nav-container,
+  .site-header nav {
+    padding: 10px 16px;
+    flex-wrap: nowrap;
+    position: relative;
+  }
+
+  .navbar-logo,
+  .nav-brand,
+  .site-logo {
+    font-size: 17px;
+    white-space: nowrap;
+  }
+
+  /* Hide desktop navigation links */
+  .navbar-links,
+  .nav-links,
+  .desktop-nav {
+    display: none !important;
+  }
+
+  /* Show hamburger button */
+  .hamburger-menu,
+  .hamburger,
+  #menuBtn {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: auto;
+    z-index: 1001;
+  }
+
+  .hamburger-menu span,
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text, #1a1a1a);
+    border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+
+  /* Hamburger → X animation */
+  .hamburger-menu.active span:nth-child(1),
+  #menuBtn.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger-menu.active span:nth-child(2),
+  #menuBtn.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .hamburger-menu.active span:nth-child(3),
+  #menuBtn.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* Mobile Nav Drawer */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  max-width: 85vw;
+  height: 100vh;
+  background: var(--surface, #ffffff);
+  z-index: 999;
+  transition: right 0.3s ease;
+  padding: 60px 24px 32px;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.18);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-nav.open {
+  right: 0;
+}
+
+.mobile-nav .close-nav {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg, #f5f5f5);
+  border: 1px solid var(--border, #e0e0e0);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text, #1a1a1a);
+  transition: background 0.2s;
+}
+
+.mobile-nav .close-nav:hover {
+  background: var(--accent, #6c63ff);
+  color: #fff;
+  border-color: var(--accent, #6c63ff);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border, #e0e0e0);
+  color: var(--text, #1a1a1a);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.mobile-nav-links a:hover {
+  color: var(--accent, #6c63ff);
+}
+
+.mobile-nav-links a:last-child {
+  border-bottom: none;
+}
+
+/* Dark mode toggle inside mobile nav */
+.mobile-dark-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border, #e0e0e0);
+  font-size: 15px;
+  color: var(--text, #1a1a1a);
+}
+
+/* Toggle switch (reusable) */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border, #ccc);
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+.toggle-switch .slider::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-switch input:checked + .slider {
+  background: var(--accent, #6c63ff);
+}
+
+.toggle-switch input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+/* Mobile nav overlay / backdrop */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.mobile-nav-overlay.open {
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════
+   3. HERO SECTION MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero,
+  .hero-section {
+    padding: 32px 16px 24px;
+    text-align: center;
+  }
+
+  .hero h1,
+  .hero-title {
+    font-size: clamp(22px, 6vw, 28px);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .hero p,
+  .hero-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .search-bar,
+  .hero-search {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .search-bar input,
+  .hero-search input {
+    width: 100%;
+    font-size: 16px; /* prevents iOS auto-zoom on focus */
+    padding: 12px 16px;
+    border-radius: 10px;
+  }
+
+  .search-bar button,
+  .hero-search button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1,
+  .hero-title {
+    font-size: 20px;
+  }
+
+  .hero p,
+  .hero-subtitle {
+    font-size: 13px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   4. POPULAR TOOLS GRID MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .popular-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .popular-section {
+    padding: 28px 0 16px;
+  }
+
+  .popular-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .pop-card {
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+
+  .pop-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .pop-card h3 {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .pop-card p {
+    font-size: 12px;
+    line-height: 1.4;
+    display: none; /* hide descriptions on small screens */
+  }
+
+  .pop-link {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popular-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .pop-card {
+    padding: 14px 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .popular-tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pop-card p {
+    display: block;
+    font-size: 13px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   5. QUICK ACCESS TOOLBAR MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .quick-access {
+    padding: 10px 0;
+    top: 58px; /* adjust for smaller navbar */
+  }
+
+  .qa-scroll {
+    gap: 8px;
+    padding: 0 12px;
+  }
+
+  .qa-pill {
+    font-size: 12px;
+    padding: 6px 12px;
+    white-space: nowrap;
+    min-height: 34px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   6. GENERAL TOOL PAGE CONTAINERS
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Tool page main container */
+  .tool-container,
+  .tool-page,
+  .page-wrapper,
+  .container,
+  main {
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  /* Two-column layouts → single column */
+  .two-col,
+  .two-column,
+  [class*="col-2"],
+  .grid-2 {
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Section headings */
+  h1 { font-size: clamp(20px, 5.5vw, 28px); }
+  h2 { font-size: clamp(18px, 5vw, 24px); }
+  h3 { font-size: clamp(15px, 4vw, 20px); }
+}
+
+@media (max-width: 480px) {
+  .tool-container,
+  .tool-page,
+  .page-wrapper,
+  .container,
+  main {
+    padding: 12px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   7. FORM INPUTS — FULL WIDTH + PREVENT iOS ZOOM
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="time"],
+  input[type="month"],
+  input[type="week"],
+  input[type="color"],
+  select,
+  textarea {
+    width: 100%;
+    font-size: 16px !important; /* prevents iOS zoom on focus */
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   8. BUTTONS — MINIMUM TOUCH TARGETS (44–48px)
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  button,
+  .btn,
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"] {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 15px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Primary action buttons — slightly larger */
+  .btn-primary,
+  .primary-btn,
+  .download-btn,
+  [class*="btn-lg"] {
+    min-height: 48px;
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  /* Full-width buttons on mobile */
+  .btn-block,
+  .full-width-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   9. TABLES — HORIZONTALLY SCROLLABLE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .table-wrapper,
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+  }
+
+  /* Auto-wrap tables not inside a wrapper */
+  table {
+    min-width: 480px;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 10px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   10. CHARTS & CANVAS — FULL WIDTH
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .chart-container,
+  .chart-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative;
+  }
+
+  /* Chart.js / similar responsive fix */
+  .chartjs-render-monitor {
+    max-width: 100% !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   11. RESULTS / CARDS GRID — STACK ON MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .results-grid,
+  .cards-grid,
+  .tool-cards,
+  .grid-auto {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .result-card,
+  .info-card,
+  .stat-card {
+    padding: 16px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .results-grid,
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   12. MODALS — FULL SCREEN ON MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .modal,
+  .modal-overlay {
+    align-items: flex-end; /* slide up from bottom */
+    padding: 0;
+  }
+
+  .modal-content,
+  .modal-box,
+  .modal-dialog,
+  [class*="modal-"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    margin: 0 !important;
+    padding: 24px 20px !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Slide-up animation */
+    animation: slideUpModal 0.3s ease;
+  }
+
+  @keyframes slideUpModal {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  .modal-header,
+  .modal-title {
+    font-size: 17px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border, #e0e0e0);
+    margin-bottom: 16px;
+  }
+
+  .modal-footer,
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-footer button,
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+/* Full-screen modals (signature, error) */
+@media (max-width: 480px) {
+  .modal-content.modal-fullscreen,
+  .fullscreen-modal .modal-content {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   13. FINANCE / CALCULATOR TOOLS MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Calculator two-panel layout → stack vertically */
+  .calculator-layout,
+  .calc-layout,
+  .emi-layout,
+  .finance-layout {
+    flex-direction: column !important;
+    gap: 20px;
+  }
+
+  .input-panel,
+  .calc-inputs,
+  .result-panel,
+  .calc-results {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .result-panel,
+  .calc-results {
+    margin-top: 0;
+  }
+
+  /* Slider label rows → stack */
+  .slider-row,
+  .slider-group,
+  .range-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .slider-row label,
+  .range-row label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .slider-row input[type="range"],
+  .range-row input[type="range"] {
+    width: 100%;
+  }
+
+  /* Pie / donut chart container */
+  .chart-container,
+  .pie-chart-container {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* Summary row (e.g., Principal | Interest | Total) */
+  .summary-row,
+  .result-summary {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .summary-item,
+  .result-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Amortization table */
+  .amortization-table,
+  .schedule-table {
+    font-size: 12px;
+  }
+
+  /* Number inputs with +/- controls */
+  .input-group {
+    width: 100%;
+  }
+
+  .input-group input {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container,
+  .pie-chart-container {
+    max-width: 240px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   14. IMAGE TOOL PAGES MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Drop zone */
+  .drop-zone,
+  .upload-area,
+  .file-drop {
+    padding: 32px 16px;
+    min-height: 160px;
+  }
+
+  .drop-zone h3,
+  .upload-area h3 {
+    font-size: 16px;
+  }
+
+  .drop-zone p,
+  .upload-area p {
+    font-size: 13px;
+  }
+
+  /* Image preview grid */
+  .image-preview-grid,
+  .preview-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+  }
+
+  /* Image editor canvas area */
+  .image-editor-canvas,
+  .editor-canvas-wrap {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Compression settings */
+  .compression-settings,
+  .settings-panel {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .quality-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   15. PDF TOOL PAGES MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* PDF drop zone */
+  .pdf-drop-zone {
+    padding: 32px 16px;
+    min-height: 180px;
+  }
+
+  /* PDF page thumbnails */
+  .pdf-thumbnails,
+  .page-thumbs {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  /* Page action buttons (merge, split etc.) */
+  .page-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .page-actions button {
+    flex: 1;
+    min-width: 120px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pdf-thumbnails,
+  .page-thumbs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   16. CATEGORY GRID ON HOMEPAGE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .categories-section,
+  .section-wrap,
+  .tool-category {
+    padding: 20px 12px;
+  }
+
+  .tools-grid,
+  .category-tools,
+  .tool-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+  }
+
+  .tool-card,
+  .tool-item {
+    padding: 14px 12px;
+    border-radius: 10px;
+  }
+
+  .tool-card .icon,
+  .tool-item .icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .tool-card h3,
+  .tool-item h3 {
+    font-size: 13px;
+  }
+
+  .tool-card p,
+  .tool-item p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 380px) {
+  .tools-grid,
+  .category-tools {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   17. TOUCH IMPROVEMENTS
+═══════════════════════════════════════════════════════ */
+
+/* Range inputs — taller touch target */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 4px;
+  background: var(--border, #e0e0e0);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent, #6c63ff);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: transform 0.15s;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent, #6c63ff);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  /* Taller range wrapper for easier touch */
+  input[type="range"] {
+    height: 44px;
+    padding: 18px 0;
+    background-clip: content-box;
+  }
+}
+
+/* Checkboxes & radios — larger tap targets */
+input[type="checkbox"],
+input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--accent, #6c63ff);
+}
+
+@media (max-width: 768px) {
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+  }
+}
+
+/* Remove 300ms tap delay */
+a, button, input, select, textarea, label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ═══════════════════════════════════════════════════════
+   18. REMOVE HOVER EFFECTS ON TOUCH DEVICES
+═══════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  /* Tool cards */
+  .tool-card:hover,
+  .pop-card:hover,
+  .tool-item:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Buttons */
+  button:hover,
+  .btn:hover,
+  a.btn:hover {
+    opacity: 1;
+    transform: none !important;
+  }
+
+  /* Nav links */
+  a:hover {
+    opacity: 1;
+  }
+
+  /* Quick access pills */
+  .qa-pill:hover {
+    background: var(--bg, #f5f5f5);
+    color: var(--text, #1a1a1a);
+    border-color: var(--border, #e0e0e0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   19. STICKY PRIMARY ACTION BUTTON (DOWNLOAD / SAVE)
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Primary CTA button becomes sticky at bottom */
+  .primary-action-btn,
+  .sticky-download,
+  .download-sticky {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 200;
+    width: calc(100% - 32px);
+    text-align: center;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    margin: 0;
+    /* Slide-up entrance */
+    animation: stickyBtnIn 0.4s ease;
+  }
+
+  @keyframes stickyBtnIn {
+    from { transform: translateY(80px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Add bottom padding to page content so it isn't hidden behind sticky btn */
+  .tool-page-content,
+  .tool-container,
+  main,
+  .page-wrapper {
+    padding-bottom: 80px;
+  }
+
+  /* Hide the non-sticky version when sticky exists */
+  .download-btn.has-sticky {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   20. FOOTER MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  footer,
+  .site-footer {
+    padding: 24px 16px;
+    text-align: center;
+  }
+
+  .footer-grid,
+  .footer-columns {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .footer-bottom,
+  .footer-copyright {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid,
+  .footer-columns {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   21. BREADCRUMBS MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .breadcrumb {
+    font-size: 12px;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 10px 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   22. TABS MOBILE (tool tabs, nav tabs)
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .tabs,
+  .tab-nav,
+  .tab-list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 2px; /* show scrollbar hint */
+  }
+
+  .tab,
+  .tab-btn,
+  .tab-item {
+    white-space: nowrap;
+    scroll-snap-align: start;
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   23. ALERTS / BANNERS MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .alert,
+  .banner,
+  .notice,
+  .restore-banner {
+    font-size: 13px;
+    padding: 12px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-radius: 8px;
+  }
+
+  .alert-actions,
+  .banner-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .alert-actions button,
+  .banner-actions button {
+    flex: 1;
+    min-width: 80px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   24. TOAST NOTIFICATIONS MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .toast,
+  .notification,
+  #toast-wrap .toast {
+    width: calc(100% - 32px);
+    left: 16px;
+    right: 16px;
+    bottom: 80px; /* above sticky button */
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   25. ISLAMIC / PRAYER TIMES TOOLS MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .prayer-times-grid,
+  .prayer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+  }
+
+  .prayer-card {
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .prayer-card .time {
+    font-size: 18px;
+  }
+
+  .hijri-display {
+    font-size: 20px;
+  }
+
+  .zakat-form {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .prayer-times-grid,
+  .prayer-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   26. UNIT CONVERTER / DEV TOOLS MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .converter-row,
+  .convert-row {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .converter-row .swap-btn,
+  .convert-row .swap-btn {
+    align-self: center;
+    transform: rotate(90deg);
+  }
+
+  .code-editor,
+  .json-editor,
+  .text-editor {
+    min-height: 160px;
+    font-size: 13px;
+  }
+
+  .copy-btn,
+  .clear-btn {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   27. QR CODE / PASSWORD GENERATOR MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .qr-output,
+  .qr-preview {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .qr-output img,
+  .qr-preview canvas {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .password-display {
+    font-size: 14px;
+    letter-spacing: 1px;
+    word-break: break-all;
+    padding: 12px;
+  }
+
+  .password-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   28. WORD-WRAP & TEXT OVERFLOW FIXES
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  p, span, div, li {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  pre, code {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+    word-break: normal;
+  }
+
+  /* Long URLs in links */
+  a {
+    word-break: break-word;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   29. ACCESSIBILITY — FOCUS STYLES ON MOBILE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Larger focus rings on touch */
+  :focus-visible {
+    outline: 3px solid var(--accent, #6c63ff);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Skip-to-content link */
+  .skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    background: var(--accent, #6c63ff);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   30. SAFE AREA INSETS (iPhone notch / bottom bar)
+═══════════════════════════════════════════════════════ */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .primary-action-btn,
+  .sticky-download {
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-nav {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   31. PRINT MEDIA — HIDE MOBILE UI
+═══════════════════════════════════════════════════════ */
+@media print {
+  .hamburger-menu,
+  .mobile-nav,
+  .mobile-nav-overlay,
+  .sticky-download,
+  .primary-action-btn,
+  .toolbar,
+  .left-panel,
+  .right-panel,
+  .quick-access,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    overflow-x: visible;
+  }
+
+  main,
+  .tool-container {
+    padding: 0;
+  }
+}

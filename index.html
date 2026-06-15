@@ -101,6 +101,75 @@
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0a0e1a" />
+
+  <!-- Mobile Responsive CSS -->
+  <link rel="stylesheet" href="assets/css/mobile.css" />
+
+  <style>
+  /* ─── POPULAR TOOLS ─── */
+  .popular-section{padding:48px 0 24px;background:var(--bg-primary,#ffffff)}
+  [data-theme="dark"] .popular-section{background:var(--bg-secondary,#1e1e2e)}
+
+  .popular-tools-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  }
+  .pop-card{
+    position:relative;background:var(--surface,#fff);
+    border:1px solid var(--border,#e0e0e0);border-radius:16px;
+    padding:22px 18px 18px;cursor:pointer;text-decoration:none;
+    color:inherit;display:flex;flex-direction:column;gap:8px;
+    transition:transform .2s ease,box-shadow .2s ease;overflow:hidden;
+  }
+  [data-theme="dark"] .pop-card{background:#16213e;border-color:#2d3748}
+  .pop-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.15);text-decoration:none}
+  .pop-badge{
+    position:absolute;top:12px;right:12px;
+    padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;
+  }
+  .pop-badge.hot{background:#fff0f0;color:#c53030}
+  [data-theme="dark"] .pop-badge.hot{background:rgba(197,48,48,.2);color:#fc8181}
+  .pop-badge.new{background:#f0fff4;color:#276749}
+  [data-theme="dark"] .pop-badge.new{background:rgba(39,103,73,.2);color:#68d391}
+  .pop-icon{
+    width:52px;height:52px;border-radius:14px;font-size:22px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .pop-card h3{font-size:15px;font-weight:700;margin:0;color:var(--text-primary,#1a1a2e)}
+  [data-theme="dark"] .pop-card h3{color:#e2e8f0}
+  .pop-card p{font-size:12px;color:var(--text-secondary,#666);line-height:1.5;margin:0;flex:1}
+  [data-theme="dark"] .pop-card p{color:#a0aec0}
+  .pop-link{font-size:13px;font-weight:600;color:#6c63ff;margin-top:4px}
+
+  /* ─── QUICK ACCESS ─── */
+  .quick-access{padding:12px 0;border-bottom:1px solid var(--border,#e0e0e0);background:var(--surface,#fff);position:sticky;top:68px;z-index:90}
+  [data-theme="dark"] .quick-access{background:#16213e;border-color:#2d3748}
+  .qa-scroll{display:flex;gap:8px;overflow-x:auto;padding:2px 0;-webkit-overflow-scrolling:touch}
+  .qa-scroll::-webkit-scrollbar{height:0}
+  .qa-pill{
+    flex-shrink:0;padding:7px 16px;border-radius:20px;
+    background:var(--bg,#f5f5f5);border:1px solid var(--border,#e0e0e0);
+    font-size:12px;font-weight:500;color:var(--text,#1a1a1a);
+    text-decoration:none;white-space:nowrap;transition:all .15s;
+  }
+  [data-theme="dark"] .qa-pill{background:#1a1a2e;border-color:#2d3748;color:#e2e8f0}
+  .qa-pill:hover{background:#6c63ff;color:#fff;border-color:#6c63ff;text-decoration:none}
+
+  /* ─── HERO INLINE SEARCH ─── */
+  .hero-inline-search{display:flex;gap:8px;max-width:480px;margin:0 auto}
+  .hero-inline-search input{flex:1;padding:11px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;font-size:14px;backdrop-filter:blur(8px)}
+  .hero-inline-search input::placeholder{color:rgba(255,255,255,.6)}
+  .hero-inline-search input:focus{outline:none;border-color:rgba(255,255,255,.6)}
+  .hero-inline-search button{padding:11px 20px;background:#6c63ff;color:#fff;border-radius:8px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+  .hero-inline-search button:hover{background:#5a52d5}
+
+  /* ─── RESPONSIVE POPULAR ─── */
+  @media(max-width:900px){.popular-tools-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){
+    .popular-tools-grid{grid-template-columns:1fr;gap:10px}
+    .pop-card{padding:16px 14px}
+    .pop-card p{display:none}
+  }
+  </style>
 </head>
 <body>
 
@@ -261,6 +330,97 @@
     <div class="ad-container ad-top">
       <div class="ad-placeholder">
         <span>Advertisement</span>
+      </div>
+    </div>
+
+    <!-- ======== MOST POPULAR TOOLS ======== -->
+    <section class="popular-section" id="popular-tools">
+      <div class="container">
+        <div class="section-header" style="margin-bottom:16px">
+          <div class="section-badge">⭐ Most Popular</div>
+          <h2 class="section-title" style="margin-bottom:6px">Most Popular <span class="gradient-text">Tools</span></h2>
+          <p class="section-subtitle">Thousands of users rely on these every day — free, fast, no signup</p>
+        </div>
+
+        <div class="popular-tools-grid">
+
+          <a href="tools/pdf-editor.html" class="pop-card" data-searchable="pdf editor edit pdf annotate text draw highlight sign">
+            <span class="pop-badge hot">🔥 HOT</span>
+            <div class="pop-icon" style="background:#fff0f0;color:#cc0000"><i class="fas fa-file-pdf"></i></div>
+            <h3>PDF Editor</h3>
+            <p>Edit any PDF — text, images, shapes & annotations</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+          <a href="tools/pdf-merge.html" class="pop-card" data-searchable="merge pdf combine pdf join pdf files">
+            <span class="pop-badge hot">🔥 HOT</span>
+            <div class="pop-icon" style="background:#f0f0ff;color:#5a52d5"><i class="fas fa-object-group"></i></div>
+            <h3>Merge PDF</h3>
+            <p>Combine multiple PDFs into one file easily</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+          <a href="tools/pdf-compress.html" class="pop-card" data-searchable="compress pdf reduce pdf size shrink pdf">
+            <div class="pop-icon" style="background:#fff8f0;color:#c05621"><i class="fas fa-compress-alt"></i></div>
+            <h3>Compress PDF</h3>
+            <p>Reduce PDF file size without quality loss</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+          <a href="tools/jpg-to-pdf.html" class="pop-card" data-searchable="jpg to pdf image to pdf convert photo pdf">
+            <div class="pop-icon" style="background:#f0f4ff;color:#3182ce"><i class="fas fa-file-image"></i></div>
+            <h3>JPG to PDF</h3>
+            <p>Convert images to PDF instantly</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+          <a href="tools/image-compressor.html" class="pop-card" data-searchable="image compress reduce image size jpg png webp">
+            <div class="pop-icon" style="background:#f0fff4;color:#276749"><i class="fas fa-image"></i></div>
+            <h3>Image Compress</h3>
+            <p>Reduce image size while keeping quality high</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+          <a href="tools/image-editor.html" class="pop-card" data-searchable="image editor crop filter resize annotate photo">
+            <span class="pop-badge new">🆕 NEW</span>
+            <div class="pop-icon" style="background:#f0fffe;color:#0987a0"><i class="fas fa-paint-brush"></i></div>
+            <h3>Image Editor</h3>
+            <p>Crop, filters, text, effects & more</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+          <a href="tools/emi-calculator.html" class="pop-card" data-searchable="emi calculator loan calculator mortgage monthly payment">
+            <span class="pop-badge hot">🔥 HOT</span>
+            <div class="pop-icon" style="background:#fffbf0;color:#b7791f"><i class="fas fa-calculator"></i></div>
+            <h3>EMI Calculator</h3>
+            <p>Calculate loan EMI with full amortization</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+          <a href="tools/qr-generator.html" class="pop-card" data-searchable="qr code generator create qr barcode">
+            <div class="pop-icon" style="background:#f5f0ff;color:#6b46c1"><i class="fas fa-qrcode"></i></div>
+            <h3>QR Generator</h3>
+            <p>Create QR codes for any URL or text</p>
+            <span class="pop-link">Open Tool →</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======== QUICK ACCESS TOOLBAR ======== -->
+    <div class="quick-access" id="quick-access">
+      <div class="container">
+        <div class="qa-scroll">
+          <a href="#pdf-section" class="qa-pill" onclick="scrollToSection('pdf-section',event)">📄 PDF Tools</a>
+          <a href="#image-section" class="qa-pill" onclick="scrollToSection('image-section',event)">🖼️ Image Tools</a>
+          <a href="#finance-section" class="qa-pill" onclick="scrollToSection('finance-section',event)">💰 Finance Tools</a>
+          <a href="#dev-section" class="qa-pill" onclick="scrollToSection('dev-section',event)">🔧 Dev Tools</a>
+          <a href="#health-section" class="qa-pill" onclick="scrollToSection('health-section',event)">❤️ Health Tools</a>
+          <a href="#islamic-section" class="qa-pill" onclick="scrollToSection('islamic-section',event)">🕌 Islamic Tools</a>
+          <a href="#pakistan-section" class="qa-pill" onclick="scrollToSection('pakistan-section',event)">🇵🇰 Pakistan Tools</a>
+          <a href="tools/productivity.html" class="qa-pill">⚡ Productivity</a>
+        </div>
       </div>
     </div>
 
@@ -1025,6 +1185,29 @@
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script>
+  // ── QUICK ACCESS SCROLL ──
+  function scrollToSection(id, e){
+    if(e) e.preventDefault();
+    const el = document.getElementById(id) || document.querySelector('[data-section="'+id+'"]');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    else window.scrollTo({top: document.getElementById('categories')?.offsetTop || 0, behavior:'smooth'});
+  }
+
+  // ── POPULAR TOOLS SEARCH FILTER (inline, no overlay) ──
+  (function(){
+    const heroSrch = document.getElementById('heroSearch');
+    if(!heroSrch) return;
+    heroSrch.addEventListener('input', function(){
+      const q = this.value.toLowerCase().trim();
+      if(!q){ document.querySelectorAll('.pop-card').forEach(c=>c.style.display=''); return; }
+      document.querySelectorAll('.pop-card').forEach(c=>{
+        const txt = (c.dataset.searchable||'') + ' ' + c.textContent.toLowerCase();
+        c.style.display = txt.includes(q) ? '' : 'none';
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>

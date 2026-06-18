@@ -1,208 +1,293 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Health Tools – BMI Calculator, Calorie Counter, Water Intake, Ideal Weight | HashmiTools.com</title>
-  <meta name="description" content="Free health calculators: BMI Calculator, Calorie Calculator (TDEE/BMR), Water Intake Calculator, Ideal Weight Calculator (Devine/Robinson/Miller), Age Calculator. Accurate medical formulas." />
-  <meta name="keywords" content="bmi calculator, calorie calculator, tdee calculator, water intake calculator, ideal weight calculator, age calculator, health tools online, bmr calculator" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://hashmitools.com/tools/health.html" />
-  <meta property="og:title" content="Health Tools – Free BMI, Calorie, Water & Weight Calculators | HashmiTools.com" />
-  <meta property="og:description" content="Accurate health calculators for BMI, calories, water intake, ideal weight and age — all free, science-based." />
-  <meta property="og:url" content="https://hashmitools.com/tools/health.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Health Calculators Online — BMI, Calorie, Ideal Weight | HashmiTools</title>
+  <meta name="description" content="Track your health and fitness goals with HashmiTools' free health calculators. Calculate your Body Mass Index (BMI) to assess your weight category, estimate dai">
+  <meta name="keywords" content="BMI Calculator, Calorie Calculator, Ideal Weight Calculator, Water Intake Calculator, Age Calculator, Typing Speed Test, HashmiTools, free online tools">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hashmitools.vercel.app/tools/health.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free Health Calculators Online — BMI, Calorie, Ideal Weight | HashmiTools">
+  <meta property="og:description" content="Track your health and fitness goals with HashmiTools' free health calculators. Calculate your Body Mass Index (BMI) to assess your weight category, estimate daily calorie needs for weight management, ">
+  <meta property="og:url" content="https://hashmitools.vercel.app/tools/health.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HashmiTools">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- Structured Data -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"CollectionPage","name":"Health Tools","description":"Free science-based health calculators: BMI, calories, water intake, ideal weight, age.","url":"https://hashmitools.com/tools/health.html","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hashmitools.com/"},{"@type":"ListItem","position":2,"name":"Health Tools","item":"https://hashmitools.com/tools/health.html"}]}}
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Free Health & Fitness Calculators",
+      "description": "Track your health and fitness goals with HashmiTools' free health calculators. Calculate your Body Mass Index (BMI) to assess your weight category, estimate daily calorie needs for weight management, find your ideal body weight, determine daily water intake requirements, calculate your exact age, and test your typing speed. All tools are instant, free and based on established medical guidelines.",
+      "url": "https://hashmitools.vercel.app/tools/health.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "HashmiTools",
+        "url": "https://hashmitools.vercel.app"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{"@type":"ListItem","position":1,"name":"Home","item":"https://hashmitools.vercel.app/tools/"},{"@type":"ListItem","position":2,"name":"Health Tools","item":"https://hashmitools.vercel.app/tools/health.html"},{"@type":"ListItem","position":3,"name":"Free Health & Fitness Calculators","item":"https://hashmitools.vercel.app/tools/health.html"}]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{"@type":"Question","name":"What BMI range is considered healthy?","acceptedAnswer":{"@type":"Answer","text":"A BMI between 18.5 and 24.9 is considered normal weight. Below 18.5 is underweight, 25–29.9 is overweight, and 30+ is obese."}},{"@type":"Question","name":"How is daily calorie need calculated?","acceptedAnswer":{"@type":"Answer","text":"The Calorie Calculator uses the Mifflin-St Jeor equation, which accounts for age, gender, height, weight and physical activity level."}},{"@type":"Question","name":"How much water should I drink per day?","acceptedAnswer":{"@type":"Answer","text":"A general guideline is 8 glasses (2 liters) per day, but the Water Intake Calculator gives a more precise recommendation based on your body weight."}}]
+    }
+  ]
   </script>
+
   <style>
-    .category-hero { background: linear-gradient(135deg, #881337 0%, #be185d 50%, #e11d48 100%); padding: 80px 0 60px; text-align: center; position: relative; overflow: hidden; }
-    .category-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 70%); }
-    .hero-icon { font-size: 72px; margin-bottom: 16px; }
-    .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #fff; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
-    .hero-desc { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 600px; margin: 0 auto 24px; }
-    .hero-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
-    .hero-stat strong { display: block; font-size: 1.8rem; font-weight: 800; color: #fff; }
-    .hero-stat span { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
-    .breadcrumb { background: var(--bg-secondary); padding: 12px 0; border-bottom: 1px solid var(--border-glass); }
-    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-muted); }
-    .breadcrumb-inner a { color: #fb7185; }
-    .tools-section { padding: 60px 0; }
-    .section-title { font-size: 1.8rem; font-weight: 700; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; }
-    .section-subtitle { color: var(--text-secondary); }
-    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
-    .tool-card { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 16px; padding: 28px; transition: all 0.3s ease; text-decoration: none; display: block; position: relative; overflow: hidden; }
-    .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(135deg, #be185d, #e11d48); }
-    .tool-card:hover { transform: translateY(-6px); border-color: #fb7185; box-shadow: 0 20px 40px rgba(225,29,72,0.2); }
-    .tool-icon { font-size: 2.5rem; margin-bottom: 16px; }
-    .tool-name { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-    .tool-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
-    .tool-features { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-    .feature-tag { background: rgba(225,29,72,0.12); color: #fda4af; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(225,29,72,0.25); }
-    .tool-cta { display: inline-flex; align-items: center; gap: 6px; color: #fda4af; font-weight: 600; font-size: 0.9rem; }
-    .tool-badge { position: absolute; top: 16px; right: 16px; background: linear-gradient(135deg, #be185d, #e11d48); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-    .disclaimer { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 12px; padding: 16px 20px; margin: 24px 0; display: flex; gap: 12px; align-items: flex-start; }
-    .disclaimer i { color: #f59e0b; margin-top: 2px; }
-    .disclaimer p { color: var(--text-secondary); font-size: 0.85rem; margin: 0; }
-    .ad-slot { background: var(--bg-secondary); border: 1px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 32px 0; }
-    .faq-section { padding: 60px 0; background: var(--bg-secondary); }
-    .faq-item { margin-bottom: 16px; }
-    .faq-q { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px; padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-primary); transition: all 0.3s ease; }
-    .faq-q:hover, .faq-q.active { border-color: #fb7185; background: rgba(225,29,72,0.08); }
-    .faq-a { display: none; padding: 16px 24px; color: var(--text-secondary); line-height: 1.7; border: 1px solid var(--border-glass); border-top: none; border-radius: 0 0 12px 12px; background: var(--bg-card); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f172a; --bg-card: #1e293b; --bg-hover: #334155;
+      --text: #f1f5f9; --text-muted: #94a3b8; --text-secondary: #cbd5e1;
+      --accent: #f43f5e; --border: #334155;
+      --radius: 12px; --shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(15,23,42,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 20px; height: 60px; }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+    .nav-links { display: flex; gap: 8px; margin-left: auto; }
+    .nav-link { padding: 6px 14px; border-radius: 8px; color: var(--text-muted); font-size: 0.9rem; transition: all 0.2s; }
+    .nav-link:hover, .nav-link.active { background: var(--bg-hover); color: var(--text); }
+
+    /* HERO */
+    .hero { padding: 60px 20px 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; padding: 6px 16px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 12px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--text-muted); max-width: 680px; margin: 0 auto 24px; font-size: 1.05rem; }
+
+    /* BREADCRUMB */
+    .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 12px 20px; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--accent); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .bc-sep { margin: 0 8px; }
+
+    /* TOOLS GRID */
+    .tools-section { max-width: 1200px; margin: 0 auto; padding: 20px 20px 60px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 12px; }
+    .hub-tool-card { display: flex; align-items: center; gap: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: all 0.2s; }
+    .hub-tool-card:hover { background: var(--bg-hover); border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .htc-icon { font-size: 2rem; min-width: 48px; text-align: center; }
+    .htc-body { flex: 1; }
+    .htc-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .htc-body p { font-size: 0.85rem; color: var(--text-muted); }
+    .htc-arrow { color: var(--accent); font-size: 1.2rem; font-weight: bold; }
+
+    /* DESCRIPTION SECTION */
+    .desc-section { max-width: 1200px; margin: 0 auto; padding: 40px 20px; background: var(--bg-card); border-radius: var(--radius); }
+    .desc-section h2 { font-size: 1.4rem; margin-bottom: 16px; }
+    .desc-section p { color: var(--text-secondary); line-height: 1.8; }
+
+    /* FAQ */
+    .faq-section { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+    .faq-section h2 { font-size: 1.4rem; margin-bottom: 20px; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; }
+    .faq-q { width: 100%; background: var(--bg-card); border: none; color: var(--text); padding: 16px 20px; cursor: pointer; text-align: left; font-size: 0.95rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: inherit; }
+    .faq-q:hover { background: var(--bg-hover); }
+    .faq-icon { font-size: 1.4rem; min-width: 20px; text-align: center; transition: transform 0.2s; }
+    .faq-a { display: none; padding: 16px 20px; background: var(--bg); color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
     .faq-a.open { display: block; }
-    @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
+
+    /* RELATED CATEGORIES */
+    .related-section { max-width: 1200px; margin: 40px auto; padding: 0 20px 60px; }
+    .related-section h2 { font-size: 1.2rem; margin-bottom: 16px; }
+    .rel-cats { display: flex; flex-wrap: wrap; gap: 10px; }
+    .rel-cat-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: 50px; padding: 8px 20px; font-size: 0.9rem; transition: all 0.2s; }
+    .rel-cat-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* FOOTER */
+    .footer { background: #0a0f1a; border-top: 1px solid var(--border); text-align: center; padding: 24px 20px; color: var(--text-muted); font-size: 0.9rem; }
+    .footer a { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
   </style>
 </head>
 <body>
-  <header class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
-      <nav class="nav-links" id="navLinks">
+
+  <!-- NAV -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">⚡ Hashmi<span class="logo-accent">Tools</span></a>
+      <div class="nav-links">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="health.html" class="nav-link active">Health</a>
+        <a href="pdf.html" class="nav-link">PDF</a>
+        <a href="image-tools.html" class="nav-link">Images</a>
         <a href="finance.html" class="nav-link">Finance</a>
+        <a href="developer.html" class="nav-link">Developer</a>
         <a href="islamic.html" class="nav-link">Islamic</a>
-      </nav>
-      <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
-        <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+        <a href="health.html" class="nav-link active">Health</a>
       </div>
     </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav aria-label="Breadcrumb">
+    <div class="breadcrumb"><a href="../index.html">Home</a> <span class="bc-sep">›</span> <span aria-current="page">Health Tools</span> <span class="bc-sep">›</span> <span aria-current="page">Free Health & Fitness Calculators</span></div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-badge">❤️ Free Online Tools</div>
+    <h1><span>Free Health & Fitness Calculators</span></h1>
+    <p>BMI, Calorie, Ideal Weight, Water Intake & Age Calculator</p>
   </header>
 
-  <section class="category-hero">
-    <div class="hero-icon">❤️</div>
-    <h1 class="hero-title">Health Tools</h1>
-    <p class="hero-desc">Science-based health calculators — BMI, TDEE, water intake, ideal weight and more.</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><strong>5</strong><span>Tools Available</span></div>
-      <div class="hero-stat"><strong>3</strong><span>BMR Formulas</span></div>
-      <div class="hero-stat"><strong>Science</strong><span>Backed</span></div>
-    </div>
-  </section>
-
-  <div class="breadcrumb">
-    <div class="container">
-      <div class="breadcrumb-inner">
-        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
-        <i class="fas fa-chevron-right" style="font-size:0.7rem"></i>
-        <span>Health Tools</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567895" data-ad-format="auto" data-full-width-responsive="true"></ins><p>Advertisement</p></div>
-    <div class="disclaimer">
-      <i class="fas fa-exclamation-triangle"></i>
-      <p><strong>Medical Disclaimer:</strong> These tools are for informational purposes only and do not constitute medical advice. Always consult a qualified healthcare professional before making health or dietary decisions.</p>
-    </div>
-  </div>
-
-  <section class="tools-section">
-    <div class="container">
-      <h2 class="section-title">All Health Tools</h2>
-      <p class="section-subtitle">Accurate formulas used by healthcare professionals worldwide</p>
+  <!-- TOOLS GRID -->
+  <main>
+    <section class="tools-section" aria-label="Free Health & Fitness Calculators list">
       <div class="tools-grid">
+        
+      <a href="bmi-calculator.html" class="hub-tool-card">
+        <div class="htc-icon">⚖️</div>
+        <div class="htc-body">
+          <h3>BMI Calculator</h3>
+          <p>Calculate Body Mass Index and assess your healthy weight range</p>
+        </div>
+        <div class="htc-arrow">→</div>
+      </a>
 
-        <a href="bmi-calculator.html" class="tool-card">
-          <span class="tool-badge">⭐ Popular</span>
-          <div class="tool-icon">⚖️</div>
-          <h3 class="tool-name">BMI Calculator</h3>
-          <p class="tool-desc">Calculate Body Mass Index (BMI = kg/m²) with WHO classification, risk levels, healthy weight range, and visual gauge indicator.</p>
-          <div class="tool-features"><span class="feature-tag">WHO Scale</span><span class="feature-tag">Healthy Range</span><span class="feature-tag">Gauge Chart</span><span class="feature-tag">Metric/Imperial</span></div>
-          <span class="tool-cta">Calculate BMI <i class="fas fa-arrow-right"></i></span>
-        </a>
+      <a href="calorie-calculator.html" class="hub-tool-card">
+        <div class="htc-icon">🍎</div>
+        <div class="htc-body">
+          <h3>Calorie Calculator</h3>
+          <p>Calculate daily calorie needs based on age, weight, height and activity</p>
+        </div>
+        <div class="htc-arrow">→</div>
+      </a>
 
-        <a href="calorie-calculator.html" class="tool-card">
-          <span class="tool-badge">🔥 Hot</span>
-          <div class="tool-icon">🍎</div>
-          <h3 class="tool-name">Calorie Calculator (TDEE)</h3>
-          <p class="tool-desc">3 BMR formulas: Mifflin-St Jeor, Harris-Benedict, Katch-McArdle. TDEE with activity multipliers, macro breakdown, 12-week projection.</p>
-          <div class="tool-features"><span class="feature-tag">3 BMR Formulas</span><span class="feature-tag">TDEE</span><span class="feature-tag">Macros</span><span class="feature-tag">Weight Projection</span></div>
-          <span class="tool-cta">Calculate Calories <i class="fas fa-arrow-right"></i></span>
-        </a>
+      <a href="ideal-weight.html" class="hub-tool-card">
+        <div class="htc-icon">💪</div>
+        <div class="htc-body">
+          <h3>Ideal Weight Calculator</h3>
+          <p>Find your ideal body weight using multiple medical formulas</p>
+        </div>
+        <div class="htc-arrow">→</div>
+      </a>
 
-        <a href="water-calculator.html" class="tool-card">
-          <div class="tool-icon">💧</div>
-          <h3 class="tool-name">Water Intake Calculator</h3>
-          <p class="tool-desc">Daily water needs: 35ml/kg base + activity & climate multipliers. Interactive glass tracker with daily reset, hourly schedule, reminder tips.</p>
-          <div class="tool-features"><span class="feature-tag">35ml/kg Formula</span><span class="feature-tag">Glass Tracker</span><span class="feature-tag">Hourly Schedule</span><span class="feature-tag">Climate Adjust</span></div>
-          <span class="tool-cta">Track Water Intake <i class="fas fa-arrow-right"></i></span>
-        </a>
+      <a href="water-calculator.html" class="hub-tool-card">
+        <div class="htc-icon">💧</div>
+        <div class="htc-body">
+          <h3>Water Intake Calculator</h3>
+          <p>Calculate daily water intake requirement based on your body weight</p>
+        </div>
+        <div class="htc-arrow">→</div>
+      </a>
 
-        <a href="ideal-weight.html" class="tool-card">
-          <div class="tool-icon">🏋️</div>
-          <h3 class="tool-name">Ideal Weight Calculator</h3>
-          <p class="tool-desc">5 formulas: Devine, Robinson, Miller, Hamwi & BMI range. Frame size adjustment ±10%. Visual BMI half-gauge on Canvas, formula comparison chart.</p>
-          <div class="tool-features"><span class="feature-tag">5 Formulas</span><span class="feature-tag">Frame Size</span><span class="feature-tag">Canvas Gauge</span><span class="feature-tag">Compare Chart</span></div>
-          <span class="tool-cta">Find Ideal Weight <i class="fas fa-arrow-right"></i></span>
-        </a>
+      <a href="age-calculator.html" class="hub-tool-card">
+        <div class="htc-icon">🎂</div>
+        <div class="htc-body">
+          <h3>Age Calculator</h3>
+          <p>Calculate your exact age in years, months, days and hours</p>
+        </div>
+        <div class="htc-arrow">→</div>
+      </a>
 
-        <a href="age-calculator.html" class="tool-card">
-          <div class="tool-icon">🎂</div>
-          <h3 class="tool-name">Age Calculator</h3>
-          <p class="tool-desc">Calculate exact age in years, months, days, hours, minutes & seconds. Next birthday countdown, day of week you were born, zodiac sign.</p>
-          <div class="tool-features"><span class="feature-tag">Exact Age</span><span class="feature-tag">Next Birthday</span><span class="feature-tag">Zodiac Sign</span><span class="feature-tag">Milestones</span></div>
-          <span class="tool-cta">Calculate Age <i class="fas fa-arrow-right"></i></span>
-        </a>
-
+      <a href="typing-test.html" class="hub-tool-card">
+        <div class="htc-icon">⌨️</div>
+        <div class="htc-body">
+          <h3>Typing Speed Test</h3>
+          <p>Test and improve your typing speed with WPM and accuracy tracking</p>
+        </div>
+        <div class="htc-arrow">→</div>
+      </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="container"><div class="ad-slot"><p>Advertisement — 336×280</p></div></div>
+    <!-- DESCRIPTION -->
+    <section class="desc-section">
+      <h2>About Free Health & Fitness Calculators</h2>
+      <p>Track your health and fitness goals with HashmiTools' free health calculators. Calculate your Body Mass Index (BMI) to assess your weight category, estimate daily calorie needs for weight management, find your ideal body weight, determine daily water intake requirements, calculate your exact age, and test your typing speed. All tools are instant, free and based on established medical guidelines.</p>
+    </section>
 
-  <section class="faq-section">
-    <div class="container">
-      <h2 class="section-title">Frequently Asked Questions</h2>
-      <div id="faqList">
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Which BMR formula is most accurate? <i class="fas fa-plus"></i></div>
-          <div class="faq-a">The Mifflin-St Jeor equation (2005) is generally considered the most accurate for most people, with a margin of error of ±10%. The Katch-McArdle formula is more accurate if you know your exact body fat percentage, as it uses lean body mass. Harris-Benedict (revised 1984) is still widely used. Our calculator shows all three so you can compare.</div>
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">What BMI range is considered healthy?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">A BMI between 18.5 and 24.9 is considered normal weight. Below 18.5 is underweight, 25–29.9 is overweight, and 30+ is obese.</p>
+          </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">How much water should I drink per day? <i class="fas fa-plus"></i></div>
-          <div class="faq-a">General guideline is 35ml per kg of body weight. A 70kg person needs about 2.45 liters. However, this increases with physical activity (add 500ml per hour of exercise), hot/humid climate (add 300-500ml), and for breastfeeding women (add 700ml). Our calculator adjusts all these factors automatically.</div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">How is daily calorie need calculated?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">The Calorie Calculator uses the Mifflin-St Jeor equation, which accounts for age, gender, height, weight and physical activity level.</p>
+          </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">What is TDEE and how is it different from BMR? <i class="fas fa-plus"></i></div>
-          <div class="faq-a">BMR (Basal Metabolic Rate) is the calories your body needs at complete rest — just to keep organs functioning. TDEE (Total Daily Energy Expenditure) is BMR multiplied by your activity factor. If you're sedentary, TDEE = BMR × 1.2. Moderately active: BMR × 1.55. Very active: BMR × 1.9. TDEE is what you actually burn per day.</div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">How much water should I drink per day?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">A general guideline is 8 glasses (2 liters) per day, but the Water Intake Calculator gives a more precise recommendation based on your body weight.</p>
+          </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Is BMI a reliable health indicator? <i class="fas fa-plus"></i></div>
-          <div class="faq-a">BMI is a useful screening tool but has limitations. It doesn't distinguish between muscle and fat, so athletes may have a high BMI despite being very healthy. It also doesn't account for where fat is distributed. For a complete picture, consider waist circumference, body fat percentage, and other metabolic markers alongside BMI.</div>
-        </div>
+    </section>
+
+    <!-- RELATED CATEGORIES -->
+    <section class="related-section">
+      <h2>Explore More Tool Categories</h2>
+      <div class="rel-cats">
+        <a href="pdf.html" class="rel-cat-link">📄 Free PDF Tools Online</a>
+        <a href="image-tools.html" class="rel-cat-link">🖼️ Free Image Tools Online</a>
+        <a href="finance.html" class="rel-cat-link">💰 Free Finance Calculators Online</a>
+        <a href="developer.html" class="rel-cat-link">💻 Free Developer Tools Online</a>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <footer style="background:var(--bg-secondary);padding:40px 0;text-align:center;border-top:1px solid var(--border-glass);">
-    <div class="container">
-      <p style="color:var(--text-secondary)">© 2025 <a href="../index.html" style="color:#fb7185">HashmiTools.com</a> — Free Health Calculators</p>
-      <div style="display:flex;gap:24px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
-        <a href="../privacy.html" style="color:var(--text-muted);font-size:0.9rem">Privacy Policy</a>
-        <a href="../terms.html" style="color:var(--text-muted);font-size:0.9rem">Terms</a>
-        <a href="../contact.html" style="color:var(--text-muted);font-size:0.9rem">Contact</a>
-      </div>
-    </div>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 <a href="../index.html">HashmiTools.com</a> — Free Online Tools | 
+       <a href="../privacy.html">Privacy</a> | 
+       <a href="../about.html">About</a> | 
+       <a href="../sitemap.html">Sitemap</a></p>
   </footer>
+
   <script>
-    const t = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', t);
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', n); localStorage.setItem('theme', n);
-      document.getElementById('themeToggle').innerHTML = n === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-    });
-    if (t === 'light') document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
-    document.getElementById('navHamburger').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('active'); });
-    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
-    function toggleFaq(el) { const a = el.nextElementSibling; a.classList.toggle('open'); el.classList.toggle('active'); el.querySelector('i').className = a.classList.contains('open') ? 'fas fa-minus' : 'fas fa-plus'; }
+  function toggleFaq(btn) {
+    const ans = btn.nextElementSibling;
+    const icon = btn.querySelector('.faq-icon');
+    const open = ans.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    icon.textContent = open ? '−' : '+';
+  }
   </script>
 </body>
 </html>

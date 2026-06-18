@@ -71,5 +71,5 @@ User-agent: YandexBot
 Allow: /
 
 # ── Sitemaps ───────────────────────────────────────────────────────────────
+Sitemap: https://hashmitools.vercel.app/sitemap.xml
 Sitemap: https://hashmitools.com/sitemap.xml
-Sitemap: https://hashmitools.com/sitemap-tools.xml

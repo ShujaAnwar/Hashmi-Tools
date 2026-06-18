@@ -1,0 +1,39 @@
+# ads.txt — HashmiTools.com
+# Required by Google AdSense and IAB standards for ad publisher authorization.
+# This file authorizes specific ad networks to sell/resell ad inventory on this domain.
+#
+# Format: <ad_system_domain>, <publisher_account_id>, <account_type>, <cert_authority_id>
+#
+# ───────────────────────────────────────────────────────────
+# GOOGLE ADSENSE
+# Replace ca-pub-XXXXXXXXXXXXXXXX with your actual Publisher ID from:
+# https://www.google.com/adsense/new/u/0/pub-XXXXXXXX/home → Settings → Account → Publisher ID
+# ───────────────────────────────────────────────────────────
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+
+# ───────────────────────────────────────────────────────────
+# GOOGLE AD MANAGER (if you ever use GAM/DFP)
+# Uncomment and replace with your GAM Network Code
+# ───────────────────────────────────────────────────────────
+# google.com, pub-XXXXXXXXXXXXXXXX, RESELLER, f08c47fec0942fa0
+
+# ───────────────────────────────────────────────────────────
+# MEDIA.NET (alternative/backup ad network)
+# Uncomment and replace with your Media.net site ID once registered
+# ───────────────────────────────────────────────────────────
+# media.net, XXXXXXXX, DIRECT
+
+# ───────────────────────────────────────────────────────────
+# EZOIC (if you use Ezoic)
+# ───────────────────────────────────────────────────────────
+# ezoic.com, XXXXX, DIRECT, e5a22f32e2a5f4e6
+
+# ───────────────────────────────────────────────────────────
+# HOW TO UPDATE THIS FILE:
+# 1. Get your AdSense publisher ID from Google AdSense dashboard
+#    (Settings → Account information → Publisher ID — starts with "pub-")
+# 2. Replace both instances of "pub-XXXXXXXXXXXXXXXX" with your real ID
+# 3. Save and deploy — Google will verify this file at:
+#    https://hashmitools.vercel.app/ads.txt
+# 4. AdSense approval requires this file to be accessible at the root domain
+# ───────────────────────────────────────────────────────────

@@ -1540,3 +1540,80 @@ ul { list-style: none; }
   border-color: #30363d !important;
   min-height: 200px;
 }
+
+/* ============================================
+   ADSENSE SIDEBAR LAYOUT (page-layout grid)
+   Desktop: 160px sidebar | 1fr main | 160px sidebar
+   Hidden on < 1100px to prevent layout issues
+   ============================================ */
+
+.page-layout {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  grid-template-areas: "sidebar-left main sidebar-right";
+  gap: 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px;
+  align-items: start;
+}
+
+.page-layout > main {
+  grid-area: main;
+  min-width: 0; /* prevent overflow */
+}
+
+.sidebar-ad {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  align-self: start;
+}
+
+.sidebar-ad.sidebar-left  { grid-area: sidebar-left; }
+.sidebar-ad.sidebar-right { grid-area: sidebar-right; }
+
+.ad-sidebar-container {
+  background: var(--bg-glass);
+  border: 1px dashed var(--border-glass);
+  border-radius: 10px;
+  min-height: 600px;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.ad-sidebar-container .ad-label {
+  font-size: 0.65rem;
+  opacity: 0.6;
+}
+
+/* Hide sidebars on tablet/mobile — NEVER break layout */
+@media (max-width: 1100px) {
+  .page-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "main";
+    padding: 0;
+  }
+  .sidebar-ad {
+    display: none !important;
+  }
+}
+
+/* Wider ads on very large screens */
+@media (min-width: 1400px) {
+  .page-layout {
+    grid-template-columns: 200px 1fr 200px;
+  }
+  .ad-sidebar-container {
+    width: 200px;
+  }
+}

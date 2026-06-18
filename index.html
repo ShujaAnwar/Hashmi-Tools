@@ -37,6 +37,10 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
 
+  <!-- Google AdSense — replace ca-pub-XXXXXXXXXXXXXXXX with your publisher ID once approved -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+       crossorigin="anonymous"></script>
+
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="assets/css/global.css" />
@@ -255,6 +259,21 @@
     </div>
   </div>
 
+  <!-- ======== PAGE LAYOUT WITH ADSENSE SIDEBARS ======== -->
+  <div class="page-layout">
+
+    <!-- LEFT SIDEBAR AD — hidden below 1100px -->
+    <aside class="sidebar-ad sidebar-left" aria-label="Advertisement">
+      <div class="ad-sidebar-container">
+        <ins class="adsbygoogle"
+             style="display:block;width:160px;height:600px"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1111111111"
+             data-ad-format="auto"></ins>
+        <span class="ad-label">Advertisement</span>
+      </div>
+    </aside>
+
   <!-- ======== MAIN CONTENT ======== -->
   <main>
 
@@ -439,7 +458,7 @@
         <div class="categories-grid">
 
           <!-- Islamic Tools -->
-          <article class="category-card islamic" onclick="window.location='tools/islamic.html'">
+          <a href="tools/islamic.html" class="category-card islamic">
             <div class="card-glow"></div>
             <div class="card-icon">🕌</div>
             <h3 class="card-title">Islamic Tools</h3>
@@ -454,10 +473,10 @@
               <span class="tool-count">8 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
           <!-- Finance Tools -->
-          <article class="category-card finance" onclick="window.location='tools/finance.html'">
+          <a href="tools/finance.html" class="category-card finance">
             <div class="card-glow"></div>
             <div class="card-icon">💰</div>
             <h3 class="card-title">Finance Tools</h3>
@@ -472,10 +491,10 @@
               <span class="tool-count">12 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
           <!-- PDF Tools -->
-          <article class="category-card pdf" onclick="window.location='tools/pdf.html'">
+          <a href="tools/pdf.html" class="category-card pdf">
             <div class="card-glow"></div>
             <div class="card-icon">📄</div>
             <h3 class="card-title">PDF Tools</h3>
@@ -490,10 +509,10 @@
               <span class="tool-count">10 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
           <!-- AI Tools -->
-          <article class="category-card ai" onclick="window.location='tools/ai.html'">
+          <a href="tools/ai.html" class="category-card ai">
             <div class="card-glow"></div>
             <div class="card-icon">🤖</div>
             <h3 class="card-title">AI Tools</h3>
@@ -508,10 +527,10 @@
               <span class="tool-count">8 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
           <!-- Developer Tools -->
-          <article class="category-card dev" onclick="window.location='tools/developer.html'">
+          <a href="tools/developer.html" class="category-card dev">
             <div class="card-glow"></div>
             <div class="card-icon">💻</div>
             <h3 class="card-title">Developer Tools</h3>
@@ -526,10 +545,10 @@
               <span class="tool-count">12 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
           <!-- Health Tools -->
-          <article class="category-card health" onclick="window.location='tools/health.html'">
+          <a href="tools/health.html" class="category-card health">
             <div class="card-glow"></div>
             <div class="card-icon">❤️</div>
             <h3 class="card-title">Health Tools</h3>
@@ -544,10 +563,10 @@
               <span class="tool-count">7 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
           <!-- Pakistan Tools -->
-          <article class="category-card pakistan" onclick="window.location='tools/pakistan.html'">
+          <a href="tools/pakistan.html" class="category-card pakistan">
             <div class="card-glow"></div>
             <div class="card-icon">🇵🇰</div>
             <h3 class="card-title">Pakistan Tools</h3>
@@ -562,10 +581,10 @@
               <span class="tool-count">9 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
           <!-- Productivity Tools -->
-          <article class="category-card productivity" onclick="window.location='tools/productivity.html'">
+          <a href="tools/productivity.html" class="category-card productivity">
             <div class="card-glow"></div>
             <div class="card-icon">⚡</div>
             <h3 class="card-title">Productivity</h3>
@@ -580,7 +599,7 @@
               <span class="tool-count">10 Tools</span>
               <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
             </div>
-          </article>
+          </a>
 
         </div>
       </div>
@@ -778,7 +797,7 @@
         </div>
 
         <div class="featured-tools-grid">
-          <div class="featured-tool-card large" onclick="window.location='tools/zakat-calculator.html'">
+          <a href="tools/zakat-calculator.html" class="featured-tool-card large">
             <div class="ft-bg"></div>
             <div class="ft-content">
               <div class="ft-icon">🕌</div>
@@ -792,9 +811,9 @@
               </div>
               <a href="tools/zakat-calculator.html" class="ft-btn">Use Tool <i class="fas fa-arrow-right"></i></a>
             </div>
-          </div>
+          </a>
 
-          <div class="featured-tool-card" onclick="window.location='tools/prayer-times.html'">
+          <a href="tools/prayer-times.html" class="featured-tool-card">
             <div class="ft-bg"></div>
             <div class="ft-content">
               <div class="ft-icon">🕐</div>
@@ -802,9 +821,9 @@
               <p>Accurate Namaz timings for any city. Auto-detect location & Qibla direction.</p>
               <a href="tools/prayer-times.html" class="ft-btn">Use Tool <i class="fas fa-arrow-right"></i></a>
             </div>
-          </div>
+          </a>
 
-          <div class="featured-tool-card" onclick="window.location='tools/inheritance-calculator.html'">
+          <a href="tools/inheritance-calculator.html" class="featured-tool-card">
             <div class="ft-bg"></div>
             <div class="ft-content">
               <div class="ft-icon">⚖️</div>
@@ -812,9 +831,9 @@
               <p>Calculate Islamic Faraid inheritance shares for all heirs per Quran & Sunnah.</p>
               <a href="tools/inheritance-calculator.html" class="ft-btn">Use Tool <i class="fas fa-arrow-right"></i></a>
             </div>
-          </div>
+          </a>
 
-          <div class="featured-tool-card" onclick="window.location='tools/hijri-converter.html'">
+          <a href="tools/hijri-converter.html" class="featured-tool-card">
             <div class="ft-bg"></div>
             <div class="ft-content">
               <div class="ft-icon">📅</div>
@@ -822,7 +841,7 @@
               <p>Convert between Hijri and Gregorian calendar dates instantly.</p>
               <a href="tools/hijri-converter.html" class="ft-btn">Use Tool <i class="fas fa-arrow-right"></i></a>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </section>
@@ -1060,6 +1079,20 @@
 
   </main>
 
+    <!-- RIGHT SIDEBAR AD — hidden below 1100px -->
+    <aside class="sidebar-ad sidebar-right" aria-label="Advertisement">
+      <div class="ad-sidebar-container">
+        <ins class="adsbygoogle"
+             style="display:block;width:160px;height:600px"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="2222222222"
+             data-ad-format="auto"></ins>
+        <span class="ad-label">Advertisement</span>
+      </div>
+    </aside>
+
+  </div><!-- /.page-layout -->
+
   <!-- ======== FOOTER ======== -->
   <footer class="footer">
     <div class="footer-top">
@@ -1082,6 +1115,29 @@
           </div>
 
           <div class="footer-col">
+            <h5>PDF Tools</h5>
+            <ul>
+              <li><a href="tools/pdf-editor.html">PDF Editor</a></li>
+              <li><a href="tools/pdf-merge.html">Merge PDF</a></li>
+              <li><a href="tools/pdf-split.html">Split PDF</a></li>
+              <li><a href="tools/pdf-compress.html">Compress PDF</a></li>
+              <li><a href="tools/compress-pdf.html">Compress PDF (Alt)</a></li>
+              <li><a href="tools/pdf.html">View All →</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Image Tools</h5>
+            <ul>
+              <li><a href="tools/image-editor.html">Image Editor</a></li>
+              <li><a href="tools/image-compressor.html">Image Compressor</a></li>
+              <li><a href="tools/background-remover.html">Background Remover</a></li>
+              <li><a href="tools/jpg-to-pdf.html">Image to PDF</a></li>
+              <li><a href="tools/image-tools.html">View All →</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
             <h5>Islamic Tools</h5>
             <ul>
               <li><a href="tools/zakat-calculator.html">Zakat Calculator</a></li>
@@ -1101,6 +1157,7 @@
               <li><a href="tools/currency-converter.html">Currency Converter</a></li>
               <li><a href="tools/sip-calculator.html">SIP Calculator</a></li>
               <li><a href="tools/compound-interest.html">Compound Interest</a></li>
+              <li><a href="tools/mortgage-calculator.html">Mortgage Calculator</a></li>
               <li><a href="tools/finance.html">View All →</a></li>
             </ul>
           </div>
@@ -1114,6 +1171,18 @@
               <li><a href="tools/base64.html">Base64 Encoder</a></li>
               <li><a href="tools/url-encoder.html">URL Encoder</a></li>
               <li><a href="tools/developer.html">View All →</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Health &amp; Utilities</h5>
+            <ul>
+              <li><a href="tools/bmi-calculator.html">BMI Calculator</a></li>
+              <li><a href="tools/calorie-calculator.html">Calorie Calculator</a></li>
+              <li><a href="tools/ideal-weight.html">Ideal Weight</a></li>
+              <li><a href="tools/water-calculator.html">Water Intake</a></li>
+              <li><a href="tools/typing-test.html">Typing Speed Test</a></li>
+              <li><a href="tools/background-remover.html">Background Remover</a></li>
             </ul>
           </div>
 
@@ -1140,7 +1209,7 @@
           <div class="footer-bottom-links">
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
-            <a href="sitemap.xml">Sitemap</a>
+            <a href="sitemap.xml">Sitemap XML</a> &nbsp;|&nbsp; <a href="sitemap.html">Sitemap</a>
           </div>
         </div>
       </div>
@@ -1209,6 +1278,17 @@
         c.style.display = txt.includes(q) ? '' : 'none';
       });
     });
+  })();
+  </script>
+
+  <!-- AdSense initialization — push ads once DOM is ready -->
+  <script>
+  (function() {
+    // Only initialize after AdSense script loads (replace ca-pub once approved)
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({}); // Left sidebar
+      (adsbygoogle = window.adsbygoogle || []).push({}); // Right sidebar
+    } catch(e) {}
   })();
   </script>
 

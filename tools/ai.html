@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,6 +56,12 @@
     .faq-a.open { display: block; }
     @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
   </style>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <script src="../assets/js/theme.js"></script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+       crossorigin="anonymous"></script>
 </head>
 <body>
   <header class="navbar" id="navbar">
@@ -203,6 +209,16 @@
     document.getElementById('navHamburger').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('active'); });
     window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
     function toggleFaq(el) { const a = el.nextElementSibling; a.classList.toggle('open'); el.classList.toggle('active'); el.querySelector('i').className = a.classList.contains('open') ? 'fas fa-minus' : 'fas fa-plus'; }
+  </script>
+
+  <!-- AdSense init -->
+  <script>
+  (function(){
+    var ads = document.querySelectorAll('.adsbygoogle');
+    for(var i=0;i<ads.length;i++){
+      try{ (adsbygoogle=window.adsbygoogle||[]).push({}); }catch(e){}
+    }
+  })();
   </script>
 </body>
 </html>

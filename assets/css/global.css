@@ -1327,3 +1327,173 @@ input, select, textarea {
 [data-theme="dark"] .ht-table tbody tr:nth-child(even) {
   background: rgba(255,255,255,0.02);
 }
+
+/* ============================================================
+   THEME SYSTEM v3.0 — Light/Dark × 6 Accent Colors
+   All variables here are overridden by theme.js injecting
+   #ht-accent-vars <style> into <head> at runtime.
+   The :root block here acts as the fallback default.
+   ============================================================ */
+
+/* ── Shared accent aliases used throughout tool pages ── */
+:root {
+  --accent: var(--accent-primary, #6366f1);
+  --accent-rgb: 99,102,241;
+  --accent-hover: #4f46e5;
+  /* Convenience shorthands matching older variable names */
+  --accent-purple: var(--accent-primary, #6366f1);
+  --accent-blue:   var(--accent-primary, #6366f1);
+  --accent-cyan:   var(--accent-primary, #6366f1);
+  --gradient-main: linear-gradient(135deg, var(--accent-primary,#6366f1), var(--accent-hover,#4f46e5));
+}
+
+/* ── LIGHT MODE (data-mode="light" or data-theme="light") ── */
+[data-mode="light"],
+:root:not([data-mode="dark"]) {
+  --bg-primary:   #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card:      #ffffff;
+  --bg-glass:     rgba(99,102,241,0.05);
+  --bg-hover:     #f0f0ff;
+  --text-primary:   #1e293b;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --text-inverse:   #ffffff;
+  --border-color:   #e2e8f0;
+  --border-glass:   rgba(99,102,241,0.15);
+  --border-focus:   var(--accent-primary,#6366f1);
+  --shadow:         0 4px 20px rgba(0,0,0,0.08);
+  --shadow-glow:    0 0 30px rgba(99,102,241,0.15);
+  /* Backward compat */
+  --bg1:    #ffffff;
+  --bg2:    #f8fafc;
+  --surface: #ffffff;
+  --surface2: #f1f5f9;
+  --border:   #e2e8f0;
+}
+
+/* ── DARK MODE ── */
+[data-mode="dark"],
+[data-theme="dark"] {
+  --bg-primary:   #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card:      #1e293b;
+  --bg-glass:     rgba(99,102,241,0.08);
+  --bg-hover:     #334155;
+  --text-primary:   #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted:     #94a3b8;
+  --text-inverse:   #0f172a;
+  --border-color:   #334155;
+  --border-glass:   rgba(99,102,241,0.2);
+  --border-focus:   var(--accent-primary,#6366f1);
+  --shadow:         0 4px 20px rgba(0,0,0,0.4);
+  --shadow-glow:    0 0 30px rgba(99,102,241,0.25);
+  /* Backward compat */
+  --bg1:    #0f172a;
+  --bg2:    #1e293b;
+  --surface: #1e293b;
+  --surface2: #334155;
+  --border:   #334155;
+}
+
+/* ── LIGHT data-theme alias (legacy pages use data-theme, not data-mode) ── */
+[data-theme="light"] {
+  --bg-primary:   #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card:      #ffffff;
+  --bg-glass:     rgba(99,102,241,0.05);
+  --bg-hover:     #f0f0ff;
+  --text-primary:   #1e293b;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --text-inverse:   #ffffff;
+  --border-color:   #e2e8f0;
+  --border-glass:   rgba(99,102,241,0.15);
+  --surface: #ffffff; --surface2: #f1f5f9; --border: #e2e8f0;
+}
+
+/* ── BODY background should always follow theme ── */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ── AD SLOTS — theme-aware ── */
+.ht-ad-slot {
+  background: var(--bg-glass);
+  border: 1px dashed var(--border-glass);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.ht-ad-slot .ht-ad-label {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+/* Sidebar ad */
+.ht-ad-sidebar {
+  width: 160px;
+  min-height: 600px;
+}
+
+/* In-content ad — full width of content column */
+.ht-ad-incontent {
+  width: 100%;
+  min-height: 90px;
+  margin: 32px 0;
+}
+
+/* Bottom ad */
+.ht-ad-bottom {
+  width: 100%;
+  min-height: 90px;
+  margin: 32px 0 0;
+}
+
+/* Mobile: only show in-content and bottom ads, never sidebars */
+@media (max-width: 1100px) {
+  .ht-sidebar-left,
+  .ht-sidebar-right {
+    display: none !important;
+  }
+  .ht-page-layout {
+    grid-template-columns: 1fr !important;
+    grid-template-areas: "content" !important;
+  }
+}
+
+/* ── PAGE LAYOUT (Mode A: 3-column) ── */
+.ht-page-layout {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  grid-template-areas: "left content right";
+  gap: 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px;
+  align-items: start;
+}
+.ht-page-layout > .ht-content-col {
+  grid-area: content;
+  min-width: 0;
+}
+.ht-sidebar-left  { grid-area: left;  position: sticky; top: 80px; }
+.ht-sidebar-right { grid-area: right; position: sticky; top: 80px; }
+
+@media (min-width: 1400px) {
+  .ht-page-layout { grid-template-columns: 200px 1fr 200px; }
+  .ht-ad-sidebar  { width: 200px; }
+}

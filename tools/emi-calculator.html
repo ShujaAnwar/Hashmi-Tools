@@ -284,7 +284,7 @@ tbody td:first-child { text-align: left; font-weight: 600; color: var(--text); }
   "foundingDate": "2024",
   "areaServed": ["PK","IN","US","GB","AE","SA"],
   "knowsLanguage": ["en","ur","hi"],
-  "sameAs": ["https://hashmitools.vercel.app"],
+  "sameAs": ["https://hashmitools.com"],
   "contactPoint": {"@type":"ContactPoint","contactType":"customer support","availableLanguage":["English","Urdu"]}
 }
 </script>
@@ -455,6 +455,11 @@ tbody td:first-child { text-align: left; font-weight: 600; color: var(--text); }
 .breadcrumb-geo a{color:var(--text-muted,#94a3b8);text-decoration:none}.breadcrumb-geo a:hover{color:#6366f1}
 .breadcrumb-geo .sep{color:var(--text-muted,#94a3b8)}
 </style>
+  <link rel="stylesheet" href="../assets/css/global.css">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+       crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -467,7 +472,14 @@ tbody td:first-child { text-align: left; font-weight: 600; color: var(--text); }
   </div>
 </nav>
 
-<div class="page-wrap" style="padding-top:80px;">
+<div class="ht-page-layout">
+<aside class="ht-sidebar-left ht-sidebar" aria-label="Advertisement" style="align-self:start">
+  <div class="ht-ad-slot ht-ad-sidebar">
+    <ins class="adsbygoogle" style="display:block;width:160px;height:600px"
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1111111111" data-ad-format="fixed"></ins>
+    <span class="ht-ad-label">Advertisement</span>
+  </div>
+</aside><div class="ht-content-col"><div class="page-wrap" style="padding-top:80px;">
 
   <!-- Breadcrumb -->
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -1339,6 +1351,19 @@ document.addEventListener('DOMContentLoaded', () => {
   </section>
 </div>
 
+
+<div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">
+  <span class="ht-ad-label">Advertisement</span>
+  <ins class="adsbygoogle" style="display:block;width:100%;min-height:90px"
+    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins>
+</div></div><!-- /.page-wrap --></div><!-- /.ht-content-col -->
+<aside class="ht-sidebar-right ht-sidebar" aria-label="Advertisement" style="align-self:start">
+  <div class="ht-ad-slot ht-ad-sidebar">
+    <ins class="adsbygoogle" style="display:block;width:160px;height:600px"
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="2222222222" data-ad-format="fixed"></ins>
+    <span class="ht-ad-label">Advertisement</span>
+  </div>
+</aside></div><!-- /.ht-page-layout -->
 <!-- GEO Footer -->
 <footer class="geo-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
   <div itemscope itemtype="https://schema.org/Organization">
@@ -1356,5 +1381,15 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 document.querySelectorAll(".faq-item h3").forEach(function(h){h.style.cursor="pointer";h.addEventListener("click",function(){h.parentElement.classList.toggle("open");});});
 </script>
+
+  <!-- AdSense init -->
+  <script>
+  (function(){
+    var ads = document.querySelectorAll('.adsbygoogle');
+    for(var i=0;i<ads.length;i++){
+      try{ (adsbygoogle=window.adsbygoogle||[]).push({}); }catch(e){}
+    }
+  })();
+  </script>
 </body>
 </html>

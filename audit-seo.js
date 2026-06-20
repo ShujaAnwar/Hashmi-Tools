@@ -37,7 +37,7 @@ orphans.forEach(f => console.log(`   - tools/${f}`));
 console.log('\nSECTION 2 — CANONICAL TAG AUDIT');
 console.log('─────────────────────────────────────────');
 const BASE = 'https://hashmitools.com/tools/';
-const VERCEL = 'https://hashmitools.vercel.app/tools/';
+const VERCEL = 'https://hashmitools.com/tools/';
 let canonMissing = 0, canonWrong = 0, canonOK = 0;
 const wrongCanon = [];
 allToolFiles.forEach(file => {
@@ -45,7 +45,7 @@ allToolFiles.forEach(file => {
   const cm = content.match(/rel=["']canonical["'][^>]*href=["']([^"']+)["']|href=["']([^"']+)["'][^>]*rel=["']canonical["']/);
   const canonical = cm ? (cm[1] || cm[2]) : null;
   const expectedBase = `https://hashmitools.com/tools/${file}`;
-  const expectedVercel = `https://hashmitools.vercel.app/tools/${file}`;
+  const expectedVercel = `https://hashmitools.com/tools/${file}`;
   if (!canonical) {
     console.log(`   ❌ MISSING canonical: ${file}`);
     canonMissing++;

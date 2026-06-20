@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,6 +56,12 @@
     .faq-a.open { display: block; }
     @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
   </style>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <script src="../assets/js/theme.js"></script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
+       crossorigin="anonymous"></script>
 </head>
 <body>
   <header class="navbar" id="navbar">
@@ -96,7 +102,7 @@
   </div>
 
   <div class="container">
-    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567893" data-ad-format="auto" data-full-width-responsive="true"></ins><p>Advertisement</p></div>
+    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733" data-ad-slot="1234567893" data-ad-format="auto" data-full-width-responsive="true"></ins><p>Advertisement</p></div>
     <div class="api-banner">
       <h3>🔑 Free Hugging Face API Key Required</h3>
       <p>These AI tools use the Hugging Face Inference API (Mistral-7B-Instruct). Get your free API key at <strong>huggingface.co</strong> → Settings → Access Tokens. Enter it once in the AI Tool and it's saved locally. No data is sent to our servers.</p>
@@ -203,6 +209,16 @@
     document.getElementById('navHamburger').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('active'); });
     window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
     function toggleFaq(el) { const a = el.nextElementSibling; a.classList.toggle('open'); el.classList.toggle('active'); el.querySelector('i').className = a.classList.contains('open') ? 'fas fa-minus' : 'fas fa-plus'; }
+  </script>
+
+  <!-- AdSense init -->
+  <script>
+  (function(){
+    var ads = document.querySelectorAll('.adsbygoogle');
+    for(var i=0;i<ads.length;i++){
+      try{ (adsbygoogle=window.adsbygoogle||[]).push({}); }catch(e){}
+    }
+  })();
   </script>
 </body>
 </html>

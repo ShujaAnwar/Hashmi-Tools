@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -356,7 +356,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
   "foundingDate": "2024",
   "areaServed": ["PK","IN","US","GB","AE","SA"],
   "knowsLanguage": ["en","ur","hi"],
-  "sameAs": ["https://hashmitools.vercel.app"],
+  "sameAs": ["https://hashmitools.com"],
   "contactPoint": {"@type":"ContactPoint","contactType":"customer support","availableLanguage":["English","Urdu"]}
 }
 </script>
@@ -527,6 +527,11 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 .breadcrumb-geo a{color:var(--text-muted,#94a3b8);text-decoration:none}.breadcrumb-geo a:hover{color:#6366f1}
 .breadcrumb-geo .sep{color:var(--text-muted,#94a3b8)}
 </style>
+  <link rel="stylesheet" href="../assets/css/global.css">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
+       crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -1673,6 +1678,29 @@ function setupKeyboard() {
 </div>
 
 <!-- GEO Footer -->
+
+
+  <!-- AdSense In-Content Ad -->
+  <div class="ht-ad-slot ht-ad-incontent" aria-label="Advertisement">
+    <span class="ht-ad-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:90px"
+         data-ad-client="ca-pub-5313876284153733"
+         data-ad-slot="3333333333"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- AdSense Bottom Ad -->
+  <div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">
+    <span class="ht-ad-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:90px"
+         data-ad-client="ca-pub-5313876284153733"
+         data-ad-slot="4444444444"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
 <footer class="geo-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
   <div itemscope itemtype="https://schema.org/Organization">
     <span itemprop="name">HashmiTools.com</span> — <span itemprop="description">100+ Free Online Tools</span>
@@ -1689,5 +1717,15 @@ function setupKeyboard() {
 <script>
 document.querySelectorAll(".faq-item h3").forEach(function(h){h.style.cursor="pointer";h.addEventListener("click",function(){h.parentElement.classList.toggle("open");});});
 </script>
+
+  <!-- AdSense init -->
+  <script>
+  (function(){
+    var ads = document.querySelectorAll('.adsbygoogle');
+    for(var i=0;i<ads.length;i++){
+      try{ (adsbygoogle=window.adsbygoogle||[]).push({}); }catch(e){}
+    }
+  })();
+  </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://hashmitools.vercel.app';
+const BASE_URL = 'https://hashmitools.com';
 const TODAY = new Date().toISOString().split('T')[0];
 
 // ─────────────────────────────────────────────────────────
@@ -239,7 +239,7 @@ function buildCategoryPage(filename, cat) {
       "publisher": {
         "@type": "Organization",
         "name": "HashmiTools",
-        "url": "https://hashmitools.vercel.app"
+        "url": "https://hashmitools.com"
       }
     },
     {

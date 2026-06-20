@@ -14,7 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://hashmitools.vercel.app';
+const BASE_URL = 'https://hashmitools.com';
 const TOOLS_DIR = path.join(__dirname, 'tools');
 
 let fixCount = 0;

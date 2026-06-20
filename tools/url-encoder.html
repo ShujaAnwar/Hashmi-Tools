@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
-  <link rel="canonical" href="https://hashmitools.vercel.app/tools/url-encoder.html">
+  <link rel="canonical" href="https://hashmitools.com/tools/url-encoder.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>URL Encoder & Decoder — Online Free | HashmiTools</title>
@@ -58,6 +58,12 @@ textarea:focus{border-color:var(--accent-purple)}
 .param-table td:first-child{color:var(--accent-cyan);font-weight:600}
 .enc-badge{display:inline-block;font-size:.7rem;padding:.1rem .4rem;border-radius:4px;background:rgba(245,158,11,.2);color:#fbbf24;margin-left:.4rem}
 </style>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <script src="../assets/js/theme.js"></script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
+       crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -66,6 +72,20 @@ textarea:focus{border-color:var(--accent-purple)}
   <button class="btn btn-outline" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
 </nav>
 
+
+<div class="ht-page-layout">
+
+    <aside class="ht-sidebar-left ht-sidebar" aria-label="Advertisement" style="align-self:start">
+      <div class="ht-ad-slot ht-ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block;width:160px;height:600px"
+             data-ad-client="ca-pub-5313876284153733"
+             data-ad-slot="1111111111"
+             data-ad-format="fixed"></ins>
+        <span class="ht-ad-label">Advertisement</span>
+      </div>
+    </aside>
+<div class="ht-content-col">
 <div class="page-wrapper">
   <nav class="breadcrumb">
     <a href="../index.html">Home</a><i class="fas fa-chevron-right" style="font-size:.7rem"></i>
@@ -266,6 +286,41 @@ function parseURL(){
       <span class="url-part-key">${p.key}</span>
       <span class="url-part-val">${escH(p.val)}</span>
     </div>
+
+  <!-- AdSense Bottom Ad -->
+  <div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">
+    <span class="ht-ad-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:90px"
+         data-ad-client="ca-pub-5313876284153733"
+         data-ad-slot="4444444444"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- not in content: placeholder -->
+  <div class="ht-ad-slot ht-ad-incontent" aria-label="Advertisement">
+    <span class="ht-ad-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:90px"
+         data-ad-client="ca-pub-5313876284153733"
+         data-ad-slot="3333333333"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div></div><!-- /.ht-content-col -->
+
+    <aside class="ht-sidebar-right ht-sidebar" aria-label="Advertisement" style="align-self:start">
+      <div class="ht-ad-slot ht-ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block;width:160px;height:600px"
+             data-ad-client="ca-pub-5313876284153733"
+             data-ad-slot="2222222222"
+             data-ad-format="fixed"></ins>
+        <span class="ht-ad-label">Advertisement</span>
+      </div>
+    </aside>
+</div><!-- /.ht-page-layout -->
+
   `).join('');
 
   // Params
@@ -315,5 +370,15 @@ function showToast(msg,type='info'){let tc=document.getElementById('tc');if(!tc)
 document.addEventListener('DOMContentLoaded',()=>{const s=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeIcon').className=s==='dark'?'fas fa-moon':'fas fa-sun';buildRefTable();});
 </script>
 <style>@keyframes si{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}</style>
+
+  <!-- AdSense init -->
+  <script>
+  (function(){
+    var ads = document.querySelectorAll('.adsbygoogle');
+    for(var i=0;i<ads.length;i++){
+      try{ (adsbygoogle=window.adsbygoogle||[]).push({}); }catch(e){}
+    }
+  })();
+  </script>
 </body>
 </html>

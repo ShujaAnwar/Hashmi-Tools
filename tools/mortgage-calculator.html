@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
-  <link rel="canonical" href="https://hashmitools.vercel.app/tools/mortgage-calculator.html">
+  <link rel="canonical" href="https://hashmitools.com/tools/mortgage-calculator.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mortgage Calculator — Full PITI Breakdown | HashmiTools</title>
@@ -84,6 +84,12 @@ tbody td:first-child{text-align:left;color:var(--text-primary)}
 .info-box h4{color:var(--accent-purple);margin-bottom:.4rem}
 .section-title{font-size:.9rem;font-weight:600;color:var(--text-secondary);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border-glass)}
 </style>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <script src="../assets/js/theme.js"></script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
+       crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -95,6 +101,20 @@ tbody td:first-child{text-align:left;color:var(--text-primary)}
   <button class="btn btn-outline" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
 </nav>
 
+
+<div class="ht-page-layout">
+
+    <aside class="ht-sidebar-left ht-sidebar" aria-label="Advertisement" style="align-self:start">
+      <div class="ht-ad-slot ht-ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block;width:160px;height:600px"
+             data-ad-client="ca-pub-5313876284153733"
+             data-ad-slot="1111111111"
+             data-ad-format="fixed"></ins>
+        <span class="ht-ad-label">Advertisement</span>
+      </div>
+    </aside>
+<div class="ht-content-col">
 <div class="page-wrapper">
   <nav class="breadcrumb">
     <a href="../index.html">Home</a>
@@ -280,6 +300,41 @@ tbody td:first-child{text-align:left;color:var(--text-primary)}
     </div>
   </div>
 </div>
+
+  <!-- AdSense Bottom Ad -->
+  <div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">
+    <span class="ht-ad-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:90px"
+         data-ad-client="ca-pub-5313876284153733"
+         data-ad-slot="4444444444"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- not in content: placeholder -->
+  <div class="ht-ad-slot ht-ad-incontent" aria-label="Advertisement">
+    <span class="ht-ad-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:90px"
+         data-ad-client="ca-pub-5313876284153733"
+         data-ad-slot="3333333333"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div></div><!-- /.ht-content-col -->
+
+    <aside class="ht-sidebar-right ht-sidebar" aria-label="Advertisement" style="align-self:start">
+      <div class="ht-ad-slot ht-ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block;width:160px;height:600px"
+             data-ad-client="ca-pub-5313876284153733"
+             data-ad-slot="2222222222"
+             data-ad-format="fixed"></ins>
+        <span class="ht-ad-label">Advertisement</span>
+      </div>
+    </aside>
+</div><!-- /.ht-page-layout -->
+
 
 <script>
 let sym='$';
@@ -588,5 +643,15 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 <style>@keyframes si{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}</style>
+
+  <!-- AdSense init -->
+  <script>
+  (function(){
+    var ads = document.querySelectorAll('.adsbygoogle');
+    for(var i=0;i<ads.length;i++){
+      try{ (adsbygoogle=window.adsbygoogle||[]).push({}); }catch(e){}
+    }
+  })();
+  </script>
 </body>
 </html>

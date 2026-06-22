@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube SEO Tool – Title, Description & Tags Generator | HashmiTools</title>
+  <meta name="description" content="Free YouTube SEO tool. Generate optimized video titles, SEO descriptions with timestamps, and viral tags/hashtags to rank your YouTube videos higher. Perfect for Pakistani YouTubers." />
+  <meta name="keywords" content="youtube seo tool, youtube title generator, youtube description generator, youtube tags generator, video seo, youtube rank, channel growth, hashtag generator youtube, video optimization" />
+  <link rel="canonical" href="https://hashmitools.com/tools/youtube-seo.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <script src="../assets/js/theme.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+
+  <style>
+    /* ─── YouTube SEO Tool Styles ─── */
+    :root {
+      --yt-red: #ff0000;
+      --yt-dark: #282828;
+    }
+
+    .yt-hero {
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 40%, #1a1a2e 100%);
+      padding: 48px 24px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .yt-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .yt-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:2.2rem; font-weight:800; margin-bottom:8px; }
+    .yt-hero p { font-size:1.05rem; opacity:0.9; max-width:580px; margin:0 auto; }
+
+    /* Tabs */
+    .yt-tabs {
+      display: flex; gap:0; background:var(--bg-secondary);
+      border-radius:14px; padding:4px; margin-bottom:24px;
+      border: 1px solid var(--border-color);
+    }
+    .yt-tab {
+      flex:1; padding:10px 16px; border:none; cursor:pointer;
+      border-radius:10px; font-size:0.88rem; font-weight:600;
+      background:transparent; color:var(--text-secondary);
+      transition:all 0.2s; font-family:inherit;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+    }
+    .yt-tab.active {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: #fff; box-shadow: 0 2px 12px rgba(255,0,0,0.3);
+    }
+    .yt-tab:hover:not(.active) { background:var(--bg-card); color:var(--text-primary); }
+
+    /* Tab panels */
+    .yt-panel { display:none; }
+    .yt-panel.active { display:block; animation:fadeIn 0.3s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+
+    /* Input section */
+    .yt-input-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .yt-label {
+      display:block; font-size:0.85rem; font-weight:700;
+      color:var(--text-secondary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;
+    }
+    .yt-input, .yt-textarea, .yt-select {
+      width:100%; padding:12px 16px; border:1.5px solid var(--border-color);
+      border-radius:10px; font-size:0.95rem; color:var(--text-primary);
+      background:var(--bg-secondary); font-family:inherit; outline:none;
+      transition:border-color 0.2s;
+    }
+    .yt-input:focus, .yt-textarea:focus, .yt-select:focus { border-color:#ff0000; box-shadow:0 0 0 3px rgba(255,0,0,0.1); }
+    .yt-textarea { resize:vertical; min-height:90px; }
+    .yt-select { cursor:pointer; }
+
+    /* Generate button */
+    .yt-gen-btn {
+      width:100%; padding:14px; background:linear-gradient(135deg,#ff0000,#cc0000);
+      color:#fff; border:none; border-radius:12px; font-size:1rem; font-weight:700;
+      cursor:pointer; font-family:inherit; transition:all 0.2s; margin-top:16px;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .yt-gen-btn:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(255,0,0,0.35); }
+    .yt-gen-btn:active { transform:translateY(0); }
+    .yt-gen-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    /* Result sections */
+    .yt-result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .yt-result-card.show { display: block; }
+    .yt-result-header {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:16px; flex-wrap:wrap; gap:8px;
+    }
+    .yt-result-title { font-size:1rem; font-weight:700; display:flex; align-items:center; gap:8px; }
+    .yt-result-badge {
+      font-size:0.72rem; padding:3px 10px; border-radius:20px; font-weight:600;
+    }
+    .badge-title { background:rgba(255,0,0,0.1); color:#ff0000; }
+    .badge-desc { background:rgba(99,102,241,0.1); color:#6366f1; }
+    .badge-tags { background:rgba(22,163,74,0.1); color:#16a34a; }
+
+    /* Title options */
+    .yt-title-option {
+      padding:14px 16px; background:var(--bg-secondary); border:1.5px solid transparent;
+      border-radius:10px; margin-bottom:8px; cursor:pointer; transition:all 0.2s;
+      display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+    }
+    .yt-title-option:hover { border-color:#ff0000; background:rgba(255,0,0,0.04); }
+    .yt-title-option.selected { border-color:#ff0000; background:rgba(255,0,0,0.06); }
+    .yt-title-text { font-size:0.92rem; font-weight:500; line-height:1.5; flex:1; }
+    .yt-title-meta { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+    .yt-title-chip {
+      font-size:0.68rem; padding:2px 8px; border-radius:12px; font-weight:600;
+    }
+    .chip-len { background:rgba(99,102,241,0.1); color:var(--accent,#6366f1); }
+    .chip-hook { background:rgba(245,158,11,0.1); color:#d97706; }
+    .chip-power { background:rgba(22,163,74,0.1); color:#16a34a; }
+    .yt-copy-btn {
+      padding:6px 12px; background:transparent; border:1px solid var(--border-color);
+      border-radius:7px; font-size:0.75rem; cursor:pointer; font-family:inherit;
+      color:var(--text-secondary); transition:all 0.15s; white-space:nowrap; flex-shrink:0;
+    }
+    .yt-copy-btn:hover { background:#ff0000; color:#fff; border-color:transparent; }
+    .yt-copy-btn.copied { background:#22c55e; color:#fff; border-color:transparent; }
+
+    /* Description output */
+    .yt-desc-output {
+      background:var(--bg-secondary); border-radius:10px; padding:16px;
+      font-size:0.88rem; line-height:1.8; white-space:pre-wrap; color:var(--text-primary);
+      max-height:400px; overflow-y:auto;
+    }
+    .yt-desc-output .ts { color:#ff0000; font-weight:600; }
+    .yt-desc-output .hashtag { color:#6366f1; font-weight:600; }
+    .yt-desc-output .section-head { color:#f59e0b; font-weight:700; }
+
+    /* Tags output */
+    .yt-tags-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .yt-tag {
+      padding:6px 14px; background:var(--bg-secondary); border:1px solid var(--border-color);
+      border-radius:20px; font-size:0.82rem; cursor:pointer; transition:all 0.15s;
+      display:flex; align-items:center; gap:6px; color:var(--text-primary);
+    }
+    .yt-tag:hover { background:rgba(255,0,0,0.08); border-color:#ff0000; color:#ff0000; }
+    .yt-tag.copied-tag { background:#22c55e; color:#fff; border-color:transparent; }
+    .yt-tag-vol { font-size:0.7rem; color:var(--text-muted); }
+
+    /* Score card */
+    .yt-score-card {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      gap:12px; margin-top:16px;
+    }
+    .yt-score-item {
+      text-align:center; padding:16px 8px; background:var(--bg-secondary);
+      border-radius:10px; border:1px solid var(--border-color);
+    }
+    .yt-score-num { font-size:1.8rem; font-weight:800; }
+    .yt-score-lbl { font-size:0.72rem; color:var(--text-muted); margin-top:4px; }
+    .score-excellent { color:#22c55e; }
+    .score-good { color:#f59e0b; }
+    .score-poor { color:#ef4444; }
+
+    /* Char counter */
+    .yt-char-counter {
+      display:flex; justify-content:flex-end;
+      font-size:0.75rem; color:var(--text-muted); margin-top:4px;
+    }
+    .yt-char-counter.warn { color:#f59e0b; }
+    .yt-char-counter.over { color:#ef4444; }
+
+    /* Preview panel */
+    .yt-preview {
+      background:#0f0f0f; border-radius:12px; padding:16px; margin-top:16px;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+    .yt-preview-title { color:#fff; font-size:1rem; font-weight:600; line-height:1.4; margin-bottom:4px; }
+    .yt-preview-meta { color:#aaa; font-size:0.78rem; }
+    .yt-preview-thumb {
+      width:100%; aspect-ratio:16/9; background:linear-gradient(135deg,#333,#555);
+      border-radius:8px; margin-bottom:12px; display:flex; align-items:center;
+      justify-content:center; font-size:3rem; position:relative;
+    }
+    .yt-play-icon {
+      position:absolute; bottom:8px; right:8px;
+      background:rgba(0,0,0,0.8); color:#fff; border-radius:4px;
+      padding:2px 6px; font-size:0.72rem;
+    }
+
+    /* How to use */
+    .yt-howto { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin:24px 0; }
+    .yt-step {
+      padding:20px; background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:12px; text-align:center; position:relative;
+    }
+    .yt-step-num {
+      position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+      width:24px; height:24px; background:linear-gradient(135deg,#ff0000,#cc0000);
+      color:#fff; border-radius:50%; font-size:0.75rem; font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .yt-step .icon { font-size:1.8rem; margin-bottom:8px; margin-top:4px; }
+    .yt-step h4 { font-size:0.9rem; font-weight:700; margin-bottom:4px; }
+    .yt-step p { font-size:0.8rem; color:var(--text-muted); line-height:1.5; }
+
+    @media(max-width:600px) {
+      .yt-hero h1 { font-size:1.6rem; }
+      .yt-tabs { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="ai.html" class="nav-link active">AI Tools</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+        <a href="../contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search 100+ tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <!-- Hero -->
+  <div class="yt-hero">
+    <nav class="breadcrumb" style="justify-content:center;margin-bottom:16px;color:rgba(255,255,255,0.7);font-size:0.82rem;">
+      <a href="../index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
+      <i class="fas fa-chevron-right" style="margin:0 6px;font-size:0.65rem;"></i>
+      <a href="ai.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">AI Tools</a>
+      <i class="fas fa-chevron-right" style="margin:0 6px;font-size:0.65rem;"></i>
+      <span style="color:#fff;">YouTube SEO Tool</span>
+    </nav>
+    <h1>▶ YouTube SEO Tool</h1>
+    <p>Generate viral titles, SEO-optimized descriptions with timestamps, and high-ranking tags for your YouTube videos</p>
+    <div style="display:flex;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.15);padding:6px 14px;border-radius:20px;font-size:0.8rem;">✓ SEO Title Generator</span>
+      <span style="background:rgba(255,255,255,0.15);padding:6px 14px;border-radius:20px;font-size:0.8rem;">✓ Description Generator</span>
+      <span style="background:rgba(255,255,255,0.15);padding:6px 14px;border-radius:20px;font-size:0.8rem;">✓ Tags Generator</span>
+      <span style="background:rgba(255,255,255,0.15);padding:6px 14px;border-radius:20px;font-size:0.8rem;">✓ 100% Free</span>
+    </div>
+  </div>
+
+  <div style="max-width:960px;margin:0 auto;padding:28px 20px;">
+
+    <!-- Ad slot top -->
+    <div class="ht-ad-slot ht-ad-incontent" style="margin-bottom:24px;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <span class="ht-ad-label">Advertisement</span>
+    </div>
+
+    <!-- How to use steps -->
+    <div class="yt-howto">
+      <div class="yt-step"><div class="yt-step-num">1</div><div class="icon">📝</div><h4>Enter Video Topic</h4><p>Tell us what your video is about — topic, niche, and target audience.</p></div>
+      <div class="yt-step"><div class="yt-step-num">2</div><div class="icon">🎯</div><h4>Choose Type</h4><p>Select Title, Description or Tags — or generate all three at once.</p></div>
+      <div class="yt-step"><div class="yt-step-num">3</div><div class="icon">📋</div><h4>Copy & Paste</h4><p>Copy the optimized content directly into YouTube Studio and publish.</p></div>
+      <div class="yt-step"><div class="yt-step-num">4</div><div class="icon">🚀</div><h4>Rank Higher</h4><p>Watch your video climb search rankings with properly optimized SEO.</p></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="yt-tabs" role="tablist">
+      <button class="yt-tab active" onclick="switchTab('title', this)" role="tab" aria-selected="true">
+        <i class="fas fa-heading"></i> Title Generator
+      </button>
+      <button class="yt-tab" onclick="switchTab('description', this)" role="tab">
+        <i class="fas fa-align-left"></i> Description Generator
+      </button>
+      <button class="yt-tab" onclick="switchTab('tags', this)" role="tab">
+        <i class="fas fa-tags"></i> Tags Generator
+      </button>
+      <button class="yt-tab" onclick="switchTab('all', this)" role="tab">
+        <i class="fas fa-magic"></i> All-in-One
+      </button>
+    </div>
+
+    <!-- ══════════ TITLE PANEL ══════════ -->
+    <div class="yt-panel active" id="panel-title">
+      <div class="yt-input-section">
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+          <span style="background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;">T</span>
+          YouTube Title Generator
+        </h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="titleTopic">Video Topic / Keyword *</label>
+            <input type="text" id="titleTopic" class="yt-input" placeholder="e.g. How to invest in Pakistan stock market" />
+          </div>
+          <div>
+            <label class="yt-label" for="titleNiche">Channel Niche</label>
+            <select id="titleNiche" class="yt-select">
+              <option value="general">General / Mixed</option>
+              <option value="finance">Finance & Investment</option>
+              <option value="tech">Technology & Gadgets</option>
+              <option value="education">Education & Learning</option>
+              <option value="vlog">Vlog & Lifestyle</option>
+              <option value="cooking">Cooking & Food</option>
+              <option value="fitness">Health & Fitness</option>
+              <option value="gaming">Gaming</option>
+              <option value="travel">Travel</option>
+              <option value="beauty">Beauty & Fashion</option>
+              <option value="news">News & Current Affairs</option>
+              <option value="islamic">Islamic / Religion</option>
+              <option value="business">Business & Entrepreneurship</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="titleStyle">Title Style</label>
+            <select id="titleStyle" class="yt-select">
+              <option value="howto">How-To / Tutorial</option>
+              <option value="listicle">Listicle (Top 5, 10 Best...)</option>
+              <option value="question">Question-Based</option>
+              <option value="shocking">Shocking / Clickbait (Ethical)</option>
+              <option value="story">Story / Experience</option>
+              <option value="comparison">Comparison / Versus</option>
+              <option value="review">Review / Unboxing</option>
+              <option value="tips">Tips & Tricks</option>
+            </select>
+          </div>
+          <div>
+            <label class="yt-label" for="titleLang">Language</label>
+            <select id="titleLang" class="yt-select">
+              <option value="english">English</option>
+              <option value="urdu">Urdu (Roman)</option>
+              <option value="mixed">Urdu + English (Mixed)</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="yt-label" for="titleKeywords">Additional Keywords (optional)</label>
+          <input type="text" id="titleKeywords" class="yt-input" placeholder="e.g. Pakistan, 2025, beginners guide, for free" />
+        </div>
+        <button class="yt-gen-btn" onclick="generateTitles()">
+          <i class="fas fa-wand-magic-sparkles"></i> Generate 5 SEO Titles
+        </button>
+      </div>
+
+      <!-- Title Results -->
+      <div class="yt-result-card" id="titleResults">
+        <div class="yt-result-header">
+          <div class="yt-result-title">
+            <span>🎯</span> Generated Titles
+            <span class="yt-result-badge badge-title">Click to select</span>
+          </div>
+          <button class="yt-copy-btn" onclick="copyAllTitles()"><i class="fas fa-copy"></i> Copy All</button>
+        </div>
+        <div id="titleList"></div>
+        <!-- SEO Analysis -->
+        <div style="margin-top:20px;">
+          <h4 style="font-size:0.9rem;font-weight:700;margin-bottom:12px;">📊 SEO Analysis</h4>
+          <div class="yt-score-card" id="titleScores"></div>
+        </div>
+        <!-- YouTube Preview -->
+        <div style="margin-top:20px;">
+          <h4 style="font-size:0.9rem;font-weight:700;margin-bottom:8px;">👁 YouTube Preview (Dark Mode)</h4>
+          <div class="yt-preview">
+            <div class="yt-preview-thumb">
+              <span>🎬</span>
+              <span class="yt-play-icon">▶ 8:42</span>
+            </div>
+            <div class="yt-preview-title" id="previewTitle">Select a title above to preview</div>
+            <div class="yt-preview-meta">HashmiTools Channel • 1.2K views • 2 hours ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ DESCRIPTION PANEL ══════════ -->
+    <div class="yt-panel" id="panel-description">
+      <div class="yt-input-section">
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+          <span style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;"><i class="fas fa-align-left" style="font-size:0.75rem;"></i></span>
+          YouTube Description Generator
+        </h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="descTopic">Video Title / Topic *</label>
+            <input type="text" id="descTopic" class="yt-input" placeholder="e.g. How to invest in Pakistan stock market" />
+          </div>
+          <div>
+            <label class="yt-label" for="descNiche">Channel Niche</label>
+            <select id="descNiche" class="yt-select">
+              <option value="general">General</option>
+              <option value="finance">Finance</option>
+              <option value="tech">Technology</option>
+              <option value="education">Education</option>
+              <option value="vlog">Lifestyle / Vlog</option>
+              <option value="cooking">Cooking</option>
+              <option value="fitness">Fitness</option>
+              <option value="gaming">Gaming</option>
+              <option value="travel">Travel</option>
+              <option value="business">Business</option>
+              <option value="islamic">Islamic</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label class="yt-label" for="descBullets">Key Points in Video (one per line)</label>
+          <textarea id="descBullets" class="yt-textarea" placeholder="Introduction to PSX&#10;How to open a brokerage account&#10;Best stocks for beginners&#10;Risk management tips&#10;How to track your portfolio"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="descLength">Description Length</label>
+            <select id="descLength" class="yt-select">
+              <option value="medium">Medium (500-800 words)</option>
+              <option value="short">Short (200-300 words)</option>
+              <option value="long">Long (1000+ words)</option>
+            </select>
+          </div>
+          <div>
+            <label class="yt-label" for="descChannelName">Channel Name</label>
+            <input type="text" id="descChannelName" class="yt-input" placeholder="e.g. HashmiInvests" />
+          </div>
+          <div>
+            <label class="yt-label" for="descLang">Language</label>
+            <select id="descLang" class="yt-select">
+              <option value="english">English</option>
+              <option value="urdu">Roman Urdu</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="yt-label" for="descSocial">Social Links / CTAs (optional)</label>
+          <input type="text" id="descSocial" class="yt-input" placeholder="e.g. Instagram: @myhandle, WhatsApp: 0313-2710182" />
+        </div>
+        <button class="yt-gen-btn" onclick="generateDescription()">
+          <i class="fas fa-wand-magic-sparkles"></i> Generate Full Description
+        </button>
+      </div>
+
+      <!-- Description Result -->
+      <div class="yt-result-card" id="descResults">
+        <div class="yt-result-header">
+          <div class="yt-result-title">
+            <span>📄</span> Generated Description
+            <span class="yt-result-badge badge-desc">SEO Optimized</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="yt-copy-btn" onclick="copyDescription()"><i class="fas fa-copy"></i> Copy All</button>
+            <button class="yt-copy-btn" onclick="regenerateDescription()"><i class="fas fa-sync"></i> Regenerate</button>
+          </div>
+        </div>
+        <div class="yt-desc-output" id="descOutput"></div>
+        <div id="descStats" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;"></div>
+      </div>
+    </div>
+
+    <!-- ══════════ TAGS PANEL ══════════ -->
+    <div class="yt-panel" id="panel-tags">
+      <div class="yt-input-section">
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+          <span style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;">#</span>
+          YouTube Tags Generator
+        </h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="tagTopic">Main Video Topic *</label>
+            <input type="text" id="tagTopic" class="yt-input" placeholder="e.g. Pakistan stock market investing" />
+          </div>
+          <div>
+            <label class="yt-label" for="tagCount">Number of Tags</label>
+            <select id="tagCount" class="yt-select">
+              <option value="20">20 tags (Recommended)</option>
+              <option value="30">30 tags (Maximum)</option>
+              <option value="10">10 tags (Quick)</option>
+              <option value="50">50 tags (Full Pack)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="tagNiche">Content Category</label>
+            <select id="tagNiche" class="yt-select">
+              <option value="general">General</option>
+              <option value="finance">Finance & Money</option>
+              <option value="tech">Technology</option>
+              <option value="education">Education</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="vlog">Vlog & Personal</option>
+              <option value="cooking">Cooking & Food</option>
+              <option value="fitness">Health & Fitness</option>
+              <option value="gaming">Gaming</option>
+              <option value="travel">Travel</option>
+              <option value="beauty">Beauty & Fashion</option>
+              <option value="islamic">Islamic Content</option>
+              <option value="pakistan">Pakistan-Specific</option>
+            </select>
+          </div>
+          <div>
+            <label class="yt-label" for="tagLang">Tag Language</label>
+            <select id="tagLang" class="yt-select">
+              <option value="english">English Only</option>
+              <option value="mixed">English + Urdu (Mixed)</option>
+              <option value="urdu">Roman Urdu Only</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="yt-label" for="tagCompetitor">Competitor Channel (optional)</label>
+          <input type="text" id="tagCompetitor" class="yt-input" placeholder="e.g. Business Insider Urdu, Money Guru Pakistan" />
+        </div>
+        <button class="yt-gen-btn" onclick="generateTags()">
+          <i class="fas fa-tags"></i> Generate Tags & Hashtags
+        </button>
+      </div>
+
+      <!-- Tags Result -->
+      <div class="yt-result-card" id="tagsResults">
+        <div class="yt-result-header">
+          <div class="yt-result-title">
+            <span>🏷️</span> Generated Tags
+            <span class="yt-result-badge badge-tags">Click tag to copy</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="yt-copy-btn" onclick="copyAllTags()"><i class="fas fa-copy"></i> Copy All Tags</button>
+            <button class="yt-copy-btn" onclick="copyTagsForYT()"><i class="fas fa-youtube"></i> YouTube Format</button>
+          </div>
+        </div>
+        <div id="tagsOutput"></div>
+        <div id="tagsHashtags" style="margin-top:16px;"></div>
+        <div id="tagsStats" style="margin-top:12px;"></div>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(99,102,241,0.06);border-radius:10px;font-size:0.82rem;color:var(--text-secondary);">
+          💡 <strong>Pro Tip:</strong> Use a mix of broad tags (high search volume), medium tags (moderate competition), and long-tail tags (easy to rank) for best results. YouTube allows up to 500 characters for tags.
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ ALL-IN-ONE PANEL ══════════ -->
+    <div class="yt-panel" id="panel-all">
+      <div class="yt-input-section">
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+          <span style="background:linear-gradient(135deg,#ff0000,#6366f1);color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;">✨</span>
+          All-in-One YouTube SEO Pack
+        </h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="allTopic">Video Topic *</label>
+            <input type="text" id="allTopic" class="yt-input" placeholder="e.g. Best budget smartphones in Pakistan 2025" />
+          </div>
+          <div>
+            <label class="yt-label" for="allNiche">Niche</label>
+            <select id="allNiche" class="yt-select">
+              <option value="tech">Technology</option>
+              <option value="finance">Finance</option>
+              <option value="education">Education</option>
+              <option value="vlog">Vlog</option>
+              <option value="cooking">Cooking</option>
+              <option value="gaming">Gaming</option>
+              <option value="fitness">Fitness</option>
+              <option value="islamic">Islamic</option>
+              <option value="general">General</option>
+              <option value="pakistan">Pakistan</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label class="yt-label" for="allBullets">Main Points in Video (one per line)</label>
+          <textarea id="allBullets" class="yt-textarea" placeholder="Top features to check&#10;Budget vs premium comparison&#10;Where to buy in Pakistan&#10;My recommendation"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
+          <div>
+            <label class="yt-label" for="allChannel">Channel Name</label>
+            <input type="text" id="allChannel" class="yt-input" placeholder="YourChannel" />
+          </div>
+          <div>
+            <label class="yt-label" for="allLang">Language</label>
+            <select id="allLang" class="yt-select">
+              <option value="english">English</option>
+              <option value="urdu">Roman Urdu</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+          <div>
+            <label class="yt-label" for="allTitleStyle">Title Style</label>
+            <select id="allTitleStyle" class="yt-select">
+              <option value="howto">How-To</option>
+              <option value="listicle">Listicle</option>
+              <option value="shocking">Viral Hook</option>
+              <option value="review">Review</option>
+            </select>
+          </div>
+        </div>
+        <button class="yt-gen-btn" id="allGenBtn" onclick="generateAll()">
+          <i class="fas fa-rocket"></i> Generate Complete YouTube SEO Pack
+        </button>
+      </div>
+
+      <!-- All-in-one Results -->
+      <div id="allResults" style="display:none;animation:fadeIn 0.4s ease;">
+        <!-- Title -->
+        <div class="yt-result-card show" id="allTitleCard" style="border-left:4px solid #ff0000;">
+          <div class="yt-result-header">
+            <div class="yt-result-title"><span>🎯</span> Best Title <span class="yt-result-badge badge-title">Recommended</span></div>
+            <button class="yt-copy-btn" id="allTitleCopyBtn" onclick="copyAllMainTitle()"><i class="fas fa-copy"></i> Copy</button>
+          </div>
+          <div id="allBestTitle" style="padding:14px;background:var(--bg-secondary);border-radius:10px;font-size:1rem;font-weight:600;margin-bottom:8px;"></div>
+          <div id="allTitlesList" style="margin-top:10px;"></div>
+        </div>
+
+        <!-- Description -->
+        <div class="yt-result-card show" id="allDescCard" style="border-left:4px solid #6366f1;">
+          <div class="yt-result-header">
+            <div class="yt-result-title"><span>📄</span> Description <span class="yt-result-badge badge-desc">SEO Ready</span></div>
+            <button class="yt-copy-btn" onclick="copyAllDesc()"><i class="fas fa-copy"></i> Copy</button>
+          </div>
+          <div class="yt-desc-output" id="allDescOutput"></div>
+        </div>
+
+        <!-- Tags -->
+        <div class="yt-result-card show" id="allTagsCard" style="border-left:4px solid #22c55e;">
+          <div class="yt-result-header">
+            <div class="yt-result-title"><span>🏷️</span> Tags <span class="yt-result-badge badge-tags">30 Tags</span></div>
+            <button class="yt-copy-btn" onclick="copyAllTagsFromAll()"><i class="fas fa-copy"></i> Copy All</button>
+          </div>
+          <div id="allTagsOutput"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ad slot bottom -->
+    <div class="ht-ad-slot ht-ad-bottom" style="margin-top:32px;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <span class="ht-ad-label">Advertisement</span>
+    </div>
+
+    <!-- FAQ -->
+    <section style="margin-top:40px;">
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:20px;">YouTube SEO FAQ</h2>
+      <div style="display:grid;gap:10px;">
+        <div style="border:1px solid var(--border-color);border-radius:12px;overflow:hidden;">
+          <div style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+            What is the ideal YouTube title length? <i class="fas fa-chevron-down" style="color:var(--text-muted);font-size:0.8rem;"></i>
+          </div>
+          <div style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+            YouTube displays up to 60 characters in search results. Keep your title between 50-70 characters. Place the most important keyword in the first 40 characters. Our tool automatically shows the character count and flags titles that are too long or short.
+          </div>
+        </div>
+        <div style="border:1px solid var(--border-color);border-radius:12px;overflow:hidden;">
+          <div style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+            How many tags should I use on YouTube? <i class="fas fa-chevron-down" style="color:var(--text-muted);font-size:0.8rem;"></i>
+          </div>
+          <div style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+            YouTube allows up to 500 characters worth of tags. Use 15-30 tags — a mix of specific, medium, and broad tags. Start with your exact topic, then add variations, related terms, and broad category terms. Our tool generates all three types for you.
+          </div>
+        </div>
+        <div style="border:1px solid var(--border-color);border-radius:12px;overflow:hidden;">
+          <div style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+            Does YouTube description help with SEO? <i class="fas fa-chevron-down" style="color:var(--text-muted);font-size:0.8rem;"></i>
+          </div>
+          <div style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+            Yes, absolutely! YouTube's algorithm reads your description to understand what your video is about. Include your main keyword in the first 125 characters (visible before "Show more"), add timestamps for better engagement, and include related keywords naturally throughout. A well-written description can significantly boost your rankings.
+          </div>
+        </div>
+        <div style="border:1px solid var(--border-color);border-radius:12px;overflow:hidden;">
+          <div style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+            Kya Urdu content ke liye YouTube SEO alag hota hai? <i class="fas fa-chevron-down" style="color:var(--text-muted);font-size:0.8rem;"></i>
+          </div>
+          <div style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+            Pakistani aur Urdu channels ke liye: English keywords bhi use karein kyunki bahut searches English mein hoti hain. Roman Urdu tags bhi add karein (e.g., "Pakistan mai invest kaise karein"). Language mixing actually reach badha sakta hai. Hamare Tags Generator mein "Mixed" option se dono milengay.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related tools -->
+    <section style="margin-top:40px;">
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px;">Related Tools</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
+        <a href="ai-hashtag.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">#️⃣ AI Hashtag Generator</a>
+        <a href="qr-generator.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">▦ QR Code Generator</a>
+        <a href="link-shortener.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">✂️ Link Shortener</a>
+        <a href="seo-audit.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">🔍 SEO Audit Pro</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-content">
+          <p>© 2025 <strong>HashmiTools.com</strong></p>
+          <div class="footer-bottom-links">
+            <a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;"></div>
+
+  <script>
+  'use strict';
+
+  /* ════════════════════════════════════════════════
+     YOUTUBE SEO TOOL — Full Logic
+     ════════════════════════════════════════════════ */
+
+  // ── Tab switching ─────────────────────────────────
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.yt-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.yt-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  // ── Toast ─────────────────────────────────────────
+  function toast(msg, type='success') {
+    const c = document.querySelector('.toast-container');
+    if (!c) return;
+    const icons = { success:'✅', error:'❌', info:'ℹ️', warning:'⚠️' };
+    const t = document.createElement('div');
+    t.style.cssText = 'background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:10px 16px;font-size:0.85rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.15);display:flex;align-items:center;gap:8px;pointer-events:auto;max-width:300px;animation:fadeIn 0.3s ease;';
+    t.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+    c.appendChild(t);
+    setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(),300); }, 2500);
+  }
+
+  function copyText(text, btnEl) {
+    navigator.clipboard.writeText(text).then(()=>{
+      toast('Copied to clipboard!','success');
+      if(btnEl){ const o=btnEl.innerHTML; btnEl.innerHTML='<i class="fas fa-check"></i> Copied!'; btnEl.classList.add('copied'); setTimeout(()=>{btnEl.innerHTML=o;btnEl.classList.remove('copied');},2000); }
+    }).catch(()=>{
+      const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      toast('Copied!','success');
+    });
+  }
+
+  // ── TITLE TEMPLATES ────────────────────────────────
+  const TITLE_TEMPLATES = {
+    howto: [
+      'How to [TOPIC] — Complete Step-by-Step Guide [YEAR]',
+      'How to [TOPIC]: A Beginner\'s Guide (That Actually Works!)',
+      '[TOPIC] Tutorial for Beginners | Step-by-Step [YEAR]',
+      'How I [TOPIC] and Made It Work (Real Results)',
+      'The ONLY Guide You Need to [TOPIC] in [YEAR]',
+    ],
+    listicle: [
+      'Top 10 [TOPIC] Tips You NEED to Know [YEAR]',
+      '7 Best Ways to [TOPIC] (Ranked & Reviewed)',
+      '5 [TOPIC] Secrets Experts Won\'t Tell You',
+      '[NUMBER] Things You\'re Doing WRONG with [TOPIC]',
+      '10 [TOPIC] Hacks That Changed My Life',
+    ],
+    question: [
+      'Is [TOPIC] Worth It in [YEAR]? (Honest Answer)',
+      'Can You Really [TOPIC] Without Experience? Watch This!',
+      'Why Most People FAIL at [TOPIC] (And How to Avoid It)',
+      'What Happens When You [TOPIC]? (I Tried It)',
+      'Should You [TOPIC] in [YEAR]? Here\'s the Truth',
+    ],
+    shocking: [
+      'I Was SHOCKED by [TOPIC] — You Won\'t Believe This!',
+      '[TOPIC] Changed Everything for Me (Not Clickbait)',
+      'Nobody Talks About This [TOPIC] Secret',
+      'WARNING: [TOPIC] is NOT What You Think',
+      'I Tried [TOPIC] for 30 Days — Here\'s What Happened',
+    ],
+    story: [
+      'My Journey with [TOPIC] — What I Learned',
+      'How [TOPIC] Changed My Life in [YEAR]',
+      'My Honest Experience with [TOPIC] (Raw & Real)',
+      'I Made These [TOPIC] Mistakes So You Don\'t Have To',
+      'From Zero to [TOPIC] — My Complete Story',
+    ],
+    comparison: [
+      '[TOPIC] vs [ALT]: Which is Better in [YEAR]?',
+      'Best [TOPIC] Options Compared (Side by Side)',
+      '[TOPIC]: Before & After — Incredible Results',
+      'The [TOPIC] Showdown: I Tested All of Them!',
+      '[TOPIC] at Different Price Points — Which Wins?',
+    ],
+    review: [
+      '[TOPIC] Honest Review [YEAR] — Is It Worth It?',
+      'I Used [TOPIC] for 30 Days: Full Review',
+      '[TOPIC] Review: The Good, Bad & Ugly',
+      'Unboxing & Testing [TOPIC] — My Verdict',
+      'Don\'t Buy [TOPIC] Until You Watch This Review!',
+    ],
+    tips: [
+      '[TOPIC] Tips & Tricks That Actually Work [YEAR]',
+      'Pro Tips for [TOPIC] Nobody Tells You',
+      '10 [TOPIC] Tips from 5 Years of Experience',
+      'Master [TOPIC] with These Simple Tricks',
+      'The Ultimate [TOPIC] Cheat Sheet (Tips & Tricks)',
+    ],
+  };
+
+  const URDU_TITLE_TEMPLATES = [
+    '[TOPIC] ka Asaan Tarika | Complete Guide [YEAR]',
+    '[TOPIC] kaise karein? Sab kuch seekhein [YEAR]',
+    'Pakistan mein [TOPIC]: Poori Jankari [YEAR] mein',
+    '[TOPIC] — Meri Kamyabi ki Kahani (Sach Main!)',
+    'Kya aap [TOPIC] sahi kar rahe hain? Ye Galtiyaan Mat Karein',
+  ];
+
+  const MIXED_TITLE_TEMPLATES = [
+    '[TOPIC] kaise karein | How to [TOPIC] [YEAR]',
+    'Best [TOPIC] Guide for Pakistanis [YEAR]',
+    '[TOPIC] Complete Tutorial Pakistan [YEAR]',
+    'Pakistan mein [TOPIC] — Full Guide',
+    '[TOPIC] Tips & Tricks Pakistan [YEAR]',
+  ];
+
+  function generateTitles() {
+    const topic = document.getElementById('titleTopic').value.trim();
+    if (!topic) { toast('Please enter a video topic!','error'); document.getElementById('titleTopic').focus(); return; }
+    const style = document.getElementById('titleStyle').value;
+    const niche = document.getElementById('titleNiche').value;
+    const lang = document.getElementById('titleLang').value;
+    const keywords = document.getElementById('titleKeywords').value.trim();
+    const year = new Date().getFullYear();
+
+    let templates;
+    if (lang === 'urdu') templates = URDU_TITLE_TEMPLATES;
+    else if (lang === 'mixed') templates = MIXED_TITLE_TEMPLATES;
+    else templates = TITLE_TEMPLATES[style] || TITLE_TEMPLATES.howto;
+
+    const shortTopic = topic.length > 35 ? topic.slice(0, 35) + '...' : topic;
+    const capTopic = topic.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+    const titles = templates.map(t =>
+      t.replace(/\[TOPIC\]/g, capTopic)
+       .replace(/\[YEAR\]/g, year)
+       .replace(/\[ALT\]/g, keywords || 'Alternative')
+       .replace(/\[NUMBER\]/g, ['5','7','10','12','15'][Math.floor(Math.random()*5)])
+    );
+
+    // Add niche-specific title
+    if (niche === 'finance') titles.push(`${capTopic} | Full Finance Guide Pakistan ${year}`);
+    if (niche === 'tech') titles.push(`${capTopic} — Tested & Reviewed by Tech Expert ${year}`);
+    if (niche === 'islamic') titles.push(`${capTopic} — Islamic Perspective | Mufti's Opinion ${year}`);
+
+    renderTitles(titles.slice(0, 5), style, lang);
+  }
+
+  function renderTitles(titles, style, lang) {
+    const card = document.getElementById('titleResults');
+    const list = document.getElementById('titleList');
+
+    const hooks = { howto:['Tutorial','Guide'], listicle:['List','Number'], question:['Question','Curiosity'], shocking:['Curiosity Gap','FOMO'], story:['Story','Emotion'] };
+    const styleHooks = hooks[style] || ['SEO','Engagement'];
+
+    list.innerHTML = titles.map((title, i) => {
+      const len = title.length;
+      const lenClass = len < 40 ? 'score-poor' : len <= 70 ? 'score-excellent' : 'score-good';
+      const lengthLabel = len < 40 ? 'Short' : len <= 70 ? 'Ideal' : 'Long';
+      return `
+      <div class="yt-title-option" onclick="selectTitle(this, '${title.replace(/'/g,"\\'")}')">
+        <div style="flex:1">
+          <div class="yt-title-text">${title}</div>
+          <div class="yt-title-meta">
+            <span class="yt-title-chip chip-len"><span class="${lenClass}">${len} chars</span> (${lengthLabel})</span>
+            <span class="yt-title-chip chip-hook">${styleHooks[0] || 'SEO'}</span>
+            ${i === 0 ? '<span class="yt-title-chip chip-power">⭐ Top Pick</span>' : ''}
+          </div>
+        </div>
+        <button class="yt-copy-btn" onclick="event.stopPropagation();copyText('${title.replace(/'/g,"\\'")}',this)"><i class="fas fa-copy"></i></button>
+      </div>`;
+    }).join('');
+
+    // Score analysis
+    const bestTitle = titles[0];
+    document.getElementById('titleScores').innerHTML = `
+      <div class="yt-score-item"><div class="yt-score-num ${bestTitle.length<=70?'score-excellent':'score-good'}">${bestTitle.length}</div><div class="yt-score-lbl">Character Count</div></div>
+      <div class="yt-score-item"><div class="yt-score-num score-excellent">${(bestTitle.match(/\b\w{5,}\b/g)||[]).length}</div><div class="yt-score-lbl">Power Words</div></div>
+      <div class="yt-score-item"><div class="yt-score-num score-good">${bestTitle.split(' ').length}</div><div class="yt-score-lbl">Word Count</div></div>
+      <div class="yt-score-item"><div class="yt-score-num score-excellent">${/[0-9]/.test(bestTitle)?'✓':'✗'}</div><div class="yt-score-lbl">Has Number</div></div>
+    `;
+
+    card.classList.add('show');
+    document.getElementById('previewTitle').textContent = titles[0];
+  }
+
+  function selectTitle(el, title) {
+    document.querySelectorAll('.yt-title-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('previewTitle').textContent = title;
+  }
+
+  function copyAllTitles() {
+    const options = document.querySelectorAll('.yt-title-text');
+    const text = Array.from(options).map((o,i) => `${i+1}. ${o.textContent}`).join('\n');
+    copyText(text);
+  }
+
+  // ── DESCRIPTION GENERATOR ─────────────────────────
+  const DESC_TEMPLATES = {
+    english: (topic, bullets, channel, social, year) => {
+      const bulletList = bullets.filter(Boolean).map((b,i) => `${['00:00','01:30','03:15','05:00','07:20','09:45','11:30'][i]||`${i*2}:00`} — ${b}`).join('\n');
+      return `🎯 In this video, I'll show you everything you need to know about ${topic}. Whether you're a complete beginner or looking to level up your skills, this comprehensive guide will walk you through it all.
+
+📌 WHAT YOU'LL LEARN IN THIS VIDEO:
+${bullets.filter(Boolean).map(b=>`✅ ${b}`).join('\n')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱ TIMESTAMPS (Click to Jump):
+${bulletList}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👆 If this video helped you, please LIKE, SUBSCRIBE, and hit the 🔔 notification bell so you never miss our latest videos!
+
+💬 Have questions about ${topic}? Drop them in the comments below — I read and reply to every comment!
+
+${channel ? `📺 More from ${channel}:\n→ Watch our full playlist on this topic\n→ Check out our beginner's guide series\n→ Subscribe for weekly ${topic} content\n` : ''}
+${social ? `📱 CONNECT WITH US:\n${social}\n` : ''}
+
+🔑 KEYWORDS: ${topic}, ${topic} tutorial, ${topic} guide, ${topic} for beginners, ${topic} ${year}, how to ${topic}, ${topic} tips
+
+⚠️ DISCLAIMER: This video is for educational purposes only. Always do your own research before making any decisions.
+
+© ${year} ${channel || 'HashmiTools'} — All rights reserved.`;
+    },
+
+    urdu: (topic, bullets, channel, social, year) => {
+      const bulletList = bullets.filter(Boolean).map((b,i) => `${['00:00','01:30','03:15','05:00','07:20'][i]||`${i*2}:00`} — ${b}`).join('\n');
+      return `🎯 Is video mein main aapko ${topic} ke baare mein sab kuch bataunga. Chahe aap bilkul naye hain ya experience rakhte hain — ye guide aapke liye hai!
+
+📌 IS VIDEO MEIN KYA SEEKHENGAY:
+${bullets.filter(Boolean).map(b=>`✅ ${b}`).join('\n')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱ TIMESTAMPS:
+${bulletList}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👍 Agar ye video pasand aaye to LIKE karein, SUBSCRIBE karein aur 🔔 bell icon dabayein!
+
+💬 ${topic} ke baare mein koi sawal? Neeche comment mein zaroor likhein!
+
+${channel ? `📺 ${channel} ke aur videos dekhen:\n→ Hamare complete series dekhein\n→ Subscribe karein weekly content ke liye\n` : ''}
+${social ? `📱 HAMARE SAATH JUDEIN:\n${social}\n` : ''}
+
+🔑 KEYWORDS: ${topic}, ${topic} tutorial, ${topic} guide Pakistan, ${topic} Urdu, ${topic} ${year}
+
+© ${year} ${channel || 'HashmiTools'} — All rights reserved.`;
+    },
+  };
+
+  let currentDesc = '';
+
+  function generateDescription() {
+    const topic = document.getElementById('descTopic').value.trim();
+    if (!topic) { toast('Please enter the video topic!','error'); return; }
+    const channel = document.getElementById('descChannelName').value.trim();
+    const social = document.getElementById('descSocial').value.trim();
+    const lang = document.getElementById('descLang').value;
+    const bulletsRaw = document.getElementById('descBullets').value.trim();
+    const bullets = bulletsRaw ? bulletsRaw.split('\n').filter(Boolean) : [`Introduction to ${topic}`, `Main concepts explained`, `Tips and best practices`, `Common mistakes to avoid`, `Final thoughts and recommendations`];
+    const year = new Date().getFullYear();
+
+    const fn = (lang === 'urdu') ? DESC_TEMPLATES.urdu : DESC_TEMPLATES.english;
+    currentDesc = fn(topic, bullets, channel, social, year);
+
+    renderDescription(currentDesc);
+  }
+
+  function regenerateDescription() { generateDescription(); }
+
+  function renderDescription(desc) {
+    const card = document.getElementById('descResults');
+    const output = document.getElementById('descOutput');
+    // Colorize the description
+    let colored = desc
+      .replace(/(\d{2}:\d{2}.*)/g, '<span class="ts">$1</span>')
+      .replace(/(#\w+)/g, '<span class="hashtag">$1</span>')
+      .replace(/(━+)/g, '<span style="color:var(--border-color);">$1</span>');
+    output.innerHTML = colored;
+
+    // Stats
+    const wordCount = desc.split(/\s+/).length;
+    const charCount = desc.length;
+    document.getElementById('descStats').innerHTML = `
+      <span style="background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;">📝 ${wordCount} words</span>
+      <span style="background:rgba(22,163,74,0.1);color:#16a34a;padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;">🔢 ${charCount} characters</span>
+      <span style="background:rgba(245,158,11,0.1);color:#d97706;padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;">⏱ ${(desc.match(/\d{2}:\d{2}/g)||[]).length} timestamps</span>
+      <span style="${charCount>=500&&charCount<=5000?'background:rgba(22,163,74,0.1);color:#16a34a;':'background:rgba(239,68,68,0.1);color:#ef4444;'}padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;">${charCount>=500&&charCount<=5000?'✅ Ideal Length':'⚠️ Adjust Length'}</span>
+    `;
+    card.classList.add('show');
+  }
+
+  function copyDescription() {
+    copyText(currentDesc || document.getElementById('descOutput').innerText);
+  }
+
+  // ── TAGS GENERATOR ─────────────────────────────────
+  const TAG_BANK = {
+    general: ['tutorial','how to','guide','tips','tricks','beginners','free','online','2025','best','top','easy','fast','simple','complete'],
+    finance: ['investment','stock market','Pakistan stocks','PSX','mutual funds','saving money','passive income','financial freedom','money tips','wealth building','budget','debt free','real estate Pakistan','cryptocurrency'],
+    tech: ['technology','gadgets','review','unboxing','specs','comparison','best phone','budget smartphone','Android','iPhone','laptop review','PC build','software','apps'],
+    education: ['study tips','exam preparation','learning','academic','students','school','college','university','online course','skill development'],
+    vlog: ['day in my life','vlog','lifestyle','personal','family','home','daily routine','travel vlog','food vlog','challenge'],
+    cooking: ['recipe','cooking','food','Pakistani food','biryani','karahi','desi food','easy recipe','quick meal','dinner ideas','breakfast'],
+    fitness: ['workout','exercise','weight loss','diet','nutrition','gym','home workout','fitness tips','abs','cardio','protein','health'],
+    gaming: ['gameplay','gaming','PS5','Xbox','PC gaming','game review','mobile gaming','esports','strategy','tips and tricks'],
+    travel: ['travel','Pakistan tourism','places to visit','travel guide','budget travel','Hunza','Karachi','Lahore','Islamabad','travel tips'],
+    beauty: ['makeup tutorial','skincare','beauty tips','fashion','ootd','products','review','Pakistani fashion','desi beauty'],
+    islamic: ['Islamic','Quran','Hadith','Sunnah','Islam','Muslim','dua','Islamic lecture','mufti','scholars','halal','haram','Islamic finance'],
+    pakistan: ['Pakistan','Pakistani','Lahore','Karachi','Islamabad','Peshawar','Quetta','PTI','PMLN','PPP','Pakistan news','Pakistani culture'],
+  };
+
+  let currentTags = [];
+
+  function generateTags() {
+    const topic = document.getElementById('tagTopic').value.trim();
+    if (!topic) { toast('Please enter the video topic!','error'); return; }
+    const niche = document.getElementById('tagNiche').value;
+    const count = parseInt(document.getElementById('tagCount').value);
+    const lang = document.getElementById('tagLang').value;
+    const year = new Date().getFullYear();
+    const topicWords = topic.toLowerCase().split(/\s+/);
+
+    // Build tag list
+    let tags = [];
+
+    // 1. Exact topic
+    tags.push(topic);
+    tags.push(topic + ' ' + year);
+
+    // 2. Topic variations
+    topicWords.forEach(w => { if(w.length > 3) { tags.push(w); tags.push(w + ' guide'); tags.push(w + ' tutorial'); tags.push('how to ' + w); } });
+
+    // 3. Niche-specific tags
+    const nicheTags = TAG_BANK[niche] || TAG_BANK.general;
+    tags = tags.concat(nicheTags.slice(0, 8));
+
+    // 4. Pakistan-specific if relevant
+    if (['finance','tech','education','islamic','pakistan'].includes(niche)) {
+      tags.push(topic + ' Pakistan');
+      tags.push(topic + ' Pakistan ' + year);
+      tags.push('Pakistan ' + topicWords[0]);
+    }
+
+    // 5. Language-specific
+    if (lang === 'mixed' || lang === 'urdu') {
+      tags.push(topic + ' Urdu');
+      tags.push(topic + ' Roman Urdu');
+      tags.push(topicWords[0] + ' kaise karein');
+      tags.push('Pakistani ' + topic);
+    }
+
+    // 6. Long-tail tags
+    tags.push('best ' + topic + ' ' + year);
+    tags.push(topic + ' for beginners');
+    tags.push(topic + ' in Pakistan');
+    tags.push(topic + ' tips');
+    tags.push(topic + ' explained');
+    tags.push('free ' + topic);
+
+    // 7. General YouTube tags
+    tags.push('HashmiTools');
+    tags.push('free online tools');
+
+    // Remove duplicates, limit count
+    tags = [...new Set(tags.filter(Boolean).map(t => t.trim()))].slice(0, count);
+    currentTags = tags;
+
+    renderTags(tags);
+  }
+
+  function renderTags(tags) {
+    const card = document.getElementById('tagsResults');
+
+    // Regular tags
+    const tagsEl = document.getElementById('tagsOutput');
+    tagsEl.innerHTML = '<div class="yt-tags-wrap">' +
+      tags.map((tag, i) => {
+        const type = i < 3 ? 'Exact' : i < 10 ? 'Medium' : 'Broad';
+        const colors = { 'Exact':'rgba(255,0,0,0.1);color:#ff0000', 'Medium':'rgba(99,102,241,0.1);color:#6366f1', 'Broad':'rgba(22,163,74,0.1);color:#16a34a' };
+        return `<div class="yt-tag" onclick="copyTagSingle(this,'${tag.replace(/'/g,"\\'")}')">
+          <span style="font-size:0.6rem;padding:1px 5px;border-radius:8px;background:${colors[type]||'rgba(99,102,241,0.1);color:#6366f1'};">${type}</span>
+          ${tag}
+        </div>`;
+      }).join('') + '</div>';
+
+    // Hashtags section
+    const hashtags = tags.slice(0,5).map(t => '#' + t.replace(/\s+/g,'').replace(/[^a-zA-Z0-9_]/g,''));
+    document.getElementById('tagsHashtags').innerHTML = `
+      <div style="margin-top:4px;">
+        <div style="font-size:0.8rem;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">HASHTAGS (for video description):</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          ${hashtags.map(h=>`<span style="padding:4px 12px;background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);border-radius:20px;font-size:0.82rem;font-weight:600;cursor:pointer;" onclick="copyText('${h}')">${h}</span>`).join('')}
+        </div>
+      </div>`;
+
+    // Stats
+    const totalChars = tags.join(',').length;
+    document.getElementById('tagsStats').innerHTML = `
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <span style="background:rgba(22,163,74,0.1);color:#16a34a;padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;">🏷️ ${tags.length} tags generated</span>
+        <span style="${totalChars<=500?'background:rgba(22,163,74,0.1);color:#16a34a':'background:rgba(239,68,68,0.1);color:#ef4444'};padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;">${totalChars}/500 YouTube chars ${totalChars<=500?'✅':'⚠️ Too many'}</span>
+      </div>`;
+
+    card.classList.add('show');
+  }
+
+  function copyTagSingle(el, tag) {
+    copyText(tag);
+    el.classList.add('copied-tag');
+    setTimeout(()=>el.classList.remove('copied-tag'),1500);
+  }
+
+  function copyAllTags() {
+    copyText(currentTags.join(', '));
+  }
+
+  function copyTagsForYT() {
+    // YouTube format: comma-separated, no quotes
+    copyText(currentTags.join(','));
+    toast('Tags copied in YouTube format!','success');
+  }
+
+  // ── ALL-IN-ONE ─────────────────────────────────────
+  async function generateAll() {
+    const topic = document.getElementById('allTopic').value.trim();
+    if (!topic) { toast('Please enter a video topic!','error'); return; }
+
+    const btn = document.getElementById('allGenBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating your complete SEO pack…';
+
+    const niche = document.getElementById('allNiche').value;
+    const lang = document.getElementById('allLang').value;
+    const channel = document.getElementById('allChannel').value.trim();
+    const bulletsRaw = document.getElementById('allBullets').value.trim();
+    const bullets = bulletsRaw ? bulletsRaw.split('\n').filter(Boolean) : ['Introduction','Main content','Tips and tricks','Conclusion'];
+    const style = document.getElementById('allTitleStyle').value;
+    const year = new Date().getFullYear();
+
+    await new Promise(r => setTimeout(r, 1200)); // simulate processing
+
+    // Generate titles
+    let templates = TITLE_TEMPLATES[style] || TITLE_TEMPLATES.howto;
+    if (lang === 'urdu') templates = URDU_TITLE_TEMPLATES;
+    else if (lang === 'mixed') templates = MIXED_TITLE_TEMPLATES;
+    const capTopic = topic.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+    const allTitles = templates.map(t => t.replace(/\[TOPIC\]/g, capTopic).replace(/\[YEAR\]/g, year).replace(/\[ALT\]/g,'Alternative').replace(/\[NUMBER\]/g,'10'));
+
+    // Best title
+    document.getElementById('allBestTitle').textContent = allTitles[0];
+    document.getElementById('allTitlesList').innerHTML = allTitles.slice(1,4).map((t,i)=>
+      `<div style="padding:8px 12px;background:var(--bg-secondary);border-radius:8px;font-size:0.85rem;margin-bottom:6px;cursor:pointer;color:var(--text-secondary);" onclick="copyText('${t.replace(/'/g,"\\'")}')">Option ${i+2}: ${t}</div>`
+    ).join('');
+
+    // Description
+    const descFn = lang==='urdu' ? DESC_TEMPLATES.urdu : DESC_TEMPLATES.english;
+    const desc = descFn(topic, bullets, channel, '', year);
+    let colored = desc.replace(/(\d{2}:\d{2}.*)/g,'<span class="ts">$1</span>').replace(/(#\w+)/g,'<span class="hashtag">$1</span>');
+    document.getElementById('allDescOutput').innerHTML = colored;
+    document.getElementById('allDescOutput').dataset.raw = desc;
+
+    // Tags
+    const nicheTags = TAG_BANK[niche] || TAG_BANK.general;
+    const allTagsList = [topic, topic+' '+year, ...topic.split(' ').filter(w=>w.length>3), ...nicheTags.slice(0,10), 'HashmiTools'].slice(0,30);
+    document.getElementById('allTagsOutput').innerHTML = '<div class="yt-tags-wrap">' +
+      allTagsList.map(tag=>`<div class="yt-tag" onclick="copyTagSingle(this,'${tag.replace(/'/g,"\\'")}')"><span style="font-size:0.65rem;padding:1px 4px;border-radius:6px;background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);">tag</span> ${tag}</div>`).join('') + '</div>';
+    document.getElementById('allTagsOutput').dataset.tags = allTagsList.join(', ');
+
+    document.getElementById('allResults').style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-check"></i> SEO Pack Generated! Scroll Down ↓';
+    setTimeout(()=>{ btn.innerHTML='<i class="fas fa-rocket"></i> Generate Complete YouTube SEO Pack'; btn.disabled=false; }, 3000);
+
+    toast('Complete SEO pack ready!','success');
+    document.getElementById('allResults').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function copyAllMainTitle() {
+    const t = document.getElementById('allBestTitle').textContent;
+    const btn = document.getElementById('allTitleCopyBtn');
+    copyText(t, btn);
+  }
+
+  function copyAllDesc() {
+    const raw = document.getElementById('allDescOutput').dataset.raw || document.getElementById('allDescOutput').innerText;
+    copyText(raw);
+  }
+
+  function copyAllTagsFromAll() {
+    const raw = document.getElementById('allTagsOutput').dataset.tags || '';
+    copyText(raw);
+  }
+
+  // ── Init AdSense ─────────────────────────────────
+  try { (adsbygoogle=window.adsbygoogle||[]).push({}); } catch(e) {}
+  try { (adsbygoogle=window.adsbygoogle||[]).push({}); } catch(e) {}
+  </script>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

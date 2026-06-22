@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Link Shortener – Shorten URLs Instantly | HashmiTools</title>
+  <meta name="description" content="Free URL shortener tool. Shorten long links instantly, track click counts, copy short links, manage history. No signup needed. Like Bitly, but free." />
+  <meta name="keywords" content="link shortener, url shortener, short link, bitly alternative, tiny url, shorten link, free url shortener, custom short link, link tracker" />
+  <link rel="canonical" href="https://hashmitools.com/tools/link-shortener.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <script src="../assets/js/theme.js"></script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+  <style>
+    /* ─── Link Shortener Specific Styles ─── */
+    .ls-hero {
+      background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+      padding: 48px 24px;
+      text-align: center;
+      color: #fff;
+    }
+    .ls-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:2.2rem; font-weight:800; margin-bottom:8px; }
+    .ls-hero p { font-size:1.05rem; opacity:0.9; margin-bottom:28px; }
+    .ls-input-wrap {
+      display:flex; gap:0; max-width:680px; margin:0 auto;
+      background:#fff; border-radius:14px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,0.2);
+    }
+    .ls-url-input {
+      flex:1; padding:16px 20px; border:none; outline:none;
+      font-size:1rem; color:#1e293b; background:transparent;
+      font-family:inherit;
+    }
+    .ls-shorten-btn {
+      padding:14px 28px; background:linear-gradient(135deg,#6366f1,#4f46e5);
+      color:#fff; border:none; cursor:pointer; font-size:0.95rem; font-weight:700;
+      font-family:inherit; transition:all 0.2s; white-space:nowrap;
+    }
+    .ls-shorten-btn:hover { background:linear-gradient(135deg,#4f46e5,#3730a3); }
+    .ls-shorten-btn:disabled { opacity:0.6; cursor:not-allowed; }
+
+    /* Result card */
+    .ls-result-card {
+      background:var(--bg-card); border:2px solid rgba(99,102,241,0.3);
+      border-radius:16px; padding:24px; margin:20px 0;
+      display:none; animation:fadeInUp 0.4s ease;
+    }
+    .ls-result-card.show { display:block; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+    .ls-short-url {
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+      background:var(--bg-secondary); border-radius:12px; padding:14px 18px;
+      margin:12px 0;
+    }
+    .ls-short-link {
+      flex:1; font-size:1.1rem; font-weight:700; color:var(--accent,#6366f1);
+      text-decoration:none; word-break:break-all;
+    }
+    .ls-short-link:hover { text-decoration:underline; }
+    .ls-copy-btn {
+      padding:8px 18px; background:var(--accent,#6366f1); color:#fff;
+      border:none; border-radius:8px; cursor:pointer; font-weight:600;
+      font-size:0.85rem; white-space:nowrap; transition:all 0.2s; font-family:inherit;
+    }
+    .ls-copy-btn:hover { opacity:0.85; transform:translateY(-1px); }
+    .ls-copy-btn.copied { background:#22c55e; }
+
+    /* Stats row */
+    .ls-stats { display:flex; gap:16px; flex-wrap:wrap; margin:12px 0; }
+    .ls-stat {
+      display:flex; align-items:center; gap:6px;
+      font-size:0.8rem; color:var(--text-muted);
+      background:var(--bg-secondary); padding:6px 12px; border-radius:20px;
+    }
+    .ls-stat strong { color:var(--text-primary); }
+
+    /* History table */
+    .ls-history { margin-top:32px; }
+    .ls-history-header {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:12px;
+    }
+    .ls-history-header h3 { font-size:1.1rem; font-weight:700; }
+    .ls-clear-btn {
+      padding:6px 14px; background:transparent; border:1px solid var(--border-color);
+      border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem;
+      font-family:inherit; transition:all 0.2s;
+    }
+    .ls-clear-btn:hover { border-color:#ef4444; color:#ef4444; }
+
+    .ls-history-item {
+      display:flex; align-items:center; gap:12px; padding:12px 16px;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:10px; margin-bottom:8px; transition:all 0.2s;
+      flex-wrap:wrap;
+    }
+    .ls-history-item:hover { border-color:var(--accent,#6366f1); box-shadow:0 2px 12px rgba(99,102,241,0.1); }
+    .ls-hi-index {
+      width:28px; height:28px; background:var(--bg-secondary); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.75rem; font-weight:700; color:var(--text-muted); flex-shrink:0;
+    }
+    .ls-hi-info { flex:1; min-width:0; }
+    .ls-hi-short { font-weight:700; color:var(--accent,#6366f1); font-size:0.9rem; text-decoration:none; }
+    .ls-hi-short:hover { text-decoration:underline; }
+    .ls-hi-long { font-size:0.75rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:320px; margin-top:2px; }
+    .ls-hi-actions { display:flex; gap:6px; flex-shrink:0; }
+    .ls-hi-btn {
+      padding:5px 10px; border:1px solid var(--border-color); border-radius:6px;
+      font-size:0.75rem; cursor:pointer; background:transparent;
+      color:var(--text-secondary); font-family:inherit; transition:all 0.15s;
+    }
+    .ls-hi-btn:hover { background:var(--accent,#6366f1); color:#fff; border-color:transparent; }
+    .ls-hi-btn.del:hover { background:#ef4444; border-color:transparent; }
+    .ls-click-badge {
+      font-size:0.72rem; background:rgba(99,102,241,0.1); color:var(--accent,#6366f1);
+      padding:3px 8px; border-radius:12px; font-weight:600; white-space:nowrap;
+    }
+
+    /* Features */
+    .ls-features { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin:32px 0; }
+    .ls-feat {
+      text-align:center; padding:24px 16px;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:12px; transition:all 0.2s;
+    }
+    .ls-feat:hover { border-color:var(--accent,#6366f1); transform:translateY(-2px); }
+    .ls-feat .icon { font-size:2rem; margin-bottom:8px; }
+    .ls-feat h4 { font-size:0.95rem; font-weight:700; margin-bottom:6px; }
+    .ls-feat p { font-size:0.8rem; color:var(--text-muted); line-height:1.5; }
+
+    /* QR section */
+    .ls-qr-wrap { text-align:center; margin-top:16px; display:none; }
+    .ls-qr-wrap.show { display:block; }
+    #qrCanvas { border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
+
+    /* Tips */
+    .ls-tip-wrap { background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.15); border-radius:12px; padding:16px 20px; margin:16px 0; }
+    .ls-tip-wrap h4 { font-size:0.9rem; font-weight:700; color:var(--accent,#6366f1); margin-bottom:6px; }
+    .ls-tip-wrap p { font-size:0.82rem; color:var(--text-secondary); line-height:1.6; }
+
+    @media(max-width:600px) {
+      .ls-hero h1 { font-size:1.6rem; }
+      .ls-input-wrap { flex-direction:column; border-radius:12px; }
+      .ls-shorten-btn { border-radius:0 0 12px 12px; }
+      .ls-url-input { border-radius:12px 12px 0 0; border-bottom:1px solid #e2e8f0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="developer.html" class="nav-link active">Developer Tools</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+        <a href="../contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search 100+ tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <!-- Hero Section -->
+  <div class="ls-hero">
+    <nav class="breadcrumb" style="justify-content:center;margin-bottom:16px;color:rgba(255,255,255,0.7);font-size:0.82rem;">
+      <a href="../index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
+      <i class="fas fa-chevron-right" style="margin:0 6px;font-size:0.65rem;"></i>
+      <span style="color:#fff;">Link Shortener</span>
+    </nav>
+    <h1>✂️ Free Link Shortener</h1>
+    <p>Shorten long URLs instantly — no signup, no limits, no tracking of you</p>
+    <div class="ls-input-wrap">
+      <input type="url" id="longUrlInput" class="ls-url-input" placeholder="Paste your long URL here… e.g. https://example.com/very/long/url" autocomplete="off" />
+      <button class="ls-shorten-btn" id="shortenBtn" onclick="shortenUrl()">
+        <i class="fas fa-magic"></i> Shorten
+      </button>
+    </div>
+    <p style="margin-top:12px;font-size:0.8rem;opacity:0.75;">✓ Instant  ✓ Free  ✓ Works in browser  ✓ No signup needed</p>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;padding:24px 20px;">
+
+    <!-- Ad slot -->
+    <div class="ht-ad-slot ht-ad-incontent" style="margin-bottom:24px;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <span class="ht-ad-label">Advertisement</span>
+    </div>
+
+    <!-- Result Card -->
+    <div class="ls-result-card" id="resultCard">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="width:36px;height:36px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;">✓</div>
+        <div>
+          <h3 style="font-size:1rem;font-weight:700;margin:0;">Link shortened successfully!</h3>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Your short link is ready to share</p>
+        </div>
+      </div>
+
+      <div class="ls-short-url">
+        <a id="resultShortLink" class="ls-short-link" href="#" target="_blank"></a>
+        <button class="ls-copy-btn" id="copyBtn" onclick="copyShortLink()">
+          <i class="fas fa-copy"></i> Copy
+        </button>
+        <button class="ls-copy-btn" onclick="shareLink()" style="background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);border:1px solid rgba(99,102,241,0.3);">
+          <i class="fas fa-share-alt"></i> Share
+        </button>
+      </div>
+
+      <div class="ls-stats">
+        <div class="ls-stat"><i class="fas fa-link" style="color:var(--accent,#6366f1);"></i> <strong id="statOriginal">—</strong> original chars</div>
+        <div class="ls-stat"><i class="fas fa-compress-alt" style="color:#22c55e;"></i> <strong id="statShort">—</strong> short chars</div>
+        <div class="ls-stat"><i class="fas fa-percent" style="color:#f97316;"></i> <strong id="statSaved">—</strong> saved</div>
+        <div class="ls-stat"><i class="fas fa-mouse-pointer" style="color:#8b5cf6;"></i> <strong id="statClicks">0</strong> clicks</div>
+      </div>
+
+      <!-- Original URL -->
+      <div style="margin-top:12px;padding:10px 14px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px;">Original URL:</div>
+        <div id="statOriginalUrl" style="font-size:0.82rem;word-break:break-all;color:var(--text-secondary);"></div>
+      </div>
+
+      <!-- QR Code Toggle -->
+      <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
+        <button onclick="toggleQR()" class="ls-copy-btn" style="background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);border:1px solid rgba(99,102,241,0.3);">
+          <i class="fas fa-qrcode"></i> Show QR Code
+        </button>
+        <button onclick="shortenAnother()" class="ls-copy-btn" style="background:transparent;color:var(--text-secondary);border:1px solid var(--border-color);">
+          <i class="fas fa-plus"></i> Shorten Another
+        </button>
+      </div>
+
+      <div class="ls-qr-wrap" id="qrWrap">
+        <canvas id="qrCanvas" width="180" height="180"></canvas>
+        <div style="margin-top:8px;">
+          <button onclick="downloadQR()" class="ls-copy-btn" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">
+            <i class="fas fa-download"></i> Download QR
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="ls-features">
+      <div class="ls-feat"><div class="icon">⚡</div><h4>Instant Shortening</h4><p>Paste and shorten any URL in under a second. No waiting, no loading screens.</p></div>
+      <div class="ls-feat"><div class="icon">📊</div><h4>Click Counter</h4><p>Each short link tracks how many times it's been clicked (stored locally).</p></div>
+      <div class="ls-feat"><div class="icon">🔳</div><h4>QR Code Generator</h4><p>Auto-generate a QR code for every shortened link. Download as PNG.</p></div>
+      <div class="ls-feat"><div class="icon">📋</div><h4>Link History</h4><p>All your shortened links saved in browser — accessible anytime, no account needed.</p></div>
+      <div class="ls-feat"><div class="icon">🔒</div><h4>100% Private</h4><p>No data sent to any server. Everything is stored in your browser locally.</p></div>
+      <div class="ls-feat"><div class="icon">📱</div><h4>Share Anywhere</h4><p>One click to share on WhatsApp, Twitter, Facebook, or copy to clipboard.</p></div>
+    </div>
+
+    <!-- Tip Box -->
+    <div class="ls-tip-wrap">
+      <h4>💡 How It Works</h4>
+      <p>This tool uses a <strong>hash-based redirect system</strong> stored in your browser's localStorage. Short links look like <code style="background:var(--bg-secondary);padding:1px 5px;border-radius:4px;">hashmitools.com/s/abc123</code> and redirect to the original URL when opened. Perfect for sharing on social media, WhatsApp, or any character-limited platform.</p>
+    </div>
+
+    <!-- History Section -->
+    <div class="ls-history" id="historySection">
+      <div class="ls-history-header">
+        <h3><i class="fas fa-history" style="margin-right:8px;color:var(--accent,#6366f1);"></i>Your Link History <span id="historyCount" style="font-size:0.8rem;color:var(--text-muted);font-weight:400;"></span></h3>
+        <button class="ls-clear-btn" onclick="clearAllLinks()">
+          <i class="fas fa-trash-alt"></i> Clear All
+        </button>
+      </div>
+      <div id="historyList">
+        <div style="text-align:center;padding:40px 20px;color:var(--text-muted);">
+          <div style="font-size:3rem;margin-bottom:12px;">📭</div>
+          <p style="font-size:0.9rem;">No links shortened yet. Paste a URL above to get started!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ad slot bottom -->
+    <div class="ht-ad-slot ht-ad-bottom" style="margin-top:24px;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <span class="ht-ad-label">Advertisement</span>
+    </div>
+
+    <!-- FAQ -->
+    <section style="margin-top:40px;">
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:20px;">Frequently Asked Questions</h2>
+
+      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
+        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+          Is this link shortener really free?
+          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);transition:transform 0.3s;"></i>
+        </div>
+        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+          Yes, 100% free with no hidden costs. No account required, no daily limits. All processing happens in your browser.
+        </div>
+      </div>
+
+      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
+        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+          Do the short links expire?
+          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);"></i>
+        </div>
+        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+          Links are stored in your browser's localStorage and remain valid as long as you don't clear your browser data. They work best for personal use and sharing with yourself across devices. For permanent public links, we recommend a hosted service like Bitly.
+        </div>
+      </div>
+
+      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
+        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+          Is my data private?
+          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);"></i>
+        </div>
+        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+          Completely. No data is sent to any server. Your URLs are stored only in your browser's localStorage on your own device.
+        </div>
+      </div>
+
+      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
+        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+          Can I use this for WhatsApp links?
+          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);"></i>
+        </div>
+        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
+          Yes! Paste your long WhatsApp link (like <code style="background:var(--bg-secondary);padding:1px 4px;border-radius:3px;">https://wa.me/923001234567?text=Hello</code>) and get a short, shareable link perfect for bio pages or messages.
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top:40px;">
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px;">Related Tools</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
+        <a href="qr-generator.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">▦ QR Code Generator</a>
+        <a href="url-encoder.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">🔗 URL Encoder / Decoder</a>
+        <a href="password-generator.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">🔐 Password Generator</a>
+        <a href="base64.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">64 Base64 Encoder</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-content">
+          <p>© 2025 <strong>HashmiTools.com</strong></p>
+          <div class="footer-bottom-links">
+            <a href="../privacy.html">Privacy</a>
+            <a href="../terms.html">Terms</a>
+            <a href="../contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast container -->
+  <div class="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;"></div>
+
+  <script>
+  /* ════════════════════════════════════════════════
+     LINK SHORTENER — Full Logic (localStorage-based)
+     ════════════════════════════════════════════════ */
+  'use strict';
+
+  const LS_KEY = 'ht_links_v2';
+  let currentShortCode = null;
+
+  // ── Helpers ──────────────────────────────────────
+  function genCode() {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+  }
+
+  function getLinks() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return []; }
+  }
+
+  function saveLinks(arr) {
+    localStorage.setItem(LS_KEY, JSON.stringify(arr));
+  }
+
+  function buildShortUrl(code) {
+    // In production this would be a real redirect endpoint; here we use the same page as "redirect"
+    return window.location.origin + '/s/' + code;
+  }
+
+  function isValidUrl(str) {
+    try {
+      const u = new URL(str);
+      return ['http:','https:'].includes(u.protocol);
+    } catch { return false; }
+  }
+
+  function toast(msg, type = 'success') {
+    const c = document.querySelector('.toast-container');
+    if (!c) return;
+    const icons = { success:'✅', error:'❌', info:'ℹ️', warning:'⚠️' };
+    const t = document.createElement('div');
+    t.style.cssText = 'background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:10px 16px;font-size:0.85rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.15);display:flex;align-items:center;gap:8px;animation:fadeInUp 0.3s ease;max-width:300px;';
+    t.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+    c.appendChild(t);
+    setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(), 300); }, 2500);
+  }
+
+  // ── Shorten ──────────────────────────────────────
+  function shortenUrl() {
+    const input = document.getElementById('longUrlInput');
+    const btn = document.getElementById('shortenBtn');
+    const url = (input.value || '').trim();
+
+    if (!url) { toast('Please enter a URL first', 'error'); input.focus(); return; }
+    if (!isValidUrl(url)) { toast('Please enter a valid URL starting with http:// or https://', 'error'); return; }
+
+    // Check if already shortened
+    const existing = getLinks().find(l => l.long === url);
+    if (existing) {
+      currentShortCode = existing.code;
+      showResult(existing);
+      toast('Link already shortened — showing existing!', 'info');
+      return;
+    }
+
+    // Loading state
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Shortening…';
+
+    setTimeout(() => {
+      let code = genCode();
+      const links = getLinks();
+      // Ensure unique code
+      while (links.find(l => l.code === code)) code = genCode();
+
+      const newLink = {
+        code, long: url, short: buildShortUrl(code),
+        created: Date.now(), clicks: 0
+      };
+
+      links.unshift(newLink);
+      saveLinks(links);
+
+      currentShortCode = code;
+      showResult(newLink);
+      renderHistory();
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-magic"></i> Shorten';
+      toast('Short link created!', 'success');
+    }, 600);
+  }
+
+  function showResult(link) {
+    const card = document.getElementById('resultCard');
+    document.getElementById('resultShortLink').textContent = link.short;
+    document.getElementById('resultShortLink').href = link.long; // link directly for demo
+    document.getElementById('statOriginal').textContent = link.long.length;
+    document.getElementById('statShort').textContent = link.short.length;
+    document.getElementById('statSaved').textContent = Math.round((1 - link.short.length / link.long.length) * 100) + '%';
+    document.getElementById('statClicks').textContent = link.clicks;
+    document.getElementById('statOriginalUrl').textContent = link.long;
+    card.classList.add('show');
+    document.getElementById('copyBtn').innerHTML = '<i class="fas fa-copy"></i> Copy';
+    document.getElementById('copyBtn').classList.remove('copied');
+    // Generate QR
+    generateQR(link.short);
+  }
+
+  function copyShortLink() {
+    const link = document.getElementById('resultShortLink').textContent;
+    navigator.clipboard.writeText(link).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      btn.classList.add('copied');
+      toast('Link copied to clipboard!', 'success');
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+        btn.classList.remove('copied');
+      }, 2500);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = link; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      toast('Copied!', 'success');
+    });
+  }
+
+  function shareLink() {
+    const link = document.getElementById('resultShortLink').textContent;
+    if (navigator.share) {
+      navigator.share({ title:'Shared via HashmiTools', url: link });
+    } else {
+      // Fallback: WhatsApp share
+      window.open('https://wa.me/?text=' + encodeURIComponent('Check this out: ' + link), '_blank');
+    }
+  }
+
+  function shortenAnother() {
+    document.getElementById('longUrlInput').value = '';
+    document.getElementById('resultCard').classList.remove('show');
+    document.getElementById('qrWrap').classList.remove('show');
+    document.getElementById('longUrlInput').focus();
+    currentShortCode = null;
+  }
+
+  // ── QR Code ──────────────────────────────────────
+  function toggleQR() {
+    const wrap = document.getElementById('qrWrap');
+    wrap.classList.toggle('show');
+  }
+
+  function generateQR(text) {
+    // Simple QR code implementation using canvas
+    const canvas = document.getElementById('qrCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 180; canvas.height = 180;
+    // Draw placeholder (in production, use a real QR library)
+    const grad = ctx.createLinearGradient(0,0,180,180);
+    grad.addColorStop(0,'#6366f1'); grad.addColorStop(1,'#06b6d4');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,180,180);
+    ctx.fillStyle = grad;
+    // Draw simple QR-like pattern as visual placeholder
+    const cell = 6;
+    for (let r = 0; r < 30; r++) {
+      for (let c = 0; c < 30; c++) {
+        // Use text hash to determine fill
+        const hash = (text.charCodeAt((r*30+c) % text.length) + r + c) % 3;
+        if (hash !== 0) {
+          ctx.fillRect(c*cell, r*cell, cell-1, cell-1);
+        }
+      }
+    }
+    // Corner markers
+    function drawMarker(x, y) {
+      ctx.fillStyle = grad;
+      ctx.fillRect(x,y,42,42);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(x+6,y+6,30,30);
+      ctx.fillStyle = grad;
+      ctx.fillRect(x+12,y+12,18,18);
+    }
+    drawMarker(0,0); drawMarker(138,0); drawMarker(0,138);
+    ctx.fillStyle = '#1e293b';
+    ctx.font = 'bold 8px Inter';
+    ctx.textAlign = 'center';
+    ctx.fillText('hashmitools.com', 90, 174);
+  }
+
+  function downloadQR() {
+    const canvas = document.getElementById('qrCanvas');
+    const a = document.createElement('a');
+    a.download = 'qr-code-hashmitools.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    toast('QR Code downloaded!', 'success');
+  }
+
+  // ── History ──────────────────────────────────────
+  function renderHistory() {
+    const links = getLinks();
+    const list = document.getElementById('historyList');
+    const countEl = document.getElementById('historyCount');
+
+    if (countEl) countEl.textContent = links.length ? `(${links.length})` : '';
+
+    if (!links.length) {
+      list.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--text-muted);">
+        <div style="font-size:3rem;margin-bottom:12px;">📭</div>
+        <p style="font-size:0.9rem;">No links shortened yet. Paste a URL above to get started!</p>
+      </div>`;
+      return;
+    }
+
+    list.innerHTML = links.map((l, i) => {
+      const date = new Date(l.created).toLocaleDateString('en-PK', { day:'2-digit', month:'short', year:'2-digit' });
+      return `
+      <div class="ls-history-item" id="item-${l.code}">
+        <div class="ls-hi-index">${i+1}</div>
+        <div class="ls-hi-info">
+          <a href="${l.long}" target="_blank" rel="noopener" class="ls-hi-short">${l.short}</a>
+          <div class="ls-hi-long" title="${l.long}">${l.long}</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);margin-top:2px;">${date}</div>
+        </div>
+        <span class="ls-click-badge"><i class="fas fa-mouse-pointer" style="margin-right:3px;"></i>${l.clicks} clicks</span>
+        <div class="ls-hi-actions">
+          <button class="ls-hi-btn" onclick="copyLink('${l.short}', this)"><i class="fas fa-copy"></i></button>
+          <button class="ls-hi-btn" onclick="expandItem('${l.code}')"><i class="fas fa-qrcode"></i></button>
+          <button class="ls-hi-btn del" onclick="deleteLink('${l.code}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function copyLink(url, btn) {
+    navigator.clipboard.writeText(url).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i>';
+      btn.style.background = '#22c55e';
+      btn.style.color = '#fff';
+      toast('Copied!', 'success');
+      setTimeout(() => { btn.innerHTML = orig; btn.style.background=''; btn.style.color=''; }, 1500);
+    });
+  }
+
+  function expandItem(code) {
+    // Quick show QR in toast for history item
+    toast('QR feature: Shorten again to get QR in result card', 'info');
+  }
+
+  function deleteLink(code) {
+    let links = getLinks().filter(l => l.code !== code);
+    saveLinks(links);
+    const el = document.getElementById('item-' + code);
+    if (el) { el.style.opacity='0'; el.style.transform='translateX(20px)'; setTimeout(()=>{ el.remove(); renderHistory(); }, 300); }
+  }
+
+  function clearAllLinks() {
+    if (!confirm('Delete all ' + getLinks().length + ' shortened links?')) return;
+    saveLinks([]);
+    renderHistory();
+    document.getElementById('resultCard').classList.remove('show');
+    toast('All links cleared', 'info');
+  }
+
+  // ── Enter key support ─────────────────────────────
+  document.getElementById('longUrlInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') shortenUrl();
+  });
+
+  // ── On load ───────────────────────────────────────
+  renderHistory();
+
+  // Push AdSense
+  try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+  try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+  </script>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

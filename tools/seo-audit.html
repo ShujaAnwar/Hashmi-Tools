@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEO Audit Pro – Free Website SEO Checker & Analyzer | HashmiTools</title>
+  <meta name="description" content="Free SEO audit tool. Instantly analyze any webpage for title tags, meta descriptions, canonical URLs, heading structure, keyword density, mobile-friendliness, and 25+ SEO factors. Get your SEO score in seconds." />
+  <meta name="keywords" content="seo audit tool, website seo checker, seo analyzer, meta tag checker, page seo score, on-page seo, canonical checker, heading structure, keyword density, free seo tool" />
+  <link rel="canonical" href="https://hashmitools.com/tools/seo-audit.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <script src="../assets/js/theme.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       SEO AUDIT PRO — STYLES
+    ═══════════════════════════════════════════════ */
+
+    /* Hero */
+    .sa-hero {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 45%, #1e1b4b 100%);
+      padding: 52px 24px 44px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .sa-hero::before {
+      content:'';
+      position:absolute; top:-40%; left:-20%;
+      width:200%; height:200%;
+      background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.07) 0%, transparent 55%);
+      pointer-events:none;
+    }
+    .sa-hero::after {
+      content:'';
+      position:absolute; bottom:-1px; left:0; right:0; height:40px;
+      background: var(--bg-primary, #fff);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .sa-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:2.3rem; font-weight:800; margin-bottom:10px; line-height:1.2; }
+    .sa-hero p  { font-size:1.05rem; opacity:0.88; max-width:560px; margin:0 auto 24px; }
+    .sa-badges { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:32px; }
+    .sa-badge {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600;
+      display:inline-flex; align-items:center; gap:6px;
+    }
+
+    /* URL Input */
+    .sa-input-wrap {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 24px;
+      max-width: 760px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(99,102,241,0.25);
+      display: flex; gap: 12px; align-items: center;
+    }
+    .sa-url-input {
+      flex: 1; border: 2px solid #e5e7eb; border-radius: 10px;
+      padding: 12px 16px; font-size: 0.95rem; font-family: inherit;
+      outline: none; transition: border-color 0.2s;
+      color: #1e1b4b;
+    }
+    .sa-url-input:focus { border-color: #6366f1; }
+    .sa-audit-btn {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #fff; border: none; border-radius: 10px;
+      padding: 12px 28px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; white-space: nowrap; font-family: inherit;
+      transition: all 0.2s; display:flex; align-items:center; gap:8px;
+    }
+    .sa-audit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+    .sa-audit-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    /* Main Layout */
+    .sa-main { max-width: 1100px; margin: 32px auto; padding: 0 20px 60px; }
+
+    /* Score Ring */
+    .sa-score-section {
+      background: var(--bg-card, #fff); border-radius: 20px;
+      border: 1px solid var(--border-color, #e5e7eb);
+      padding: 32px; margin-bottom: 24px;
+      display: none;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .sa-score-section.show { display: block; animation: fadeIn 0.4s ease; }
+    .sa-score-grid {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 32px; align-items: center;
+    }
+    @media(max-width:600px) { .sa-score-grid { grid-template-columns:1fr; text-align:center; } }
+
+    .sa-ring-wrap { position:relative; width:200px; height:200px; margin:0 auto; }
+    .sa-ring-wrap svg { transform: rotate(-90deg); }
+    .sa-ring-track { fill:none; stroke:#e5e7eb; stroke-width:18; }
+    .sa-ring-fill  { fill:none; stroke-width:18; stroke-linecap:round; transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1); }
+    .sa-ring-label {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      text-align:center;
+    }
+    .sa-ring-num { font-family:'Space Grotesk',sans-serif; font-size:2.8rem; font-weight:800; line-height:1; }
+    .sa-ring-sub { font-size:0.78rem; color:var(--text-secondary,#6b7280); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; }
+
+    .sa-score-summary h2 { font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700; margin-bottom:8px; }
+    .sa-score-summary p  { color:var(--text-secondary,#6b7280); font-size:0.9rem; margin-bottom:20px; }
+    .sa-score-bars { display:flex; flex-direction:column; gap:10px; }
+    .sa-bar-row { display:flex; align-items:center; gap:12px; }
+    .sa-bar-label { width:100px; font-size:0.82rem; font-weight:600; color:var(--text-secondary,#6b7280); flex-shrink:0; }
+    .sa-bar-track { flex:1; height:8px; background:#e5e7eb; border-radius:4px; overflow:hidden; }
+    .sa-bar-fill  { height:100%; border-radius:4px; transition: width 1s cubic-bezier(.4,0,.2,1); }
+    .sa-bar-pct   { width:36px; text-align:right; font-size:0.8rem; font-weight:700; }
+
+    /* Issues List */
+    .sa-issues-section {
+      background: var(--bg-card, #fff); border-radius: 20px;
+      border: 1px solid var(--border-color, #e5e7eb);
+      padding: 28px; margin-bottom: 24px;
+      display: none;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .sa-issues-section.show { display: block; animation: fadeIn 0.4s ease; }
+    .sa-section-hdr {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .sa-section-icon {
+      width:36px; height:36px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem;
+    }
+    .sa-section-hdr h3 { font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700; margin:0; }
+    .sa-section-hdr span.cnt {
+      margin-left:auto; font-size:0.78rem; font-weight:700;
+      padding:3px 10px; border-radius:20px;
+    }
+
+    /* Issue Item */
+    .sa-issue {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 16px; border-radius: 12px;
+      margin-bottom: 8px; border: 1px solid transparent;
+      transition: background 0.15s;
+    }
+    .sa-issue:hover { background: var(--bg-secondary, #f9fafb); }
+    .sa-issue-icon {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink:0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+    }
+    .sa-issue-body { flex:1; min-width:0; }
+    .sa-issue-title { font-weight:600; font-size:0.9rem; margin-bottom:4px; }
+    .sa-issue-desc  { font-size:0.82rem; color:var(--text-secondary,#6b7280); line-height:1.5; }
+    .sa-issue-val   { font-size:0.78rem; font-family:'Space Grotesk',monospace; margin-top:6px; padding:6px 10px; border-radius:6px; word-break:break-all; }
+    .sa-issue-badge { font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:10px; margin-left:8px; vertical-align:middle; }
+
+    /* Severity colors */
+    .sev-critical { background:#fef2f2; border-color:#fecaca; }
+    .sev-critical .sa-issue-icon { background:#fee2e2; color:#dc2626; }
+    .sev-critical .sa-issue-title { color:#b91c1c; }
+    .sev-critical .sa-issue-val  { background:#fee2e2; color:#7f1d1d; }
+    .sev-critical .sa-issue-badge { background:#fee2e2; color:#dc2626; }
+
+    .sev-warning { background:#fffbeb; border-color:#fde68a; }
+    .sev-warning .sa-issue-icon { background:#fef3c7; color:#d97706; }
+    .sev-warning .sa-issue-title { color:#92400e; }
+    .sev-warning .sa-issue-val  { background:#fef3c7; color:#78350f; }
+    .sev-warning .sa-issue-badge { background:#fef3c7; color:#d97706; }
+
+    .sev-info { background:#eff6ff; border-color:#bfdbfe; }
+    .sev-info .sa-issue-icon { background:#dbeafe; color:#2563eb; }
+    .sev-info .sa-issue-title { color:#1e40af; }
+    .sev-info .sa-issue-val  { background:#dbeafe; color:#1e3a8a; }
+    .sev-info .sa-issue-badge { background:#dbeafe; color:#2563eb; }
+
+    .sev-pass { background:#f0fdf4; border-color:#bbf7d0; }
+    .sev-pass .sa-issue-icon { background:#dcfce7; color:#16a34a; }
+    .sev-pass .sa-issue-title { color:#166534; }
+    .sev-pass .sa-issue-val  { background:#dcfce7; color:#14532d; }
+    .sev-pass .sa-issue-badge { background:#dcfce7; color:#16a34a; }
+
+    /* Details Grid */
+    .sa-details-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 24px;
+    }
+    @media(max-width:700px) { .sa-details-grid { grid-template-columns:1fr; } }
+
+    .sa-detail-card {
+      background: var(--bg-card, #fff); border-radius: 16px;
+      border: 1px solid var(--border-color, #e5e7eb);
+      padding: 22px; display: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .sa-detail-card.show { display: block; animation: fadeIn 0.4s ease; }
+    .sa-detail-card h4 {
+      font-family:'Space Grotesk',sans-serif; font-size:0.95rem;
+      font-weight:700; margin-bottom:14px; display:flex; align-items:center; gap:8px;
+    }
+    .sa-kv { display:flex; justify-content:space-between; align-items:flex-start;
+              padding:8px 0; border-bottom:1px solid var(--border-color,#e5e7eb); gap:12px; }
+    .sa-kv:last-child { border-bottom:none; }
+    .sa-kv-key { font-size:0.8rem; color:var(--text-secondary,#6b7280); font-weight:500; flex-shrink:0; }
+    .sa-kv-val { font-size:0.82rem; font-weight:600; text-align:right; word-break:break-all; max-width:65%; }
+
+    /* Tag cloud */
+    .sa-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+    .sa-tag  {
+      padding:4px 10px; border-radius:20px;
+      background: var(--bg-secondary,#f3f4f6);
+      color: var(--text-secondary,#6b7280);
+      font-size:0.78rem; font-weight:500;
+    }
+
+    /* Headings tree */
+    .sa-h-tree { list-style:none; padding:0; margin:0; }
+    .sa-h-tree li {
+      padding:5px 10px; border-radius:6px; font-size:0.82rem;
+      margin-bottom:4px; border-left:3px solid;
+    }
+    .sa-h1 { border-color:#6366f1; background:#ede9fe; color:#4c1d95; font-weight:700; }
+    .sa-h2 { border-color:#3b82f6; background:#dbeafe; color:#1e3a8a; margin-left:12px; }
+    .sa-h3 { border-color:#22c55e; background:#dcfce7; color:#166534; margin-left:24px; }
+    .sa-h4 { border-color:#f59e0b; background:#fef3c7; color:#78350f; margin-left:36px; }
+
+    /* Loading state */
+    .sa-loading {
+      display:none; text-align:center; padding:60px 20px;
+    }
+    .sa-loading.show { display:block; animation: fadeIn 0.3s ease; }
+    .sa-spinner {
+      width:56px; height:56px; border:4px solid #e5e7eb;
+      border-top-color:#6366f1; border-radius:50%;
+      animation: spin 0.9s linear infinite; margin:0 auto 20px;
+    }
+    .sa-loading h3 { font-size:1.1rem; font-weight:600; margin-bottom:8px; }
+    .sa-loading p  { color:var(--text-secondary,#6b7280); font-size:0.88rem; }
+    .sa-progress-bar {
+      max-width:360px; height:6px; background:#e5e7eb;
+      border-radius:3px; overflow:hidden; margin:16px auto 0;
+    }
+    .sa-progress-fill {
+      height:100%; background:linear-gradient(90deg,#6366f1,#a855f7);
+      border-radius:3px; animation: progressAnim 2.5s ease-in-out forwards;
+    }
+    @keyframes progressAnim { from{width:5%} to{width:92%} }
+
+    /* Error */
+    .sa-error {
+      display:none; text-align:center; padding:48px 24px;
+      background:var(--bg-card,#fff); border-radius:20px;
+      border:1px solid var(--border-color,#e5e7eb);
+    }
+    .sa-error.show { display:block; animation: fadeIn 0.3s ease; }
+    .sa-error-icon { font-size:3rem; margin-bottom:12px; }
+    .sa-error h3    { font-size:1.2rem; font-weight:700; margin-bottom:8px; color:#dc2626; }
+    .sa-error p     { color:var(--text-secondary,#6b7280); font-size:0.88rem; }
+
+    /* FAQ */
+    .sa-faq { margin-top:40px; }
+    .sa-faq h3 { font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:700; margin-bottom:16px; }
+    .sa-faq-item { border:1px solid var(--border-color,#e5e7eb); border-radius:12px; margin-bottom:8px; overflow:hidden; }
+    .sa-faq-q {
+      padding:14px 18px; font-weight:600; font-size:0.9rem;
+      cursor:pointer; display:flex; justify-content:space-between; align-items:center;
+      background:var(--bg-card,#fff); transition:background 0.15s;
+    }
+    .sa-faq-q:hover { background:var(--bg-secondary,#f9fafb); }
+    .sa-faq-q i     { transition:transform 0.25s; font-size:0.8rem; color:var(--text-secondary,#9ca3af); }
+    .sa-faq-item.open .sa-faq-q i { transform:rotate(180deg); }
+    .sa-faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:var(--bg-secondary,#f9fafb); }
+    .sa-faq-item.open .sa-faq-a { max-height:500px; }
+    .sa-faq-a p { padding:14px 18px; font-size:0.85rem; color:var(--text-secondary,#4b5563); line-height:1.6; margin:0; }
+
+    /* Toast */
+    .sa-toast {
+      position:fixed; bottom:24px; right:24px; z-index:9999;
+      background:#1e1b4b; color:#fff; padding:12px 20px;
+      border-radius:12px; font-size:0.88rem; font-weight:600;
+      transform:translateY(80px); opacity:0;
+      transition:all 0.3s cubic-bezier(.4,0,.2,1);
+      pointer-events:none; max-width:320px;
+    }
+    .sa-toast.show { transform:translateY(0); opacity:1; }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+    @keyframes spin   { to{transform:rotate(360deg)} }
+
+    /* Dark mode */
+    [data-mode="dark"] .sa-hero::after { background:var(--bg-primary,#0f172a); }
+    [data-mode="dark"] .sa-url-input { background:#1e293b; border-color:#334155; color:#e2e8f0; }
+    [data-mode="dark"] .sa-url-input:focus { border-color:#818cf8; }
+    [data-mode="dark"] .sa-input-wrap { background:#1e293b; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+    [data-mode="dark"] .sev-critical { background:#2d1515; border-color:#7f1d1d; }
+    [data-mode="dark"] .sev-warning  { background:#2d2010; border-color:#78350f; }
+    [data-mode="dark"] .sev-info     { background:#0f172a; border-color:#1e3a8a; }
+    [data-mode="dark"] .sev-pass     { background:#0f2d1a; border-color:#14532d; }
+    [data-mode="dark"] .sa-h1  { background:#2e1065; }
+    [data-mode="dark"] .sa-h2  { background:#0f2040; }
+    [data-mode="dark"] .sa-h3  { background:#052e16; }
+
+    /* how-it-works */
+    .sa-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:32px 0; }
+    @media(max-width:640px){ .sa-steps{grid-template-columns:1fr;} }
+    .sa-step {
+      background:var(--bg-card,#fff); border:1px solid var(--border-color,#e5e7eb);
+      border-radius:16px; padding:24px; text-align:center;
+      box-shadow:0 2px 12px rgba(0,0,0,0.05);
+    }
+    .sa-step-num {
+      width:44px;height:44px;border-radius:50%;
+      background:linear-gradient(135deg,#6366f1,#4f46e5);
+      color:#fff;font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:800;
+      display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
+    }
+    .sa-step h4{font-size:0.95rem;font-weight:700;margin-bottom:6px;}
+    .sa-step p {font-size:0.82rem;color:var(--text-secondary,#6b7280);}
+
+    /* AdSense */
+    .sa-ad { text-align:center; margin:24px 0; min-height:90px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────── -->
+<nav class="ht-nav" role="navigation" aria-label="Main navigation">
+  <div class="ht-nav-inner">
+    <a href="../index.html" class="ht-brand" aria-label="HashmiTools Home">
+      <span class="ht-brand-icon">⚡</span>
+      <span class="ht-brand-text">HashmiTools</span>
+    </a>
+    <div class="ht-nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../tools/developer.html">Tools</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+    <div class="ht-nav-actions">
+      <button id="ht-theme-toggle" class="ht-theme-btn" aria-label="Toggle theme" title="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────── -->
+<section class="sa-hero">
+  <div class="sa-badges">
+    <span class="sa-badge"><i class="fas fa-shield-alt"></i> 25+ SEO Checks</span>
+    <span class="sa-badge"><i class="fas fa-bolt"></i> Instant Results</span>
+    <span class="sa-badge"><i class="fas fa-lock"></i> 100% Free</span>
+    <span class="sa-badge"><i class="fas fa-code"></i> No Login Required</span>
+  </div>
+  <h1>🔍 SEO Audit Pro</h1>
+  <p>Instantly analyze any webpage for 25+ on-page SEO factors. Get a real score, actionable issues, and detailed recommendations.</p>
+  <div class="sa-input-wrap">
+    <input type="url" id="saUrlInput" class="sa-url-input"
+           placeholder="https://example.com/page-to-audit"
+           autocomplete="off" spellcheck="false" />
+    <button class="sa-audit-btn" id="saAuditBtn" onclick="runAudit()">
+      <i class="fas fa-search"></i> Audit Now
+    </button>
+  </div>
+</section>
+
+<!-- ── Main ──────────────────────────────────── -->
+<main class="sa-main">
+
+  <!-- How it works (shown before first audit) -->
+  <div id="saIntro">
+    <div class="sa-steps">
+      <div class="sa-step">
+        <div class="sa-step-num">1</div>
+        <h4>Enter URL</h4>
+        <p>Paste any public webpage URL — homepage, blog post, product page, anything.</p>
+      </div>
+      <div class="sa-step">
+        <div class="sa-step-num">2</div>
+        <h4>Instant Analysis</h4>
+        <p>We check title, meta, headings, canonical, Open Graph, keywords, and 20+ more factors.</p>
+      </div>
+      <div class="sa-step">
+        <div class="sa-step-num">3</div>
+        <h4>Fix & Rank</h4>
+        <p>Get a prioritized list of issues with clear fix instructions — no guesswork needed.</p>
+      </div>
+    </div>
+
+    <!-- AdSense -->
+    <div class="sa-ad">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733"
+           data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- FAQ -->
+    <div class="sa-faq">
+      <h3>Frequently Asked Questions</h3>
+      <div class="sa-faq-item">
+        <div class="sa-faq-q" onclick="toggleFaq(this)">What does this SEO Audit tool check?<i class="fas fa-chevron-down"></i></div>
+        <div class="sa-faq-a"><p>It checks 25+ on-page SEO factors: title tag (length, keyword), meta description, H1–H4 heading structure, canonical URL, robots meta tag, Open Graph tags, Twitter Card, viewport meta, keyword density, internal/external link counts, image alt texts, page URL structure, HTTPS, duplicate content signals, and more.</p></div>
+      </div>
+      <div class="sa-faq-item">
+        <div class="sa-faq-q" onclick="toggleFaq(this)">Is this tool free?<i class="fas fa-chevron-down"></i></div>
+        <div class="sa-faq-a"><p>Yes, 100% free! No account, no credit card, no limits. Just paste your URL and get results instantly.</p></div>
+      </div>
+      <div class="sa-faq-item">
+        <div class="sa-faq-q" onclick="toggleFaq(this)">Why can't it fetch some URLs?<i class="fas fa-chevron-down"></i></div>
+        <div class="sa-faq-a"><p>Some websites block cross-origin requests (CORS). When a direct fetch fails, the tool falls back to a CORS proxy. If still blocked, the site has strict security headers. Try auditing the HTML source directly by pasting it in the textarea mode (coming soon).</p></div>
+      </div>
+      <div class="sa-faq-item">
+        <div class="sa-faq-q" onclick="toggleFaq(this)">How is the SEO score calculated?<i class="fas fa-chevron-down"></i></div>
+        <div class="sa-faq-a"><p>Each of 25 checks carries a weight (Critical = 5 pts, Warning = 3 pts, Info = 1 pt). Your score is <code>(earned points / total possible) × 100</code>. Scores 80+ are excellent, 60–79 good, 40–59 needs work, below 40 critical.</p></div>
+      </div>
+      <div class="sa-faq-item">
+        <div class="sa-faq-q" onclick="toggleFaq(this)">Does it check my Google rankings?<i class="fas fa-chevron-down"></i></div>
+        <div class="sa-faq-a"><p>No — this is an on-page SEO auditor. It checks the HTML/content signals on your page. For ranking data you'd need Google Search Console or a rank-tracking service.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="sa-loading" id="saLoading">
+    <div class="sa-spinner"></div>
+    <h3>Analyzing Page…</h3>
+    <p id="saLoadMsg">Fetching page content and running 25+ SEO checks</p>
+    <div class="sa-progress-bar"><div class="sa-progress-fill" id="saProgressFill"></div></div>
+  </div>
+
+  <!-- Error -->
+  <div class="sa-error" id="saError">
+    <div class="sa-error-icon">⚠️</div>
+    <h3 id="saErrorTitle">Could Not Fetch Page</h3>
+    <p id="saErrorDesc">The page may be blocking cross-origin requests. Try a different URL or check your internet connection.</p>
+  </div>
+
+  <!-- Score -->
+  <section class="sa-score-section" id="saScoreSection">
+    <div class="sa-score-grid">
+      <div class="sa-ring-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle class="sa-ring-track" cx="100" cy="100" r="82"/>
+          <circle class="sa-ring-fill" id="saRingFill" cx="100" cy="100" r="82"
+                  stroke-dasharray="515" stroke-dashoffset="515"/>
+        </svg>
+        <div class="sa-ring-label">
+          <div class="sa-ring-num" id="saScoreNum">0</div>
+          <div class="sa-ring-sub" id="saScoreGrade">—</div>
+        </div>
+      </div>
+      <div class="sa-score-summary">
+        <h2 id="saScoreTitle">SEO Score</h2>
+        <p id="saScoreDesc">Analyzing…</p>
+        <div class="sa-score-bars" id="saScoreBars"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Issues -->
+  <section class="sa-issues-section" id="saIssues">
+    <div class="sa-section-hdr">
+      <div class="sa-section-icon" style="background:#fee2e2;color:#dc2626;">🚨</div>
+      <h3>Critical Issues</h3>
+      <span class="cnt" id="critCnt" style="background:#fee2e2;color:#dc2626;"></span>
+    </div>
+    <div id="saIssuesCritical"></div>
+
+    <div class="sa-section-hdr" style="margin-top:24px;">
+      <div class="sa-section-icon" style="background:#fef3c7;color:#d97706;">⚠️</div>
+      <h3>Warnings</h3>
+      <span class="cnt" id="warnCnt" style="background:#fef3c7;color:#d97706;"></span>
+    </div>
+    <div id="saIssuesWarning"></div>
+
+    <div class="sa-section-hdr" style="margin-top:24px;">
+      <div class="sa-section-icon" style="background:#dcfce7;color:#16a34a;">✅</div>
+      <h3>Passing Checks</h3>
+      <span class="cnt" id="passCnt" style="background:#dcfce7;color:#16a34a;"></span>
+    </div>
+    <div id="saIssuesPass"></div>
+  </section>
+
+  <!-- Details Grid -->
+  <div class="sa-details-grid">
+
+    <div class="sa-detail-card" id="saCardMeta">
+      <h4><span>🏷️</span> Meta & Page Info</h4>
+      <div id="saMetaContent"></div>
+    </div>
+
+    <div class="sa-detail-card" id="saCardHeadings">
+      <h4><span>📑</span> Heading Structure</h4>
+      <ul class="sa-h-tree" id="saHeadingsTree"></ul>
+    </div>
+
+    <div class="sa-detail-card" id="saCardLinks">
+      <h4><span>🔗</span> Links Analysis</h4>
+      <div id="saLinksContent"></div>
+    </div>
+
+    <div class="sa-detail-card" id="saCardOG">
+      <h4><span>📱</span> Social / Open Graph</h4>
+      <div id="saOGContent"></div>
+    </div>
+
+  </div>
+
+  <!-- Bottom AdSense -->
+  <div class="sa-ad" id="saBottomAd" style="display:none;">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733"
+         data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+</main>
+
+<!-- Toast -->
+<div class="sa-toast" id="saToast"></div>
+
+<!-- Footer -->
+<footer class="ht-footer" role="contentinfo">
+  <div class="ht-footer-inner">
+    <div class="ht-footer-brand">
+      <a href="../index.html" class="ht-brand">
+        <span class="ht-brand-icon">⚡</span>
+        <span class="ht-brand-text">HashmiTools</span>
+      </a>
+      <p>Free, fast, and intelligent web tools for everyone.</p>
+    </div>
+    <div class="ht-footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="ht-footer-links">
+      <h4>SEO Tools</h4>
+      <ul>
+        <li><a href="seo-audit.html">🔍 SEO Audit Pro</a></li>
+        <li><a href="youtube-seo.html">▶️ YouTube SEO Tool</a></li>
+        <li><a href="link-shortener.html">🔗 Link Shortener</a></li>
+        <li><a href="json-formatter.html">{ } JSON Formatter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ht-footer-bottom">
+    <p>© 2025 HashmiTools. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ── CORS Proxies (tried in order) ─────────────────
+const PROXIES = [
+  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  url => `https://thingproxy.freeboard.io/fetch/${encodeURIComponent(url)}`
+];
+
+// ── Utilities ─────────────────────────────────────
+function $(id) { return document.getElementById(id); }
+function toast(msg, type='info') {
+  const el = $('saToast');
+  el.textContent = msg;
+  el.style.background = type === 'success' ? '#166534' : type === 'error' ? '#dc2626' : '#1e1b4b';
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+function toggleFaq(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+function setVisible(id, show) {
+  $(id).classList.toggle('show', show);
+}
+function kv(key, val, cls='') {
+  return `<div class="sa-kv">
+    <span class="sa-kv-key">${key}</span>
+    <span class="sa-kv-val ${cls}">${val || '<span style="color:#9ca3af">—</span>'}</span>
+  </div>`;
+}
+function badge(text, color='#6366f1') {
+  return `<span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:700;background:${color}22;color:${color};">${text}</span>`;
+}
+function escHtml(s) {
+  return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : '';
+}
+function truncate(s, n) {
+  return s && s.length > n ? s.slice(0, n) + '…' : (s || '');
+}
+
+// ── Fetch page HTML ────────────────────────────────
+async function fetchPage(url) {
+  // 1. Direct fetch (works for same-site or CORS-enabled)
+  try {
+    const r = await fetch(url, { mode:'cors', cache:'no-store' });
+    if (r.ok) { return await r.text(); }
+  } catch(e) {}
+
+  // 2. Try proxies
+  for (const proxy of PROXIES) {
+    try {
+      const r = await fetch(proxy(url), { cache:'no-store' });
+      if (!r.ok) continue;
+      const data = await r.json().catch(() => null);
+      if (data && (data.contents || data.body)) {
+        return data.contents || data.body;
+      }
+      const txt = await r.text().catch(() => null);
+      if (txt) return txt;
+    } catch(e) {}
+  }
+  throw new Error('Could not fetch the page. It may be blocking external requests.');
+}
+
+// ── Parse HTML into DOM ────────────────────────────
+function parseHtml(html) {
+  const parser = new DOMParser();
+  return parser.parseFromString(html, 'text/html');
+}
+
+// ── The big audit engine ──────────────────────────
+function auditDocument(doc, url, rawHtml) {
+
+  const urlObj   = (() => { try { return new URL(url); } catch(e) { return null; } })();
+  const isHttps  = urlObj && urlObj.protocol === 'https:';
+  const issues   = [];   // { sev:'critical'|'warning'|'info'|'pass', icon, title, desc, val, weight }
+  const scores   = { technical:0, content:0, social:0, links:0,
+                     techMax:0,   contentMax:0, socialMax:0, linksMax:0 };
+
+  function check(sev, icon, title, desc, val, category, weight) {
+    const w = weight || (sev==='critical'?5 : sev==='warning'?3 : sev==='info'?1 : 2);
+    issues.push({ sev, icon, title, desc, val, category, weight:w });
+    const maxKey = category + 'Max';
+    const curKey = category;
+    if (scores[maxKey] !== undefined) scores[maxKey] += w;
+    if (sev === 'pass' && scores[curKey] !== undefined) scores[curKey] += w;
+  }
+
+  // ── 1. HTTPS ─────────────────────────────────────
+  if (isHttps) {
+    check('pass','🔒','HTTPS Secure','Page is served over HTTPS — great for security and SEO trust.',url,'technical',5);
+  } else {
+    check('critical','🔓','Not HTTPS','Page is served over HTTP. Google gives a ranking boost to HTTPS pages. Migrate to SSL immediately.',url,'technical',5);
+  }
+
+  // ── 2. Title Tag ──────────────────────────────────
+  const title    = doc.title || '';
+  const titleLen = title.length;
+  if (!title) {
+    check('critical','📄','Missing Title Tag','No <title> tag found. Title is the single most important on-page SEO element.','','content',5);
+  } else if (titleLen < 30) {
+    check('warning','📄','Title Too Short',`Title is only ${titleLen} chars. Aim for 50–60 chars to maximize SERP click-through.`,truncate(title,80),'content',3);
+  } else if (titleLen > 65) {
+    check('warning','📄','Title Too Long',`Title is ${titleLen} chars. Google truncates at ~60 chars. Shorten it.`,truncate(title,80),'content',3);
+  } else {
+    check('pass','📄','Title Tag Optimal',`Title is ${titleLen} chars — perfect length.`,truncate(title,80),'content',5);
+  }
+
+  // ── 3. Meta Description ───────────────────────────
+  const metaDesc    = (doc.querySelector('meta[name="description"]') || {}).content || '';
+  const metaDescLen = metaDesc.length;
+  if (!metaDesc) {
+    check('critical','📝','Missing Meta Description','No meta description found. Write a 120–160 char description to improve SERP CTR.','','content',4);
+  } else if (metaDescLen < 50) {
+    check('warning','📝','Meta Description Too Short',`Only ${metaDescLen} chars. Aim for 120–160 chars.`,truncate(metaDesc,120),'content',3);
+  } else if (metaDescLen > 165) {
+    check('warning','📝','Meta Description Too Long',`${metaDescLen} chars. Google truncates at ~155 chars. Trim it.`,truncate(metaDesc,120),'content',3);
+  } else {
+    check('pass','📝','Meta Description OK',`${metaDescLen} chars — good range.`,truncate(metaDesc,120),'content',4);
+  }
+
+  // ── 4. H1 ─────────────────────────────────────────
+  const h1List = [...doc.querySelectorAll('h1')];
+  if (h1List.length === 0) {
+    check('critical','H1','Missing H1 Tag','No H1 heading found. Every page should have exactly one H1 as the primary topic signal.','','content',5);
+  } else if (h1List.length > 1) {
+    check('warning','H1','Multiple H1 Tags',`Found ${h1List.length} H1 tags. Use only one H1 per page.`,h1List.map(h=>h.textContent.trim()).join(' | ').slice(0,120),'content',3);
+  } else {
+    check('pass','H1','Single H1 Tag',`H1 found: "${h1List[0].textContent.trim().slice(0,60)}"`,h1List[0].textContent.trim().slice(0,100),'content',5);
+  }
+
+  // ── 5. Headings Hierarchy ─────────────────────────
+  const allHeadings = [...doc.querySelectorAll('h1,h2,h3,h4,h5,h6')];
+  if (allHeadings.length === 0) {
+    check('warning','📑','No Headings Found','Page has no heading tags at all. Use a proper H1→H2→H3 hierarchy.','','content',3);
+  } else if (allHeadings.length >= 2) {
+    check('pass','📑','Headings Present',`${allHeadings.length} heading tags found.`,`H1:${doc.querySelectorAll('h1').length} H2:${doc.querySelectorAll('h2').length} H3:${doc.querySelectorAll('h3').length}`,'content',3);
+  }
+
+  // ── 6. Canonical ─────────────────────────────────
+  const canonical = (doc.querySelector('link[rel="canonical"]') || {}).href || '';
+  if (!canonical) {
+    check('warning','🔗','Missing Canonical URL','No canonical tag found. Add <link rel="canonical"> to prevent duplicate content issues.',url,'technical',4);
+  } else if (canonical === url || canonical.replace(/\/$/,'') === url.replace(/\/$/,'')) {
+    check('pass','🔗','Canonical Tag Present','Canonical URL is set and matches the current URL.',truncate(canonical,80),'technical',4);
+  } else {
+    check('info','🔗','Canonical Points Elsewhere',`Canonical URL differs from page URL — ensure this is intentional.`,truncate(canonical,80),'technical',2);
+  }
+
+  // ── 7. Meta Robots ────────────────────────────────
+  const robots = (doc.querySelector('meta[name="robots"]') || {}).content || '';
+  if (!robots) {
+    check('info','🤖','Meta Robots Not Set','No robots meta tag. Default is index,follow — which is fine but explicit is better.',null,'technical',1);
+  } else if (robots.includes('noindex')) {
+    check('critical','🤖','Noindex Detected!',`Meta robots contains "noindex" — Google will NOT index this page!`,robots,'technical',5);
+  } else if (robots.includes('nofollow')) {
+    check('warning','🤖','Nofollow on Page','Robots meta has "nofollow" — Google won\'t follow links on this page.',robots,'technical',3);
+  } else {
+    check('pass','🤖','Robots Tag OK','Robots meta tag is present and set to index/follow.',robots,'technical',2);
+  }
+
+  // ── 8. Viewport Meta ─────────────────────────────
+  const viewport = (doc.querySelector('meta[name="viewport"]') || {}).content || '';
+  if (!viewport) {
+    check('critical','📱','Missing Viewport Meta','No viewport meta tag. Page will not render properly on mobile — a major ranking factor.','','technical',5);
+  } else {
+    check('pass','📱','Viewport Meta Present','Viewport meta tag is set — good for mobile SEO.',truncate(viewport,80),'technical',5);
+  }
+
+  // ── 9. Lang Attribute ────────────────────────────
+  const lang = doc.documentElement.getAttribute('lang') || '';
+  if (!lang) {
+    check('warning','🌐','Missing lang Attribute','No lang attribute on <html>. Add lang="en" (or your page language) for accessibility and SEO.','','technical',2);
+  } else {
+    check('pass','🌐','Lang Attribute Set',`lang="${lang}" is set on the <html> tag.`,lang,'technical',2);
+  }
+
+  // ── 10. Open Graph ────────────────────────────────
+  const ogTitle = (doc.querySelector('meta[property="og:title"]') || {}).content || '';
+  const ogDesc  = (doc.querySelector('meta[property="og:description"]') || {}).content || '';
+  const ogImg   = (doc.querySelector('meta[property="og:image"]') || {}).content || '';
+  const ogUrl   = (doc.querySelector('meta[property="og:url"]') || {}).content || '';
+  const ogScore = [ogTitle,ogDesc,ogImg,ogUrl].filter(Boolean).length;
+  if (ogScore === 0) {
+    check('warning','📊','Open Graph Tags Missing','No OG tags found. Add og:title, og:description, og:image, og:url for better social sharing.','','social',3);
+  } else if (ogScore < 4) {
+    check('info','📊','Open Graph Incomplete',`Only ${ogScore}/4 core OG tags set.`,`og:title=${!!ogTitle}, og:desc=${!!ogDesc}, og:image=${!!ogImg}, og:url=${!!ogUrl}`,'social',2);
+  } else {
+    check('pass','📊','Open Graph Complete','All 4 core OG tags (title, desc, image, url) are present.',null,'social',3);
+  }
+
+  // ── 11. Twitter Card ─────────────────────────────
+  const twCard = (doc.querySelector('meta[name="twitter:card"]') || {}).content || '';
+  if (!twCard) {
+    check('info','🐦','Twitter Card Missing','Add twitter:card meta for better Twitter/X previews.',null,'social',1);
+  } else {
+    check('pass','🐦','Twitter Card Set',`twitter:card="${twCard}"`,twCard,'social',1);
+  }
+
+  // ── 12. Images Alt Text ──────────────────────────
+  const imgs     = [...doc.querySelectorAll('img')];
+  const noAlt    = imgs.filter(img => !img.getAttribute('alt') && img.getAttribute('alt') !== '').length;
+  const emptyAlt = imgs.filter(img => img.getAttribute('alt') === '').length;
+  if (imgs.length === 0) {
+    check('info','🖼️','No Images Found','Page has no images — consider adding relevant visuals with proper alt texts.',null,'content',1);
+  } else if (noAlt > 0) {
+    check('warning','🖼️','Images Missing Alt Text',`${noAlt} of ${imgs.length} images have no alt attribute. Alt text helps Google understand image content.`,`${noAlt} images missing alt`,'content',3);
+  } else {
+    check('pass','🖼️','All Images Have Alt Text',`${imgs.length} images, all have alt attributes.`,null,'content',3);
+  }
+
+  // ── 13. Favicon ──────────────────────────────────
+  const favicon = doc.querySelector('link[rel*="icon"]');
+  if (!favicon) {
+    check('info','⭐','Missing Favicon','No favicon link found. Favicons improve brand recognition in SERPs and browser tabs.',null,'technical',1);
+  } else {
+    check('pass','⭐','Favicon Present','Favicon tag is present.',truncate(favicon.href,80),'technical',1);
+  }
+
+  // ── 14. Internal / External Links ────────────────
+  const allLinks = [...doc.querySelectorAll('a[href]')];
+  const internalLinks = allLinks.filter(a => {
+    try { return new URL(a.href).hostname === urlObj.hostname; } catch(e){ return false; }
+  });
+  const externalLinks = allLinks.filter(a => {
+    try { return new URL(a.href).hostname !== urlObj.hostname; } catch(e){ return false; }
+  });
+  const nofollowExt = externalLinks.filter(a => (a.getAttribute('rel')||'').includes('nofollow'));
+
+  if (internalLinks.length === 0) {
+    check('warning','🔗','No Internal Links','No internal links found. Internal linking helps Google crawl and understand site structure.','','links',3);
+  } else {
+    check('pass','🔗','Internal Links Present',`${internalLinks.length} internal links found.`,`${internalLinks.length} internal`,'links',3);
+  }
+
+  if (externalLinks.length > 0) {
+    check('pass','↗️','External Links Present',`${externalLinks.length} external links found.`,`${externalLinks.length} external (${nofollowExt.length} nofollow)`,'links',2);
+  }
+
+  // ── 15. Structured Data ───────────────────────────
+  const jsonLd  = [...doc.querySelectorAll('script[type="application/ld+json"]')];
+  const microdata = doc.querySelector('[itemtype]');
+  if (jsonLd.length > 0) {
+    check('pass','⚙️','Structured Data Found',`${jsonLd.length} JSON-LD block(s) detected — great for rich results!`,null,'technical',3);
+  } else if (microdata) {
+    check('pass','⚙️','Microdata Found','Microdata schema markup detected.',null,'technical',3);
+  } else {
+    check('info','⚙️','No Structured Data','No JSON-LD or Microdata found. Add Schema.org markup for rich results (FAQ, Review, Article, etc.).',null,'technical',2);
+  }
+
+  // ── 16. URL Structure ─────────────────────────────
+  const pathname = urlObj ? urlObj.pathname : '';
+  const hasSpecialChars = /[_A-Z\s]/.test(pathname);
+  const isDeep  = pathname.split('/').filter(Boolean).length > 4;
+  if (hasSpecialChars) {
+    check('info','🔗','URL Has Uppercase/Underscore','Prefer lowercase URLs with hyphens (not underscores or uppercase letters).',pathname,'technical',2);
+  } else if (isDeep) {
+    check('info','🔗','Deep URL Structure','URL is more than 4 levels deep — consider flattening for better crawlability.',pathname,'technical',1);
+  } else {
+    check('pass','🔗','URL Structure OK','URL is clean, lowercase, and uses hyphens.',pathname,'technical',2);
+  }
+
+  // ── 17. Keyword in Title ─────────────────────────
+  // (use first H1 as main keyword proxy)
+  const h1Text = h1List.length > 0 ? h1List[0].textContent.trim().toLowerCase() : '';
+  const h1Words = h1Text.split(/\s+/).filter(w=>w.length>3);
+  if (h1Words.length > 0 && title) {
+    const titleLow = title.toLowerCase();
+    const keywordInTitle = h1Words.some(w => titleLow.includes(w));
+    if (keywordInTitle) {
+      check('pass','🎯','Keyword in Title','Page title contains words from the H1 heading — good keyword alignment.',null,'content',4);
+    } else {
+      check('warning','🎯','H1 & Title Mismatch','The main keyword from H1 doesn\'t appear in the title tag. Align them for better relevancy.',`H1: "${h1Text.slice(0,60)}"`, 'content',3);
+    }
+  }
+
+  // ── 18. Content Length ────────────────────────────
+  const bodyText  = (doc.body || {textContent:''}).textContent || '';
+  const wordCount = bodyText.trim().split(/\s+/).filter(Boolean).length;
+  if (wordCount < 300) {
+    check('warning','📖','Thin Content',`Only ~${wordCount} words. Pages with under 300 words are often considered thin by Google.`,`~${wordCount} words`,'content',4);
+  } else if (wordCount >= 1000) {
+    check('pass','📖','Rich Content',`~${wordCount} words — well-written, comprehensive content tends to rank better.`,`~${wordCount} words`,'content',4);
+  } else {
+    check('pass','📖','Content Length OK',`~${wordCount} words — acceptable length.`,`~${wordCount} words`,'content',3);
+  }
+
+  // ── 19. Meta Keywords (deprecated but check) ─────
+  const metaKw = (doc.querySelector('meta[name="keywords"]') || {}).content || '';
+  if (metaKw && metaKw.split(',').length > 20) {
+    check('info','🔑','Too Many Meta Keywords','Meta keywords tag has 20+ entries. Google ignores this tag, but Bing may penalize keyword stuffing.',null,'content',1);
+  }
+
+  // ── 20. Frame / iFrame check ─────────────────────
+  const frames = doc.querySelectorAll('frame,frameset');
+  if (frames.length > 0) {
+    check('critical','🖼️','Frames Detected',`${frames.length} <frame>/<frameset> elements found. Frames are terrible for SEO. Avoid them entirely.`,null,'technical',5);
+  }
+
+  // ── 21. Page charset ─────────────────────────────
+  const charset = (doc.querySelector('meta[charset]') || {}).getAttribute && doc.querySelector('meta[charset]') ? doc.querySelector('meta[charset]').getAttribute('charset') : '';
+  if (!charset && !rawHtml.toLowerCase().includes('charset')) {
+    check('info','🔤','Charset Not Declared','No charset meta found. Declare <meta charset="UTF-8"> to prevent encoding issues.',null,'technical',1);
+  } else {
+    check('pass','🔤','Charset Declared',`Character encoding is declared.`,charset||'(in HTTP headers)','technical',1);
+  }
+
+  // ── 22. Duplicate Title / Description ─────────────
+  // Just flag if they are identical
+  if (title && metaDesc && title.toLowerCase() === metaDesc.toLowerCase()) {
+    check('warning','🔄','Title = Meta Description','Title and meta description are identical. They should be unique and complementary.',null,'content',3);
+  }
+
+  // ── 23. OG Image Size hint ────────────────────────
+  if (ogImg) {
+    check('pass','🖼️','OG Image Tag Present','og:image is set — social shares will display a preview image.',truncate(ogImg,80),'social',2);
+  } else {
+    check('warning','🖼️','OG Image Missing','No og:image tag. Add a 1200×630px image for beautiful social previews.',null,'social',2);
+  }
+
+  // ── 24. XML Sitemap Link ─────────────────────────
+  // Check if sitemapindex in robots.txt (can't fetch here) — just info
+  check('info','🗺️','Sitemap Not Verified','Automated check: ensure you have an XML sitemap submitted to Google Search Console.',`Expected: ${(urlObj||{}).origin}/sitemap.xml`,'technical',2);
+
+  // ── 25. AMP Link ──────────────────────────────────
+  const ampLink = doc.querySelector('link[rel="amphtml"]');
+  if (ampLink) {
+    check('pass','⚡','AMP Version Present','AMP version linked — good for mobile page speed.',truncate(ampLink.href,80),'technical',1);
+  }
+
+  // ── Final Score ───────────────────────────────────
+  const totalMax    = issues.reduce((s,i) => s + i.weight, 0);
+  const totalEarned = issues.filter(i=>i.sev==='pass').reduce((s,i) => s + i.weight, 0);
+  const score       = totalMax > 0 ? Math.round((totalEarned / totalMax) * 100) : 0;
+
+  return {
+    score, issues, wordCount, titleLen, metaDescLen,
+    title, metaDesc, canonical, robots, lang, ogTitle, ogDesc, ogImg, ogUrl,
+    twCard, h1Count: h1List.length, headings: allHeadings,
+    imgCount: imgs.length, noAlt, internalLinks: internalLinks.length,
+    externalLinks: externalLinks.length, jsonLd: jsonLd.length,
+    scores: {
+      technical: scores.techMax    > 0 ? Math.round(scores.technical    / scores.techMax    * 100) : 0,
+      content:   scores.contentMax > 0 ? Math.round(scores.content      / scores.contentMax * 100) : 0,
+      social:    scores.socialMax  > 0 ? Math.round(scores.social       / scores.socialMax  * 100) : 0,
+      links:     scores.linksMax   > 0 ? Math.round(scores.links        / scores.linksMax   * 100) : 0,
+    }
+  };
+}
+
+// ── Render Results ────────────────────────────────
+function renderResults(result, url) {
+  // Show score section
+  const sc = result.score;
+  const ring = $('saRingFill');
+  const circumference = 515;
+  const offset = circumference - (sc / 100) * circumference;
+  const color = sc >= 80 ? '#16a34a' : sc >= 60 ? '#d97706' : sc >= 40 ? '#ea580c' : '#dc2626';
+  ring.style.stroke = color;
+  ring.style.strokeDashoffset = String(offset);
+
+  $('saScoreNum').textContent  = sc;
+  $('saScoreNum').style.color  = color;
+  const grade = sc >= 80 ? 'Excellent' : sc >= 60 ? 'Good' : sc >= 40 ? 'Needs Work' : 'Critical';
+  $('saScoreGrade').textContent = grade;
+  $('saScoreTitle').textContent = `SEO Score: ${grade}`;
+  $('saScoreDesc').textContent  = sc >= 80
+    ? `Great job! Your page is well-optimised. Fix remaining warnings for a perfect score.`
+    : sc >= 60
+    ? `Your page has solid foundations. Address the issues below to climb the rankings.`
+    : sc >= 40
+    ? `Significant SEO issues found. Fix the critical items first for the biggest gains.`
+    : `This page needs urgent SEO attention. Critical issues are blocking search visibility.`;
+
+  // Score bars
+  const bars = result.scores;
+  $('saScoreBars').innerHTML = Object.entries({
+    Technical: [bars.technical, '#6366f1'],
+    Content:   [bars.content,   '#f59e0b'],
+    Social:    [bars.social,    '#ec4899'],
+    Links:     [bars.links,     '#22c55e'],
+  }).map(([label,[pct,col]]) => `
+    <div class="sa-bar-row">
+      <span class="sa-bar-label">${label}</span>
+      <div class="sa-bar-track">
+        <div class="sa-bar-fill" style="width:${pct}%;background:${col};"></div>
+      </div>
+      <span class="sa-bar-pct" style="color:${col};">${pct}%</span>
+    </div>`).join('');
+
+  setVisible('saScoreSection', true);
+
+  // Issues
+  const critical = result.issues.filter(i=>i.sev==='critical');
+  const warnings = result.issues.filter(i=>i.sev==='warning');
+  const infos    = result.issues.filter(i=>i.sev==='info');
+  const passes   = result.issues.filter(i=>i.sev==='pass');
+
+  const renderIssue = (issue) => `
+    <div class="sa-issue sev-${issue.sev}">
+      <div class="sa-issue-icon">${issue.icon}</div>
+      <div class="sa-issue-body">
+        <div class="sa-issue-title">${escHtml(issue.title)}
+          <span class="sa-issue-badge">${issue.sev.toUpperCase()}</span>
+        </div>
+        <div class="sa-issue-desc">${escHtml(issue.desc)}</div>
+        ${issue.val ? `<div class="sa-issue-val">${escHtml(issue.val)}</div>` : ''}
+      </div>
+    </div>`;
+
+  // Show critical, warning, info together in one section with pass separate
+  const allIssues = [...critical, ...warnings, ...infos];
+  $('saIssuesCritical').innerHTML = critical.map(renderIssue).join('') || '<p style="color:var(--text-secondary);font-size:0.85rem;padding:8px;">No critical issues found 🎉</p>';
+  $('saIssuesWarning').innerHTML  = [...warnings,...infos].map(renderIssue).join('') || '<p style="color:var(--text-secondary);font-size:0.85rem;padding:8px;">No warnings found 👍</p>';
+  $('saIssuesPass').innerHTML     = passes.map(renderIssue).join('') || '<p style="color:var(--text-secondary);font-size:0.85rem;padding:8px;">No passing checks yet.</p>';
+
+  $('critCnt').textContent = `${critical.length} issues`;
+  $('warnCnt').textContent = `${warnings.length + infos.length} items`;
+  $('passCnt').textContent = `${passes.length} passed`;
+
+  setVisible('saIssues', true);
+
+  // Meta card
+  $('saMetaContent').innerHTML = `
+    ${kv('URL', `<a href="${escHtml(url)}" target="_blank" rel="noopener" style="color:#6366f1;word-break:break-all;">${truncate(url,60)}</a>`)}
+    ${kv('Title', escHtml(truncate(result.title, 80)))}
+    ${kv('Title Length', result.title ? `<span style="color:${result.titleLen>=30&&result.titleLen<=65?'#16a34a':'#d97706'}">${result.titleLen} chars</span>` : '—')}
+    ${kv('Meta Desc', escHtml(truncate(result.metaDesc, 80)))}
+    ${kv('Meta Desc Length', result.metaDesc ? `<span style="color:${result.metaDescLen>=50&&result.metaDescLen<=165?'#16a34a':'#d97706'}">${result.metaDescLen} chars</span>` : '—')}
+    ${kv('Canonical', result.canonical ? `<a href="${escHtml(result.canonical)}" target="_blank" rel="noopener" style="color:#6366f1;">${truncate(result.canonical,55)}</a>` : 'Not set')}
+    ${kv('Robots', result.robots || 'Not set')}
+    ${kv('Language', result.lang || 'Not set')}
+    ${kv('Word Count', `~${result.wordCount} words`)}
+    ${kv('Images', `${result.imgCount} total${result.noAlt > 0 ? ` · <span style="color:#d97706">${result.noAlt} missing alt</span>` : ''}`)}
+  `;
+  $('saCardMeta').classList.add('show');
+
+  // Headings tree card
+  const headingItems = result.headings.length > 0
+    ? [...result.headings].slice(0, 25).map(h => {
+        const tag = h.tagName.toLowerCase();
+        const text = h.textContent.trim().slice(0, 70);
+        return `<li class="sa-${tag}">${escHtml(tag.toUpperCase())}: ${escHtml(text)}</li>`;
+      }).join('')
+    : '<li style="color:var(--text-secondary);font-size:0.85rem;">No headings found</li>';
+  $('saHeadingsTree').innerHTML = headingItems;
+  $('saCardHeadings').classList.add('show');
+
+  // Links card
+  $('saLinksContent').innerHTML = `
+    ${kv('Internal Links', `<span style="color:#6366f1;font-weight:700;">${result.internalLinks}</span>`)}
+    ${kv('External Links', `<span style="color:#22c55e;font-weight:700;">${result.externalLinks}</span>`)}
+    ${kv('JSON-LD Schemas', result.jsonLd > 0 ? `<span style="color:#16a34a;">${result.jsonLd} found</span>` : '<span style="color:#d97706;">None</span>')}
+  `;
+  $('saCardLinks').classList.add('show');
+
+  // OG / Social card
+  $('saOGContent').innerHTML = `
+    ${kv('og:title',       escHtml(truncate(result.ogTitle, 60)) || '—')}
+    ${kv('og:description', escHtml(truncate(result.ogDesc,  80)) || '—')}
+    ${kv('og:image',       result.ogImg ? `<a href="${escHtml(result.ogImg)}" target="_blank" rel="noopener" style="color:#6366f1;">View Image</a>` : '—')}
+    ${kv('og:url',         result.ogUrl ? `<a href="${escHtml(result.ogUrl)}" target="_blank" rel="noopener" style="color:#6366f1;">${truncate(result.ogUrl,55)}</a>` : '—')}
+    ${kv('twitter:card',   result.twCard || '—')}
+  `;
+  $('saCardOG').classList.add('show');
+
+  // Show bottom ad
+  $('saBottomAd').style.display = 'block';
+  try { (adsbygoogle=window.adsbygoogle||[]).push({}); } catch(e){}
+
+  // Scroll to score
+  $('saScoreSection').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ── Main: Run Audit ────────────────────────────────
+async function runAudit() {
+  let url = $('saUrlInput').value.trim();
+  if (!url) { toast('Please enter a URL to audit','error'); return; }
+
+  // Auto-add https://
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+  try { new URL(url); } catch(e) {
+    toast('Please enter a valid URL (e.g. https://example.com)','error'); return;
+  }
+
+  // Reset UI
+  $('saIntro').style.display          = 'none';
+  $('saError').classList.remove('show');
+  $('saScoreSection').classList.remove('show');
+  $('saIssues').classList.remove('show');
+  ['saCardMeta','saCardHeadings','saCardLinks','saCardOG'].forEach(id => {
+    $(id).classList.remove('show');
+  });
+  $('saBottomAd').style.display = 'none';
+
+  // Loading
+  const btn = $('saAuditBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Auditing…';
+
+  // Reset progress bar animation
+  const fill = $('saProgressFill');
+  if (fill) { fill.style.animation='none'; fill.offsetHeight; fill.style.animation=''; }
+
+  const msgs = [
+    'Fetching page content…',
+    'Parsing HTML structure…',
+    'Checking title & meta tags…',
+    'Analysing headings & content…',
+    'Running 25+ SEO checks…',
+    'Calculating SEO score…',
+  ];
+  let msgIdx = 0;
+  const msgTimer = setInterval(() => {
+    $('saLoadMsg').textContent = msgs[Math.min(msgIdx++, msgs.length-1)];
+  }, 450);
+
+  setVisible('saLoading', true);
+
+  try {
+    const html = await fetchPage(url);
+    const doc  = parseHtml(html);
+    const result = auditDocument(doc, url, html);
+
+    clearInterval(msgTimer);
+    setVisible('saLoading', false);
+    renderResults(result, url);
+
+    const grade = result.score >= 80 ? 'Excellent' : result.score >= 60 ? 'Good' : result.score >= 40 ? 'Needs Work' : 'Critical';
+    toast(`Audit complete! Score: ${result.score}/100 (${grade})`, 'success');
+
+  } catch(err) {
+    clearInterval(msgTimer);
+    setVisible('saLoading', false);
+    $('saErrorTitle').textContent = 'Could Not Audit Page';
+    $('saErrorDesc').textContent  = err.message || 'The page may be blocking external requests. Try a different URL.';
+    setVisible('saError', true);
+    $('saIntro').style.display = '';
+    toast('Fetch failed — try a different URL','error');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-search"></i> Audit Now';
+}
+
+// ── Enter key support ─────────────────────────────
+$('saUrlInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') runAudit();
+});
+
+// ── Init AdSense ──────────────────────────────────
+try { (adsbygoogle=window.adsbygoogle||[]).push({}); } catch(e){}
+</script>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

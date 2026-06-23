@@ -29,13 +29,15 @@
   <meta name="twitter:description" content="100+ Free Online Tools: Islamic, Finance, AI, PDF, Developer & More" />
   <meta name="twitter:image" content="https://hashmitools.com/images/twitter-card.jpg" />
 
-  <!-- Fonts -->
+  <!-- Fonts: non-blocking load -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" /></noscript>
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <!-- Icons: non-blocking -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" /></noscript>
 
 
   <!-- Styles -->
@@ -44,6 +46,23 @@
 
   <!-- Theme (load before body to prevent flash) -->
   <script src="assets/js/theme.js"></script>
+
+  <!-- Preloader killer: hide ASAP on DOMContentLoaded, hard-limit 2.5s -->
+  <script>
+    (function(){
+      function killPreloader(){
+        var p=document.getElementById('preloader');
+        if(p){p.classList.add('hide');}
+      }
+      if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',killPreloader);
+      } else {
+        killPreloader();
+      }
+      // Absolute hard-limit: kill after 2.5s no matter what
+      setTimeout(killPreloader,2500);
+    })();
+  </script>
 
   <!-- JSON-LD Schema: WebSite -->
   <script type="application/ld+json">

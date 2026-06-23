@@ -6,17 +6,21 @@
 'use strict';
 
 // ============================================
-// PRELOADER
+// PRELOADER  — hide ASAP, no delay
 // ============================================
-window.addEventListener('load', () => {
+
+// 1. Hide immediately when DOM is ready (don't wait for images/ads)
+document.addEventListener('DOMContentLoaded', () => {
   const preloader = document.getElementById('preloader');
-  if (preloader) {
-    setTimeout(() => {
-      preloader.classList.add('hide');
-    }, 1500);
-  }
+  if (preloader) preloader.classList.add('hide');
   initAll();
 });
+
+// 2. Fallback: if DOMContentLoaded already fired (script is deferred/async)
+if (document.readyState !== 'loading') {
+  const preloader = document.getElementById('preloader');
+  if (preloader) preloader.classList.add('hide');
+}
 
 function initAll() {
   initNavbar();

@@ -2,11 +2,19 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/inheritance-calculator.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Islamic Inheritance Calculator (Faraid) — HashmiTools</title>
-<meta name="description" content="Calculate Islamic inheritance shares using authentic Faraid rules. Supports all heir combinations, Hajb (blockage), Asaba (residual), and all Quranic shares.">
+<title>Free Islamic Inheritance Calculator – Mirath & Faraid | HashmiTools</title>
+<meta name="description" content="Calculate Islamic inheritance shares (Faraid) based on Quran & Sunnah. Free Mirath calculator — enter heirs and get exact percentage shares for each family member." />
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/tools.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -14,8 +22,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <style>
-:root{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--gradient-gold:linear-gradient(135deg,#f59e0b,#f97316);--radius:12px;--transition:all 0.3s ease}
-[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
+[data-mode="dark"],[data-theme="dark"]{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--gradient-gold:linear-gradient(135deg,#f59e0b,#f97316);--radius:12px;--transition:all 0.3s ease}
+:root,[data-mode="light"],[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;line-height:1.6}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glass);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
@@ -115,6 +123,19 @@ input:checked+.heir-slider::before{transform:translateX(18px);background:#fff}
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Islamic Inheritance Calculator – Mirath & Faraid","description":"Calculate Islamic inheritance shares (Faraid) based on Quran & Sunnah. Free Mirath calculator — enter heirs and get exact percentage shares for each family member.","url":"https://hashmitools.com/tools/inheritance-calculator.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What is Faraid?","acceptedAnswer":{"@type":"Answer","text":"Faraid is the Islamic system of inheritance prescribed in the Quran. It specifies fixed shares for heirs like spouse, children, parents, and siblings."}},
+        {"@type":"Question","name":"How does this calculator work?","acceptedAnswer":{"@type":"Answer","text":"Enter the deceased's gender, total estate value, and list of surviving heirs. The tool calculates each heir's share according to Hanafi (or other) school rules."}},
+        {"@type":"Question","name":"Is Islamic inheritance law the same in all madhabs?","acceptedAnswer":{"@type":"Answer","text":"The core shares are from the Quran and are the same. Minor differences exist between Hanafi, Shafi'i, Maliki, and Hanbali schools in edge cases."}},
+        {"@type":"Question","name":"What happens if there are no direct heirs?","acceptedAnswer":{"@type":"Answer","text":"In the absence of direct heirs, inheritance passes to agnatic (asaba) relatives. The tool handles complex cases including Usbah residue distribution."}},
+        {"@type":"Question","name":"Is this calculator valid for legal purposes?","acceptedAnswer":{"@type":"Answer","text":"This is an educational tool. For legal estate distribution, consult a qualified Islamic scholar or estate attorney."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 <nav class="navbar">
@@ -995,5 +1016,32 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   })();
   </script>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is Faraid? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Faraid is the Islamic system of inheritance prescribed in the Quran. It specifies fixed shares for heirs like spouse, children, parents, and siblings.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How does this calculator work? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Enter the deceased's gender, total estate value, and list of surviving heirs. The tool calculates each heir's share according to Hanafi (or other) school rules.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is Islamic inheritance law the same in all madhabs? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The core shares are from the Quran and are the same. Minor differences exist between Hanafi, Shafi'i, Maliki, and Hanbali schools in edge cases.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What happens if there are no direct heirs? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">In the absence of direct heirs, inheritance passes to agnatic (asaba) relatives. The tool handles complex cases including Usbah residue distribution.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is this calculator valid for legal purposes? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">This is an educational tool. For legal estate distribution, consult a qualified Islamic scholar or estate attorney.</p>
+    </details>
+  </section>
 </body>
 </html>

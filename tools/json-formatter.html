@@ -2,9 +2,18 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON Formatter & Validator – Beautify JSON Online | HashmiTools</title>
-  <meta name="description" content="Free online JSON formatter and validator. Format, beautify, minify, validate and parse JSON data. Syntax highlighting, error detection. Works in browser instantly." />
+  <title>Free JSON Formatter & Validator – Beautify & Minify JSON | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Format, validate, beautify, and minify JSON online for free. Detect JSON errors instantly and convert minified JSON to readable indented format — no signup needed." />
   <meta name="keywords" content="json formatter, json validator, json beautifier, json parser, format json online, json minifier" />
   <link rel="canonical" href="https://hashmitools.com/tools/json-formatter.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,6 +27,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"JSON Formatter & Validator – Beautify & Minify JSON","description":"Format, validate, beautify, and minify JSON online for free. Detect JSON errors instantly and convert minified JSON to readable indented format — no signup needed.","url":"https://hashmitools.com/tools/json-formatter.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What does JSON formatting do?","acceptedAnswer":{"@type":"Answer","text":"JSON formatting (prettifying) takes compact JSON and adds proper indentation and line breaks to make it human-readable and easy to debug."}},
+        {"@type":"Question","name":"How do I validate JSON?","acceptedAnswer":{"@type":"Answer","text":"Paste your JSON into the editor and click Validate. Any syntax errors are highlighted with the line number and error description."}},
+        {"@type":"Question","name":"What is JSON minification?","acceptedAnswer":{"@type":"Answer","text":"Minification removes all whitespace and line breaks from JSON, making it smaller for use in production APIs and data transmission."}},
+        {"@type":"Question","name":"Can I convert JSON to other formats?","acceptedAnswer":{"@type":"Answer","text":"This tool supports JSON ↔ formatting/minification. For conversion to XML, CSV, or YAML, check our other developer tools."}},
+        {"@type":"Question","name":"Why is my JSON showing an error?","acceptedAnswer":{"@type":"Answer","text":"Common JSON errors: missing quotes around keys, trailing commas, single quotes instead of double quotes, or unescaped special characters in strings."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
   <header class="navbar" id="navbar">
@@ -159,7 +181,20 @@
         <div class="faq-item"><div class="faq-question">What's the difference between format and minify? <span class="faq-icon">+</span></div><div class="faq-answer">Formatting (beautify) adds proper indentation and line breaks to make JSON human-readable. Minifying removes all whitespace and line breaks to reduce file size for production use.</div></div>
       </div>
     </div>
-  </main>
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Paste your JSON into the input editor.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Format/Beautify to make it readable, or Minify to compress it.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Errors are highlighted automatically.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Copy to copy the formatted result.</li>
+    </ol>
+  </section>
+</main>
 
   
 

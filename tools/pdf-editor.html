@@ -2,9 +2,17 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free PDF Editor Online — Edit, Add Text, Sign & Annotate PDF | HashmiTools</title>
-<meta name="description" content="Edit PDF files online for free. Add text, draw, highlight, insert images, sign, merge, split & more. No signup. 100% browser-based. Files stay private.">
+<title>Free PDF Editor Online – Edit PDF Text, Images & More | HashmiTools</title>
+<meta name="description" content="Edit PDF files online for free — add text, images, shapes, highlights, and signatures. No installation needed. Free browser-based PDF editor with no watermarks." />
 <meta name="keywords" content="free pdf editor, edit pdf online, pdf editor no signup, add text to pdf, pdf annotator, online pdf editor, modify pdf online">
 <link rel="canonical" href="https://hashmitools.com/tools/pdf-editor.html">
 <meta property="og:title" content="Free PDF Editor Online | HashmiTools.com">
@@ -614,6 +622,8 @@ a{color:var(--accent);text-decoration:none}
        crossorigin="anonymous"></script>
 </head>
 <body>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Free PDF Editor Online – HashmiTools</h1>
+
 <input type="file" id="file-input" accept=".pdf" style="display:none">
 <input type="file" id="img-input" accept="image/*" style="display:none">
 <input type="file" id="sig-upload-input" accept="image/*" style="display:none">

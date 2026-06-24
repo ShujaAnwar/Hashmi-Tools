@@ -2,10 +2,19 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8"/>
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/ideal-weight.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Ideal Weight Calculator — Devine, Robinson, Miller, BMI | IslamiTools</title>
+<title>Free Ideal Weight Calculator – Healthy Weight | HashmiTools</title>
+  <meta name="description" content="Find your ideal healthy weight based on height, age, and gender. Uses BMI, Devine, and Robinson formulas. Free ideal weight calculator for men and women." />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
@@ -119,6 +128,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Ideal Weight Calculator – Healthy Weight for Your Height","description":"Find your ideal body weight based on height, age, and gender using multiple formulas (Robinson, Miller, Devine). Free online ideal weight calculator.","url":"https://hashmitools.com/tools/ideal-weight.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How is ideal weight calculated?","acceptedAnswer":{"@type":"Answer","text":"This tool uses 4 formulas: Robinson (1983), Miller (1983), Devine (1974), and Hamwi — then shows the average as your recommended range."}},
+        {"@type":"Question","name":"What is the ideal weight for 5'7\" (170 cm)?","acceptedAnswer":{"@type":"Answer","text":"For a 5'7\" male, ideal weight is approximately 63–75 kg. For females, approximately 58–70 kg (varies by formula used)."}},
+        {"@type":"Question","name":"Is ideal weight the same as healthy BMI weight?","acceptedAnswer":{"@type":"Answer","text":"They are related but different. Ideal weight formulas focus on height/gender ratios, while BMI considers weight relative to height squared."}},
+        {"@type":"Question","name":"Does muscle mass affect ideal weight calculations?","acceptedAnswer":{"@type":"Answer","text":"Yes — athletes and very muscular individuals will weigh more than the \"ideal\" weight suggests, yet be perfectly healthy."}},
+        {"@type":"Question","name":"Is this calculator suitable for children?","acceptedAnswer":{"@type":"Answer","text":"No — this tool is designed for adults. Children's healthy weight should be assessed using age-specific growth charts by a pediatrician."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 
@@ -290,6 +312,47 @@
   </div>
 
 </div>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your height (in cm or feet/inches).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select your gender.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Optionally set your age for more accurate results.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Calculate — see your ideal weight range from multiple formulas.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How is ideal weight calculated? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">This tool uses 4 formulas: Robinson (1983), Miller (1983), Devine (1974), and Hamwi — then shows the average as your recommended range.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is the ideal weight for 5'7" (170 cm)? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">For a 5'7" male, ideal weight is approximately 63–75 kg. For females, approximately 58–70 kg (varies by formula used).</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is ideal weight the same as healthy BMI weight? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">They are related but different. Ideal weight formulas focus on height/gender ratios, while BMI considers weight relative to height squared.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Does muscle mass affect ideal weight calculations? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — athletes and very muscular individuals will weigh more than the "ideal" weight suggests, yet be perfectly healthy.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is this calculator suitable for children? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">No — this tool is designed for adults. Children's healthy weight should be assessed using age-specific growth charts by a pediatrician.</p>
+    </details>
+  </section>
 </main>
 
   <!-- AdSense Bottom Ad -->

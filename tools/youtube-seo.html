@@ -2,9 +2,18 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube SEO Tool – Title, Description & Tags Generator | HashmiTools</title>
-  <meta name="description" content="Free YouTube SEO tool. Generate optimized video titles, SEO descriptions with timestamps, and viral tags/hashtags to rank your YouTube videos higher. Perfect for Pakistani YouTubers." />
+  <title>Free YouTube SEO Tool – Titles & Tags Generator | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Generate SEO-optimized YouTube titles, descriptions with timestamps, and viral tags. Free YouTube SEO tool for creators — English, Roman Urdu, and Mixed." />
   <meta name="keywords" content="youtube seo tool, youtube title generator, youtube description generator, youtube tags generator, video seo, youtube rank, channel growth, hashtag generator youtube, video optimization" />
   <link rel="canonical" href="https://hashmitools.com/tools/youtube-seo.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -229,6 +238,19 @@
       .yt-tabs { flex-direction:column; }
     }
   </style>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"YouTube SEO Tool – Title, Description & Tags Generator","description":"Generate SEO-optimized YouTube video titles, descriptions with timestamps, and viral tags. Free YouTube SEO tool for Pakistani creators — English, Roman Urdu, and Mixed.","url":"https://hashmitools.com/tools/youtube-seo.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How does the YouTube title generator work?","acceptedAnswer":{"@type":"Answer","text":"Enter your video topic and niche, select a title style (How-to, Listicle, Viral Hook, etc.), and the tool generates 5 SEO-optimized title options using proven templates."}},
+        {"@type":"Question","name":"How many tags should a YouTube video have?","acceptedAnswer":{"@type":"Answer","text":"YouTube allows up to 500 characters of tags. Use 10–15 well-researched tags: 3–4 exact-match, 4–5 medium-tail, and 3–4 broad category tags."}},
+        {"@type":"Question","name":"Does the description generator add timestamps?","acceptedAnswer":{"@type":"Answer","text":"Yes — enable the timestamp option and describe your video chapters. The tool formats them in the standard 0:00 MM:SS format that YouTube links to."}},
+        {"@type":"Question","name":"Is Roman Urdu supported?","acceptedAnswer":{"@type":"Answer","text":"Yes — select Roman Urdu or Mixed (English+Urdu) language mode for titles and descriptions tailored to Pakistani YouTube audiences."}},
+        {"@type":"Question","name":"Should I use the all-in-one tab or individual generators?","acceptedAnswer":{"@type":"Answer","text":"For a complete video upload, use the All-in-One tab — it generates an optimized title, full description with timestamps, and 30 categorized tags simultaneously."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 

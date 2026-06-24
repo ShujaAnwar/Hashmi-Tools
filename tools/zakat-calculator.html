@@ -2,9 +2,18 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zakat Calculator 2024 — Accurate Islamic Zakat | HashmiTools</title>
-<meta name="description" content="Calculate your Zakat accurately with our comprehensive Islamic Zakat Calculator. Includes gold/silver nisab, cash, bank balance, investments, property, and deductions. Download PDF report.">
+<title>Free Zakat Calculator – Gold, Cash & Assets | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+<meta name="description" content="Calculate Zakat accurately on gold, silver, cash, investments, and business assets. Free Islamic Zakat calculator — get exact Zakat amount in PKR instantly." />
 <meta property="og:title" content="Zakat Calculator — HashmiTools">
 <meta property="og:description" content="Free, accurate Islamic Zakat calculator with PDF export and history.">
 <link rel="canonical" href="https://hashmitools.com/tools/zakat-calculator.html">
@@ -25,8 +34,8 @@
 }
 </script>
 <style>
-:root{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--gradient-gold:linear-gradient(135deg,#f59e0b,#f97316);--shadow-glow:0 0 30px rgba(99,102,241,0.15);--radius:12px;--transition:all 0.3s ease}
-[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8;--shadow-glow:0 0 30px rgba(99,102,241,0.1)}
+[data-mode="dark"],[data-theme="dark"]{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--gradient-gold:linear-gradient(135deg,#f59e0b,#f97316);--shadow-glow:0 0 30px rgba(99,102,241,0.15);--radius:12px;--transition:all 0.3s ease}
+:root,[data-mode="light"],[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8;--shadow-glow:0 0 30px rgba(99,102,241,0.1)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;line-height:1.6}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glass);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
@@ -933,5 +942,46 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   })();
   </script>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter the current gold price per gram in PKR (or use the auto-fetch button).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your cash, gold weight (grams), silver weight, and investment values.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Deduct any debts/liabilities you owe.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Calculate Zakat — see if you've reached Nisab and the exact Zakat amount due.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is Zakat? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Zakat is one of the Five Pillars of Islam — an obligatory annual charity of 2.5% on wealth above the Nisab threshold, given to eligible recipients.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is Nisab? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Nisab is the minimum amount of wealth a Muslim must possess before Zakat becomes obligatory. It equals the value of 87.48g of gold or 612.36g of silver — whichever applies.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What assets are Zakatable? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Cash, gold, silver, stocks/investments, business inventory, and receivable debts are all subject to Zakat. Personal use items (home, car, clothes) are generally exempt.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is 2.5% the correct Zakat rate? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">2.5% (1/40th) is the standard Zakat rate on most forms of wealth. Agricultural produce has different rates (5% or 10%). Consult a scholar for complex situations.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Do I pay Zakat on my salary? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Zakat is not on income directly — it's on savings. If your savings (after deducting debts) have been above Nisab for a full lunar year (Hawl), 2.5% Zakat is due on them.</p>
+    </details>
+  </section>
 </body>
 </html>

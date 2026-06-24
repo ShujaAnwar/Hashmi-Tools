@@ -2,18 +2,26 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/background-remover.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Background Remover — AI Remove Image Background | HashmiTools</title>
-<meta name="description" content="Remove image backgrounds instantly using AI. 100% free, client-side AI processing. Download transparent PNG or custom background.">
+<title>Free Background Remover – Remove Image Background Online | HashmiTools</title>
+<meta name="description" content="Remove image backgrounds instantly and for free. No Photoshop needed — upload your photo and get a transparent PNG background in seconds." />
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/tools.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--radius:12px;--transition:all .3s ease}
-[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
+[data-mode="dark"],[data-theme="dark"]{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,0.04);--border-glass:rgba(255,255,255,0.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-gold:#f59e0b;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--radius:12px;--transition:all .3s ease}
+:root,[data-mode="light"],[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#ffffff;--bg-glass:rgba(99,102,241,0.05);--border-glass:rgba(99,102,241,0.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glass);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
@@ -73,6 +81,19 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Background Remover – Remove Image Background Online","description":"Remove image backgrounds instantly and for free. No Photoshop needed — upload your photo and get a transparent PNG background in seconds.","url":"https://hashmitools.com/tools/background-remover.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How do I remove an image background?","acceptedAnswer":{"@type":"Answer","text":"Upload your image, click Remove Background, and download the transparent PNG result in seconds."}},
+        {"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, and WebP images are supported. The output is always a transparent PNG file."}},
+        {"@type":"Question","name":"Is background removal completely free?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free. Unlimited use, no signup, no watermarks on results."}},
+        {"@type":"Question","name":"Can I change the background to a different color?","acceptedAnswer":{"@type":"Answer","text":"Yes — after removing the background you can fill it with any color or a custom image using the background options panel."}},
+        {"@type":"Question","name":"How accurate is the background removal?","acceptedAnswer":{"@type":"Answer","text":"The AI detects subject edges automatically. For complex backgrounds, use the manual touch-up brush to refine edges."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 <nav class="navbar">
@@ -439,5 +460,46 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   })();
   </script>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Upload Image or drag and drop your photo.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">The AI automatically detects and removes the background.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Optionally choose a new background color or image.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Download the result as a transparent PNG.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How do I remove an image background? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Upload your image, click Remove Background, and download the transparent PNG result in seconds.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What image formats are supported? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">JPG, PNG, and WebP images are supported. The output is always a transparent PNG file.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is background removal completely free? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes, completely free. Unlimited use, no signup, no watermarks on results.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Can I change the background to a different color? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — after removing the background you can fill it with any color or a custom image using the background options panel.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How accurate is the background removal? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The AI detects subject edges automatically. For complex backgrounds, use the manual touch-up brush to refine edges.</p>
+    </details>
+  </section>
 </body>
 </html>

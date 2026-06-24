@@ -2,10 +2,19 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8"/>
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/calorie-calculator.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Calorie Calculator — BMR, TDEE & Macros | IslamiTools</title>
+<title>Free Calorie Calculator – Daily Calorie Needs (TDEE) | HashmiTools</title>
+  <meta name="description" content="Calculate your daily calorie needs based on age, gender, height, weight, and activity level. Find your TDEE and BMR for free — ideal for weight loss or muscle gain." />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
@@ -209,6 +218,19 @@ select.field-input { cursor: pointer; }
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Calorie Calculator – Daily Calorie Needs (TDEE)","description":"Calculate your daily calorie needs based on age, gender, height, weight, and activity level. Find your TDEE and BMR for free — ideal for weight loss or muscle gain.","url":"https://hashmitools.com/tools/calorie-calculator.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What is TDEE?","acceptedAnswer":{"@type":"Answer","text":"TDEE stands for Total Daily Energy Expenditure — the total calories your body burns in a day including all activity. Eating below TDEE causes weight loss."}},
+        {"@type":"Question","name":"What is BMR?","acceptedAnswer":{"@type":"Answer","text":"Basal Metabolic Rate (BMR) is the calories your body burns at complete rest. It's the minimum energy needed to keep you alive."}},
+        {"@type":"Question","name":"How many calories should I eat to lose weight?","acceptedAnswer":{"@type":"Answer","text":"A 500 calorie daily deficit from your TDEE typically results in ~0.5kg (1lb) of weight loss per week."}},
+        {"@type":"Question","name":"Which formula does this calculator use?","acceptedAnswer":{"@type":"Answer","text":"The Mifflin-St Jeor equation — currently the most accurate formula for estimating calorie needs for most people."}},
+        {"@type":"Question","name":"Is this tool accurate for all body types?","acceptedAnswer":{"@type":"Answer","text":"The formula is a scientific estimate. Actual needs vary slightly. Track your actual intake and weight for 2–4 weeks and adjust accordingly."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 
@@ -508,6 +530,33 @@ select.field-input { cursor: pointer; }
   </div><!-- /resultsArea -->
 
 </div>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is TDEE? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">TDEE stands for Total Daily Energy Expenditure — the total calories your body burns in a day including all activity. Eating below TDEE causes weight loss.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is BMR? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Basal Metabolic Rate (BMR) is the calories your body burns at complete rest. It's the minimum energy needed to keep you alive.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How many calories should I eat to lose weight? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">A 500 calorie daily deficit from your TDEE typically results in ~0.5kg (1lb) of weight loss per week.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Which formula does this calculator use? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The Mifflin-St Jeor equation — currently the most accurate formula for estimating calorie needs for most people.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is this tool accurate for all body types? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The formula is a scientific estimate. Actual needs vary slightly. Track your actual intake and weight for 2–4 weeks and adjust accordingly.</p>
+    </details>
+  </section>
 </main>
 
   <!-- AdSense Bottom Ad -->

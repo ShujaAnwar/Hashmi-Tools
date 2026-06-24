@@ -2,18 +2,26 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/url-encoder.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URL Encoder & Decoder — Online Free | HashmiTools</title>
-<meta name="description" content="Encode and decode URLs online. Supports full URL, query parameters, and component encoding. Real encodeURIComponent JavaScript.">
+<title>Free URL Encoder & Decoder Online – Percent Encoding | HashmiTools</title>
+<meta name="description" content="Encode or decode URLs and URI components online for free. Convert special characters to percent-encoding and back — essential for web developers and API testing." />
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/tools.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,.04);--border-glass:rgba(255,255,255,.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--radius:12px;--transition:all .3s ease}
-[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#fff;--bg-glass:rgba(99,102,241,.05);--border-glass:rgba(99,102,241,.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
+[data-mode="dark"],[data-theme="dark"]{--bg-primary:#0a0e1a;--bg-secondary:#0f1629;--bg-card:#131929;--bg-glass:rgba(255,255,255,.04);--border-glass:rgba(255,255,255,.08);--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--accent-purple:#6366f1;--accent-cyan:#06b6d4;--accent-green:#10b981;--accent-red:#ef4444;--gradient-main:linear-gradient(135deg,#6366f1 0%,#06b6d4 100%);--radius:12px;--transition:all .3s ease}
+:root,[data-mode="light"],[data-theme="light"]{--bg-primary:#f0f4ff;--bg-secondary:#e8eeff;--bg-card:#fff;--bg-glass:rgba(99,102,241,.05);--border-glass:rgba(99,102,241,.15);--text-primary:#1e293b;--text-secondary:#475569;--text-muted:#94a3b8}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glass);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
@@ -64,6 +72,19 @@ textarea:focus{border-color:var(--accent-purple)}
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"URL Encoder & Decoder Online – Percent Encoding","description":"Encode or decode URLs and URI components online for free. Convert special characters to percent-encoding and back — essential for web developers and API testing.","url":"https://hashmitools.com/tools/url-encoder.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What is URL encoding?","acceptedAnswer":{"@type":"Answer","text":"URL encoding (percent-encoding) converts special characters (spaces, &, =, ?, etc.) into % + hex code format so they can be safely used in URLs."}},
+        {"@type":"Question","name":"When do I need to URL encode?","acceptedAnswer":{"@type":"Answer","text":"When passing special characters in query strings, building API requests, creating redirects, or handling user input that goes into a URL."}},
+        {"@type":"Question","name":"What is the difference between encodeURI and encodeURIComponent?","acceptedAnswer":{"@type":"Answer","text":"encodeURI encodes the entire URL (preserving / : ? =). encodeURIComponent encodes a single parameter value and converts all special chars including /and ?."}},
+        {"@type":"Question","name":"Can I decode a URL with %20 and similar codes?","acceptedAnswer":{"@type":"Answer","text":"Yes — paste the encoded URL into the decode tab and it converts %20 → space, %3D → =, %26 → & and all other percent-encoded characters."}},
+        {"@type":"Question","name":"Does this support base64 URL encoding?","acceptedAnswer":{"@type":"Answer","text":"This tool handles standard percent-encoding. For Base64 encoding/decoding, use our Base64 tool."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 <nav class="navbar">
@@ -380,5 +401,46 @@ document.addEventListener('DOMContentLoaded',()=>{const s=localStorage.getItem('
     }
   })();
   </script>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select Encode or Decode from the tabs.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Paste your URL or text into the input field.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">The result appears instantly.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Copy to copy the output.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is URL encoding? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">URL encoding (percent-encoding) converts special characters (spaces, &, =, ?, etc.) into % + hex code format so they can be safely used in URLs.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">When do I need to URL encode? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">When passing special characters in query strings, building API requests, creating redirects, or handling user input that goes into a URL.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is the difference between encodeURI and encodeURIComponent? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">encodeURI encodes the entire URL (preserving / : ? =). encodeURIComponent encodes a single parameter value and converts all special chars including /and ?.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Can I decode a URL with %20 and similar codes? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — paste the encoded URL into the decode tab and it converts %20 → space, %3D → =, %26 → & and all other percent-encoded characters.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Does this support base64 URL encoding? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">This tool handles standard percent-encoding. For Base64 encoding/decoding, use our Base64 tool.</p>
+    </details>
+  </section>
 </body>
 </html>

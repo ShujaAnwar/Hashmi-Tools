@@ -2,9 +2,17 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Typing Speed Test — Free WPM & Accuracy Test Online | HashmiTools.com</title>
-<meta name="description" content="Test your typing speed and accuracy with our free online WPM test. Real-time stats, multiple difficulty levels, charts and personal leaderboard. How fast can you type?" />
+<title>Free Typing Speed Test – WPM & Accuracy Test Online | HashmiTools</title>
+<meta name="description" content="Test your typing speed and accuracy online for free. Measure WPM (words per minute), CPM, and accuracy with real-time results — no signup, works on all devices." />
 <meta name="keywords" content="typing speed test, wpm test online, typing accuracy test, words per minute, typing speed checker, keyboard test, free typing test, improve typing speed" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://hashmitools.com/tools/typing-test.html" />
@@ -1424,5 +1432,18 @@ document.addEventListener('DOMContentLoaded', init);
     }
   })();
   </script>
+
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Start Test or simply begin typing when the countdown ends.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Type the displayed text as accurately and quickly as possible.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">The test ends automatically after the selected time (30s/60s/2min).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">View your WPM, accuracy percentage, and error count.</li>
+    </ol>
+  </section>
 </body>
 </html>

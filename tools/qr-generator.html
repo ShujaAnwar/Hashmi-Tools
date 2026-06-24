@@ -2,9 +2,17 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free QR Code Generator Online — Create QR Codes for Any URL or Text | HashmiTools</title>
-  <meta name="description" content="Free QR Code generator. Create custom QR codes for URLs, text, email, phone, WiFi, vCard. Download PNG, SVG. No registration required." />
+  <title>Free QR Code Generator – Create Custom QR Codes | HashmiTools</title>
+  <meta name="description" content="Generate QR codes for URLs, text, WiFi, contacts, and more. Customize colors, add a logo, and download as PNG or SVG — free online QR code generator." />
   <meta name="keywords" content="qr code generator, free qr code, custom qr code, qr code maker, generate qr code online" />
   <link rel="canonical" href="https://hashmitools.com/tools/qr-generator.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />

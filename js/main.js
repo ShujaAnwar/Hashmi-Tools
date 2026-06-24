@@ -6,21 +6,23 @@
 'use strict';
 
 // ============================================
-// PRELOADER  — hide ASAP, no delay
+// BOOT — runs immediately when script is parsed
+// (script is at end of <body>, so DOM is ready)
 // ============================================
-
-// 1. Hide immediately when DOM is ready (don't wait for images/ads)
-document.addEventListener('DOMContentLoaded', () => {
+(function boot() {
+  // Hide preloader instantly — never wait for images/fonts/ads
   const preloader = document.getElementById('preloader');
   if (preloader) preloader.classList.add('hide');
-  initAll();
-});
 
-// 2. Fallback: if DOMContentLoaded already fired (script is deferred/async)
-if (document.readyState !== 'loading') {
-  const preloader = document.getElementById('preloader');
-  if (preloader) preloader.classList.add('hide');
-}
+  // If DOM is already ready (script at end of body = always true), run now.
+  // If somehow deferred, wait for DOMContentLoaded.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    // DOM is already parsed — call directly
+    initAll();
+  }
+})();
 
 function initAll() {
   initNavbar();
@@ -327,9 +329,6 @@ function performHeroSearch() {
     }
   }
 }
-    }
-  }
-}
 
 // ============================================
 // HERO CANVAS (Particle Animation)
@@ -457,35 +456,69 @@ function initCounters() {
   const counters = document.querySelectorAll('[data-target]');
   if (!counters.length) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
+  let fired = false;
+  function runAll() {
+    if (fired) return;
+    fired = true;
+    counters.forEach(c => animateCounter(c));
+  }
 
-  counters.forEach(c => observer.observe(c));
+  // Use IntersectionObserver with low threshold so hero stats trigger on load
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px 100px 0px' });
+    counters.forEach(c => observer.observe(c));
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    runAll();
+  }
+
+  // Hard fallback: run after 600ms regardless (catches hero-visible stats)
+  setTimeout(runAll, 600);
 }
 
 function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const duration = 2000;
-  const step = target / (duration / 16);
+  // Guard: don't animate twice
+  if (el.dataset.animated === '1') return;
+  el.dataset.animated = '1';
+
+  const target = parseInt(el.dataset.target, 10);
+  if (isNaN(target)) return;
+
+  // Determine suffix from data-suffix attr, or auto-detect
+  const customSuffix = el.dataset.suffix;
+  let suffix = '';
+  if (customSuffix !== undefined) {
+    suffix = customSuffix;
+  } else if (el.dataset.target === '99') {
+    suffix = '%';
+  } else {
+    suffix = '+';
+  }
+
+  const duration = 1800;
+  const frameRate = 16;
+  const totalFrames = duration / frameRate;
+  const increment = Math.max(1, target / totalFrames);
   let current = 0;
 
-  const suffix = target >= 1000 ? '+' : (target >= 99 ? '%' : '+');
-  
   const timer = setInterval(() => {
-    current += step;
+    current += increment;
     if (current >= target) {
       current = target;
       clearInterval(timer);
     }
-    const display = target >= 1000 ? (current / 1000).toFixed(1) + 'K' : Math.floor(current).toString();
+    const display = target >= 1000
+      ? (current / 1000).toFixed(1) + 'K'
+      : Math.floor(current).toString();
     el.textContent = display + suffix;
-  }, 16);
+  }, frameRate);
 }
 
 // ============================================
@@ -542,32 +575,40 @@ function initCookieBanner() {
   const banner = document.getElementById('cookieBanner');
   if (!banner) return;
 
-  const accepted = localStorage.getItem('ht-cookies');
-  if (accepted) {
-    banner.classList.add('hidden');
+  // If already accepted/declined — hide immediately, no flicker
+  const consent = localStorage.getItem('ht-cookies');
+  if (consent === 'accepted' || consent === 'declined') {
+    banner.style.display = 'none';
     return;
   }
 
-  setTimeout(() => { banner.style.display = 'flex'; }, 2000);
+  // Show after 1.5s (don't block first paint)
+  setTimeout(() => {
+    banner.style.display = 'flex';
+    requestAnimationFrame(() => banner.classList.add('visible'));
+  }, 1500);
 }
 
 function acceptCookies() {
   localStorage.setItem('ht-cookies', 'accepted');
-  const banner = document.getElementById('cookieBanner');
-  if (banner) {
-    banner.style.transform = 'translateY(150%)';
-    banner.style.opacity = '0';
-    setTimeout(() => banner.classList.add('hidden'), 400);
-  }
+  _hideCookieBanner();
 }
 
 function declineCookies() {
   localStorage.setItem('ht-cookies', 'declined');
+  _hideCookieBanner();
+}
+
+function _hideCookieBanner() {
   const banner = document.getElementById('cookieBanner');
-  if (banner) {
-    banner.style.transform = 'translateY(150%)';
-    setTimeout(() => banner.classList.add('hidden'), 400);
-  }
+  if (!banner) return;
+  banner.style.transform = 'translateY(150%)';
+  banner.style.opacity   = '0';
+  banner.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
+  setTimeout(() => {
+    banner.style.display = 'none';
+    banner.classList.add('hidden');
+  }, 380);
 }
 
 // ============================================

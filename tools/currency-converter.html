@@ -2,9 +2,18 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Currency Converter – Real-Time Exchange Rates | HashmiTools</title>
-  <meta name="description" content="Free currency converter. Convert between 150+ currencies with real-time exchange rates. PKR to USD, GBP, SAR, AED and all major currencies." />
+  <title>Free Currency Converter – Live Exchange Rates | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Convert currencies instantly with live exchange rates. Supports 150+ currencies including PKR, USD, EUR, GBP, SAR. Free online currency converter tool." />
   <meta name="keywords" content="currency converter, pkr to usd, pakistan rupee converter, exchange rate calculator, online currency converter" />
   <link rel="canonical" href="https://hashmitools.com/tools/currency-converter.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,6 +27,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Currency Converter – Live Exchange Rates 150+ Currencies","description":"Convert between 150+ world currencies with live exchange rates. Free online currency converter with PKR, USD, EUR, GBP, SAR and all major currencies — updated daily.","url":"https://hashmitools.com/tools/currency-converter.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How often are exchange rates updated?","acceptedAnswer":{"@type":"Answer","text":"Rates are fetched from live data sources and updated daily. For critical financial transactions always verify with your bank."}},
+        {"@type":"Question","name":"Can I convert Pakistani Rupee (PKR) to USD?","acceptedAnswer":{"@type":"Answer","text":"Yes — PKR to USD, EUR, SAR, AED, GBP and all major currencies are supported."}},
+        {"@type":"Question","name":"Is this tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free. No signup, no limits on conversions."}},
+        {"@type":"Question","name":"How accurate are the exchange rates?","acceptedAnswer":{"@type":"Answer","text":"Rates are indicative market rates. Actual bank/exchange rates may differ by 1–3% due to spreads and fees."}},
+        {"@type":"Question","name":"What currencies are supported?","acceptedAnswer":{"@type":"Answer","text":"Over 150 currencies including PKR, USD, EUR, GBP, AED, SAR, CAD, AUD, JPY, CNY, and all major world currencies."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
   <header class="navbar" id="navbar">
@@ -153,7 +175,20 @@
         </aside>
       </div>
     </div>
-  </main>
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select the currency you want to convert from.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter the amount.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select the target currency.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">The converted amount updates instantly.</li>
+    </ol>
+  </section>
+</main>
 
   <!-- AdSense Bottom Ad -->
   <div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">

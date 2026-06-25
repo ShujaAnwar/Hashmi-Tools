@@ -2,10 +2,19 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8"/>
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/water-calculator.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Water Intake Calculator — Daily Hydration | IslamiTools</title>
+<title>Free Water Intake Calculator – Daily Hydration Needs | HashmiTools</title>
+  <meta name="description" content="Calculate how much water you should drink daily based on your weight, activity level, and climate. Free online water intake calculator for optimal hydration." />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
@@ -141,6 +150,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Water Intake Calculator – Daily Hydration Needs","description":"Calculate how much water you should drink daily based on your weight, activity level, and climate. Free online water intake calculator for optimal hydration.","url":"https://hashmitools.com/tools/water-calculator.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How much water should I drink per day?","acceptedAnswer":{"@type":"Answer","text":"The general guideline is 8 cups (2 litres) per day, but actual needs depend on your weight, activity level, and climate. This calculator gives a personalized recommendation."}},
+        {"@type":"Question","name":"Does the 8 glasses rule apply to everyone?","acceptedAnswer":{"@type":"Answer","text":"No — a larger, more active person in a hot climate needs much more than 8 glasses. Use this calculator for a personalized target."}},
+        {"@type":"Question","name":"Does tea, coffee, or juice count toward water intake?","acceptedAnswer":{"@type":"Answer","text":"Yes, partially. Water-rich beverages count toward hydration, but caffeinated drinks have a mild diuretic effect. Plain water is still the best source."}},
+        {"@type":"Question","name":"How do I know if I'm drinking enough water?","acceptedAnswer":{"@type":"Answer","text":"Pale yellow urine is a sign of good hydration. Dark yellow or amber urine indicates dehydration. Thirst is often a late signal of dehydration."}},
+        {"@type":"Question","name":"Should I drink more water during exercise?","acceptedAnswer":{"@type":"Answer","text":"Yes — add 300–500ml for every 30 minutes of moderate exercise. In hot weather or intense exercise, increase further."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 
@@ -300,6 +322,47 @@
   </div>
 
 </div>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your body weight (kg or lbs).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select your activity level (sedentary to very active).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Choose your climate (temperate/hot/tropical).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Calculate — see your daily water target in litres and cups.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How much water should I drink per day? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The general guideline is 8 cups (2 litres) per day, but actual needs depend on your weight, activity level, and climate. This calculator gives a personalized recommendation.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Does the 8 glasses rule apply to everyone? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">No — a larger, more active person in a hot climate needs much more than 8 glasses. Use this calculator for a personalized target.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Does tea, coffee, or juice count toward water intake? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes, partially. Water-rich beverages count toward hydration, but caffeinated drinks have a mild diuretic effect. Plain water is still the best source.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How do I know if I'm drinking enough water? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Pale yellow urine is a sign of good hydration. Dark yellow or amber urine indicates dehydration. Thirst is often a late signal of dehydration.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Should I drink more water during exercise? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — add 300–500ml for every 30 minutes of moderate exercise. In hot weather or intense exercise, increase further.</p>
+    </details>
+  </section>
 </main>
 
   <!-- AdSense Bottom Ad -->

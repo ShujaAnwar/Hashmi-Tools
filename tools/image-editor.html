@@ -2,9 +2,17 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free Online Image Editor — Crop, Resize, Filters, Text & Effects | HashmiTools</title>
-<meta name="description" content="Edit images online for free. Crop, resize, add filters, text, stickers and drawings. Supports JPG, PNG, WebP, GIF. No software download needed. Fast browser-based image editor." />
+<title>Free Online Image Editor – Crop, Filter, Text & Effects | HashmiTools</title>
+<meta name="description" content="Edit images online for free — crop, resize, rotate, add text, apply filters, and adjust brightness/contrast. No download needed. Free browser-based image editor." />
 <meta name="keywords" content="free image editor online, photo editor browser, crop image online, resize image, image filters, add text to image, photo effects online, image editing tool" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://hashmitools.com/tools/image-editor.html" />
@@ -534,6 +542,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
        crossorigin="anonymous"></script>
 </head>
 <body>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Free Online Image Editor – HashmiTools</h1>
+
 
 <!-- NAVBAR -->
 <nav class="navbar">

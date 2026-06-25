@@ -2,9 +2,18 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pakistan Income Tax Calculator 2024-25 – FBR Tax Slabs | HashmiTools</title>
-  <meta name="description" content="Calculate Pakistan income tax for 2024-25 tax year. FBR tax slabs for salaried persons, business individuals. PKR tax calculator with deductions." />
+  <title>Free Pakistan Income Tax Calculator – FBR Tax 2024-25 | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Calculate Pakistan income tax for salaried individuals and businesses per FBR rates for 2024-25. Free online Pakistan tax calculator — accurate, fast, up-to-date." />
   <meta name="keywords" content="pakistan income tax calculator, fbr tax calculator, pakistan tax slabs 2024, salary tax calculator pakistan, income tax pakistan 2025" />
   <link rel="canonical" href="https://hashmitools.com/tools/pakistan-tax.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,6 +28,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Pakistan Income Tax Calculator – FBR Tax 2024-25","description":"Calculate Pakistan income tax for salaried individuals and businesses per FBR rates for 2024-25. Free online Pakistan tax calculator — accurate, fast, up-to-date.","url":"https://hashmitools.com/tools/pakistan-tax.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What tax slabs are used in this calculator?","acceptedAnswer":{"@type":"Answer","text":"The calculator uses the latest FBR (Federal Board of Revenue) income tax slabs for the 2024-25 tax year as announced in the federal budget."}},
+        {"@type":"Question","name":"Is income from salary taxed differently than business income?","acceptedAnswer":{"@type":"Answer","text":"Yes — salaried persons have different tax slabs than business or self-employed individuals. Select your income type for accurate results."}},
+        {"@type":"Question","name":"What is the tax-free threshold in Pakistan?","acceptedAnswer":{"@type":"Answer","text":"For the 2024-25 tax year, income up to PKR 600,000/year is exempt from income tax for salaried individuals."}},
+        {"@type":"Question","name":"Does this calculate withholding tax?","acceptedAnswer":{"@type":"Answer","text":"Yes — the calculator shows both annual and monthly withholding tax amounts for salaried employees."}},
+        {"@type":"Question","name":"Can I use this for filing my tax return?","acceptedAnswer":{"@type":"Answer","text":"This is an estimation tool. For filing your actual tax return, use the FBR IRIS portal or consult a tax consultant."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
   <header class="navbar" id="navbar">
@@ -239,7 +261,20 @@
         </aside>
       </div>
     </div>
-  </main>
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select your income type (salaried or business).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your annual or monthly income in PKR.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Add any applicable deductions (provident fund, Zakat, etc.).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Calculate Tax — see annual tax, monthly deduction, and effective rate.</li>
+    </ol>
+  </section>
+</main>
 
   <!-- AdSense Bottom Ad -->
   <div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">

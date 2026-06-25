@@ -2,10 +2,19 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8"/>
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/sip-calculator.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SIP Calculator — Systematic Investment Plan | IslamiTools</title>
+<title>Free SIP Calculator – Mutual Fund Investment Returns | HashmiTools</title>
+  <meta name="description" content="Calculate returns on your SIP (Systematic Investment Plan) investments. See how monthly contributions grow with compound interest over time — free online SIP calculator." />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
@@ -290,6 +299,19 @@ table.year-table tfoot td:first-child { text-align: left; }
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"SIP Calculator – Mutual Fund Investment Returns","description":"Calculate returns on your SIP (Systematic Investment Plan) investments. See how monthly contributions grow with compound interest over time — free online SIP calculator.","url":"https://hashmitools.com/tools/sip-calculator.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What is SIP?","acceptedAnswer":{"@type":"Answer","text":"SIP (Systematic Investment Plan) is a method of investing a fixed amount regularly (monthly) into mutual funds. It benefits from rupee-cost averaging and compound growth."}},
+        {"@type":"Question","name":"How is SIP return calculated?","acceptedAnswer":{"@type":"Answer","text":"SIP returns are calculated using the Future Value of an annuity formula: FV = P × [(1+r)^n - 1] / r × (1+r), where P = monthly investment, r = monthly rate, n = months."}},
+        {"@type":"Question","name":"What is a good SIP return rate?","acceptedAnswer":{"@type":"Answer","text":"Equity mutual funds historically return 12–15% per year over long periods. Debt funds typically return 6–8%. Use conservative estimates (10%) for planning."}},
+        {"@type":"Question","name":"Can I use this for Pakistani mutual funds?","acceptedAnswer":{"@type":"Answer","text":"Yes — enter the monthly investment in PKR and the expected annual return rate from your fund's historical performance."}},
+        {"@type":"Question","name":"What is rupee-cost averaging in SIP?","acceptedAnswer":{"@type":"Answer","text":"Since you invest a fixed amount monthly, you buy more units when prices are low and fewer when prices are high — averaging out the cost over time."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 
@@ -581,6 +603,47 @@ table.year-table tfoot td:first-child { text-align: left; }
   </div>
 
 </div>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your monthly SIP investment amount.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Set the expected annual return rate.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter the investment duration in years.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Calculate — see total investment, expected returns, and maturity value.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is SIP? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">SIP (Systematic Investment Plan) is a method of investing a fixed amount regularly (monthly) into mutual funds. It benefits from rupee-cost averaging and compound growth.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How is SIP return calculated? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">SIP returns are calculated using the Future Value of an annuity formula: FV = P × [(1+r)^n - 1] / r × (1+r), where P = monthly investment, r = monthly rate, n = months.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is a good SIP return rate? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Equity mutual funds historically return 12–15% per year over long periods. Debt funds typically return 6–8%. Use conservative estimates (10%) for planning.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Can I use this for Pakistani mutual funds? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — enter the monthly investment in PKR and the expected annual return rate from your fund's historical performance.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is rupee-cost averaging in SIP? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Since you invest a fixed amount monthly, you buy more units when prices are low and fewer when prices are high — averaging out the cost over time.</p>
+    </details>
+  </section>
 </main>
 
   <!-- AdSense Bottom Ad -->

@@ -2,9 +2,18 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BMI Calculator – Body Mass Index Calculator Online | HashmiTools</title>
-  <meta name="description" content="Free online BMI calculator. Calculate your Body Mass Index, understand your weight category, and get personalized health advice. Supports metric and imperial units." />
+  <title>Free BMI Calculator Online – Body Mass Index | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Calculate your Body Mass Index instantly. Enter height and weight to find out if you are underweight, healthy, overweight, or obese. Free BMI calculator." />
   <meta name="keywords" content="bmi calculator, body mass index, bmi chart, healthy weight calculator, online bmi calculator" />
   <link rel="canonical" href="https://hashmitools.com/tools/bmi-calculator.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,6 +27,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator – Body Mass Index Online","description":"Calculate your Body Mass Index (BMI) instantly. Enter your height and weight to find out if you're underweight, healthy, overweight, or obese — free online BMI calculator.","url":"https://hashmitools.com/tools/bmi-calculator.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What is BMI?","acceptedAnswer":{"@type":"Answer","text":"Body Mass Index (BMI) is a number calculated from height and weight. It is used as a screening tool for weight categories that may lead to health problems."}},
+        {"@type":"Question","name":"What is a healthy BMI range?","acceptedAnswer":{"@type":"Answer","text":"A BMI between 18.5 and 24.9 is considered healthy. Under 18.5 is underweight; 25–29.9 is overweight; 30+ is obese."}},
+        {"@type":"Question","name":"Is BMI accurate for everyone?","acceptedAnswer":{"@type":"Answer","text":"BMI doesn't account for muscle mass, bone density, or fat distribution. Athletes may show high BMI despite low body fat. Consult a doctor for a full assessment."}},
+        {"@type":"Question","name":"What units does this calculator support?","acceptedAnswer":{"@type":"Answer","text":"Both metric (kg, cm) and imperial (lbs, inches/feet) units are supported."}},
+        {"@type":"Question","name":"Should I use BMI to diagnose health conditions?","acceptedAnswer":{"@type":"Answer","text":"BMI is a screening indicator only. For a proper health diagnosis, consult a qualified healthcare professional."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
   <header class="navbar" id="navbar">
@@ -275,7 +297,20 @@
         </aside>
       </div>
     </div>
-  </main>
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select metric or imperial units.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your height and weight.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Calculate BMI.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Review your BMI score and weight category explanation.</li>
+    </ol>
+  </section>
+</main>
 
   <!-- AdSense Bottom Ad -->
   <div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">

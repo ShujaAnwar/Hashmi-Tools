@@ -1215,15 +1215,16 @@ ul { list-style: none; }
   border-radius: var(--radius-card);
   padding: 16px 20px;
   box-shadow: var(--shadow-card);
-  display: flex;
+  display: none;  /* hidden by default — JS shows after consent check */
   align-items: center;
   gap: 16px;
   z-index: 1100;
   backdrop-filter: blur(20px);
   transform: translateY(0);
-  transition: var(--transition);
+  transition: transform 0.35s ease, opacity 0.35s ease;
 }
-.cookie-banner.hidden { transform: translateY(150%); opacity: 0; }
+.cookie-banner.visible { display: flex; }
+.cookie-banner.hidden   { display: none !important; }
 .cookie-content { display: flex; align-items: flex-start; gap: 10px; flex: 1; }
 .cookie-content i { color: var(--accent-amber); font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
 .cookie-content p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }

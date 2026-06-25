@@ -2,10 +2,19 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8"/>
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/hex-rgb.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>HEX ↔ RGB Color Converter | IslamiTools</title>
+<title>Free HEX to RGB Color Converter – CSS Color Codes | HashmiTools</title>
+  <meta name="description" content="Convert HEX color codes to RGB, HSL, and CMYK instantly. Free online color converter for web designers and developers — supports all CSS color formats." />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
@@ -475,6 +484,19 @@ input[type="range"].channel-slider::-webkit-slider-thumb {
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"HEX to RGB Color Converter – CSS Color Codes","description":"Convert HEX color codes to RGB, HSL, and CMYK instantly. Free online color converter for web designers and developers — supports all CSS color formats.","url":"https://hashmitools.com/tools/hex-rgb.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How do I convert HEX to RGB?","acceptedAnswer":{"@type":"Answer","text":"Enter your HEX code (e.g. #6366f1) and the tool instantly shows the RGB equivalent (e.g. rgb(99, 102, 241))."}},
+        {"@type":"Question","name":"What is the difference between HEX and RGB?","acceptedAnswer":{"@type":"Answer","text":"HEX is a 6-digit hexadecimal representation (#RRGGBB) while RGB uses three decimal numbers (0–255 each). Both represent the same colors."}},
+        {"@type":"Question","name":"Can I convert RGB to HEX?","acceptedAnswer":{"@type":"Answer","text":"Yes — use the RGB to HEX tab. Enter the R, G, B values (0–255 each) to get the hex code."}},
+        {"@type":"Question","name":"What is HSL color?","acceptedAnswer":{"@type":"Answer","text":"HSL (Hue, Saturation, Lightness) is another color model popular in CSS. This tool also converts to HSL format."}},
+        {"@type":"Question","name":"What color formats does this support?","acceptedAnswer":{"@type":"Answer","text":"HEX → RGB, RGB → HEX, HEX → HSL, and visual color picker are all supported."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 
@@ -740,6 +762,47 @@ input[type="range"].channel-slider::-webkit-slider-thumb {
   </section>
 
 </div>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Choose the conversion direction (HEX→RGB or RGB→HEX).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your color value.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">The converted code appears instantly.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Copy to copy the CSS-ready value.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How do I convert HEX to RGB? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Enter your HEX code (e.g. #6366f1) and the tool instantly shows the RGB equivalent (e.g. rgb(99, 102, 241)).</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is the difference between HEX and RGB? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">HEX is a 6-digit hexadecimal representation (#RRGGBB) while RGB uses three decimal numbers (0–255 each). Both represent the same colors.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Can I convert RGB to HEX? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — use the RGB to HEX tab. Enter the R, G, B values (0–255 each) to get the hex code.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is HSL color? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">HSL (Hue, Saturation, Lightness) is another color model popular in CSS. This tool also converts to HSL format.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What color formats does this support? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">HEX → RGB, RGB → HEX, HEX → HSL, and visual color picker are all supported.</p>
+    </details>
+  </section>
 </main>
 
   <!-- AdSense Bottom Ad -->

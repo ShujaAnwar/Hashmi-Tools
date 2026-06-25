@@ -2,10 +2,19 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8"/>
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <link rel="canonical" href="https://hashmitools.com/tools/hijri-converter.html">
   <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Hijri ↔ Gregorian Converter | IslamiTools</title>
+<title>Free Hijri & Gregorian Date Converter – Islamic Calendar | HashmiTools</title>
+  <meta name="description" content="Convert between Hijri (Islamic) and Gregorian dates instantly. Free online Hijri date converter for all Islamic months — accurate to the day." />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
@@ -270,6 +279,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Hijri & Gregorian Date Converter – Islamic Calendar","description":"Convert between Hijri (Islamic) and Gregorian dates instantly. Free online Hijri date converter for all Islamic months — accurate to the day.","url":"https://hashmitools.com/tools/hijri-converter.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"What is the Hijri calendar?","acceptedAnswer":{"@type":"Answer","text":"The Hijri calendar is the Islamic lunar calendar used by Muslims worldwide to determine religious dates like Ramadan, Eid, and Hajj."}},
+        {"@type":"Question","name":"How accurate is this converter?","acceptedAnswer":{"@type":"Answer","text":"The converter uses the standard Umm al-Qura (Saudi Arabia) algorithm for high accuracy. Minor regional variations in moon sighting may differ by 1 day."}},
+        {"@type":"Question","name":"Can I convert today's date to Hijri?","acceptedAnswer":{"@type":"Answer","text":"Yes — the tool defaults to today's date and shows the current Hijri date instantly on load."}},
+        {"@type":"Question","name":"What is the current Hijri year?","acceptedAnswer":{"@type":"Answer","text":"The current Hijri year is calculated dynamically. The Islamic calendar is approximately 11 days shorter than the Gregorian calendar each year."}},
+        {"@type":"Question","name":"Is this tool useful for planning Islamic events?","acceptedAnswer":{"@type":"Answer","text":"Yes — use it to find exact Gregorian dates for Ramadan, Eid ul-Fitr, Eid ul-Adha, Muharram, and other Islamic observances."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
 
@@ -456,6 +478,47 @@
   </section>
 
 </div>
+
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select conversion direction: Hijri to Gregorian or Gregorian to Hijri.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter the date using the date picker or manual fields.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Convert.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">See the equivalent date in the other calendar system.</li>
+    </ol>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" style="max-width:760px;margin:40px auto;padding:0 20px 40px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">
+      ❓ Frequently Asked Questions
+    </h2>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is the Hijri calendar? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The Hijri calendar is the Islamic lunar calendar used by Muslims worldwide to determine religious dates like Ramadan, Eid, and Hajj.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">How accurate is this converter? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The converter uses the standard Umm al-Qura (Saudi Arabia) algorithm for high accuracy. Minor regional variations in moon sighting may differ by 1 day.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Can I convert today's date to Hijri? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — the tool defaults to today's date and shows the current Hijri date instantly on load.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">What is the current Hijri year? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">The current Hijri year is calculated dynamically. The Islamic calendar is approximately 11 days shorter than the Gregorian calendar each year.</p>
+    </details>
+    <details style="border:1px solid var(--border-color,#e5e7eb);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;font-weight:600;cursor:pointer;font-size:0.92rem;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text-primary);">Is this tool useful for planning Islamic events? <span style="color:var(--text-muted,#9ca3af);font-size:0.8rem;">▼</span></summary>
+      <p style="padding:0 18px 14px;font-size:0.87rem;color:var(--text-secondary,#6b7280);line-height:1.65;margin:0;">Yes — use it to find exact Gregorian dates for Ramadan, Eid ul-Fitr, Eid ul-Adha, Muharram, and other Islamic observances.</p>
+    </details>
+  </section>
 </main>
 
   <!-- AdSense Bottom Ad -->

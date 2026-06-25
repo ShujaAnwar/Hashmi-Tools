@@ -2,9 +2,18 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prayer Times – Namaz Timing for Any City | HashmiTools</title>
-  <meta name="description" content="Free online prayer times tool. Get accurate Namaz timings for any city worldwide. Supports Fajr, Dhuhr, Asr, Maghrib, Isha. Auto location detection & Qibla direction." />
+  <title>Free Prayer Times – Accurate Namaz Times by City | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Get accurate daily Namaz (prayer) times for any city worldwide. Fajr, Dhuhr, Asr, Maghrib, and Isha times with Qibla direction — free Islamic prayer time tool." />
   <meta name="keywords" content="prayer times, namaz timing, salah time, fajr time, prayer time today, namaz waqt, qibla direction" />
   <link rel="canonical" href="https://hashmitools.com/tools/prayer-times.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,6 +27,19 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
        crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  [{"@context":"https://schema.org","@type":"WebApplication","name":"Prayer Times – Accurate Namaz Times by City","description":"Get accurate daily Namaz (prayer) times for any city worldwide. Fajr, Dhuhr, Asr, Maghrib, and Isha times with Qibla direction — free Islamic prayer time tool.","url":"https://hashmitools.com/tools/prayer-times.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+    ,{
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How are prayer times calculated?","acceptedAnswer":{"@type":"Answer","text":"Prayer times are calculated using geographic coordinates (latitude/longitude) and standard astronomical formulas (University of Islamic Sciences, Karachi method by default)."}},
+        {"@type":"Question","name":"Can I get prayer times for my exact location?","acceptedAnswer":{"@type":"Answer","text":"Yes — click \"Use My Location\" to auto-detect your city and get the most accurate prayer times for your exact coordinates."}},
+        {"@type":"Question","name":"Which calculation method is used?","acceptedAnswer":{"@type":"Answer","text":"The tool defaults to the Karachi (UISK) method used in Pakistan. You can switch to other methods (MWL, ISNA, Egypt, Makkah) in Settings."}},
+        {"@type":"Question","name":"Does this show Qibla direction?","acceptedAnswer":{"@type":"Answer","text":"Yes — the Qibla compass shows the direction of Makkah from your location."}},
+        {"@type":"Question","name":"Are these times the same as my local mosque?","acceptedAnswer":{"@type":"Answer","text":"Times may vary slightly from local mosques depending on their preferred calculation method and local moon sighting conventions."}}
+      ]
+    }]
+  </script>
 </head>
 <body>
   <header class="navbar" id="navbar">
@@ -189,7 +211,20 @@
         </aside>
       </div>
     </div>
-  </main>
+  
+  <!-- How to Use -->
+  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
+      📖 How to Use
+    </h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Enter your city name or click "Use My Location".</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Select your preferred calculation method (default: Karachi/UISK).</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">View all five daily prayer times.</li>
+      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Use the Qibla compass to find the direction of Makkah.</li>
+    </ol>
+  </section>
+</main>
 
   <!-- AdSense Bottom Ad -->
   <div class="ht-ad-slot ht-ad-bottom" aria-label="Advertisement">

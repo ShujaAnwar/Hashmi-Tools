@@ -155,6 +155,7 @@ const toolsData = [
   { name: 'AI Hashtag Generator', url: 'tools/ai-hashtag.html', cat: 'AI', icon: '#️⃣', tags: ['hashtag','generator','ai','instagram','twitter','social media','tags'] },
   { name: 'YouTube SEO Tool', url: 'tools/youtube-seo.html', cat: 'AI', icon: '▶️', tags: ['youtube','seo','title','description','tags','generator','video','channel','rank','optimize','thumbnail'] },
   { name: 'SEO Audit Pro', url: 'tools/seo-audit.html', cat: 'AI', icon: '🔍', tags: ['seo','audit','website','analysis','crawl','score','technical','meta','canonical','backlinks','performance'] },
+  { name: 'AI Shorts Maker', url: 'tools/shorts-maker.html', cat: 'AI', icon: '🎬', tags: ['shorts','reels','tiktok','video','clips','highlight','cut','viral','youtube shorts','ai','ffmpeg','video editor','long video','short clips','social media video'] },
 
   // ── Pakistan Tools ──────────────────────────────────────────────
   { name: 'Pakistan Tax Calculator', url: 'tools/pakistan-tax.html', cat: 'Pakistan', icon: '🇵🇰', tags: ['tax','pakistan','fbr','income','salary','withholding','pkr','2025'] },

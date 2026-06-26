@@ -1,0 +1,17 @@
+# nixpacks.toml — Railway deployment configuration for AI Shorts Maker backend
+# Ensures FFmpeg is available on the Railway build environment
+
+[phases.setup]
+nixPkgs = ["ffmpeg", "nodejs_20"]
+
+[phases.install]
+cmds = ["npm ci --omit=dev"]
+
+[phases.build]
+cmds = ["mkdir -p uploads outputs"]
+
+[start]
+cmd = "node server.js"
+
+[variables]
+NODE_ENV = "production"

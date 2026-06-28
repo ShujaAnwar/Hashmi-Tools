@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="light">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>Free AI Resume Builder — ATS-Friendly CV with AI Suggestions | HashmiTools</title>
+  <meta name="description" content="Build a professional, ATS-optimized resume free. AI suggests better bullet points, scores your ATS compatibility out of 100, choose from 6 templates. Download as PDF or Word instantly. No signup required." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://hashmitools.com/tools/cv-builder.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free AI Resume Builder — ATS-Friendly CV | HashmiTools" />
+  <meta property="og:description" content="Create a professional resume with AI suggestions. 6 templates, ATS score, PDF download. 100% free, no signup." />
+  <meta property="og:url" content="https://hashmitools.com/tools/cv-builder.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free AI Resume Builder | HashmiTools" />
+  <meta name="twitter:description" content="Build an ATS-optimized CV with AI bullet suggestions. Free, 6 templates, PDF export." />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "AI Resume Builder",
+      "url": "https://hashmitools.com/tools/cv-builder.html",
+      "description": "Free AI-powered resume builder with ATS compatibility scoring, 6 professional templates, AI bullet point improvement, and PDF/Word export.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+      "featureList": ["6 professional resume templates","ATS compatibility scoring","AI-powered bullet point improvement","AI skill suggestions","PDF download via html2canvas","Word .docx download","LocalStorage auto-save","No signup required"],
+      "provider": {"@type": "Organization", "name": "HashmiTools", "url": "https://hashmitools.com"}
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Build an ATS-Optimized Resume",
+      "description": "Use the AI Resume Builder to create a professional resume in minutes.",
+      "step": [
+        {"@type": "HowToStep","position": 1,"name": "Choose a Template","text": "Select from 6 professionally designed templates. Choose ATS-Safe for job applications that use automated screening systems."},
+        {"@type": "HowToStep","position": 2,"name": "Fill In Your Information","text": "Complete each section — Personal Info, Summary, Work Experience, Education, and Skills. Use the AI buttons to improve your bullet points."},
+        {"@type": "HowToStep","position": 3,"name": "Review Your ATS Score","text": "Get an ATS compatibility score out of 100. The AI highlights missing keywords, weak bullets, and formatting issues for your target job."},
+        {"@type": "HowToStep","position": 4,"name": "Export Your Resume","text": "Download your polished resume as a PDF or Word document. Your data is saved automatically in your browser."}
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question","name": "What is ATS and why does it matter?","acceptedAnswer": {"@type": "Answer","text": "ATS (Applicant Tracking System) is software used by most companies to automatically screen resumes before a human sees them. An ATS-optimized resume uses standard section headers, relevant keywords, and clean formatting so the system can parse it correctly. Poor ATS compatibility can mean your resume never reaches a recruiter, even if you're qualified."}},
+        {"@type": "Question","name": "Why does my ATS score matter?","acceptedAnswer": {"@type": "Answer","text": "Studies show 75% of resumes are rejected by ATS before a human reviews them. A score above 80/100 on our tool means your resume is likely to pass automated screening. The tool identifies missing keywords, vague bullets, and formatting issues that reduce your score."}},
+        {"@type": "Question","name": "Is this tool completely free?","acceptedAnswer": {"@type": "Answer","text": "Yes, 100% free. All features — templates, AI suggestions (requires your own Claude API key), ATS scoring, PDF export, and Word export — are free with no signup required."}},
+        {"@type": "Question","name": "Can I edit my resume after downloading?","acceptedAnswer": {"@type": "Answer","text": "Yes. The Word (.docx) download gives you a fully editable document you can open in Microsoft Word, Google Docs, or LibreOffice. The PDF is a fixed-format document best for submitting to jobs."}},
+        {"@type": "Question","name": "What file formats can I download?","acceptedAnswer": {"@type": "Answer","text": "You can download your resume as a PDF (pixel-perfect, using html2canvas + jsPDF) or as a Word document (.docx) for editing. Both formats are available for free."}},
+        {"@type": "Question","name": "Is my data private?","acceptedAnswer": {"@type": "Answer","text": "Yes. All your resume data is stored locally in your browser (localStorage) and never sent to any server — except when you click an AI button, which sends only the relevant text to the Claude API using your own API key. HashmiTools never stores your resume or personal information."}},
+        {"@type": "Question","name": "Does it work on mobile?","acceptedAnswer": {"@type": "Answer","text": "Yes, the form and AI features work on mobile. However, for the best PDF preview and export experience, we recommend using a desktop browser (Chrome or Firefox) since PDF rendering works best on larger screens."}},
+        {"@type": "Question","name": "Can I switch templates after filling in my information?","acceptedAnswer": {"@type": "Answer","text": "Yes. Your information is saved separately from the template choice. You can switch between any of the 6 templates at any time — including from Step 1 or from the preview panel — and the same data will be rendered in the new template style instantly."}},
+        {"@type": "Question","name": "What AI model is used for suggestions?","acceptedAnswer": {"@type": "Answer","text": "AI suggestions use the Claude API (claude-opus-4-5) via your own Anthropic API key. The tool asks for your API key on first use and stores it locally in your browser. No API key is needed for basic resume building, templates, ATS scoring, and PDF export."}}
+      ]
+    }
+  ]
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/tools.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <script src="../assets/js/theme.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --cv-blue: #2563eb; --cv-dark: #1e293b; --cv-green: #16a34a;
+      --cv-amber: #f59e0b; --cv-red: #dc2626; --cv-purple: #7c3aed;
+    }
+
+    /* ── Layout ── */
+    .cv-wrap { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+    .cv-hero { background: linear-gradient(135deg,#1e40af,#3b82f6,#7c3aed); padding: 40px 24px; text-align: center; color:#fff; }
+    .cv-hero h1 { font-size: clamp(1.6rem,4vw,2.2rem); font-weight:900; margin-bottom:10px; }
+    .cv-hero p  { font-size:.95rem; opacity:.9; max-width:560px; margin:0 auto 18px; }
+    .cv-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+    .cv-chip  { background:rgba(255,255,255,.15); backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,.3); padding:4px 12px; border-radius:99px; font-size:.76rem; font-weight:600; }
+
+    /* ── Step tabs ── */
+    .cv-steps-bar { display:flex; gap:0; border-bottom:2px solid var(--border-color); background:var(--bg-primary); sticky:top; }
+    .cv-step-tab  { flex:1; padding:14px 8px; text-align:center; font-size:.78rem; font-weight:600; color:var(--text-muted); cursor:pointer; border-bottom:3px solid transparent; transition:all .2s; position:relative; bottom:-2px; }
+    .cv-step-tab.active { color:var(--cv-blue); border-bottom-color:var(--cv-blue); }
+    .cv-step-tab .tab-num { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--bg-secondary); font-size:.72rem; margin-right:6px; }
+    .cv-step-tab.active .tab-num { background:var(--cv-blue); color:#fff; }
+    .cv-step-tab.done .tab-num { background:var(--cv-green); color:#fff; }
+
+    /* ── Step panels ── */
+    .cv-panel { display:none; }
+    .cv-panel.active { display:block; }
+
+    /* ── Step 1: Templates ── */
+    .cv-templates-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; padding:28px 0; }
+    .cv-tpl-card { border:2px solid var(--border-color); border-radius:14px; overflow:hidden; cursor:pointer; transition:all .2s; position:relative; }
+    .cv-tpl-card:hover { border-color:var(--cv-blue); transform:translateY(-3px); box-shadow:0 8px 24px rgba(37,99,235,.15); }
+    .cv-tpl-card.selected { border-color:var(--cv-blue); box-shadow:0 0 0 3px rgba(37,99,235,.2); }
+    .cv-tpl-preview { height:160px; display:flex; align-items:center; justify-content:center; font-size:2rem; }
+    .cv-tpl-label { padding:12px 14px; background:var(--bg-secondary); }
+    .cv-tpl-label h4 { font-size:.88rem; font-weight:700; color:var(--text-primary); margin-bottom:2px; }
+    .cv-tpl-label p  { font-size:.72rem; color:var(--text-muted); }
+    .cv-tpl-ats-badge { position:absolute; top:10px; right:10px; background:#dcfce7; color:#15803d; font-size:.68rem; font-weight:700; padding:3px 8px; border-radius:6px; }
+    .cv-tpl-selected-check { position:absolute; top:10px; left:10px; width:24px; height:24px; border-radius:50%; background:var(--cv-blue); color:#fff; display:none; align-items:center; justify-content:center; font-size:.8rem; }
+    .cv-tpl-card.selected .cv-tpl-selected-check { display:flex; }
+
+    /* Template preview colours */
+    .tpl-modern    { background:linear-gradient(180deg,#f8fafc 50%,#e2e8f0 100%); }
+    .tpl-classic   { background:linear-gradient(180deg,#fff8f0 50%,#fde8d8 100%); }
+    .tpl-creative  { background:linear-gradient(180deg,#1e40af 40%,#eff6ff 40%); }
+    .tpl-ats       { background:#f9fafb; }
+    .tpl-executive { background:linear-gradient(180deg,#1e293b 40%,#f8fafc 40%); }
+    .tpl-tech      { background:linear-gradient(180deg,#0f172a 50%,#1e293b 100%); }
+
+    /* ── Step 2: Form ── */
+    .cv-form-layout { display:grid; grid-template-columns:1fr 380px; gap:24px; padding-top:20px; }
+    @media(max-width:900px) { .cv-form-layout { grid-template-columns:1fr; } }
+
+    .cv-section-card { background:var(--bg-primary); border:1px solid var(--border-color); border-radius:14px; margin-bottom:16px; overflow:hidden; }
+    .cv-section-head { display:flex; align-items:center; gap:10px; padding:14px 18px; background:var(--bg-secondary); cursor:pointer; font-weight:700; font-size:.9rem; }
+    .cv-section-body { padding:18px; }
+    .cv-field   { margin-bottom:14px; }
+    .cv-field label { display:block; font-size:.8rem; font-weight:600; color:var(--text-muted); margin-bottom:5px; text-transform:uppercase; letter-spacing:.04em; }
+    .cv-field input, .cv-field textarea, .cv-field select {
+      width:100%; padding:10px 13px; border-radius:8px;
+      border:1.5px solid var(--border-color); background:var(--bg-secondary);
+      color:var(--text-primary); font-size:.88rem; font-family:inherit;
+      transition:border-color .2s;
+    }
+    .cv-field input:focus, .cv-field textarea:focus { border-color:var(--cv-blue); outline:none; }
+    .cv-field textarea { min-height:90px; resize:vertical; }
+    .cv-row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .cv-row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+    @media(max-width:600px) { .cv-row2, .cv-row3 { grid-template-columns:1fr; } }
+
+    /* AI buttons */
+    .cv-ai-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:7px 14px; border-radius:8px; border:none;
+      background:linear-gradient(135deg,#7c3aed,#3b82f6); color:#fff;
+      font-size:.78rem; font-weight:700; cursor:pointer; margin-top:6px;
+      transition:opacity .2s;
+    }
+    .cv-ai-btn:disabled { opacity:.5; cursor:wait; }
+    .cv-ai-btn.secondary { background:linear-gradient(135deg,#059669,#10b981); }
+
+    /* AI suggestions box */
+    .cv-ai-suggestions { margin-top:12px; display:none; }
+    .cv-ai-suggestions .cv-ai-opt {
+      padding:12px 14px; border:1.5px solid var(--border-color); border-radius:8px;
+      margin-bottom:8px; cursor:pointer; font-size:.85rem; line-height:1.6;
+      transition:all .2s;
+    }
+    .cv-ai-suggestions .cv-ai-opt:hover { border-color:var(--cv-blue); background:rgba(37,99,235,.04); }
+    .cv-ai-loading { padding:14px; text-align:center; font-size:.82rem; color:var(--text-muted); display:none; }
+
+    /* Skills tags */
+    .cv-tags-wrap { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+    .cv-tag  { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; background:rgba(37,99,235,.1); color:var(--cv-blue); border-radius:99px; font-size:.78rem; font-weight:600; }
+    .cv-tag-remove { background:none; border:none; cursor:pointer; color:var(--cv-blue); font-size:.85rem; padding:0; line-height:1; }
+    .cv-tag-input  { padding:8px 12px; border-radius:8px; border:1.5px solid var(--border-color); background:var(--bg-secondary); font-size:.85rem; color:var(--text-primary); }
+
+    /* Repeatable sections */
+    .cv-repeat-item { border:1px solid var(--border-color); border-radius:10px; padding:16px; margin-bottom:12px; position:relative; }
+    .cv-remove-btn  { position:absolute; top:10px; right:10px; background:none; border:none; cursor:pointer; color:var(--cv-red); font-size:.88rem; }
+    .cv-add-btn { width:100%; padding:10px; border:2px dashed var(--border-color); border-radius:8px; background:none; color:var(--text-muted); cursor:pointer; font-size:.82rem; font-weight:600; transition:all .2s; }
+    .cv-add-btn:hover { border-color:var(--cv-blue); color:var(--cv-blue); }
+
+    /* Preview sidebar */
+    .cv-preview-sidebar { position:sticky; top:20px; }
+    .cv-preview-box { background:var(--bg-primary); border:1px solid var(--border-color); border-radius:14px; overflow:hidden; }
+    .cv-preview-head { padding:12px 16px; background:var(--bg-secondary); font-size:.82rem; font-weight:700; display:flex; align-items:center; justify-content:space-between; }
+    .cv-preview-frame { padding:8px; background:#f1f5f9; min-height:320px; }
+    #resumePreviewMini { background:#fff; padding:12px 16px; font-size:8px; line-height:1.5; color:#1e293b; min-height:280px; border-radius:4px; transform-origin:top left; }
+    .cv-export-btns { padding:12px 16px; display:flex; gap:8px; flex-direction:column; }
+    .cv-export-btn { width:100%; padding:10px; border:none; border-radius:8px; font-size:.82rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all .2s; }
+    .cv-export-pdf  { background:#dc2626; color:#fff; }
+    .cv-export-word { background:#2563eb; color:#fff; }
+    .cv-export-save { background:var(--bg-secondary); color:var(--text-primary); border:1.5px solid var(--border-color); }
+
+    /* ── Step 3: ATS Score ── */
+    .cv-ats-wrap { max-width:700px; margin:28px auto; }
+    .cv-ats-card { background:var(--bg-primary); border:1px solid var(--border-color); border-radius:16px; padding:28px; margin-bottom:20px; }
+    .cv-ats-score-row { display:flex; align-items:center; gap:20px; margin-bottom:20px; }
+    .cv-ats-score-circle { width:100px; height:100px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.6rem; font-weight:900; border:5px solid #e2e8f0; flex-shrink:0; }
+    .cv-ats-score-circle.good  { border-color:#16a34a; color:#16a34a; }
+    .cv-ats-score-circle.mid   { border-color:#f59e0b; color:#f59e0b; }
+    .cv-ats-score-circle.low   { border-color:#dc2626; color:#dc2626; }
+    .cv-ats-bar-wrap { flex:1; }
+    .cv-ats-bar-bg { height:10px; background:#e2e8f0; border-radius:99px; overflow:hidden; margin-bottom:8px; }
+    .cv-ats-bar-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,#dc2626,#f59e0b,#16a34a); transition:width .6s ease; }
+    .cv-ats-item { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--border-color); }
+    .cv-ats-item:last-child { border:none; }
+    .cv-ats-icon { font-size:1rem; flex-shrink:0; margin-top:2px; }
+    .cv-ats-item-body { flex:1; }
+    .cv-ats-item-body strong { font-size:.85rem; font-weight:700; display:block; margin-bottom:2px; }
+    .cv-ats-item-body p { font-size:.8rem; color:var(--text-muted); margin:0; }
+    .cv-autofix-btn { width:100%; padding:12px; background:linear-gradient(135deg,#7c3aed,#3b82f6); color:#fff; border:none; border-radius:10px; font-size:.88rem; font-weight:700; cursor:pointer; margin-top:16px; }
+    .cv-run-ats-btn { width:100%; padding:14px; background:var(--cv-blue); color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer; font-size:.95rem; margin-bottom:16px; }
+
+    /* ── Step 4: Export ── */
+    .cv-export-wrap { max-width:860px; margin:24px auto; }
+    #resumePreviewFull { background:#fff; color:#1e293b; padding:40px 48px; min-height:600px; border-radius:8px; border:1px solid #e2e8f0; font-size:11px; line-height:1.6; }
+    .cv-export-actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+    .cv-export-action-btn { flex:1; min-width:140px; padding:13px; border:none; border-radius:10px; font-size:.88rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; }
+
+    /* ── Resume templates (rendered in preview) ── */
+    .rv-modern    h2.rv-name { font-size:1.6em; font-weight:900; color:#1e293b; margin-bottom:2px; }
+    .rv-modern    .rv-contact { font-size:.8em; color:#64748b; margin-bottom:8px; }
+    .rv-modern    h3.rv-section { font-size:.85em; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#2563eb; border-bottom:2px solid #2563eb; padding-bottom:2px; margin:10px 0 6px; }
+
+    .rv-classic   h2.rv-name { font-size:1.6em; font-weight:700; color:#7c2d12; text-align:center; border-bottom:2px solid #7c2d12; padding-bottom:4px; }
+    .rv-classic   .rv-contact { font-size:.78em; color:#44403c; text-align:center; margin-bottom:8px; }
+    .rv-classic   h3.rv-section { font-size:.85em; font-weight:700; color:#7c2d12; border-bottom:1px solid #d6d3d1; margin:10px 0 6px; }
+
+    .rv-creative  { padding-left:0; }
+    .rv-creative  .rv-sidebar { background:#1e40af; color:#fff; padding:12px; margin:-40px -48px 0; padding:16px 48px; margin-bottom:10px; }
+    .rv-creative  h2.rv-name { font-size:1.6em; font-weight:900; color:#fff; margin-bottom:2px; }
+    .rv-creative  .rv-contact { font-size:.78em; color:#bfdbfe; }
+    .rv-creative  h3.rv-section { font-size:.85em; font-weight:800; text-transform:uppercase; color:#1e40af; border-left:3px solid #1e40af; padding-left:6px; margin:10px 0 5px; }
+
+    .rv-ats       h2.rv-name { font-size:1.4em; font-weight:700; color:#000; }
+    .rv-ats       .rv-contact { font-size:.78em; color:#333; }
+    .rv-ats       h3.rv-section { font-size:.85em; font-weight:700; text-transform:uppercase; border-bottom:1px solid #333; margin:10px 0 5px; color:#000; }
+
+    .rv-executive h2.rv-name { font-size:1.6em; font-weight:800; color:#1e293b; text-align:right; }
+    .rv-executive .rv-contact { font-size:.78em; color:#475569; text-align:right; margin-bottom:8px; }
+    .rv-executive h3.rv-section { font-size:.85em; font-weight:700; font-variant:small-caps; letter-spacing:.06em; color:#475569; border-bottom:1px solid #cbd5e1; margin:10px 0 5px; }
+
+    .rv-tech      h2.rv-name { font-size:1.5em; font-weight:900; color:#0ea5e9; font-family:monospace; }
+    .rv-tech      .rv-contact { font-size:.78em; color:#94a3b8; font-family:monospace; margin-bottom:8px; }
+    .rv-tech      h3.rv-section { font-size:.82em; font-weight:700; color:#0ea5e9; font-family:monospace; background:#0f172a; color:#0ea5e9; padding:2px 6px; border-radius:3px; margin:10px 0 5px; display:inline-block; }
+
+    /* Shared resume styles */
+    .rv-bullet { margin:2px 0 2px 12px; font-size:.82em; }
+    .rv-bullet::before { content:'• '; }
+    .rv-job-header { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
+    .rv-job-title  { font-weight:700; font-size:.9em; }
+    .rv-job-co     { font-weight:600; font-size:.82em; color:#64748b; }
+    .rv-job-dates  { font-size:.75em; color:#94a3b8; }
+    .rv-skill-tag  { display:inline-block; background:#eff6ff; color:#1d4ed8; padding:1px 7px; border-radius:4px; font-size:.75em; margin:2px; }
+
+    /* API key modal */
+    .cv-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:9999; display:none; align-items:center; justify-content:center; }
+    .cv-modal-overlay.open { display:flex; }
+    .cv-modal { background:var(--bg-primary); border-radius:16px; padding:28px; max-width:440px; width:90%; }
+    .cv-modal h3 { font-size:1rem; font-weight:800; margin-bottom:8px; }
+    .cv-modal p  { font-size:.82rem; color:var(--text-muted); margin-bottom:14px; line-height:1.6; }
+    .cv-modal input { width:100%; padding:10px 14px; border-radius:8px; border:1.5px solid var(--border-color); background:var(--bg-secondary); font-size:.88rem; color:var(--text-primary); margin-bottom:10px; }
+    .cv-modal-btns { display:flex; gap:8px; }
+    .cv-modal-save { flex:1; padding:10px; background:var(--cv-blue); color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; }
+    .cv-modal-skip { padding:10px 16px; background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:8px; cursor:pointer; font-size:.85rem; }
+
+    /* Navigation buttons */
+    .cv-nav-row { display:flex; justify-content:space-between; align-items:center; padding:16px 0 32px; }
+    .cv-nav-btn  { padding:11px 24px; border-radius:9px; font-size:.88rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px; border:none; }
+    .cv-nav-next { background:var(--cv-blue); color:#fff; }
+    .cv-nav-prev { background:var(--bg-secondary); color:var(--text-primary); border:1.5px solid var(--border-color); }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="../index.html" class="nav-logo"><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+    <div class="nav-links">
+      <a href="../tools/cv-builder.html" class="nav-link active">CV Builder</a>
+      <a href="../index.html#categories" class="nav-link">All Tools</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hidden H1 for SEO -->
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Free AI Resume Builder — Create an ATS-Friendly CV in Minutes</h1>
+
+<!-- Hero -->
+<div class="cv-hero">
+  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:99px;font-size:.78rem;font-weight:700;margin-bottom:14px;">
+    <i class="fas fa-wand-magic-sparkles"></i> AI-Powered Resume Builder
+  </div>
+  <h1>AI Resume Builder — ATS-Friendly <span style="color:#bfdbfe;">CV in Minutes</span></h1>
+  <p>6 professional templates · AI bullet improvement · ATS score 0–100 · PDF &amp; Word export · 100% free</p>
+  <div class="cv-chips">
+    <span class="cv-chip">✅ No Signup</span>
+    <span class="cv-chip">✅ Data Stays in Browser</span>
+    <span class="cv-chip">✅ ATS Score</span>
+    <span class="cv-chip">✅ PDF + Word Export</span>
+    <span class="cv-chip">✅ AI Suggestions</span>
+  </div>
+</div>
+
+<!-- API Key Modal -->
+<div class="cv-modal-overlay" id="apiModal">
+  <div class="cv-modal">
+    <h3>🤖 Claude API Key (Optional)</h3>
+    <p>AI suggestions (improve bullets, suggest skills, score ATS) use the Claude API. Enter your Anthropic API key to enable these features. It's stored only in your browser — never on our servers.</p>
+    <input type="password" id="apiKeyInput" placeholder="sk-ant-..." />
+    <div class="cv-modal-btns">
+      <button class="cv-modal-save" onclick="saveApiKey()">Save &amp; Continue</button>
+      <button class="cv-modal-skip" onclick="closeModal()">Skip (no AI)</button>
+    </div>
+    <p style="margin-top:10px;font-size:.72rem;color:var(--text-muted);">Get a free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></p>
+  </div>
+</div>
+
+<!-- ── Step tabs ── -->
+<div style="background:var(--bg-primary);border-bottom:2px solid var(--border-color);position:sticky;top:0;z-index:100;">
+  <div class="cv-wrap">
+    <div class="cv-steps-bar">
+      <div class="cv-step-tab active" id="tab1" onclick="goTab(1)"><span class="tab-num">1</span> Template</div>
+      <div class="cv-step-tab" id="tab2" onclick="goTab(2)"><span class="tab-num">2</span> Fill Info</div>
+      <div class="cv-step-tab" id="tab3" onclick="goTab(3)"><span class="tab-num">3</span> ATS Score</div>
+      <div class="cv-step-tab" id="tab4" onclick="goTab(4)"><span class="tab-num">4</span> Export</div>
+    </div>
+  </div>
+</div>
+
+<div class="cv-wrap" style="padding-top:16px;padding-bottom:40px;">
+
+  <!-- ══ PANEL 1: Choose Template ══ -->
+  <div class="cv-panel active" id="panel1">
+    <div style="text-align:center;margin-bottom:6px;">
+      <strong>Choose a template</strong> — click to select, then proceed to fill in your information.
+    </div>
+    <div class="cv-templates-grid">
+
+      <div class="cv-tpl-card selected" id="tpl-modern" onclick="selectTemplate('modern')">
+        <div class="cv-tpl-preview tpl-modern">📄</div>
+        <div class="cv-tpl-label">
+          <h4>Modern Minimal</h4>
+          <p>Clean whitespace, blue accents, single column</p>
+        </div>
+        <div class="cv-tpl-selected-check"><i class="fas fa-check"></i></div>
+      </div>
+
+      <div class="cv-tpl-card" id="tpl-classic" onclick="selectTemplate('classic')">
+        <div class="cv-tpl-preview tpl-classic">📋</div>
+        <div class="cv-tpl-label">
+          <h4>Professional Classic</h4>
+          <p>Traditional centered header, conservative</p>
+        </div>
+        <div class="cv-tpl-selected-check"><i class="fas fa-check"></i></div>
+      </div>
+
+      <div class="cv-tpl-card" id="tpl-creative" onclick="selectTemplate('creative')">
+        <div class="cv-tpl-preview tpl-creative"><span style="color:#fff;font-size:2.5rem;">✨</span></div>
+        <div class="cv-tpl-label">
+          <h4>Creative Bold</h4>
+          <p>Color accent header, modern sidebar vibe</p>
+        </div>
+        <div class="cv-tpl-selected-check"><i class="fas fa-check"></i></div>
+      </div>
+
+      <div class="cv-tpl-card" id="tpl-ats" onclick="selectTemplate('ats')">
+        <div class="cv-tpl-preview tpl-ats">⚙️</div>
+        <div class="cv-tpl-label">
+          <h4>ATS-Safe Simple</h4>
+          <p>Plain single column, max parser compatibility</p>
+        </div>
+        <div class="cv-tpl-ats-badge">✅ Best for ATS</div>
+        <div class="cv-tpl-selected-check"><i class="fas fa-check"></i></div>
+      </div>
+
+      <div class="cv-tpl-card" id="tpl-executive" onclick="selectTemplate('executive')">
+        <div class="cv-tpl-preview tpl-executive">🎩</div>
+        <div class="cv-tpl-label">
+          <h4>Executive</h4>
+          <p>Elegant right-aligned header, formal</p>
+        </div>
+        <div class="cv-tpl-selected-check"><i class="fas fa-check"></i></div>
+      </div>
+
+      <div class="cv-tpl-card" id="tpl-tech" onclick="selectTemplate('tech')">
+        <div class="cv-tpl-preview tpl-tech"><span style="color:#0ea5e9;font-family:monospace;font-size:1.2rem;">&lt;/Dev&gt;</span></div>
+        <div class="cv-tpl-label">
+          <h4>Tech/Developer</h4>
+          <p>Monospace accents, dark header, skills-first</p>
+        </div>
+        <div class="cv-tpl-selected-check"><i class="fas fa-check"></i></div>
+      </div>
+
+    </div>
+    <div class="cv-nav-row">
+      <div></div>
+      <button class="cv-nav-btn cv-nav-next" onclick="goTab(2)">
+        Next: Fill Your Info <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ PANEL 2: Fill Info ══ -->
+  <div class="cv-panel" id="panel2">
+    <div class="cv-form-layout">
+      <!-- Left: Form -->
+      <div>
+
+        <!-- Personal Info -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secPersonal')">
+            <i class="fas fa-user" style="color:var(--cv-blue);"></i> Personal Information
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secPersonalArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secPersonal">
+            <div class="cv-row2">
+              <div class="cv-field"><label>Full Name *</label><input id="fname" placeholder="e.g. Ahmed Hassan" oninput="updatePreview()" /></div>
+              <div class="cv-field"><label>Target Job Title *</label><input id="fjobtitle" placeholder="e.g. Software Engineer" oninput="updatePreview()" /></div>
+            </div>
+            <div class="cv-row3">
+              <div class="cv-field"><label>Email *</label><input type="email" id="femail" placeholder="you@email.com" oninput="updatePreview()" /></div>
+              <div class="cv-field"><label>Phone</label><input id="fphone" placeholder="+92 300 1234567" oninput="updatePreview()" /></div>
+              <div class="cv-field"><label>Location</label><input id="flocation" placeholder="Karachi, Pakistan" oninput="updatePreview()" /></div>
+            </div>
+            <div class="cv-row2">
+              <div class="cv-field"><label>LinkedIn URL</label><input id="flinkedin" placeholder="linkedin.com/in/yourname" oninput="updatePreview()" /></div>
+              <div class="cv-field"><label>Portfolio / Website</label><input id="fwebsite" placeholder="yourportfolio.com" oninput="updatePreview()" /></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional Summary -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secSummary')">
+            <i class="fas fa-align-left" style="color:var(--cv-purple);"></i> Professional Summary
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secSummaryArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secSummary">
+            <div class="cv-field">
+              <label>Summary (2-4 sentences)</label>
+              <textarea id="fsummary" rows="4" placeholder="Experienced software engineer with 5+ years building scalable web applications..." oninput="updatePreview()"></textarea>
+            </div>
+            <button class="cv-ai-btn" onclick="aiImproveSummary(this)" id="summaryAiBtn">
+              <i class="fas fa-wand-magic-sparkles"></i> ✨ Improve with AI (3 options)
+            </button>
+            <div class="cv-ai-loading" id="summaryAiLoading">⏳ Claude is rewriting your summary...</div>
+            <div class="cv-ai-suggestions" id="summaryAiSuggestions"></div>
+          </div>
+        </div>
+
+        <!-- Work Experience -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secExp')">
+            <i class="fas fa-briefcase" style="color:var(--cv-green);"></i> Work Experience
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secExpArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secExp">
+            <div id="expList"></div>
+            <button class="cv-add-btn" onclick="addExp()">
+              <i class="fas fa-plus"></i> Add Work Experience
+            </button>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secEdu')">
+            <i class="fas fa-graduation-cap" style="color:var(--cv-amber);"></i> Education
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secEduArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secEdu">
+            <div id="eduList"></div>
+            <button class="cv-add-btn" onclick="addEdu()">
+              <i class="fas fa-plus"></i> Add Education
+            </button>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secSkills')">
+            <i class="fas fa-tags" style="color:var(--cv-blue);"></i> Skills
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secSkillsArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secSkills">
+            <div class="cv-tags-wrap" id="skillTagsWrap"></div>
+            <div style="display:flex;gap:8px;margin-bottom:8px;">
+              <input class="cv-tag-input" id="skillInput" placeholder="Type skill + Enter" onkeydown="handleSkillKey(event)" style="flex:1;" />
+              <button class="cv-ai-btn secondary" onclick="aiSuggestSkills(this)">
+                <i class="fas fa-wand-magic-sparkles"></i> Suggest with AI
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certifications (optional) -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secCerts')">
+            <i class="fas fa-certificate" style="color:var(--cv-amber);"></i> Certifications <span style="font-size:.72rem;color:var(--text-muted);font-weight:400;margin-left:6px;">Optional</span>
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secCertsArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secCerts">
+            <div id="certList"></div>
+            <button class="cv-add-btn" onclick="addCert()"><i class="fas fa-plus"></i> Add Certification</button>
+          </div>
+        </div>
+
+        <!-- Projects (optional) -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secProjects')">
+            <i class="fas fa-code" style="color:var(--cv-purple);"></i> Projects <span style="font-size:.72rem;color:var(--text-muted);font-weight:400;margin-left:6px;">Optional</span>
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secProjectsArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secProjects">
+            <div id="projectList"></div>
+            <button class="cv-add-btn" onclick="addProject()"><i class="fas fa-plus"></i> Add Project</button>
+          </div>
+        </div>
+
+        <!-- Languages (optional) -->
+        <div class="cv-section-card">
+          <div class="cv-section-head" onclick="toggleSection('secLangs')">
+            <i class="fas fa-globe" style="color:var(--cv-green);"></i> Languages <span style="font-size:.72rem;color:var(--text-muted);font-weight:400;margin-left:6px;">Optional</span>
+            <i class="fas fa-chevron-down" style="margin-left:auto;" id="secLangsArrow"></i>
+          </div>
+          <div class="cv-section-body" id="secLangs">
+            <div id="langList"></div>
+            <button class="cv-add-btn" onclick="addLang()"><i class="fas fa-plus"></i> Add Language</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Preview sidebar -->
+      <div class="cv-preview-sidebar">
+        <div class="cv-preview-box">
+          <div class="cv-preview-head">
+            Live Preview
+            <span id="previewTplLabel" style="color:var(--cv-blue);font-weight:600;font-size:.75rem;">Modern Minimal</span>
+          </div>
+          <div class="cv-preview-frame">
+            <div id="resumePreviewMini"></div>
+          </div>
+          <div class="cv-export-btns">
+            <button class="cv-export-btn cv-export-pdf" onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+            <button class="cv-export-btn cv-export-word" onclick="exportToWord()"><i class="fas fa-file-word"></i> Download Word</button>
+            <button class="cv-export-btn cv-export-save" onclick="saveDraft()"><i class="fas fa-save"></i> Save Draft</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-nav-row">
+      <button class="cv-nav-btn cv-nav-prev" onclick="goTab(1)"><i class="fas fa-arrow-left"></i> Templates</button>
+      <button class="cv-nav-btn cv-nav-next" onclick="goTab(3)">Get ATS Score <i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══ PANEL 3: ATS Score ══ -->
+  <div class="cv-panel" id="panel3">
+    <div class="cv-ats-wrap">
+      <button class="cv-run-ats-btn" onclick="runAtsScore()">
+        <i class="fas fa-robot"></i> Analyze My Resume — Get ATS Score
+      </button>
+      <div id="atsResultArea"></div>
+    </div>
+    <div class="cv-nav-row">
+      <button class="cv-nav-btn cv-nav-prev" onclick="goTab(2)"><i class="fas fa-arrow-left"></i> Back to Form</button>
+      <button class="cv-nav-btn cv-nav-next" onclick="goTab(4)">Export Resume <i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══ PANEL 4: Export ══ -->
+  <div class="cv-panel" id="panel4">
+    <div class="cv-export-wrap">
+      <div style="font-size:.82rem;color:var(--text-muted);margin-bottom:12px;">Full-size preview — this is exactly how your resume will look when exported.</div>
+      <div id="resumePreviewFull" class="rv-modern"></div>
+      <div class="cv-export-actions">
+        <button class="cv-export-action-btn" style="background:#dc2626;color:#fff;" onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        <button class="cv-export-action-btn" style="background:#2563eb;color:#fff;" onclick="exportToWord()"><i class="fas fa-file-word"></i> Download Word (.docx)</button>
+        <button class="cv-export-action-btn" style="background:var(--bg-secondary);color:var(--text-primary);border:1.5px solid var(--border-color);" onclick="saveDraft()"><i class="fas fa-save"></i> Save Draft</button>
+        <button class="cv-export-action-btn" style="background:var(--bg-secondary);color:var(--text-primary);border:1.5px solid var(--border-color);" onclick="goTab(1)"><i class="fas fa-palette"></i> Change Template</button>
+      </div>
+    </div>
+    <div class="cv-nav-row">
+      <button class="cv-nav-btn cv-nav-prev" onclick="goTab(3)"><i class="fas fa-arrow-left"></i> ATS Score</button>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- ══ FAQ SECTION ══ -->
+  <section style="margin-top:60px;max-width:740px;">
+    <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--cv-blue);margin-bottom:6px;">Frequently Asked Questions</div>
+    <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;">Common Questions About AI Resume Builder</h2>
+
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">What is ATS and why does my ATS score matter? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">ATS (Applicant Tracking System) is software used by most companies to automatically screen resumes. Studies show 75% of resumes are rejected before a human sees them. Our ATS score (0–100) tells you how well your resume will perform in these automated systems — 80+ is excellent.</div>
+    </details>
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Is this tool completely free? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Yes, 100% free. All templates, ATS scoring, PDF/Word export work without an API key. AI suggestions (improve bullets, suggest skills) need your own free Anthropic Claude API key — stored only in your browser, never on our servers.</div>
+    </details>
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Can I edit my resume after downloading? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">The Word (.docx) download is fully editable in Microsoft Word, Google Docs, or LibreOffice. The PDF is fixed-format — best for submitting to jobs. Use Word if you need to make further edits.</div>
+    </details>
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Is my data private? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Yes. All your resume data stays in your browser (localStorage) and is never sent to HashmiTools servers. The only time data leaves your device is when you click an AI button — that sends only the relevant text to the Claude API using <em>your own</em> API key.</div>
+    </details>
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Can I switch templates after filling in my information? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Yes! Your data is saved separately from the template. Switch templates any time — from Step 1 or from the export page — and the same data renders instantly in the new style.</div>
+    </details>
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Does it work on mobile? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">The form and AI features work on mobile. For the best PDF preview and export experience, use a desktop browser (Chrome or Firefox) since PDF rendering is optimized for larger screens.</div>
+    </details>
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">What AI model is used? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">AI suggestions use Claude (claude-opus-4-5) via the Anthropic API. You need a free API key from console.anthropic.com. All AI calls are made directly from your browser to Anthropic — no middleman.</div>
+    </details>
+    <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
+      <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Which template is best for getting past ATS? <span>+</span></summary>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">The <strong>ATS-Safe Simple</strong> template (marked with ✅ Best for ATS) uses a clean single-column layout with standard section headers. This is recommended for most job applications since many ATS systems struggle to parse multi-column, creative, or graphical resumes.</div>
+    </details>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer style="background:var(--bg-secondary);border-top:1px solid var(--border-color);padding:24px;text-align:center;font-size:.8rem;color:var(--text-muted);margin-top:40px;">
+  <a href="../index.html" style="color:var(--cv-blue);">← Back to HashmiTools</a> &nbsp;·&nbsp;
+  Free AI tools for everyone · <a href="../privacy.html" style="color:var(--text-muted);">Privacy</a>
+</footer>
+
+<script>
+'use strict';
+
+// ── State ──────────────────────────────────────────────────────────────────
+let selectedTemplate = 'modern';
+let skills = [];
+let expItems = [], eduItems = [], certItems = [], projectItems = [], langItems = [];
+
+const TPL_NAMES = { modern:'Modern Minimal', classic:'Professional Classic', creative:'Creative Bold', ats:'ATS-Safe Simple', executive:'Executive', tech:'Tech/Developer' };
+
+// ── Tab navigation ─────────────────────────────────────────────────────────
+function goTab(n) {
+  [1,2,3,4].forEach(i => {
+    document.getElementById(`panel${i}`).classList.toggle('active', i===n);
+    document.getElementById(`tab${i}`).classList.toggle('active', i===n);
+  });
+  if (n===4) updateFullPreview();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── Template selection ─────────────────────────────────────────────────────
+function selectTemplate(tpl) {
+  document.querySelectorAll('.cv-tpl-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(`tpl-${tpl}`).classList.add('selected');
+  selectedTemplate = tpl;
+  document.getElementById('previewTplLabel').textContent = TPL_NAMES[tpl] || tpl;
+  updatePreview();
+}
+
+// ── Section toggle ─────────────────────────────────────────────────────────
+function toggleSection(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display = el.style.display==='none' ? '' : 'none'; }
+}
+
+// ── Skill tags ─────────────────────────────────────────────────────────────
+function handleSkillKey(e) {
+  if (e.key==='Enter'||e.key===',') { e.preventDefault(); addSkill(); }
+}
+function addSkill() {
+  const input = document.getElementById('skillInput');
+  const v = input.value.trim().replace(/^,|,$/g,'');
+  if (v && !skills.includes(v)) {
+    skills.push(v);
+    renderSkillTags();
+    updatePreview();
+  }
+  input.value = '';
+}
+function removeSkill(s) {
+  skills = skills.filter(x => x!==s);
+  renderSkillTags();
+  updatePreview();
+}
+function renderSkillTags() {
+  const wrap = document.getElementById('skillTagsWrap');
+  wrap.innerHTML = skills.map(s =>
+    `<span class="cv-tag">${escHtml(s)}<button class="cv-tag-remove" onclick="removeSkill('${escAttr(s)}')" title="Remove">×</button></span>`
+  ).join('');
+}
+
+// ── Repeatable sections ────────────────────────────────────────────────────
+let expCount=0, eduCount=0, certCount=0, projCount=0, langCount=0;
+
+function addExp(data={}) {
+  const idx = expCount++;
+  const div = document.createElement('div');
+  div.className = 'cv-repeat-item'; div.id = `expItem${idx}`;
+  div.innerHTML = `
+    <button class="cv-remove-btn" onclick="removeItem('expItem${idx}','expItems',${idx})"><i class="fas fa-trash"></i></button>
+    <div class="cv-row2">
+      <div class="cv-field"><label>Job Title</label><input placeholder="Software Engineer" value="${escAttr(data.title||'')}" oninput="saveExp(${idx},this,'title');updatePreview()" /></div>
+      <div class="cv-field"><label>Company</label><input placeholder="Google Inc." value="${escAttr(data.company||'')}" oninput="saveExp(${idx},this,'company');updatePreview()" /></div>
+    </div>
+    <div class="cv-row3">
+      <div class="cv-field"><label>Location</label><input placeholder="Remote / Karachi" value="${escAttr(data.location||'')}" oninput="saveExp(${idx},this,'location');updatePreview()" /></div>
+      <div class="cv-field"><label>Start Date</label><input placeholder="Jan 2021" value="${escAttr(data.start||'')}" oninput="saveExp(${idx},this,'start');updatePreview()" /></div>
+      <div class="cv-field"><label>End Date</label><input placeholder="Present" value="${escAttr(data.end||'Present')}" oninput="saveExp(${idx},this,'end');updatePreview()" /></div>
+    </div>
+    <div class="cv-field"><label>Bullet Points (one per line, start with action verbs)</label>
+      <textarea rows="4" placeholder="• Built REST APIs serving 100k+ daily users&#10;• Reduced page load time by 40% using caching" oninput="saveExp(${idx},this,'bullets');updatePreview()">${escHtml(data.bullets||'')}</textarea>
+    </div>
+    <button class="cv-ai-btn" onclick="aiImproveBullets(${idx},this)"><i class="fas fa-wand-magic-sparkles"></i> ✨ Improve Bullets with AI</button>
+    <div class="cv-ai-loading" id="expAiLoading${idx}"></div>
+    <div class="cv-ai-suggestions" id="expAiSug${idx}"></div>
+  `;
+  document.getElementById('expList').appendChild(div);
+  expItems[idx] = { title:data.title||'', company:data.company||'', location:data.location||'', start:data.start||'', end:data.end||'Present', bullets:data.bullets||'' };
+}
+function saveExp(idx, el, field) { if(expItems[idx]) expItems[idx][field] = el.value; }
+
+function addEdu(data={}) {
+  const idx = eduCount++;
+  const div = document.createElement('div');
+  div.className = 'cv-repeat-item'; div.id = `eduItem${idx}`;
+  div.innerHTML = `
+    <button class="cv-remove-btn" onclick="removeItem('eduItem${idx}','eduItems',${idx})"><i class="fas fa-trash"></i></button>
+    <div class="cv-row2">
+      <div class="cv-field"><label>Degree</label><input placeholder="BS Computer Science" value="${escAttr(data.degree||'')}" oninput="saveEdu(${idx},this,'degree');updatePreview()" /></div>
+      <div class="cv-field"><label>Institution</label><input placeholder="FAST-NUCES" value="${escAttr(data.inst||'')}" oninput="saveEdu(${idx},this,'inst');updatePreview()" /></div>
+    </div>
+    <div class="cv-row3">
+      <div class="cv-field"><label>Location</label><input placeholder="Karachi" value="${escAttr(data.location||'')}" oninput="saveEdu(${idx},this,'location');updatePreview()" /></div>
+      <div class="cv-field"><label>Graduation Year</label><input placeholder="2022" value="${escAttr(data.year||'')}" oninput="saveEdu(${idx},this,'year');updatePreview()" /></div>
+      <div class="cv-field"><label>GPA (optional)</label><input placeholder="3.7 / 4.0" value="${escAttr(data.gpa||'')}" oninput="saveEdu(${idx},this,'gpa');updatePreview()" /></div>
+    </div>
+  `;
+  document.getElementById('eduList').appendChild(div);
+  eduItems[idx] = { degree:data.degree||'', inst:data.inst||'', location:data.location||'', year:data.year||'', gpa:data.gpa||'' };
+}
+function saveEdu(idx,el,field){ if(eduItems[idx]) eduItems[idx][field]=el.value; }
+
+function addCert(data={}) {
+  const idx = certCount++;
+  const div = document.createElement('div');
+  div.className = 'cv-repeat-item'; div.id = `certItem${idx}`;
+  div.innerHTML = `
+    <button class="cv-remove-btn" onclick="removeItem('certItem${idx}','certItems',${idx})"><i class="fas fa-trash"></i></button>
+    <div class="cv-row3">
+      <div class="cv-field"><label>Certification</label><input placeholder="AWS Solutions Architect" value="${escAttr(data.name||'')}" oninput="saveCert(${idx},this,'name');updatePreview()" /></div>
+      <div class="cv-field"><label>Issuer</label><input placeholder="Amazon Web Services" value="${escAttr(data.issuer||'')}" oninput="saveCert(${idx},this,'issuer');updatePreview()" /></div>
+      <div class="cv-field"><label>Year</label><input placeholder="2023" value="${escAttr(data.year||'')}" oninput="saveCert(${idx},this,'year');updatePreview()" /></div>
+    </div>
+  `;
+  document.getElementById('certList').appendChild(div);
+  certItems[idx] = { name:data.name||'', issuer:data.issuer||'', year:data.year||'' };
+}
+function saveCert(idx,el,field){ if(certItems[idx]) certItems[idx][field]=el.value; }
+
+function addProject(data={}) {
+  const idx = projCount++;
+  const div = document.createElement('div');
+  div.className = 'cv-repeat-item'; div.id = `projItem${idx}`;
+  div.innerHTML = `
+    <button class="cv-remove-btn" onclick="removeItem('projItem${idx}','projectItems',${idx})"><i class="fas fa-trash"></i></button>
+    <div class="cv-row2">
+      <div class="cv-field"><label>Project Title</label><input placeholder="E-Commerce Platform" value="${escAttr(data.title||'')}" oninput="saveProj(${idx},this,'title');updatePreview()" /></div>
+      <div class="cv-field"><label>Link</label><input placeholder="github.com/you/project" value="${escAttr(data.link||'')}" oninput="saveProj(${idx},this,'link');updatePreview()" /></div>
+    </div>
+    <div class="cv-field"><label>Description</label><textarea rows="2" placeholder="Built a full-stack e-commerce site with React and Node.js..." oninput="saveProj(${idx},this,'desc');updatePreview()">${escHtml(data.desc||'')}</textarea></div>
+    <div class="cv-field"><label>Technologies Used</label><input placeholder="React, Node.js, PostgreSQL, AWS" value="${escAttr(data.tech||'')}" oninput="saveProj(${idx},this,'tech');updatePreview()" /></div>
+  `;
+  document.getElementById('projectList').appendChild(div);
+  projectItems[idx] = { title:data.title||'', link:data.link||'', desc:data.desc||'', tech:data.tech||'' };
+}
+function saveProj(idx,el,field){ if(projectItems[idx]) projectItems[idx][field]=el.value; }
+
+function addLang(data={}) {
+  const idx = langCount++;
+  const div = document.createElement('div');
+  div.className = 'cv-repeat-item'; div.id = `langItem${idx}`;
+  div.innerHTML = `
+    <button class="cv-remove-btn" onclick="removeItem('langItem${idx}','langItems',${idx})"><i class="fas fa-trash"></i></button>
+    <div class="cv-row2">
+      <div class="cv-field"><label>Language</label><input placeholder="Arabic" value="${escAttr(data.lang||'')}" oninput="saveLang(${idx},this,'lang');updatePreview()" /></div>
+      <div class="cv-field"><label>Proficiency</label>
+        <select oninput="saveLang(${idx},this,'level');updatePreview()">
+          <option ${(data.level||'')==='Native'?'selected':''}>Native</option>
+          <option ${(data.level||'')==='Fluent'?'selected':''}>Fluent</option>
+          <option ${(data.level||'')==='Intermediate'?'selected':''}>Intermediate</option>
+          <option ${(data.level||'')==='Basic'?'selected':''}>Basic</option>
+        </select>
+      </div>
+    </div>
+  `;
+  document.getElementById('langList').appendChild(div);
+  langItems[idx] = { lang:data.lang||'', level:data.level||'Fluent' };
+}
+function saveLang(idx,el,field){ if(langItems[idx]) langItems[idx][field]=el.value; }
+
+function removeItem(domId, arrName, idx) {
+  const el = document.getElementById(domId);
+  if (el) el.remove();
+  if (arrName==='expItems') expItems[idx]=null;
+  if (arrName==='eduItems') eduItems[idx]=null;
+  if (arrName==='certItems') certItems[idx]=null;
+  if (arrName==='projectItems') projectItems[idx]=null;
+  if (arrName==='langItems') langItems[idx]=null;
+  updatePreview();
+}
+
+// ── Build resume data object ───────────────────────────────────────────────
+function getResumeData() {
+  return {
+    name:       v('fname'),
+    jobtitle:   v('fjobtitle'),
+    email:      v('femail'),
+    phone:      v('fphone'),
+    location:   v('flocation'),
+    linkedin:   v('flinkedin'),
+    website:    v('fwebsite'),
+    summary:    v('fsummary'),
+    skills:     [...skills],
+    experience: expItems.filter(Boolean),
+    education:  eduItems.filter(Boolean),
+    certs:      certItems.filter(Boolean),
+    projects:   projectItems.filter(Boolean),
+    languages:  langItems.filter(Boolean),
+  };
+}
+function v(id) { const el=document.getElementById(id); return el?el.value.trim():''; }
+
+// ── Resume HTML builder ────────────────────────────────────────────────────
+function buildResumeHTML(data, tpl, mini=false) {
+  const cls = `rv-${tpl}`;
+  const h = (s) => escHtml(s);
+  const fs = mini ? 'font-size:7px;' : '';
+
+  const contactLine = [data.email, data.phone, data.location, data.linkedin, data.website].filter(Boolean).join(' | ');
+
+  const expHtml = data.experience.map(e => `
+    <div class="rv-job-header"><span class="rv-job-title">${h(e.title)}</span><span class="rv-job-dates">${h(e.start)}${e.end?' – '+h(e.end):''}</span></div>
+    <div class="rv-job-co">${h(e.company)}${e.location?' · '+h(e.location):''}</div>
+    ${(e.bullets||'').split('\n').filter(b=>b.trim()).map(b=>`<div class="rv-bullet">${h(b.replace(/^[•\-]\s*/,''))}</div>`).join('')}
+  `).join('<br/>');
+
+  const eduHtml = data.education.map(e => `
+    <div class="rv-job-header"><span class="rv-job-title">${h(e.degree)}</span><span class="rv-job-dates">${h(e.year)}</span></div>
+    <div class="rv-job-co">${h(e.inst)}${e.location?' · '+h(e.location):''}${e.gpa?' · GPA: '+h(e.gpa):''}</div>
+  `).join('');
+
+  const skillsHtml = data.skills.map(s=>`<span class="rv-skill-tag">${h(s)}</span>`).join(' ');
+
+  const certsHtml = data.certs.length ? `
+    <h3 class="rv-section">Certifications</h3>
+    ${data.certs.map(c=>`<div>${h(c.name)}${c.issuer?' — '+h(c.issuer):''}${c.year?' ('+h(c.year)+')':''}</div>`).join('')}
+  ` : '';
+
+  const projectsHtml = data.projects.length ? `
+    <h3 class="rv-section">Projects</h3>
+    ${data.projects.map(p=>`
+      <div><strong>${h(p.title)}</strong>${p.link?' · <em>'+h(p.link)+'</em>':''}</div>
+      ${p.desc?`<div class="rv-bullet">${h(p.desc)}</div>`:''}
+      ${p.tech?`<div style="font-size:.75em;color:#64748b;">Tech: ${h(p.tech)}</div>`:''}
+    `).join('<br/>')}
+  ` : '';
+
+  const langsHtml = data.languages.length ? `
+    <h3 class="rv-section">Languages</h3>
+    ${data.languages.map(l=>`<span class="rv-skill-tag">${h(l.lang)} — ${h(l.level)}</span>`).join(' ')}
+  ` : '';
+
+  let header = '';
+  if (tpl==='creative') {
+    header = `<div class="rv-sidebar"><h2 class="rv-name">${h(data.name)||'Your Name'}</h2><div style="color:#bfdbfe;font-size:.85em;">${h(data.jobtitle)}</div><div class="rv-contact">${h(contactLine)}</div></div>`;
+  } else if (tpl==='executive') {
+    header = `<h2 class="rv-name">${h(data.name)||'Your Name'}</h2><div style="color:#475569;font-size:.85em;text-align:right;">${h(data.jobtitle)}</div><div class="rv-contact">${h(contactLine)}</div><hr style="border-color:#cbd5e1;margin:6px 0;"/>`;
+  } else if (tpl==='tech') {
+    header = `<h2 class="rv-name">${h(data.name)||'Your Name'}</h2><div style="color:#94a3b8;font-size:.8em;font-family:monospace;">${h(data.jobtitle)}</div><div class="rv-contact">${h(contactLine)}</div><hr style="border-color:#334155;margin:6px 0;"/>`;
+  } else {
+    header = `<h2 class="rv-name">${h(data.name)||'Your Name'}</h2><div style="font-size:.85em;color:#475569;">${h(data.jobtitle)}</div><div class="rv-contact">${h(contactLine)}</div>`;
+  }
+
+  return `<div class="${cls}" style="${fs}">
+    ${header}
+    ${data.summary ? `<h3 class="rv-section">Summary</h3><div style="font-size:.82em;line-height:1.6;">${h(data.summary)}</div>` : ''}
+    ${data.experience.length ? `<h3 class="rv-section">Experience</h3>${expHtml}` : ''}
+    ${data.education.length ? `<h3 class="rv-section">Education</h3>${eduHtml}` : ''}
+    ${data.skills.length ? `<h3 class="rv-section">Skills</h3><div>${skillsHtml}</div>` : ''}
+    ${certsHtml}${projectsHtml}${langsHtml}
+  </div>`;
+}
+
+function updatePreview() {
+  const data = getResumeData();
+  const mini = document.getElementById('resumePreviewMini');
+  if (mini) mini.innerHTML = buildResumeHTML(data, selectedTemplate, true);
+}
+
+function updateFullPreview() {
+  const data = getResumeData();
+  const full = document.getElementById('resumePreviewFull');
+  if (full) {
+    full.className = `rv-${selectedTemplate}`;
+    full.innerHTML = buildResumeHTML(data, selectedTemplate, false);
+  }
+}
+
+// ── ATS scoring ────────────────────────────────────────────────────────────
+async function runAtsScore() {
+  const data = getResumeData();
+  const area = document.getElementById('atsResultArea');
+  area.innerHTML = `<div class="cv-ats-card" style="text-align:center;padding:40px;"><div style="font-size:2rem;margin-bottom:12px;">⏳</div><div>Analyzing your resume with AI...</div></div>`;
+
+  const apiKey = localStorage.getItem('cv_anthropic_key');
+  let score, strengths=[], warnings=[], critical=[], missing=[], weakBullets=[];
+
+  if (!apiKey) {
+    // Heuristic scoring without AI
+    let s = 60;
+    if (data.name) s+=5;
+    if (data.email) s+=5;
+    if (data.summary && data.summary.length>50) s+=5;
+    if (data.experience.length>0) s+=5;
+    if (data.education.length>0) s+=5;
+    if (data.skills.length>=5) s+=5;
+    if (data.skills.length>=10) s+=5;
+    const bullets = data.experience.flatMap(e=>(e.bullets||'').split('\n').filter(b=>b.trim()));
+    const hasNumbers = bullets.filter(b=>/\d+/.test(b)).length;
+    if (hasNumbers >= 2) s+=5;
+    if (data.experience.length>=2) s+=5;
+    score = Math.min(s, 95);
+    strengths = data.name && data.email ? ['Contact information present','Standard section headers used'] : [];
+    if (data.summary) strengths.push('Professional summary included');
+    if (data.skills.length >= 5) strengths.push(`${data.skills.length} skills listed`);
+    warnings = data.skills.length < 5 ? [{issue:'Few skills listed',fix:'Add 8-12 relevant technical and soft skills'}] : [];
+    if (hasNumbers === 0) warnings.push({issue:'Bullet points lack quantifiable results',fix:'Add numbers: "Improved performance by 40%", "Managed team of 8 people"'});
+    missing = data.jobtitle ? [`${data.jobtitle} keywords (run with Claude API for specific suggestions)`] : [];
+  } else {
+    try {
+      const prompt = `You are an ATS resume expert. Analyze this resume for ATS compatibility.\nTarget job: "${data.jobtitle}"\nResume: ${JSON.stringify(data,null,1).slice(0,3000)}\n\nReturn ONLY valid JSON:\n{"ats_score":75,"strengths":["..."],"warnings":[{"issue":"...","fix":"..."}],"critical_issues":[{"issue":"...","fix":"..."}],"missing_keywords":["..."],"weak_bullets":[{"original":"...","improved":"..."}]}`;
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+        body: JSON.stringify({model:'claude-opus-4-5',max_tokens:800,messages:[{role:'user',content:prompt}]})
+      });
+      const d = await res.json();
+      const text = d.content?.[0]?.text || '{}';
+      const j = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] || '{}');
+      score = j.ats_score || 72;
+      strengths = j.strengths || [];
+      warnings = j.warnings || [];
+      critical = j.critical_issues || [];
+      missing = j.missing_keywords || [];
+      weakBullets = j.weak_bullets || [];
+    } catch(e) {
+      score = 72;
+      strengths = ['Resume structure detected'];
+      warnings = [{issue:'Could not complete AI analysis',fix:'Check your API key and internet connection'}];
+    }
+  }
+
+  const scoreClass = score >= 75 ? 'good' : score >= 55 ? 'mid' : 'low';
+  const scoreText = score >= 75 ? '🎉 Great ATS score!' : score >= 55 ? '⚠️ Room for improvement' : '❌ Needs significant work';
+
+  area.innerHTML = `
+    <div class="cv-ats-card">
+      <div class="cv-ats-score-row">
+        <div class="cv-ats-score-circle ${scoreClass}">${score}</div>
+        <div class="cv-ats-bar-wrap">
+          <div style="font-size:.85rem;font-weight:700;margin-bottom:6px;">ATS Compatibility Score: ${score}/100</div>
+          <div class="cv-ats-bar-bg"><div class="cv-ats-bar-fill" style="width:${score}%"></div></div>
+          <div style="font-size:.78rem;color:var(--text-muted);margin-top:4px;">${scoreText}</div>
+        </div>
+      </div>
+      ${strengths.map(s=>`<div class="cv-ats-item"><span class="cv-ats-icon">✅</span><div class="cv-ats-item-body"><strong>Strength</strong><p>${escHtml(s)}</p></div></div>`).join('')}
+      ${warnings.map(w=>`<div class="cv-ats-item"><span class="cv-ats-icon">⚠️</span><div class="cv-ats-item-body"><strong>${escHtml(w.issue||w)}</strong><p>${escHtml(w.fix||'See fix above')}</p></div></div>`).join('')}
+      ${critical.map(c=>`<div class="cv-ats-item"><span class="cv-ats-icon">❌</span><div class="cv-ats-item-body"><strong>${escHtml(c.issue||c)}</strong><p>${escHtml(c.fix||'')}</p></div></div>`).join('')}
+      ${missing.length ? `<div class="cv-ats-item"><span class="cv-ats-icon">🔑</span><div class="cv-ats-item-body"><strong>Suggested Keywords for "${escHtml(data.jobtitle)}"</strong><p>${missing.map(k=>`<code style="background:var(--bg-secondary);padding:1px 5px;border-radius:4px;font-size:.78em;">${escHtml(k)}</code>`).join(' ')}</p></div></div>` : ''}
+      ${weakBullets.length ? `<div class="cv-ats-item"><span class="cv-ats-icon">💡</span><div class="cv-ats-item-body"><strong>Bullet Improvements</strong>${weakBullets.map(b=>`<p><del>${escHtml(b.original)}</del><br/>→ <strong>${escHtml(b.improved)}</strong></p>`).join('')}</div></div>` : ''}
+      ${!apiKey ? `<div style="margin-top:12px;padding:12px;background:rgba(37,99,235,.06);border-radius:8px;font-size:.8rem;color:var(--text-muted);">💡 Add your Claude API key for a detailed AI analysis with job-specific keyword suggestions.</div>` : ''}
+    </div>`;
+}
+
+// ── AI helpers ─────────────────────────────────────────────────────────────
+async function callClaude(prompt) {
+  const key = localStorage.getItem('cv_anthropic_key');
+  if (!key) { openModal(); return null; }
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+    body: JSON.stringify({model:'claude-opus-4-5',max_tokens:600,messages:[{role:'user',content:prompt}]})
+  });
+  if (!res.ok) throw new Error(`Claude API error: ${res.status}`);
+  const d = await res.json();
+  return d.content?.[0]?.text || '';
+}
+
+async function aiImproveSummary(btn) {
+  const text = v('fsummary');
+  if (!text) { alert('Please write a summary first.'); return; }
+  btn.disabled = true;
+  const loading = document.getElementById('summaryAiLoading');
+  const sugBox  = document.getElementById('summaryAiSuggestions');
+  loading.style.display = 'block';
+  sugBox.style.display  = 'none';
+  try {
+    const result = await callClaude(`Rewrite this professional summary 3 different ways. Each should be 2-4 sentences, use strong action verbs, and be ATS-optimized. Target role: "${v('fjobtitle')||'professional'}"\n\nOriginal: "${text}"\n\nReturn ONLY a JSON array: ["version1","version2","version3"]`);
+    if (!result) return;
+    const versions = JSON.parse(result.match(/\[[\s\S]*\]/)?.[0]||'[]');
+    sugBox.innerHTML = '<div style="font-size:.78rem;font-weight:700;color:var(--text-muted);margin-bottom:8px;">Click a version to use it:</div>' +
+      versions.map((v,i)=>`<div class="cv-ai-opt" onclick="applySummary(this,'${escAttr(v)}')">${escHtml(v)}</div>`).join('');
+    sugBox.style.display = 'block';
+  } catch(e) { alert('AI error: '+e.message); }
+  loading.style.display = 'none';
+  btn.disabled = false;
+}
+function applySummary(el, text) {
+  document.getElementById('fsummary').value = text;
+  el.style.background='rgba(37,99,235,.08)';el.style.borderColor='var(--cv-blue)';
+  updatePreview();
+}
+
+async function aiImproveBullets(idx, btn) {
+  const item = expItems[idx];
+  if (!item?.bullets?.trim()) { alert('Please add some bullet points first.'); return; }
+  btn.disabled = true;
+  const loading = document.getElementById(`expAiLoading${idx}`);
+  const sugBox  = document.getElementById(`expAiSug${idx}`);
+  loading.style.display = 'block'; loading.textContent = '⏳ Rewriting bullets...';
+  try {
+    const result = await callClaude(`Rewrite these resume bullet points to be more impactful. Use strong action verbs, add quantifiable results where possible. Job: "${item.title}" at "${item.company}". Target role: "${v('fjobtitle')||'professional'}"\n\nBullets:\n${item.bullets}\n\nReturn ONLY the improved bullets as plain text, one per line, starting with action verbs.`);
+    if (!result) return;
+    sugBox.innerHTML = `<div style="font-size:.78rem;font-weight:700;color:var(--text-muted);margin-bottom:6px;">AI-improved bullets (click to apply):</div><div class="cv-ai-opt" onclick="applyBullets(${idx},this,\`${result.replace(/`/g,"'")}\`)">${result.split('\n').filter(l=>l.trim()).map(l=>`<div>${escHtml(l)}</div>`).join('')}</div>`;
+    sugBox.style.display = 'block';
+  } catch(e) { alert('AI error: '+e.message); }
+  loading.style.display = 'none';
+  btn.disabled = false;
+}
+function applyBullets(idx, el, text) {
+  expItems[idx].bullets = text;
+  const ta = el.closest('.cv-repeat-item').querySelector('textarea');
+  if (ta) ta.value = text;
+  el.style.borderColor='var(--cv-blue)';
+  updatePreview();
+}
+
+async function aiSuggestSkills(btn) {
+  const job = v('fjobtitle');
+  if (!job) { alert('Please enter your target job title first.'); return; }
+  btn.disabled = true;
+  try {
+    const result = await callClaude(`Suggest 15 relevant skills (mix of technical and soft skills) for a "${job}" resume. Return ONLY a JSON array of strings: ["skill1","skill2",...]`);
+    if (!result) return;
+    const suggested = JSON.parse(result.match(/\[[\s\S]*\]/)?.[0]||'[]');
+    const newOnes = suggested.filter(s => !skills.includes(s));
+    if (newOnes.length === 0) { alert('All suggested skills are already in your list!'); return; }
+    if (confirm(`Add ${newOnes.length} suggested skills?\n\n${newOnes.join(', ')}`)) {
+      newOnes.forEach(s => { if(!skills.includes(s)) skills.push(s); });
+      renderSkillTags();
+      updatePreview();
+    }
+  } catch(e) { alert('AI error: '+e.message); }
+  btn.disabled = false;
+}
+
+// ── Export ─────────────────────────────────────────────────────────────────
+async function exportToPDF() {
+  updateFullPreview();
+  const el = document.getElementById('resumePreviewFull');
+  try {
+    const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor:'#fff' });
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = (canvas.height * pw) / canvas.width;
+    pdf.addImage(imgData,'PNG',0,0,pw,ph);
+    const name = v('fname').replace(/\s+/g,'_') || 'Resume';
+    pdf.save(`${name}_Resume.pdf`);
+  } catch(e) { alert('PDF export failed: '+e.message+'\nTip: Use Chrome for best compatibility.'); }
+}
+
+function exportToWord() {
+  const data = getResumeData();
+  const h = (s) => escHtml(s);
+  const expStr = data.experience.map(e =>
+    `<h3>${h(e.title)} — ${h(e.company)}${e.location?' ('+h(e.location)+')':''} | ${h(e.start)} – ${h(e.end)}</h3>` +
+    (e.bullets||'').split('\n').filter(b=>b.trim()).map(b=>`<p>• ${h(b.replace(/^[•\-]\s*/,''))}</p>`).join('')
+  ).join('');
+  const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"/><title>Resume</title><style>body{font-family:Calibri,Arial;font-size:11pt;margin:1in;}h1{font-size:18pt;margin-bottom:2pt;}h2{font-size:13pt;border-bottom:1pt solid #333;padding-bottom:2pt;}h3{font-size:11pt;margin-bottom:2pt;}p{margin:2pt 0;}</style></head><body>
+    <h1>${h(data.name)}</h1><p>${h(data.jobtitle)}</p><p>${[data.email,data.phone,data.location,data.linkedin].filter(Boolean).join(' | ')}</p>
+    ${data.summary?`<h2>Summary</h2><p>${h(data.summary)}</p>`:''}
+    ${data.experience.length?`<h2>Experience</h2>${expStr}`:''}
+    ${data.education.length?`<h2>Education</h2>${data.education.map(e=>`<p><strong>${h(e.degree)}</strong> — ${h(e.inst)} (${h(e.year)})${e.gpa?' GPA: '+h(e.gpa):''}</p>`).join('')}`:''}
+    ${data.skills.length?`<h2>Skills</h2><p>${data.skills.map(s=>h(s)).join(', ')}</p>`:''}
+  </body></html>`;
+  const blob = new Blob([html],{type:'application/msword'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${(v('fname')||'Resume').replace(/\s+/g,'_')}_Resume.doc`;
+  a.click();
+}
+
+function saveDraft() {
+  const data = getResumeData();
+  localStorage.setItem('cv_draft', JSON.stringify({...data, template:selectedTemplate, skills}));
+  const btn = event.currentTarget;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '✅ Saved!';
+  setTimeout(()=>btn.innerHTML=orig, 2000);
+}
+
+function loadDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem('cv_draft')||'null');
+    if (!d) return;
+    ['fname','fjobtitle','femail','fphone','flocation','flinkedin','fwebsite','fsummary'].forEach(id => {
+      const el = document.getElementById(id);
+      const key = id.replace(/^f/,'');
+      const val = d[key] || d[id.slice(1)] || '';
+      if (el) el.value = val;
+    });
+    if (d.template) selectTemplate(d.template);
+    if (d.skills) { skills = d.skills; renderSkillTags(); }
+    if (d.experience) d.experience.forEach(e=>addExp(e));
+    if (d.education) d.education.forEach(e=>addEdu(e));
+    if (d.certs) d.certs.forEach(c=>addCert(c));
+    if (d.projects) d.projects.forEach(p=>addProject(p));
+    if (d.languages) d.languages.forEach(l=>addLang(l));
+    updatePreview();
+  } catch(e) { console.warn('Could not load draft:', e); }
+}
+
+// ── API key modal ──────────────────────────────────────────────────────────
+function openModal() { document.getElementById('apiModal').classList.add('open'); }
+function closeModal() { document.getElementById('apiModal').classList.remove('open'); }
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (key) { localStorage.setItem('cv_anthropic_key', key); closeModal(); }
+}
+
+// ── Utility ────────────────────────────────────────────────────────────────
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(s) { return String(s||'').replace(/'/g,'&#39;').replace(/"/g,'&quot;'); }
+
+// ── Init ───────────────────────────────────────────────────────────────────
+addExp();
+addEdu();
+loadDraft();
+updatePreview();
+
+// Show API key modal if no key set and user hasn't dismissed
+if (!localStorage.getItem('cv_anthropic_key') && !localStorage.getItem('cv_modal_dismissed')) {
+  setTimeout(() => {
+    openModal();
+    document.querySelector('.cv-modal-skip').addEventListener('click', () => {
+      localStorage.setItem('cv_modal_dismissed','1');
+    }, {once:true});
+  }, 1500);
+}
+</script>
+</body>
+</html>

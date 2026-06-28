@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light" data-theme="light" data-accent="purple">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      var m=localStorage.getItem('ht-mode')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',m);
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical Student Toolkit — Dosage Calculator, MCQ Quiz &amp; Study Tools | HashmiTools</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Free tools for medical, nursing &amp; pharmacy students: drug dosage calculator, IV drip rate, BMI/BSA, clinical scores (GCS/APGAR), flashcards, MCQ practice quizzes, and lab values reference." />
+  <meta name="keywords" content="medical student toolkit, drug dosage calculator, IV drip rate calculator, GCS calculator, APGAR score, medical flashcards, MCQ quiz medical, lab values reference, BMI BSA calculator, nursing tools, pharmacy tools, MBBS study" />
+  <link rel="canonical" href="https://hashmitools.com/tools/medical-toolkit.html" />
+  <meta property="og:title" content="Medical Student Toolkit — Dosage Calculator, MCQ Quiz &amp; Study Tools" />
+  <meta property="og:description" content="Drug dosage calculator, IV drip rate, clinical scores, flashcards, MCQ quiz, and lab values — all in one free toolkit for medical students." />
+  <meta property="og:url" content="https://hashmitools.com/tools/medical-toolkit.html" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <script src="../assets/js/theme.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Medical Student Toolkit",
+      "url": "https://hashmitools.com/tools/medical-toolkit.html",
+      "description": "Free online toolkit for medical, nursing and pharmacy students. Includes drug dosage calculator, IV drip rate, BMI/BSA, GCS/APGAR scores, flashcards, MCQ quiz, and lab values reference.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "provider": { "@type": "Organization", "name": "HashmiTools.com", "url": "https://hashmitools.com" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this a substitute for clinical guidelines?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. This toolkit is strictly an educational reference tool for students. All dosing values, lab ranges, and clinical scores must be verified against current clinical guidelines, textbooks, and a supervising physician or pharmacist before any patient care decision." }
+        },
+        {
+          "@type": "Question",
+          "name": "What calculators are included in the Medical Student Toolkit?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The toolkit includes: Drug Dosage Calculator, IV Drip Rate Calculator, BMI & BSA Calculator (Mosteller formula), and Clinical Score Calculators for GCS (Glasgow Coma Scale) and APGAR Score." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the MCQ content medically accurate?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The built-in question bank is curated from standard medical textbooks. AI-generated questions (optional) are clearly labeled and should be verified against your course material before use as study reference." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I add my own flashcards?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. In the Flashcard Study Mode tab you can create a custom deck by clicking 'Create Custom Deck' and entering your own terms and answers. These are saved locally in your browser." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free. No registration required. All calculators, flashcards, and the MCQ quiz are available without any payment." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Medical Student Toolkit is fully responsive and works on all modern smartphones, tablets, and desktop browsers." }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is this toolkit for?",
+          "acceptedAnswer": { "@type": "Answer", "text": "This toolkit is designed for MBBS, BDS, Nursing, Pharmacy, and allied health students who need quick clinical reference tools and structured study aids during their training." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data private?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. All your data (custom flashcards, quiz progress, spaced repetition data) is stored only in your browser's localStorage. Nothing is sent to any server." }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    /* ─── Medical Toolkit Styles ─── */
+    :root {
+      --med-blue: #2563eb;
+      --med-blue-dark: #1d4ed8;
+      --med-teal: #0891b2;
+      --med-green: #16a34a;
+      --med-red: #dc2626;
+      --med-amber: #d97706;
+    }
+
+    /* Hero */
+    .med-hero {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #0891b2 100%);
+      padding: 48px 24px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .med-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .med-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:800; margin-bottom:8px; }
+    .med-hero p { font-size:1rem; opacity:0.9; max-width:620px; margin:0 auto; }
+    .med-hero-badges {
+      display:flex; justify-content:center; gap:10px; margin-top:18px; flex-wrap:wrap;
+    }
+    .med-hero-badge {
+      background:rgba(255,255,255,0.15); padding:5px 14px; border-radius:20px; font-size:0.78rem; font-weight:600;
+    }
+
+    /* Disclaimer Banner */
+    .med-disclaimer {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-left: 4px solid #f59e0b;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      color: #7c5a00;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .med-disclaimer strong { color: #92400e; }
+    [data-theme="dark"] .med-disclaimer { background:#3d2f00; border-color:#b45309; color:#fde68a; }
+    [data-theme="dark"] .med-disclaimer strong { color:#fbbf24; }
+
+    /* Main layout */
+    .med-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+
+    /* Tabs */
+    .med-tabs-wrapper {
+      overflow-x: auto;
+      padding-bottom: 2px;
+      margin-bottom: 24px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .med-tabs {
+      display: flex;
+      gap: 0;
+      background: var(--bg-secondary);
+      border-radius: 14px;
+      padding: 4px;
+      border: 1px solid var(--border-color);
+      min-width: 700px;
+    }
+    .med-tab {
+      flex:1; padding:9px 8px; border:none; cursor:pointer;
+      border-radius:10px; font-size:0.78rem; font-weight:600;
+      background:transparent; color:var(--text-secondary);
+      transition:all 0.2s; font-family:inherit;
+      display:flex; align-items:center; justify-content:center; gap:5px;
+      white-space:nowrap;
+    }
+    .med-tab.active {
+      background: linear-gradient(135deg, #2563eb, #0891b2);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.35);
+    }
+    .med-tab:hover:not(.active) { background:var(--bg-card); color:var(--text-primary); }
+
+    /* Panels */
+    .med-panel { display:none; }
+    .med-panel.active { display:block; animation:medFadeIn 0.3s ease; }
+    @keyframes medFadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+    /* Card */
+    .med-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .med-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .med-card-title .med-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #2563eb, #0891b2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: #fff;
+    }
+
+    /* Form elements */
+    .med-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .med-form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+    .med-form-row.full { grid-template-columns: 1fr; }
+    @media(max-width:600px){
+      .med-form-row, .med-form-row.three { grid-template-columns:1fr; }
+    }
+    .med-label {
+      display:block; font-size:0.78rem; font-weight:700;
+      color:var(--text-secondary); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.04em;
+    }
+    .med-input, .med-select, .med-textarea {
+      width:100%; padding:10px 14px;
+      border:1.5px solid var(--border-color);
+      border-radius:10px; font-size:0.92rem;
+      color:var(--text-primary);
+      background:var(--bg-secondary);
+      font-family:inherit; outline:none;
+      transition:border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .med-input:focus, .med-select:focus, .med-textarea:focus {
+      border-color: var(--med-blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+    .med-input-group {
+      display:flex; gap:0;
+    }
+    .med-input-group .med-input { border-radius:10px 0 0 10px; flex:1; }
+    .med-input-group .med-unit-btn {
+      padding:10px 14px; background:var(--bg-secondary);
+      border:1.5px solid var(--border-color); border-left:none;
+      border-radius:0 10px 10px 0; cursor:pointer; font-size:0.8rem;
+      font-weight:700; color:var(--text-secondary); white-space:nowrap;
+      transition:all 0.2s; font-family:inherit;
+    }
+    .med-input-group .med-unit-btn:hover { background:var(--med-blue); color:#fff; border-color:var(--med-blue); }
+
+    /* Buttons */
+    .med-btn {
+      padding:12px 24px;
+      background:linear-gradient(135deg,#2563eb,#0891b2);
+      color:#fff; border:none; border-radius:10px;
+      font-size:0.92rem; font-weight:700;
+      cursor:pointer; font-family:inherit;
+      transition:all 0.2s;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .med-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(37,99,235,0.35); }
+    .med-btn:active { transform:translateY(0); }
+    .med-btn-full { width:100%; justify-content:center; }
+    .med-btn-sm {
+      padding:7px 14px; font-size:0.8rem; border-radius:8px;
+    }
+    .med-btn-outline {
+      background:transparent;
+      border:1.5px solid var(--med-blue);
+      color:var(--med-blue);
+    }
+    .med-btn-outline:hover { background:var(--med-blue); color:#fff; }
+    .med-btn-danger { background:linear-gradient(135deg,#dc2626,#b91c1c); }
+    .med-btn-success { background:linear-gradient(135deg,#16a34a,#15803d); }
+    .med-btn-amber { background:linear-gradient(135deg,#d97706,#b45309); }
+
+    /* Result box */
+    .med-result {
+      background:linear-gradient(135deg,rgba(37,99,235,0.06),rgba(8,145,178,0.06));
+      border:2px solid var(--med-blue);
+      border-radius:14px; padding:20px;
+      margin-top:16px; display:none;
+      animation:medFadeIn 0.4s ease;
+    }
+    .med-result.show { display:block; }
+    .med-result-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .med-result-row:last-child { margin-bottom:0; }
+    .med-result-label { font-size:0.78rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em; }
+    .med-result-value { font-size:1.3rem; font-weight:800; color:var(--med-blue); }
+    .med-result-value.warning { color:var(--med-amber); }
+    .med-result-value.danger { color:var(--med-red); }
+    .med-result-value.success { color:var(--med-green); }
+
+    .med-formula {
+      background:var(--bg-secondary); border-radius:10px; padding:12px 16px;
+      font-family:'Courier New',monospace; font-size:0.85rem;
+      color:var(--text-primary); margin-top:12px;
+      border-left:3px solid var(--med-teal);
+    }
+
+    /* Warning box */
+    .med-warning {
+      background:rgba(220,38,38,0.08); border:1px solid rgba(220,38,38,0.3);
+      border-radius:10px; padding:12px 16px; margin-top:12px;
+      font-size:0.82rem; color:var(--med-red);
+      display:flex; align-items:flex-start; gap:8px;
+    }
+    [data-theme="dark"] .med-warning { background:rgba(220,38,38,0.15); }
+
+    /* BMI meter */
+    .bmi-meter {
+      height: 14px; border-radius: 10px;
+      background: linear-gradient(to right,#22c55e 0%,#84cc16 18.5%,#f59e0b 25%,#ef4444 30%,#dc2626 40%);
+      position:relative; margin:12px 0;
+      overflow:visible;
+    }
+    .bmi-needle {
+      position:absolute; top:-4px;
+      width:4px; height:22px;
+      background:#1e3a5f; border-radius:2px;
+      transform:translateX(-50%);
+      transition:left 0.5s ease;
+    }
+    .bmi-labels { display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-secondary); margin-bottom:6px; }
+
+    /* GCS / APGAR */
+    .score-group { margin-bottom:20px; }
+    .score-group-title { font-size:0.85rem; font-weight:700; color:var(--text-secondary); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.05em; }
+    .score-options { display:flex; flex-direction:column; gap:8px; }
+    .score-option {
+      display:flex; align-items:center; gap:12px;
+      padding:10px 14px; border:1.5px solid var(--border-color);
+      border-radius:10px; cursor:pointer; transition:all 0.2s;
+    }
+    .score-option:hover { border-color:var(--med-blue); background:rgba(37,99,235,0.04); }
+    .score-option.selected { border-color:var(--med-blue); background:rgba(37,99,235,0.08); }
+    .score-option input[type="radio"] { display:none; }
+    .score-option-score {
+      width:28px; height:28px; border-radius:50%;
+      background:var(--bg-secondary); border:2px solid var(--border-color);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.8rem; font-weight:800; flex-shrink:0;
+      color:var(--text-secondary);
+    }
+    .score-option.selected .score-option-score {
+      background:var(--med-blue); border-color:var(--med-blue); color:#fff;
+    }
+    .score-option-text { font-size:0.85rem; color:var(--text-primary); flex:1; }
+
+    .score-total-display {
+      display:flex; align-items:center; justify-content:center;
+      gap:20px; padding:20px; background:var(--bg-secondary);
+      border-radius:14px; margin-top:16px;
+      border: 2px solid var(--border-color);
+    }
+    .score-total-num {
+      font-size:3.5rem; font-weight:900; line-height:1;
+      background: linear-gradient(135deg, #2563eb, #0891b2);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .score-total-label { font-size:0.85rem; color:var(--text-secondary); }
+    .score-interpretation {
+      margin-top:12px; padding:12px 16px;
+      border-radius:10px; font-size:0.88rem; font-weight:600;
+      text-align:center;
+    }
+
+    /* ─── Flashcard styles ─── */
+    .fc-container { perspective:1200px; margin:0 auto 24px; }
+    .fc-card {
+      width:100%; max-width:560px; height:220px;
+      margin:0 auto; cursor:pointer;
+      position:relative;
+      transform-style:preserve-3d;
+      transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .fc-card.flipped { transform:rotateY(180deg); }
+    .fc-face {
+      position:absolute; inset:0;
+      backface-visibility:hidden;
+      border-radius:16px; padding:24px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; border:2px solid var(--border-color);
+    }
+    .fc-front {
+      background:linear-gradient(135deg,#1e3a5f,#2563eb);
+      color:#fff;
+    }
+    .fc-back {
+      background:var(--bg-card); color:var(--text-primary);
+      transform:rotateY(180deg);
+      border-color:var(--med-blue);
+    }
+    .fc-label { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; opacity:0.7; margin-bottom:10px; }
+    .fc-term { font-size:1.15rem; font-weight:700; line-height:1.4; }
+    .fc-answer { font-size:0.92rem; line-height:1.6; }
+    .fc-hint { font-size:0.75rem; opacity:0.6; margin-top:10px; }
+
+    .fc-controls { display:flex; justify-content:center; gap:12px; margin-bottom:16px; }
+    .fc-deck-selector {
+      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;
+    }
+    .fc-deck-btn {
+      padding:7px 14px; border:1.5px solid var(--border-color);
+      border-radius:20px; font-size:0.8rem; font-weight:600;
+      cursor:pointer; background:transparent; color:var(--text-secondary);
+      transition:all 0.2s; font-family:inherit;
+    }
+    .fc-deck-btn.active { background:var(--med-blue); color:#fff; border-color:var(--med-blue); }
+
+    .fc-progress { display:flex; align-items:center; gap:10px; margin-bottom:16px; font-size:0.82rem; color:var(--text-secondary); }
+    .fc-progress-bar { flex:1; height:6px; background:var(--bg-secondary); border-radius:3px; overflow:hidden; }
+    .fc-progress-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,#2563eb,#0891b2); transition:width 0.4s; }
+
+    .fc-stats { display:flex; gap:12px; justify-content:center; margin-top:12px; }
+    .fc-stat { text-align:center; padding:10px 20px; background:var(--bg-secondary); border-radius:10px; }
+    .fc-stat-num { font-size:1.5rem; font-weight:800; }
+    .fc-stat-label { font-size:0.72rem; color:var(--text-secondary); text-transform:uppercase; }
+
+    /* Custom flashcard form */
+    .fc-custom-form {
+      display:none; background:var(--bg-secondary); border-radius:14px; padding:20px; margin-top:16px;
+    }
+    .fc-custom-form.show { display:block; }
+    .fc-list { max-height:300px; overflow-y:auto; margin-top:12px; }
+    .fc-list-item {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 14px; border:1px solid var(--border-color);
+      border-radius:8px; margin-bottom:8px; background:var(--bg-card);
+    }
+    .fc-list-item-text { font-size:0.85rem; color:var(--text-primary); flex:1; }
+    .fc-list-item-del {
+      width:24px; height:24px; background:rgba(220,38,38,0.1); border:none;
+      border-radius:6px; cursor:pointer; font-size:0.85rem; color:var(--med-red);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+
+    /* ─── MCQ Quiz styles ─── */
+    .quiz-setup { }
+    .quiz-topic-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px;
+    }
+    @media(max-width:480px){ .quiz-topic-grid { grid-template-columns:repeat(2,1fr); } }
+    .quiz-topic-btn {
+      padding:12px 10px; border:2px solid var(--border-color);
+      border-radius:12px; cursor:pointer; font-size:0.82rem; font-weight:600;
+      text-align:center; transition:all 0.2s; background:var(--bg-card);
+      color:var(--text-primary); font-family:inherit;
+    }
+    .quiz-topic-btn:hover { border-color:var(--med-blue); }
+    .quiz-topic-btn.selected { border-color:var(--med-blue); background:rgba(37,99,235,0.08); color:var(--med-blue); }
+    .quiz-topic-icon { font-size:1.5rem; display:block; margin-bottom:5px; }
+
+    .quiz-active { display:none; }
+    .quiz-active.show { display:block; }
+    .quiz-q-num { font-size:0.78rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase; margin-bottom:8px; }
+    .quiz-question { font-size:1rem; font-weight:700; color:var(--text-primary); margin-bottom:18px; line-height:1.5; }
+    .quiz-options { display:flex; flex-direction:column; gap:10px; }
+    .quiz-option {
+      padding:12px 16px; border:2px solid var(--border-color);
+      border-radius:12px; cursor:pointer; font-size:0.9rem;
+      transition:all 0.2s; background:var(--bg-card); color:var(--text-primary);
+      text-align:left; font-family:inherit;
+    }
+    .quiz-option:hover:not(:disabled) { border-color:var(--med-blue); background:rgba(37,99,235,0.04); }
+    .quiz-option.correct { border-color:#16a34a; background:rgba(22,163,74,0.1); color:#15803d; }
+    .quiz-option.wrong { border-color:#dc2626; background:rgba(220,38,38,0.08); color:#dc2626; }
+    [data-theme="dark"] .quiz-option.correct { color:#4ade80; background:rgba(22,163,74,0.2); }
+    [data-theme="dark"] .quiz-option.wrong { color:#f87171; background:rgba(220,38,38,0.2); }
+
+    .quiz-explanation {
+      margin-top:14px; padding:14px 16px;
+      background:var(--bg-secondary); border-radius:12px;
+      font-size:0.85rem; color:var(--text-secondary); line-height:1.6;
+      border-left:4px solid var(--med-teal); display:none;
+    }
+    .quiz-explanation.show { display:block; }
+
+    .quiz-progress-row {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:16px; font-size:0.82rem; color:var(--text-secondary);
+    }
+    .quiz-score-badge {
+      padding:4px 12px; background:rgba(37,99,235,0.1); border-radius:20px;
+      font-size:0.78rem; font-weight:700; color:var(--med-blue);
+    }
+
+    .quiz-summary { display:none; }
+    .quiz-summary.show { display:block; text-align:center; }
+    .quiz-final-score {
+      font-size:4rem; font-weight:900; line-height:1;
+      background:linear-gradient(135deg,#2563eb,#0891b2);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      margin:16px 0 8px;
+    }
+    .quiz-score-breakdown {
+      display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; text-align:left;
+    }
+    .quiz-breakdown-item { padding:12px 16px; border-radius:12px; border:1px solid var(--border-color); background:var(--bg-secondary); }
+    .quiz-breakdown-label { font-size:0.75rem; color:var(--text-secondary); margin-bottom:4px; }
+    .quiz-breakdown-val { font-size:1.1rem; font-weight:700; color:var(--text-primary); }
+
+    /* ─── Lab Values ─── */
+    .lab-search-wrap { position:relative; margin-bottom:18px; }
+    .lab-search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-secondary); font-size:0.9rem; }
+    .lab-search { padding:10px 14px 10px 40px; width:100%; border:1.5px solid var(--border-color); border-radius:10px; font-size:0.92rem; background:var(--bg-secondary); color:var(--text-primary); font-family:inherit; outline:none; box-sizing:border-box; }
+    .lab-search:focus { border-color:var(--med-blue); }
+
+    .lab-category { margin-bottom:24px; }
+    .lab-category-title {
+      font-size:0.8rem; font-weight:800; color:var(--med-blue);
+      text-transform:uppercase; letter-spacing:0.08em;
+      padding:8px 0; border-bottom:2px solid rgba(37,99,235,0.2); margin-bottom:12px;
+    }
+    .lab-table { width:100%; border-collapse:collapse; }
+    .lab-table th {
+      text-align:left; padding:8px 12px; font-size:0.72rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.04em;
+      color:var(--text-secondary); background:var(--bg-secondary);
+    }
+    .lab-table td { padding:9px 12px; font-size:0.85rem; color:var(--text-primary); border-bottom:1px solid var(--border-color); }
+    .lab-table tr:last-child td { border-bottom:none; }
+    .lab-table tr:hover td { background:rgba(37,99,235,0.04); }
+    .lab-unit { color:var(--text-secondary); font-size:0.78rem; }
+    .lab-range { font-weight:600; color:var(--med-green); }
+    .lab-note { font-size:0.72rem; color:var(--text-secondary); font-style:italic; }
+    .lab-hidden { display:none; }
+
+    /* Section sub-tabs (GCS / APGAR) */
+    .score-sub-tabs { display:flex; gap:8px; margin-bottom:20px; }
+    .score-sub-tab {
+      padding:8px 20px; border:1.5px solid var(--border-color);
+      border-radius:8px; cursor:pointer; font-size:0.85rem; font-weight:600;
+      background:transparent; color:var(--text-secondary); transition:all 0.2s; font-family:inherit;
+    }
+    .score-sub-tab.active { background:var(--med-blue); color:#fff; border-color:var(--med-blue); }
+
+    .score-sub-panel { display:none; }
+    .score-sub-panel.active { display:block; }
+
+    /* Tag */
+    .ai-tag {
+      font-size:0.68rem; padding:2px 8px; border-radius:12px;
+      background:rgba(245,158,11,0.12); color:#b45309; font-weight:700;
+      border:1px solid rgba(245,158,11,0.3); margin-left:6px;
+    }
+
+    /* Responsive */
+    @media(max-width:500px) {
+      .med-hero h1 { font-size:1.5rem; }
+      .med-card { padding:16px; }
+      .fc-stats { flex-wrap:wrap; }
+      .quiz-score-breakdown { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="health.html" class="nav-link active">Health Tools</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+        <a href="../contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="nav-search-btn" id="navSearchBtn" aria-label="Search tools"><i class="fas fa-search"></i></button>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search 100+ tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
+
+  <!-- Hero -->
+  <div class="med-hero">
+    <nav class="breadcrumb" style="justify-content:center;margin-bottom:14px;color:rgba(255,255,255,0.7);font-size:0.8rem;">
+      <a href="../index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
+      <i class="fas fa-chevron-right" style="margin:0 6px;font-size:0.6rem;"></i>
+      <a href="health.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Health Tools</a>
+      <i class="fas fa-chevron-right" style="margin:0 6px;font-size:0.6rem;"></i>
+      <span style="color:#fff;">Medical Student Toolkit</span>
+    </nav>
+    <h1>🩺 Medical Student Toolkit</h1>
+    <p>Calculators, Clinical Scores, Flashcards &amp; MCQ Prep — everything you need in one place</p>
+    <div class="med-hero-badges">
+      <span class="med-hero-badge">💊 Drug Dosage</span>
+      <span class="med-hero-badge">💉 IV Drip Rate</span>
+      <span class="med-hero-badge">🧮 Clinical Scores</span>
+      <span class="med-hero-badge">📇 Flashcards</span>
+      <span class="med-hero-badge">📝 MCQ Quiz</span>
+      <span class="med-hero-badge">🔬 Lab Values</span>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="med-container">
+
+    <!-- Tab bar -->
+    <div class="med-tabs-wrapper">
+      <div class="med-tabs" id="medTabs">
+        <button class="med-tab active" data-tab="dosage">💊 Dosage</button>
+        <button class="med-tab" data-tab="iv">💉 IV Drip</button>
+        <button class="med-tab" data-tab="bmi">📏 BMI/BSA</button>
+        <button class="med-tab" data-tab="scores">🧠 Clin. Scores</button>
+        <button class="med-tab" data-tab="flashcards">📇 Flashcards</button>
+        <button class="med-tab" data-tab="quiz">📝 MCQ Quiz</button>
+        <button class="med-tab" data-tab="labs">🔬 Lab Values</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 1 — DRUG DOSAGE CALCULATOR
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel active" id="tab-dosage">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">⚠️</span>
+        <span><strong>Educational reference tool only.</strong> Always verify dosing with current clinical guidelines, a pharmacist, or supervising physician before administering any medication. Never use this tool for actual patient care decisions.</span>
+      </div>
+
+      <div class="med-card">
+        <div class="med-card-title">
+          <span class="med-icon">💊</span>
+          Drug Dosage Calculator
+        </div>
+
+        <div class="med-form-row">
+          <div>
+            <label class="med-label">Patient Weight</label>
+            <div class="med-input-group">
+              <input type="number" class="med-input" id="doseWeight" placeholder="e.g. 70" min="0.1" max="500" step="0.1" />
+              <button class="med-unit-btn" id="doseWeightUnitBtn" onclick="toggleDoseWeightUnit()">kg</button>
+            </div>
+          </div>
+          <div>
+            <label class="med-label">Select Drug</label>
+            <select class="med-select" id="drugSelect" onchange="fillDrugDefaults()">
+              <option value="">-- Choose a drug --</option>
+              <optgroup label="Analgesics / Antipyretics">
+                <option value="paracetamol">Paracetamol (Acetaminophen)</option>
+                <option value="ibuprofen">Ibuprofen</option>
+                <option value="aspirin">Aspirin</option>
+                <option value="diclofenac">Diclofenac Sodium</option>
+                <option value="tramadol">Tramadol</option>
+              </optgroup>
+              <optgroup label="Antibiotics">
+                <option value="amoxicillin">Amoxicillin</option>
+                <option value="amoxclav">Amoxicillin-Clavulanate</option>
+                <option value="azithromycin">Azithromycin</option>
+                <option value="cephalexin">Cephalexin</option>
+                <option value="cotrimoxazole">Co-trimoxazole (SMX/TMP)</option>
+                <option value="metronidazole">Metronidazole</option>
+                <option value="ciprofloxacin">Ciprofloxacin</option>
+                <option value="gentamicin">Gentamicin</option>
+              </optgroup>
+              <optgroup label="Cardiovascular">
+                <option value="atenolol">Atenolol</option>
+                <option value="amlodipine">Amlodipine</option>
+                <option value="digoxin">Digoxin</option>
+                <option value="furosemide">Furosemide (Frusemide)</option>
+                <option value="spironolactone">Spironolactone</option>
+              </optgroup>
+              <optgroup label="Respiratory">
+                <option value="salbutamol">Salbutamol (Albuterol) oral</option>
+                <option value="prednisolone">Prednisolone</option>
+                <option value="dexamethasone">Dexamethasone</option>
+              </optgroup>
+              <optgroup label="GI">
+                <option value="omeprazole">Omeprazole</option>
+                <option value="metoclopramide">Metoclopramide</option>
+                <option value="ondansetron">Ondansetron</option>
+              </optgroup>
+              <optgroup label="Endocrine">
+                <option value="insulin_reg">Insulin (Regular) — reference only</option>
+                <option value="metformin">Metformin</option>
+                <option value="levothyroxine">Levothyroxine</option>
+              </optgroup>
+              <optgroup label="Neuro / Psych">
+                <option value="diazepam">Diazepam</option>
+                <option value="phenobarb">Phenobarbitone (neonatal seizure)</option>
+                <option value="carbamazepine">Carbamazepine</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <div class="med-form-row">
+          <div>
+            <label class="med-label">Dose (mg/kg)</label>
+            <input type="number" class="med-input" id="dosePerKg" placeholder="e.g. 10" min="0" step="0.01" />
+          </div>
+          <div>
+            <label class="med-label">Max Single Dose (mg) <span style="font-size:0.7rem;font-weight:400;text-transform:none;"> — auto-fills</span></label>
+            <input type="number" class="med-input" id="doseMaxSingle" placeholder="e.g. 1000" min="0" step="1" />
+          </div>
+        </div>
+
+        <div class="med-form-row">
+          <div>
+            <label class="med-label">Frequency</label>
+            <select class="med-select" id="doseFrequency">
+              <option value="1">Once daily (OD)</option>
+              <option value="2" selected>Twice daily (BD)</option>
+              <option value="3">Three times daily (TDS)</option>
+              <option value="4">Four times daily (QID)</option>
+              <option value="6">Every 6 hours (Q6H)</option>
+              <option value="8">Every 8 hours (Q8H)</option>
+              <option value="12">Every 12 hours (Q12H)</option>
+              <option value="24">Every 24 hours (Q24H)</option>
+              <option value="0.5">Twice weekly</option>
+            </select>
+          </div>
+          <div>
+            <label class="med-label">Max Daily Dose (mg) <span style="font-size:0.7rem;font-weight:400;text-transform:none;"> — auto-fills</span></label>
+            <input type="number" class="med-input" id="doseMaxDaily" placeholder="e.g. 4000" min="0" step="1" />
+          </div>
+        </div>
+
+        <button class="med-btn med-btn-full" onclick="calcDose()">
+          <i class="fas fa-calculator"></i> Calculate Dose
+        </button>
+
+        <div class="med-result" id="doseResult">
+          <div class="med-result-row">
+            <span class="med-result-label">Per-administration dose</span>
+            <span class="med-result-value" id="dosePerAdmin">—</span>
+          </div>
+          <div class="med-result-row">
+            <span class="med-result-label">Total daily dose</span>
+            <span class="med-result-value" id="doseTotalDaily">—</span>
+          </div>
+          <div class="med-result-row" id="doseMaxRow" style="display:none;">
+            <span class="med-result-label">Capped to max single dose</span>
+            <span class="med-result-value warning" id="doseCapped">—</span>
+          </div>
+          <div id="doseOverMaxDaily" class="med-warning" style="display:none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="doseOverMaxDailyText"></span>
+          </div>
+          <div class="med-formula" id="doseFormula"></div>
+        </div>
+      </div>
+
+      <!-- Drug reference table -->
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">📖</span>Common Drug Reference</div>
+        <div style="overflow-x:auto;">
+          <table class="lab-table" id="drugRefTable">
+            <thead>
+              <tr>
+                <th>Drug</th>
+                <th>Route</th>
+                <th>Standard Dose</th>
+                <th>Max Single</th>
+                <th>Max Daily</th>
+              </tr>
+            </thead>
+            <tbody id="drugRefBody"></tbody>
+          </table>
+        </div>
+        <p style="font-size:0.72rem;color:var(--text-secondary);margin-top:10px;">
+          ⚠️ Doses shown are standard adult reference ranges. Pediatric, renal, or hepatic adjustments may apply. Always verify.
+        </p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 2 — IV DRIP RATE CALCULATOR
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel" id="tab-iv">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">⚠️</span>
+        <span><strong>Educational tool only.</strong> IV infusion rates must be ordered and verified by a licensed clinician. Always cross-check with your institution's drug formulary and nursing protocols.</span>
+      </div>
+
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">💉</span>IV Drip Rate Calculator</div>
+
+        <div class="med-form-row three">
+          <div>
+            <label class="med-label">Total Volume (mL)</label>
+            <input type="number" class="med-input" id="ivVolume" placeholder="e.g. 500" min="1" />
+          </div>
+          <div>
+            <label class="med-label">Infusion Time (hours)</label>
+            <input type="number" class="med-input" id="ivTime" placeholder="e.g. 4" min="0.01" step="0.01" />
+          </div>
+          <div>
+            <label class="med-label">Drop Factor (gtts/mL)</label>
+            <select class="med-select" id="ivDropFactor">
+              <option value="10">10 gtts/mL — Macrodrip (blood/thick)</option>
+              <option value="15" selected>15 gtts/mL — Macrodrip (standard)</option>
+              <option value="20">20 gtts/mL — Macrodrip (alt)</option>
+              <option value="60">60 gtts/mL — Microdrip (pediatric)</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="med-btn med-btn-full" onclick="calcIV()">
+          <i class="fas fa-tint"></i> Calculate IV Rate
+        </button>
+
+        <div class="med-result" id="ivResult">
+          <div class="med-result-row">
+            <span class="med-result-label">Drip rate (drops per minute)</span>
+            <span class="med-result-value" id="ivDpm">—</span>
+          </div>
+          <div class="med-result-row">
+            <span class="med-result-label">Flow rate (mL per hour)</span>
+            <span class="med-result-value" id="ivMlph">—</span>
+          </div>
+          <div class="med-formula">
+            <strong>Formula:</strong><br>
+            Drip rate (gtts/min) = <strong>(Volume × Drop factor) ÷ (Time in hours × 60)</strong><br>
+            Flow rate (mL/hr) = Volume ÷ Time in hours
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick reference -->
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">📋</span>IV Fluid Quick Reference</div>
+        <div style="overflow-x:auto;">
+          <table class="lab-table">
+            <thead><tr><th>Fluid</th><th>Composition</th><th>Use Case</th></tr></thead>
+            <tbody>
+              <tr><td>Normal Saline (0.9% NaCl)</td><td>Na⁺ 154, Cl⁻ 154 mEq/L</td><td>Volume expansion, drug dilution, Na replacement</td></tr>
+              <tr><td>Lactated Ringer's (RL)</td><td>Na⁺ 130, K⁺ 4, Ca²⁺ 3, Cl⁻ 109, Lactate 28</td><td>Surgical patients, burns, trauma</td></tr>
+              <tr><td>5% Dextrose (D5W)</td><td>50 g/L dextrose</td><td>Free water replacement, hypoglycaemia</td></tr>
+              <tr><td>0.45% Saline (½NS)</td><td>Na⁺ 77, Cl⁻ 77 mEq/L</td><td>Maintenance, hypernatraemia correction</td></tr>
+              <tr><td>D5 in 0.45% Saline</td><td>Dextrose + ½NS</td><td>Paediatric maintenance</td></tr>
+              <tr><td>Hartmann's Solution</td><td>Similar to RL</td><td>Peri-operative, general resuscitation</td></tr>
+              <tr><td>Mannitol 20%</td><td>200 g/L mannitol</td><td>Raised ICP, acute glaucoma</td></tr>
+              <tr><td>Colloid (Albumin 4.5%)</td><td>Protein colloid</td><td>Volume expansion in hypoalbuminaemia</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 3 — BMI & BSA CALCULATOR
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel" id="tab-bmi">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">⚠️</span>
+        <span><strong>Educational tool only.</strong> BSA is used for drug dosing in some regimens — always confirm with current protocols. BMI classification applies to adults; different cutoffs apply for children and Asian populations.</span>
+      </div>
+
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">📏</span>BMI &amp; BSA Calculator</div>
+
+        <div class="med-form-row">
+          <div>
+            <label class="med-label">Height</label>
+            <div class="med-input-group">
+              <input type="number" class="med-input" id="bmiHeight" placeholder="e.g. 170" min="50" max="250" />
+              <button class="med-unit-btn" id="bmiHeightUnitBtn" onclick="toggleBmiHeightUnit()">cm</button>
+            </div>
+          </div>
+          <div>
+            <label class="med-label">Weight</label>
+            <div class="med-input-group">
+              <input type="number" class="med-input" id="bmiWeight" placeholder="e.g. 70" min="1" max="500" />
+              <button class="med-unit-btn" id="bmiWeightUnitBtn" onclick="toggleBmiWeightUnit()">kg</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="med-btn med-btn-full" onclick="calcBMI()">
+          <i class="fas fa-weight"></i> Calculate BMI &amp; BSA
+        </button>
+
+        <div class="med-result" id="bmiResult">
+          <div class="med-result-row">
+            <span class="med-result-label">BMI</span>
+            <span class="med-result-value" id="bmiValue">—</span>
+          </div>
+          <div class="med-result-row">
+            <span class="med-result-label">Classification</span>
+            <span class="med-result-value" id="bmiClass">—</span>
+          </div>
+          <div class="med-result-row">
+            <span class="med-result-label">BSA (Mosteller formula)</span>
+            <span class="med-result-value" id="bsaValue">—</span>
+          </div>
+          <div class="med-result-row">
+            <span class="med-result-label">Ideal Body Weight (Devine)</span>
+            <span class="med-result-value" id="ibwValue">—</span>
+          </div>
+
+          <!-- BMI Meter -->
+          <div style="margin-top:16px;">
+            <div class="bmi-labels">
+              <span>Underweight</span>
+              <span>Normal</span>
+              <span>Overweight</span>
+              <span>Obese</span>
+            </div>
+            <div class="bmi-meter">
+              <div class="bmi-needle" id="bmiNeedle"></div>
+            </div>
+          </div>
+
+          <div class="med-formula">
+            <strong>BMI</strong> = Weight(kg) ÷ Height(m)²<br>
+            <strong>BSA (Mosteller)</strong> = √[ Height(cm) × Weight(kg) ÷ 3600 ]<br>
+            <strong>IBW (Devine) Male</strong> = 50 + 2.3 × (Height(in) − 60)<br>
+            <strong>IBW (Devine) Female</strong> = 45.5 + 2.3 × (Height(in) − 60)
+          </div>
+        </div>
+      </div>
+
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">📊</span>WHO BMI Classification</div>
+        <table class="lab-table">
+          <thead><tr><th>BMI Range</th><th>Classification</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>&lt; 18.5</td><td style="color:#3b82f6;font-weight:700;">Underweight</td><td>Risk of malnutrition, anaemia</td></tr>
+            <tr><td>18.5 – 24.9</td><td style="color:#16a34a;font-weight:700;">Normal Weight</td><td>Healthy range for adults</td></tr>
+            <tr><td>25.0 – 29.9</td><td style="color:#d97706;font-weight:700;">Overweight</td><td>Increased metabolic risk</td></tr>
+            <tr><td>30.0 – 34.9</td><td style="color:#ea580c;font-weight:700;">Obese Class I</td><td>Moderate risk</td></tr>
+            <tr><td>35.0 – 39.9</td><td style="color:#dc2626;font-weight:700;">Obese Class II</td><td>Severe risk</td></tr>
+            <tr><td>≥ 40</td><td style="color:#9f1239;font-weight:700;">Obese Class III</td><td>Very severe — morbid obesity</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.72rem;color:var(--text-secondary);margin-top:8px;">Asian-Pacific cutoff: Overweight ≥ 23, Obese ≥ 27.5</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 4 — CLINICAL SCORE CALCULATORS
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel" id="tab-scores">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">⚠️</span>
+        <span><strong>Educational tool only.</strong> Clinical scores must be assessed at bedside with full clinical context. GCS and APGAR are learning aids here — actual scoring requires direct patient assessment.</span>
+      </div>
+
+      <div class="score-sub-tabs">
+        <button class="score-sub-tab active" onclick="switchScoreTab('gcs', this)">🧠 GCS</button>
+        <button class="score-sub-tab" onclick="switchScoreTab('apgar', this)">👶 APGAR</button>
+      </div>
+
+      <!-- GCS -->
+      <div class="score-sub-panel active" id="score-gcs">
+        <div class="med-card">
+          <div class="med-card-title"><span class="med-icon">🧠</span>Glasgow Coma Scale (GCS)</div>
+
+          <div class="score-group">
+            <div class="score-group-title">1. Eye Opening Response (E)</div>
+            <div class="score-options" id="gcsEye">
+              <label class="score-option" data-group="gcsEye" data-score="4">
+                <input type="radio" name="gcsEye" value="4" />
+                <span class="score-option-score">4</span>
+                <span class="score-option-text">Spontaneous — opens without stimulation</span>
+              </label>
+              <label class="score-option" data-group="gcsEye" data-score="3">
+                <input type="radio" name="gcsEye" value="3" />
+                <span class="score-option-score">3</span>
+                <span class="score-option-text">To voice — opens to verbal command</span>
+              </label>
+              <label class="score-option" data-group="gcsEye" data-score="2">
+                <input type="radio" name="gcsEye" value="2" />
+                <span class="score-option-score">2</span>
+                <span class="score-option-text">To pain — opens to painful stimulus</span>
+              </label>
+              <label class="score-option" data-group="gcsEye" data-score="1">
+                <input type="radio" name="gcsEye" value="1" />
+                <span class="score-option-score">1</span>
+                <span class="score-option-text">None — does not open eyes</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="score-group">
+            <div class="score-group-title">2. Verbal Response (V)</div>
+            <div class="score-options" id="gcsVerbal">
+              <label class="score-option" data-group="gcsVerbal" data-score="5">
+                <input type="radio" name="gcsVerbal" value="5" />
+                <span class="score-option-score">5</span>
+                <span class="score-option-text">Oriented — coherent, aware of time/place/person</span>
+              </label>
+              <label class="score-option" data-group="gcsVerbal" data-score="4">
+                <input type="radio" name="gcsVerbal" value="4" />
+                <span class="score-option-score">4</span>
+                <span class="score-option-text">Confused — speech present, disoriented</span>
+              </label>
+              <label class="score-option" data-group="gcsVerbal" data-score="3">
+                <input type="radio" name="gcsVerbal" value="3" />
+                <span class="score-option-score">3</span>
+                <span class="score-option-text">Words — intelligible single words only</span>
+              </label>
+              <label class="score-option" data-group="gcsVerbal" data-score="2">
+                <input type="radio" name="gcsVerbal" value="2" />
+                <span class="score-option-score">2</span>
+                <span class="score-option-text">Sounds — moaning, unintelligible sounds</span>
+              </label>
+              <label class="score-option" data-group="gcsVerbal" data-score="1">
+                <input type="radio" name="gcsVerbal" value="1" />
+                <span class="score-option-score">1</span>
+                <span class="score-option-text">None — no verbal response</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="score-group">
+            <div class="score-group-title">3. Motor Response (M)</div>
+            <div class="score-options" id="gcsMotor">
+              <label class="score-option" data-group="gcsMotor" data-score="6">
+                <input type="radio" name="gcsMotor" value="6" />
+                <span class="score-option-score">6</span>
+                <span class="score-option-text">Obeys commands — follows verbal instructions</span>
+              </label>
+              <label class="score-option" data-group="gcsMotor" data-score="5">
+                <input type="radio" name="gcsMotor" value="5" />
+                <span class="score-option-score">5</span>
+                <span class="score-option-text">Localises — purposeful movement to pain</span>
+              </label>
+              <label class="score-option" data-group="gcsMotor" data-score="4">
+                <input type="radio" name="gcsMotor" value="4" />
+                <span class="score-option-score">4</span>
+                <span class="score-option-text">Withdraws — non-purposeful withdrawal from pain</span>
+              </label>
+              <label class="score-option" data-group="gcsMotor" data-score="3">
+                <input type="radio" name="gcsMotor" value="3" />
+                <span class="score-option-score">3</span>
+                <span class="score-option-text">Flexion — abnormal flexion (decorticate)</span>
+              </label>
+              <label class="score-option" data-group="gcsMotor" data-score="2">
+                <input type="radio" name="gcsMotor" value="2" />
+                <span class="score-option-score">2</span>
+                <span class="score-option-text">Extension — abnormal extension (decerebrate)</span>
+              </label>
+              <label class="score-option" data-group="gcsMotor" data-score="1">
+                <input type="radio" name="gcsMotor" value="1" />
+                <span class="score-option-score">1</span>
+                <span class="score-option-text">None — no motor response</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="score-total-display" id="gcsTotalDisplay">
+            <div>
+              <div class="score-total-num" id="gcsTotalNum">—</div>
+              <div class="score-total-label">GCS Total (E + V + M)</div>
+            </div>
+            <div style="text-align:left;">
+              <div style="font-size:0.8rem;color:var(--text-secondary);">E = <span id="gcsE">?</span> &nbsp; V = <span id="gcsV">?</span> &nbsp; M = <span id="gcsM">?</span></div>
+              <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px;">Max score = 15 (fully conscious)</div>
+            </div>
+          </div>
+          <div class="score-interpretation" id="gcsInterpretation"></div>
+        </div>
+      </div>
+
+      <!-- APGAR -->
+      <div class="score-sub-panel" id="score-apgar">
+        <div class="med-card">
+          <div class="med-card-title"><span class="med-icon">👶</span>APGAR Score — Newborn Assessment</div>
+          <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px;">Assessed at 1 minute and 5 minutes after birth. Each criterion scored 0–2.</p>
+
+          <div class="score-group">
+            <div class="score-group-title">A — Appearance (Skin Colour)</div>
+            <div class="score-options">
+              <label class="score-option" data-group="apgarA" data-score="2"><input type="radio" name="apgarA" value="2" /><span class="score-option-score">2</span><span class="score-option-text">Pink all over (trunk and extremities)</span></label>
+              <label class="score-option" data-group="apgarA" data-score="1"><input type="radio" name="apgarA" value="1" /><span class="score-option-score">1</span><span class="score-option-text">Pink body, blue extremities (acrocyanosis)</span></label>
+              <label class="score-option" data-group="apgarA" data-score="0"><input type="radio" name="apgarA" value="0" /><span class="score-option-score">0</span><span class="score-option-text">Blue/pale all over (central cyanosis)</span></label>
+            </div>
+          </div>
+
+          <div class="score-group">
+            <div class="score-group-title">P — Pulse (Heart Rate)</div>
+            <div class="score-options">
+              <label class="score-option" data-group="apgarP" data-score="2"><input type="radio" name="apgarP" value="2" /><span class="score-option-score">2</span><span class="score-option-text">≥ 100 bpm</span></label>
+              <label class="score-option" data-group="apgarP" data-score="1"><input type="radio" name="apgarP" value="1" /><span class="score-option-score">1</span><span class="score-option-text">&lt; 100 bpm (slow)</span></label>
+              <label class="score-option" data-group="apgarP" data-score="0"><input type="radio" name="apgarP" value="0" /><span class="score-option-score">0</span><span class="score-option-text">Absent — no heart rate detectable</span></label>
+            </div>
+          </div>
+
+          <div class="score-group">
+            <div class="score-group-title">G — Grimace (Reflex Irritability)</div>
+            <div class="score-options">
+              <label class="score-option" data-group="apgarG" data-score="2"><input type="radio" name="apgarG" value="2" /><span class="score-option-score">2</span><span class="score-option-text">Cough, sneeze, or cry to stimulation</span></label>
+              <label class="score-option" data-group="apgarG" data-score="1"><input type="radio" name="apgarG" value="1" /><span class="score-option-score">1</span><span class="score-option-text">Grimace only to stimulation</span></label>
+              <label class="score-option" data-group="apgarG" data-score="0"><input type="radio" name="apgarG" value="0" /><span class="score-option-score">0</span><span class="score-option-text">No response to stimulation</span></label>
+            </div>
+          </div>
+
+          <div class="score-group">
+            <div class="score-group-title">A — Activity (Muscle Tone)</div>
+            <div class="score-options">
+              <label class="score-option" data-group="apgarAct" data-score="2"><input type="radio" name="apgarAct" value="2" /><span class="score-option-score">2</span><span class="score-option-text">Active motion — well-flexed limbs</span></label>
+              <label class="score-option" data-group="apgarAct" data-score="1"><input type="radio" name="apgarAct" value="1" /><span class="score-option-score">1</span><span class="score-option-text">Some flexion of extremities (reduced tone)</span></label>
+              <label class="score-option" data-group="apgarAct" data-score="0"><input type="radio" name="apgarAct" value="0" /><span class="score-option-score">0</span><span class="score-option-text">Limp — no tone</span></label>
+            </div>
+          </div>
+
+          <div class="score-group">
+            <div class="score-group-title">R — Respiration (Breathing Effort)</div>
+            <div class="score-options">
+              <label class="score-option" data-group="apgarR" data-score="2"><input type="radio" name="apgarR" value="2" /><span class="score-option-score">2</span><span class="score-option-text">Strong cry — good respiratory effort</span></label>
+              <label class="score-option" data-group="apgarR" data-score="1"><input type="radio" name="apgarR" value="1" /><span class="score-option-score">1</span><span class="score-option-text">Slow or irregular breathing, weak cry</span></label>
+              <label class="score-option" data-group="apgarR" data-score="0"><input type="radio" name="apgarR" value="0" /><span class="score-option-score">0</span><span class="score-option-text">Absent — no breathing</span></label>
+            </div>
+          </div>
+
+          <div class="score-total-display" id="apgarTotalDisplay">
+            <div>
+              <div class="score-total-num" id="apgarTotalNum">—</div>
+              <div class="score-total-label">APGAR Score (A+P+G+A+R)</div>
+            </div>
+            <div style="text-align:left;font-size:0.8rem;color:var(--text-secondary);">Max = 10 · Scored at 1 min &amp; 5 min</div>
+          </div>
+          <div class="score-interpretation" id="apgarInterpretation"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 5 — FLASHCARD STUDY MODE
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel" id="tab-flashcards">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">⚠️</span>
+        <span><strong>Educational tool only.</strong> Flashcard content is for study reference. Always cross-reference with your textbooks and course material.</span>
+      </div>
+
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">📇</span>Flashcard Study Mode</div>
+
+        <div class="fc-deck-selector" id="fcDeckSelector">
+          <button class="fc-deck-btn active" data-deck="anatomy" onclick="loadDeck('anatomy', this)">🦴 Anatomy</button>
+          <button class="fc-deck-btn" data-deck="pharmacology" onclick="loadDeck('pharmacology', this)">💊 Pharmacology</button>
+          <button class="fc-deck-btn" data-deck="labs" onclick="loadDeck('labs', this)">🔬 Lab Values</button>
+          <button class="fc-deck-btn" data-deck="abbreviations" onclick="loadDeck('abbreviations', this)">📝 Abbreviations</button>
+          <button class="fc-deck-btn" data-deck="custom" onclick="loadDeck('custom', this)">⭐ Custom</button>
+        </div>
+
+        <div class="fc-progress">
+          <span id="fcProgressText">Card 0 of 0</span>
+          <div class="fc-progress-bar"><div class="fc-progress-fill" id="fcProgressFill" style="width:0%"></div></div>
+          <span id="fcProgressPct">0%</span>
+        </div>
+
+        <div class="fc-container">
+          <div class="fc-card" id="fcCard" onclick="flipCard()">
+            <div class="fc-face fc-front">
+              <div class="fc-label">TERM / QUESTION</div>
+              <div class="fc-term" id="fcTerm">Select a deck above to begin</div>
+              <div class="fc-hint">Click card to reveal answer ↓</div>
+            </div>
+            <div class="fc-face fc-back">
+              <div class="fc-label">ANSWER / DEFINITION</div>
+              <div class="fc-answer" id="fcAnswer">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fc-controls">
+          <button class="med-btn med-btn-sm med-btn-danger" onclick="markCard(false)" id="fcBtnAgain">
+            <i class="fas fa-redo"></i> Review Again
+          </button>
+          <button class="med-btn med-btn-sm" style="background:var(--bg-secondary);color:var(--text-secondary);border:1.5px solid var(--border-color);" onclick="prevCard()">
+            <i class="fas fa-chevron-left"></i> Prev
+          </button>
+          <button class="med-btn med-btn-sm" style="background:var(--bg-secondary);color:var(--text-secondary);border:1.5px solid var(--border-color);" onclick="nextCard()">
+            Next <i class="fas fa-chevron-right"></i>
+          </button>
+          <button class="med-btn med-btn-sm med-btn-success" onclick="markCard(true)" id="fcBtnGot">
+            <i class="fas fa-check"></i> Got it!
+          </button>
+        </div>
+
+        <div class="fc-stats">
+          <div class="fc-stat"><div class="fc-stat-num" style="color:#16a34a;" id="fcGotCount">0</div><div class="fc-stat-label">Got it</div></div>
+          <div class="fc-stat"><div class="fc-stat-num" style="color:#dc2626;" id="fcReviewCount">0</div><div class="fc-stat-label">Review</div></div>
+          <div class="fc-stat"><div class="fc-stat-num" style="color:#6366f1;" id="fcRemainingCount">0</div><div class="fc-stat-label">Remaining</div></div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+          <button class="med-btn med-btn-sm med-btn-outline" onclick="shuffleDeck()"><i class="fas fa-random"></i> Shuffle</button>
+          <button class="med-btn med-btn-sm med-btn-outline" onclick="resetDeck()"><i class="fas fa-sync-alt"></i> Reset Progress</button>
+          <button class="med-btn med-btn-sm med-btn-outline" onclick="toggleCustomForm()"><i class="fas fa-plus"></i> Create Custom Deck</button>
+        </div>
+      </div>
+
+      <!-- Custom flashcard form -->
+      <div class="med-card">
+        <div class="fc-custom-form" id="fcCustomForm">
+          <div class="med-card-title" style="margin-bottom:14px;"><span class="med-icon">✏️</span>Create Custom Flashcards</div>
+          <div class="med-form-row">
+            <div>
+              <label class="med-label">Term / Question</label>
+              <input type="text" class="med-input" id="fcNewTerm" placeholder="e.g. Mechanism of Metformin" />
+            </div>
+            <div>
+              <label class="med-label">Answer / Definition</label>
+              <input type="text" class="med-input" id="fcNewAnswer" placeholder="e.g. AMPK activation → ↓gluconeogenesis" />
+            </div>
+          </div>
+          <button class="med-btn med-btn-sm" onclick="addCustomCard()"><i class="fas fa-plus"></i> Add Card</button>
+
+          <div class="fc-list" id="fcCustomList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 6 — MCQ QUIZ MODE
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel" id="tab-quiz">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">⚠️</span>
+        <span><strong>Educational tool only.</strong> MCQ questions are for study purposes. Verify all answers against your course textbooks and current guidelines.</span>
+      </div>
+
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">📝</span>MCQ Quiz Mode</div>
+
+        <!-- Setup -->
+        <div class="quiz-setup" id="quizSetup">
+          <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:16px;">Select a topic to start a 10-question quiz:</p>
+          <div class="quiz-topic-grid">
+            <button class="quiz-topic-btn" onclick="selectTopic('anatomy', this)"><span class="quiz-topic-icon">🦴</span>Anatomy</button>
+            <button class="quiz-topic-btn" onclick="selectTopic('physiology', this)"><span class="quiz-topic-icon">❤️</span>Physiology</button>
+            <button class="quiz-topic-btn" onclick="selectTopic('pharmacology', this)"><span class="quiz-topic-icon">💊</span>Pharmacology</button>
+            <button class="quiz-topic-btn" onclick="selectTopic('pathology', this)"><span class="quiz-topic-icon">🔬</span>Pathology</button>
+            <button class="quiz-topic-btn" onclick="selectTopic('biochemistry', this)"><span class="quiz-topic-icon">🧪</span>Biochemistry</button>
+            <button class="quiz-topic-btn" onclick="selectTopic('medicine', this)"><span class="quiz-topic-icon">🩺</span>General Medicine</button>
+          </div>
+          <button class="med-btn med-btn-full" id="startQuizBtn" onclick="startQuiz()" disabled>
+            <i class="fas fa-play"></i> Start Quiz
+          </button>
+        </div>
+
+        <!-- Active quiz -->
+        <div class="quiz-active" id="quizActive">
+          <div class="quiz-progress-row">
+            <span id="quizQNum" class="quiz-q-num">Question 1 of 10</span>
+            <span class="quiz-score-badge" id="quizScoreBadge">Score: 0</span>
+          </div>
+          <div class="fc-progress-bar" style="margin-bottom:16px;height:6px;">
+            <div class="fc-progress-fill" id="quizProgressFill" style="width:10%"></div>
+          </div>
+          <div class="quiz-question" id="quizQuestion"></div>
+          <div class="quiz-options" id="quizOptions"></div>
+          <div class="quiz-explanation" id="quizExplanation"></div>
+          <div style="margin-top:16px;text-align:right;">
+            <button class="med-btn med-btn-sm" id="quizNextBtn" onclick="nextQuestion()" style="display:none;">
+              Next <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="quiz-summary" id="quizSummary">
+          <div style="font-size:3rem;margin-bottom:8px;">🎉</div>
+          <h3 style="font-size:1.2rem;font-weight:700;color:var(--text-primary);">Quiz Complete!</h3>
+          <div class="quiz-final-score" id="quizFinalScore">0/10</div>
+          <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:16px;" id="quizFinalMsg"></p>
+          <div class="quiz-score-breakdown" id="quizBreakdown"></div>
+          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+            <button class="med-btn med-btn-sm med-btn-outline" onclick="restartQuiz()"><i class="fas fa-redo"></i> Retry Same Topic</button>
+            <button class="med-btn med-btn-sm" onclick="showQuizSetup()"><i class="fas fa-list"></i> Choose New Topic</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 7 — NORMAL LAB VALUES
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel" id="tab-labs">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">⚠️</span>
+        <span><strong>Reference ranges may vary</strong> between laboratories, patient age, sex, and assay method. Always interpret results in clinical context and use your institution's reference ranges.</span>
+      </div>
+
+      <div class="med-card">
+        <div class="med-card-title"><span class="med-icon">🔬</span>Normal Lab Values Reference</div>
+
+        <div class="lab-search-wrap">
+          <i class="fas fa-search lab-search-icon"></i>
+          <input type="text" class="lab-search" id="labSearch" placeholder="Search lab values (e.g. haemoglobin, sodium, creatinine…)" oninput="filterLabs()" />
+        </div>
+
+        <div id="labContent"></div>
+      </div>
+    </div>
+
+  </div><!-- /med-container -->
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-content">
+          <p>© 2025 <strong>HashmiTools.com</strong></p>
+          <div class="footer-bottom-links">
+            <a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;"></div>
+
+  <script>
+  'use strict';
+
+  /* ══════════════════════════════════════════════════════
+     DRUG DATA (reference only — not for clinical use)
+  ══════════════════════════════════════════════════════ */
+  const DRUGS = {
+    paracetamol:   { name:'Paracetamol', route:'Oral/IV/PR', dose:'10–15', maxSingle:1000, maxDaily:4000, freq:'Q4-6H' },
+    ibuprofen:     { name:'Ibuprofen', route:'Oral', dose:'5–10', maxSingle:400, maxDaily:2400, freq:'TDS–QID' },
+    aspirin:       { name:'Aspirin', route:'Oral', dose:'10–15', maxSingle:650, maxDaily:4000, freq:'Q4-6H' },
+    diclofenac:    { name:'Diclofenac', route:'Oral/IM', dose:'1', maxSingle:75, maxDaily:150, freq:'BD–TDS' },
+    tramadol:      { name:'Tramadol', route:'Oral/IV', dose:'1–2', maxSingle:100, maxDaily:400, freq:'Q4-6H' },
+    amoxicillin:   { name:'Amoxicillin', route:'Oral', dose:'25–50', maxSingle:500, maxDaily:3000, freq:'TDS' },
+    amoxclav:      { name:'Amox-Clavulanate', route:'Oral', dose:'25 (amox comp.)', maxSingle:875, maxDaily:2625, freq:'BD–TDS' },
+    azithromycin:  { name:'Azithromycin', route:'Oral', dose:'10 (day 1), 5 (d2–5)', maxSingle:500, maxDaily:500, freq:'OD' },
+    cephalexin:    { name:'Cephalexin', route:'Oral', dose:'25–50', maxSingle:500, maxDaily:4000, freq:'QID' },
+    cotrimoxazole: { name:'Co-trimoxazole', route:'Oral', dose:'5 (TMP comp.)', maxSingle:160, maxDaily:320, freq:'BD' },
+    metronidazole: { name:'Metronidazole', route:'Oral/IV', dose:'7.5–15', maxSingle:500, maxDaily:4000, freq:'TDS' },
+    ciprofloxacin: { name:'Ciprofloxacin', route:'Oral', dose:'10–20', maxSingle:750, maxDaily:1500, freq:'BD' },
+    gentamicin:    { name:'Gentamicin', route:'IV/IM', dose:'3–5', maxSingle:240, maxDaily:240, freq:'OD' },
+    atenolol:      { name:'Atenolol', route:'Oral', dose:'0.5–1', maxSingle:100, maxDaily:200, freq:'OD–BD' },
+    amlodipine:    { name:'Amlodipine', route:'Oral', dose:'0.1–0.2', maxSingle:10, maxDaily:10, freq:'OD' },
+    digoxin:       { name:'Digoxin', route:'Oral', dose:'0.01–0.015', maxSingle:0.5, maxDaily:0.5, freq:'OD' },
+    furosemide:    { name:'Furosemide', route:'Oral/IV', dose:'1–2', maxSingle:200, maxDaily:600, freq:'OD–BD' },
+    spironolactone:{ name:'Spironolactone', route:'Oral', dose:'1–2', maxSingle:100, maxDaily:400, freq:'OD–BD' },
+    salbutamol:    { name:'Salbutamol (oral)', route:'Oral', dose:'0.1', maxSingle:4, maxDaily:16, freq:'TDS–QID' },
+    prednisolone:  { name:'Prednisolone', route:'Oral', dose:'1–2', maxSingle:60, maxDaily:80, freq:'OD–BD' },
+    dexamethasone: { name:'Dexamethasone', route:'Oral/IV', dose:'0.1–0.3', maxSingle:10, maxDaily:40, freq:'Q6-12H' },
+    omeprazole:    { name:'Omeprazole', route:'Oral', dose:'0.5–1', maxSingle:40, maxDaily:80, freq:'OD–BD' },
+    metoclopramide:{ name:'Metoclopramide', route:'Oral/IV', dose:'0.1–0.15', maxSingle:10, maxDaily:30, freq:'TDS' },
+    ondansetron:   { name:'Ondansetron', route:'Oral/IV', dose:'0.1–0.15', maxSingle:8, maxDaily:32, freq:'BD–TDS' },
+    insulin_reg:   { name:'Insulin (Regular)', route:'SC/IV', dose:'VARIABLE (see protocol)', maxSingle:null, maxDaily:null, freq:'Per protocol' },
+    metformin:     { name:'Metformin', route:'Oral', dose:'Not weight-based', maxSingle:1000, maxDaily:3000, freq:'BD–TDS' },
+    levothyroxine: { name:'Levothyroxine', route:'Oral', dose:'1.6 mcg/kg', maxSingle:200, maxDaily:200, freq:'OD (morning)' },
+    diazepam:      { name:'Diazepam', route:'Oral/IV/PR', dose:'0.1–0.3', maxSingle:10, maxDaily:40, freq:'BD–TDS' },
+    phenobarb:     { name:'Phenobarbitone (neonatal)', route:'IV', dose:'20 (load)', maxSingle:40, maxDaily:40, freq:'Once (loading)' },
+    carbamazepine: { name:'Carbamazepine', route:'Oral', dose:'5–20', maxSingle:400, maxDaily:1600, freq:'BD–TDS' },
+  };
+
+  /* Build drug reference table */
+  (function buildDrugRef() {
+    const tbody = document.getElementById('drugRefBody');
+    if (!tbody) return;
+    Object.values(DRUGS).forEach(d => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><strong>${d.name}</strong></td><td>${d.route}</td><td>${d.dose} mg/kg</td><td>${d.maxSingle !== null ? d.maxSingle + ' mg' : '—'}</td><td>${d.maxDaily !== null ? d.maxDaily + ' mg' : '—'}</td>`;
+      tbody.appendChild(tr);
+    });
+  })();
+
+  /* Unit state */
+  let doseWeightUnit = 'kg'; // kg or lb
+  let bmiHeightUnit  = 'cm'; // cm or in
+  let bmiWeightUnit  = 'kg'; // kg or lb
+
+  function toggleDoseWeightUnit() {
+    doseWeightUnit = doseWeightUnit === 'kg' ? 'lb' : 'kg';
+    document.getElementById('doseWeightUnitBtn').textContent = doseWeightUnit;
+    const inp = document.getElementById('doseWeight');
+    const v = parseFloat(inp.value);
+    if (!isNaN(v)) inp.value = doseWeightUnit === 'lb' ? roundN(v * 2.20462, 1) : roundN(v / 2.20462, 1);
+  }
+  function toggleBmiHeightUnit() {
+    bmiHeightUnit = bmiHeightUnit === 'cm' ? 'in' : 'cm';
+    document.getElementById('bmiHeightUnitBtn').textContent = bmiHeightUnit;
+    const inp = document.getElementById('bmiHeight');
+    const v = parseFloat(inp.value);
+    if (!isNaN(v)) inp.value = bmiHeightUnit === 'in' ? roundN(v / 2.54, 1) : roundN(v * 2.54, 1);
+  }
+  function toggleBmiWeightUnit() {
+    bmiWeightUnit = bmiWeightUnit === 'kg' ? 'lb' : 'kg';
+    document.getElementById('bmiWeightUnitBtn').textContent = bmiWeightUnit;
+    const inp = document.getElementById('bmiWeight');
+    const v = parseFloat(inp.value);
+    if (!isNaN(v)) inp.value = bmiWeightUnit === 'lb' ? roundN(v * 2.20462, 1) : roundN(v / 2.20462, 1);
+  }
+
+  function fillDrugDefaults() {
+    const key = document.getElementById('drugSelect').value;
+    if (!key || !DRUGS[key]) return;
+    const d = DRUGS[key];
+    const doseStr = typeof d.dose === 'string' ? d.dose.split('–')[0].replace(/[^0-9.]/g,'') : d.dose;
+    document.getElementById('dosePerKg').value = doseStr || '';
+    document.getElementById('doseMaxSingle').value = d.maxSingle !== null ? d.maxSingle : '';
+    document.getElementById('doseMaxDaily').value = d.maxDaily !== null ? d.maxDaily : '';
+  }
+
+  function calcDose() {
+    let wt = parseFloat(document.getElementById('doseWeight').value);
+    if (isNaN(wt) || wt <= 0) return alert('Please enter patient weight.');
+    if (doseWeightUnit === 'lb') wt = wt / 2.20462;
+    const dpkg = parseFloat(document.getElementById('dosePerKg').value);
+    if (isNaN(dpkg) || dpkg <= 0) return alert('Please enter dose per kg.');
+    const freq = parseFloat(document.getElementById('doseFrequency').value);
+    const maxS = parseFloat(document.getElementById('doseMaxSingle').value);
+    const maxD = parseFloat(document.getElementById('doseMaxDaily').value);
+
+    let perAdmin = roundN(wt * dpkg, 1);
+    let capped = false;
+    if (!isNaN(maxS) && maxS > 0 && perAdmin > maxS) { perAdmin = maxS; capped = true; }
+    const totalDaily = roundN(perAdmin * freq, 1);
+
+    const res = document.getElementById('doseResult');
+    res.classList.add('show');
+    document.getElementById('dosePerAdmin').textContent = perAdmin + ' mg';
+    document.getElementById('doseTotalDaily').textContent = totalDaily + ' mg/day';
+
+    const capRow = document.getElementById('doseMaxRow');
+    if (capped) {
+      capRow.style.display = 'flex';
+      document.getElementById('doseCapped').textContent = 'Capped at ' + maxS + ' mg (max single dose)';
+    } else { capRow.style.display = 'none'; }
+
+    const overMaxDiv = document.getElementById('doseOverMaxDaily');
+    const overMaxTxt = document.getElementById('doseOverMaxDailyText');
+    if (!isNaN(maxD) && maxD > 0 && totalDaily > maxD) {
+      overMaxDiv.style.display = 'flex';
+      overMaxTxt.textContent = `Total daily dose (${totalDaily} mg) exceeds maximum daily dose (${maxD} mg/day). Reduce dose or frequency.`;
+    } else { overMaxDiv.style.display = 'none'; }
+
+    document.getElementById('doseFormula').innerHTML =
+      `<strong>Calculation:</strong> ${roundN(wt,1)} kg × ${dpkg} mg/kg = ${roundN(wt*dpkg,1)} mg per dose` +
+      (capped ? ` → capped to ${maxS} mg` : '') +
+      ` × ${freq} doses/day = ${totalDaily} mg/day`;
+  }
+
+  /* ══════════════════════════════════════════════
+     IV DRIP RATE
+  ══════════════════════════════════════════════ */
+  function calcIV() {
+    const vol = parseFloat(document.getElementById('ivVolume').value);
+    const hrs = parseFloat(document.getElementById('ivTime').value);
+    const df  = parseFloat(document.getElementById('ivDropFactor').value);
+    if (isNaN(vol)||vol<=0) return alert('Enter total volume in mL.');
+    if (isNaN(hrs)||hrs<=0) return alert('Enter infusion time in hours.');
+    const dpm = roundN((vol * df) / (hrs * 60), 1);
+    const mlph = roundN(vol / hrs, 1);
+    const res = document.getElementById('ivResult');
+    res.classList.add('show');
+    document.getElementById('ivDpm').textContent = dpm + ' gtts/min';
+    document.getElementById('ivMlph').textContent = mlph + ' mL/hr';
+  }
+
+  /* ══════════════════════════════════════════════
+     BMI & BSA
+  ══════════════════════════════════════════════ */
+  function calcBMI() {
+    let h = parseFloat(document.getElementById('bmiHeight').value);
+    let w = parseFloat(document.getElementById('bmiWeight').value);
+    if (isNaN(h)||h<=0) return alert('Enter height.');
+    if (isNaN(w)||w<=0) return alert('Enter weight.');
+    if (bmiHeightUnit === 'in') h = h * 2.54;    // convert to cm
+    if (bmiWeightUnit === 'lb') w = w / 2.20462;  // convert to kg
+    const hm = h / 100;
+    const bmi = roundN(w / (hm * hm), 1);
+    const bsa = roundN(Math.sqrt((h * w) / 3600), 2);
+    const hIn = h / 2.54;
+    const ibwM  = hIn > 60 ? roundN(50  + 2.3 * (hIn - 60), 1) : '≤60 in formula';
+    const ibwF  = hIn > 60 ? roundN(45.5 + 2.3 * (hIn - 60), 1) : '≤60 in formula';
+
+    let cls = '', clsColor = '#16a34a';
+    if      (bmi < 18.5)  { cls='Underweight'; clsColor='#3b82f6'; }
+    else if (bmi < 25)    { cls='Normal Weight'; clsColor='#16a34a'; }
+    else if (bmi < 30)    { cls='Overweight'; clsColor='#d97706'; }
+    else if (bmi < 35)    { cls='Obese Class I'; clsColor='#ea580c'; }
+    else if (bmi < 40)    { cls='Obese Class II'; clsColor='#dc2626'; }
+    else                  { cls='Obese Class III'; clsColor='#9f1239'; }
+
+    const res = document.getElementById('bmiResult');
+    res.classList.add('show');
+    document.getElementById('bmiValue').textContent = bmi + ' kg/m²';
+    document.getElementById('bmiClass').style.color = clsColor;
+    document.getElementById('bmiClass').textContent = cls;
+    document.getElementById('bsaValue').textContent = bsa + ' m²';
+    document.getElementById('ibwValue').textContent = `♂ ${ibwM} kg  /  ♀ ${ibwF} kg`;
+
+    /* Needle position: BMI 15=0% to BMI 45=100% */
+    const pct = Math.min(100, Math.max(0, ((bmi - 15) / (45 - 15)) * 100));
+    document.getElementById('bmiNeedle').style.left = pct + '%';
+  }
+
+  /* ══════════════════════════════════════════════
+     CLINICAL SCORES
+  ══════════════════════════════════════════════ */
+  function switchScoreTab(tab, btn) {
+    document.querySelectorAll('.score-sub-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.score-sub-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('score-' + tab).classList.add('active');
+  }
+
+  /* Score option click handlers */
+  document.querySelectorAll('.score-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const group = opt.dataset.group;
+      document.querySelectorAll(`[data-group="${group}"]`).forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      opt.querySelector('input[type=radio]').checked = true;
+      if (group.startsWith('gcs')) updateGCS();
+      else updateAPGAR();
+    });
+  });
+
+  function getRadioVal(name) {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? parseInt(el.value) : null;
+  }
+
+  function updateGCS() {
+    const e = getRadioVal('gcsEye'), v = getRadioVal('gcsVerbal'), m = getRadioVal('gcsMotor');
+    document.getElementById('gcsE').textContent = e !== null ? e : '?';
+    document.getElementById('gcsV').textContent = v !== null ? v : '?';
+    document.getElementById('gcsM').textContent = m !== null ? m : '?';
+    if (e === null || v === null || m === null) { document.getElementById('gcsTotalNum').textContent = '—'; return; }
+    const total = e + v + m;
+    document.getElementById('gcsTotalNum').textContent = total;
+    const intrp = document.getElementById('gcsInterpretation');
+    if (total >= 13) {
+      intrp.style.background='rgba(22,163,74,0.1)'; intrp.style.color='#16a34a';
+      intrp.textContent = `✅ GCS ${total}/15 — Mild impairment (or normal if 15). Alert and oriented.`;
+    } else if (total >= 9) {
+      intrp.style.background='rgba(245,158,11,0.1)'; intrp.style.color='#d97706';
+      intrp.textContent = `⚠️ GCS ${total}/15 — Moderate impairment. Confused, may need close monitoring.`;
+    } else {
+      intrp.style.background='rgba(220,38,38,0.1)'; intrp.style.color='#dc2626';
+      intrp.textContent = `🚨 GCS ${total}/15 — Severe impairment (GCS ≤ 8 = coma). Airway management indicated.`;
+    }
+  }
+
+  function updateAPGAR() {
+    const a = getRadioVal('apgarA'), p = getRadioVal('apgarP'), g = getRadioVal('apgarG'),
+          act = getRadioVal('apgarAct'), r = getRadioVal('apgarR');
+    if (a===null||p===null||g===null||act===null||r===null) { document.getElementById('apgarTotalNum').textContent='—'; return; }
+    const total = a+p+g+act+r;
+    document.getElementById('apgarTotalNum').textContent = total;
+    const intrp = document.getElementById('apgarInterpretation');
+    if (total >= 7) {
+      intrp.style.background='rgba(22,163,74,0.1)'; intrp.style.color='#16a34a';
+      intrp.textContent = `✅ APGAR ${total}/10 — Normal. Routine post-delivery care.`;
+    } else if (total >= 4) {
+      intrp.style.background='rgba(245,158,11,0.1)'; intrp.style.color='#d97706';
+      intrp.textContent = `⚠️ APGAR ${total}/10 — Moderately depressed. Stimulation and supplemental O₂ may be needed.`;
+    } else {
+      intrp.style.background='rgba(220,38,38,0.1)'; intrp.style.color='#dc2626';
+      intrp.textContent = `🚨 APGAR ${total}/10 — Severely depressed. Immediate resuscitation required.`;
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     FLASHCARDS
+  ══════════════════════════════════════════════ */
+  const DECKS = {
+    anatomy: [
+      { term:'Brachial Plexus roots', answer:'C5, C6, C7, C8, T1 (Remember: "C5 to T1")' },
+      { term:'Obturator nerve', answer:'Anterior division L2, L3, L4 — adducts the thigh' },
+      { term:'Femoral triangle boundaries', answer:'Superior: inguinal ligament · Medial: adductor longus · Lateral: sartorius (NAVY medially: N=nerve, A=artery, V=vein, Y=Y-fronts/lymphatics)' },
+      { term:'Foramen magnum contents', answer:'Medulla oblongata, vertebral arteries, spinal accessory nerve (CN XI), anterior/posterior spinal arteries' },
+      { term:'McBurney\'s Point', answer:'1/3 of the way from ASIS to umbilicus — site of maximum tenderness in acute appendicitis' },
+      { term:'Coronary artery supplying SA node', answer:'Right coronary artery (RCA) in ~60% of people; left circumflex in ~40%' },
+      { term:'Carpal bones mnemonic', answer:'"Some Lovers Try Positions That They Can\'t Handle" — Scaphoid, Lunate, Triquetrum, Pisiform, Trapezium, Trapezoid, Capitate, Hamate' },
+      { term:'Circle of Willis components', answer:'ACA × 2, AComA, MCA × 2, ICA × 2, PComA × 2, PCA × 2, basilar artery' },
+      { term:'Inguinal canal contents (male)', answer:'Spermatic cord, ilioinguinal nerve, genital branch of genitofemoral nerve' },
+      { term:'Diaphragm openings (vertebral levels)', answer:'IVC T8 · Oesophagus T10 · Aorta T12 (I (8) Eat (10) At (12) 12)' },
+      { term:'Fallopian tube layers from inside out', answer:'Mucosa (ciliated epithelium) → Muscular layer → Serosa/adventitia' },
+      { term:'Portal triad', answer:'Portal vein branch, hepatic artery branch, bile duct — at corners of hepatic lobule' },
+    ],
+    pharmacology: [
+      { term:'β-blocker MOA', answer:'Competitive antagonism of β-adrenergic receptors → ↓HR, ↓contractility, ↓BP, ↓renin release' },
+      { term:'ACE inhibitors — MOA & key SE', answer:'Block ACE → ↓Angiotensin II & ↓Aldosterone. Key SE: dry cough (↑bradykinin), angioedema, hyperkalaemia, renal failure (bilateral RAS)' },
+      { term:'Mechanism of Metformin', answer:'AMPK activation → ↓hepatic gluconeogenesis, ↑insulin sensitivity. Does NOT cause hypoglycaemia. Lactic acidosis risk in renal impairment.' },
+      { term:'Warfarin MOA', answer:'Inhibits Vitamin K epoxide reductase → ↓synthesis of factors II, VII, IX, X, Protein C & S. Monitored by INR.' },
+      { term:'Penicillin MOA', answer:'Inhibit transpeptidase (PBPs) → block cell wall synthesis → bactericidal. Mechanism of resistance: β-lactamase, altered PBPs.' },
+      { term:'Aminoglycoside nephrotoxicity mechanism', answer:'Accumulation in proximal tubular cells → reactive oxygen species → tubular necrosis. Synergistic with loop diuretics.' },
+      { term:'Digoxin MOA', answer:'Inhibits Na⁺/K⁺-ATPase → ↑intracellular Na⁺ → ↑Ca²⁺ via NCX → ↑inotropy. Also ↑vagal tone → ↓AV conduction.' },
+      { term:'Statins — MOA & key interactions', answer:'Inhibit HMG-CoA reductase → ↓cholesterol synthesis → ↑LDL-R expression. Myopathy risk ↑ with CYP3A4 inhibitors (azoles, macrolides).' },
+      { term:'Paracetamol overdose mechanism', answer:'NAPQI accumulation (CYP2E1 metabolite) → depletes glutathione → hepatocellular necrosis. Treat with N-acetylcysteine.' },
+      { term:'Atropine MOA', answer:'Competitive muscarinic (M) receptor antagonist → ↑HR, ↓secretions, mydriasis, bronchodilation, ↓GI motility' },
+      { term:'Furosemide MOA', answer:'Blocks Na⁺-K⁺-2Cl⁻ cotransporter in thick ascending loop of Henle → ↓solute reabsorption → ↑urine output. SE: hypokalaemia, ototoxicity.' },
+      { term:'Tetracyclines — MOA & contraindications', answer:'Bind 30S ribosomal subunit → inhibit aminoacyl-tRNA binding → bacteriostatic. Contraindicated in pregnancy and children <8y (tooth discolouration).' },
+    ],
+    labs: [
+      { term:'Haemoglobin normal range', answer:'Male: 13.5–17.5 g/dL · Female: 11.5–15.5 g/dL · Newborn: 14–20 g/dL' },
+      { term:'WBC count normal range', answer:'4.5–11.0 × 10⁹/L (4,500–11,000 cells/μL)' },
+      { term:'Serum Sodium (Na⁺) normal range', answer:'136–145 mEq/L. Hyponatraemia <135, Hypernatraemia >145' },
+      { term:'Serum Potassium (K⁺) normal range', answer:'3.5–5.0 mEq/L. Hypokalaemia <3.5, Hyperkalaemia >5.0 (dangerous >6.5)' },
+      { term:'Serum Creatinine normal range', answer:'Male: 0.7–1.2 mg/dL · Female: 0.5–1.0 mg/dL' },
+      { term:'Blood Urea Nitrogen (BUN)', answer:'7–20 mg/dL (2.5–7.1 mmol/L). BUN:Cr ratio >20:1 suggests pre-renal cause' },
+      { term:'Fasting Blood Glucose normal', answer:'70–100 mg/dL (3.9–5.6 mmol/L). Pre-diabetes: 100–125 mg/dL. Diabetes: ≥126 mg/dL' },
+      { term:'HbA1c target for diabetics', answer:'<7.0% (well-controlled). Diagnosis of DM: HbA1c ≥6.5%' },
+      { term:'ALT & AST normal range', answer:'ALT: 7–56 U/L · AST: 10–40 U/L. ALT more liver-specific. >3× ULN = significant hepatocellular injury' },
+      { term:'Serum Calcium (Ca²⁺) normal range', answer:'8.5–10.5 mg/dL (2.1–2.6 mmol/L). Total Ca corrected for albumin: Ca + 0.8 × (4 – albumin)' },
+      { term:'INR therapeutic range', answer:'Therapeutic anticoagulation (AF/DVT/PE): 2.0–3.0. Mechanical heart valves: 2.5–3.5. Normal: 0.9–1.1' },
+      { term:'Platelet count normal range', answer:'150,000–400,000/μL. Thrombocytopenia: <150k. Critical: <20k (bleeding risk). Thrombocytosis: >400k' },
+    ],
+    abbreviations: [
+      { term:'SIADH', answer:'Syndrome of Inappropriate Antidiuretic Hormone secretion — hyponatraemia + concentrated urine + euvolaemia' },
+      { term:'DKA', answer:'Diabetic Ketoacidosis — hyperglycaemia + ketosis + metabolic acidosis. Treat: IV fluids, insulin, K⁺ monitoring' },
+      { term:'COPD', answer:'Chronic Obstructive Pulmonary Disease — irreversible airflow limitation, mainly emphysema + chronic bronchitis' },
+      { term:'MI (STEMI vs NSTEMI)', answer:'Myocardial Infarction. STEMI: ST elevation → complete occlusion. NSTEMI: no ST elevation, ↑troponin → partial occlusion.' },
+      { term:'GFR / eGFR', answer:'Glomerular Filtration Rate — measure of kidney function. Normal >90 mL/min/1.73m². CKD staging G1–G5 (<15 = renal failure)' },
+      { term:'DVT / PE', answer:'Deep Vein Thrombosis / Pulmonary Embolism. Virchow\'s triad: stasis, endothelial injury, hypercoagulability' },
+      { term:'TIA', answer:'Transient Ischaemic Attack — "mini-stroke" resolving <24h (usually <1h). ABCD2 score for risk stratification' },
+      { term:'MRSA', answer:'Methicillin-Resistant Staphylococcus aureus — resistant to β-lactams due to altered PBP2a. Treat with vancomycin / linezolid.' },
+      { term:'APTT / PT', answer:'APTT (Activated Partial Thromboplastin Time): intrinsic pathway (factors VIII,IX,XI,XII). PT/INR: extrinsic pathway (factor VII, II, V, X)' },
+      { term:'CRP vs ESR', answer:'Both are non-specific inflammatory markers. CRP rises faster (hours) and falls faster. ESR rises slowly (days), influenced by anaemia/protein.' },
+      { term:'SpO₂ vs PaO₂', answer:'SpO₂: peripheral O₂ saturation (pulse oximetry) — normal ≥95%. PaO₂: arterial oxygen tension (ABG) — normal 80–100 mmHg' },
+      { term:'RICE (first aid)', answer:'Rest, Ice, Compression, Elevation — first-line management of soft tissue injuries' },
+    ],
+    custom: []
+  };
+
+  /* Load from localStorage */
+  const savedCustom = localStorage.getItem('med_custom_deck');
+  if (savedCustom) { try { DECKS.custom = JSON.parse(savedCustom); } catch(e){} }
+
+  let currentDeck = 'anatomy';
+  let deckCards = [];
+  let currentCardIdx = 0;
+  let gotCount = 0, reviewCount = 0;
+  let cardStates = {}; // idx -> 'got' | 'review' | null
+
+  function loadDeck(deckName, btn) {
+    if (btn) {
+      document.querySelectorAll('.fc-deck-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    currentDeck = deckName;
+    deckCards = [...DECKS[deckName]];
+    currentCardIdx = 0;
+    gotCount = 0; reviewCount = 0; cardStates = {};
+    updateFCCard();
+    updateFCStats();
+  }
+
+  function updateFCCard() {
+    const card = document.getElementById('fcCard');
+    card.classList.remove('flipped');
+    if (!deckCards.length) {
+      document.getElementById('fcTerm').textContent = currentDeck === 'custom' ? 'No custom cards yet. Add some below!' : 'Deck is empty.';
+      document.getElementById('fcAnswer').textContent = '—';
+      document.getElementById('fcProgressText').textContent = 'Card 0 of 0';
+      document.getElementById('fcProgressFill').style.width = '0%';
+      document.getElementById('fcProgressPct').textContent = '0%';
+      return;
+    }
+    const c = deckCards[currentCardIdx];
+    document.getElementById('fcTerm').textContent = c.term;
+    document.getElementById('fcAnswer').textContent = c.answer;
+    const idx1 = currentCardIdx + 1;
+    const total = deckCards.length;
+    document.getElementById('fcProgressText').textContent = `Card ${idx1} of ${total}`;
+    const pct = Math.round((idx1 / total) * 100);
+    document.getElementById('fcProgressFill').style.width = pct + '%';
+    document.getElementById('fcProgressPct').textContent = pct + '%';
+  }
+
+  function flipCard() { document.getElementById('fcCard').classList.toggle('flipped'); }
+
+  function nextCard() {
+    if (!deckCards.length) return;
+    currentCardIdx = (currentCardIdx + 1) % deckCards.length;
+    updateFCCard();
+  }
+  function prevCard() {
+    if (!deckCards.length) return;
+    currentCardIdx = (currentCardIdx - 1 + deckCards.length) % deckCards.length;
+    updateFCCard();
+  }
+
+  function markCard(got) {
+    if (!deckCards.length) return;
+    const key = currentCardIdx;
+    const prev = cardStates[key];
+    if (prev === 'got') gotCount--;
+    else if (prev === 'review') reviewCount--;
+    cardStates[key] = got ? 'got' : 'review';
+    if (got) gotCount++; else reviewCount++;
+    updateFCStats();
+    nextCard();
+  }
+
+  function updateFCStats() {
+    document.getElementById('fcGotCount').textContent = gotCount;
+    document.getElementById('fcReviewCount').textContent = reviewCount;
+    document.getElementById('fcRemainingCount').textContent = Math.max(0, deckCards.length - gotCount - reviewCount);
+  }
+
+  function shuffleDeck() {
+    for (let i = deckCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deckCards[i], deckCards[j]] = [deckCards[j], deckCards[i]];
+    }
+    currentCardIdx = 0; gotCount = 0; reviewCount = 0; cardStates = {};
+    updateFCCard(); updateFCStats();
+    showToast('Deck shuffled!', 'success');
+  }
+  function resetDeck() {
+    currentCardIdx = 0; gotCount = 0; reviewCount = 0; cardStates = {};
+    updateFCCard(); updateFCStats();
+    showToast('Progress reset.', 'info');
+  }
+
+  function toggleCustomForm() {
+    const f = document.getElementById('fcCustomForm');
+    f.classList.toggle('show');
+    renderCustomList();
+  }
+
+  function addCustomCard() {
+    const term   = document.getElementById('fcNewTerm').value.trim();
+    const answer = document.getElementById('fcNewAnswer').value.trim();
+    if (!term || !answer) return alert('Enter both term and answer.');
+    DECKS.custom.push({ term, answer });
+    localStorage.setItem('med_custom_deck', JSON.stringify(DECKS.custom));
+    document.getElementById('fcNewTerm').value = '';
+    document.getElementById('fcNewAnswer').value = '';
+    renderCustomList();
+    showToast('Card added!', 'success');
+    if (currentDeck === 'custom') loadDeck('custom');
+  }
+
+  function deleteCustomCard(idx) {
+    DECKS.custom.splice(idx, 1);
+    localStorage.setItem('med_custom_deck', JSON.stringify(DECKS.custom));
+    renderCustomList();
+    if (currentDeck === 'custom') loadDeck('custom');
+  }
+
+  function renderCustomList() {
+    const list = document.getElementById('fcCustomList');
+    if (!DECKS.custom.length) {
+      list.innerHTML = '<p style="font-size:0.82rem;color:var(--text-secondary);">No custom cards yet.</p>';
+      return;
+    }
+    list.innerHTML = DECKS.custom.map((c, i) => `
+      <div class="fc-list-item">
+        <div class="fc-list-item-text"><strong>${escHtml(c.term)}</strong> — ${escHtml(c.answer)}</div>
+        <button class="fc-list-item-del" onclick="deleteCustomCard(${i})" title="Delete">✕</button>
+      </div>
+    `).join('');
+  }
+
+  /* ══════════════════════════════════════════════
+     MCQ QUIZ
+  ══════════════════════════════════════════════ */
+  const QUESTION_BANK = {
+    anatomy: [
+      { q:'Which nerve is damaged in "wrist drop"?', opts:['Median nerve','Ulnar nerve','Radial nerve','Musculocutaneous nerve'], ans:2, exp:'The radial nerve supplies the extensors of the wrist and fingers. Damage (e.g. at the spiral groove of humerus — "Saturday night palsy") causes wrist drop.' },
+      { q:'The femoral nerve arises from which lumbar segments?', opts:['L1, L2, L3','L2, L3, L4','L3, L4, L5','L4, L5, S1'], ans:1, exp:'The femoral nerve arises from the posterior divisions of L2, L3, L4 of the lumbar plexus. It innervates the anterior compartment of the thigh (quadriceps).' },
+      { q:'Which structure forms the medial boundary of the femoral triangle?', opts:['Sartorius','Inguinal ligament','Adductor longus','Pectineus'], ans:2, exp:'The femoral triangle has: Superior = inguinal ligament, Lateral = sartorius, Medial = adductor longus. Contents: NAVY (N=femoral nerve, A=femoral artery, V=femoral vein, Y=lymphatics).' },
+      { q:'The diaphragm opening for the oesophagus is at which vertebral level?', opts:['T6','T8','T10','T12'], ans:2, exp:'The oesophagus passes through the diaphragm at T10. Mnemonic: "I (IVC) eat (oesophagus) at (aorta) 8, 10, 12".' },
+      { q:'Which artery supplies the majority of the interventricular septum?', opts:['Right coronary artery','Left circumflex artery','Left anterior descending artery','Posterior descending artery'], ans:2, exp:'The left anterior descending (LAD) artery supplies the anterior 2/3 of the interventricular septum. Hence LAD occlusion causes anterior MI with septal involvement.' },
+      { q:'McBurney\'s point, the site of maximum tenderness in appendicitis, is located at:', opts:['1/2 way between ASIS and umbilicus','1/3 from ASIS to umbilicus','1/3 from umbilicus to ASIS','2/3 from ASIS to umbilicus'], ans:1, exp:'McBurney\'s point is 1/3 of the distance from the anterior superior iliac spine (ASIS) to the umbilicus. This corresponds to the base of the appendix in most individuals.' },
+      { q:'The inguinal canal in the male contains which structure?', opts:['Round ligament','Spermatic cord','Ilioinguinal nerve only','Testicular artery only'], ans:1, exp:'In males, the inguinal canal contains the spermatic cord (ductus deferens, testicular vessels, lymphatics, nerves) plus the ilioinguinal nerve. In females it contains the round ligament of the uterus.' },
+      { q:'Structures passing through the foramen magnum include all EXCEPT:', opts:['Medulla oblongata','Vertebral arteries','Facial nerve (CN VII)','Spinal accessory nerve (CN XI)'], ans:2, exp:'The facial nerve (CN VII) exits through the stylomastoid foramen, NOT the foramen magnum. The foramen magnum transmits the medulla, meninges, vertebral arteries, anterior/posterior spinal arteries, and CN XI spinal roots.' },
+      { q:'The Circle of Willis is formed by which pair of communicating arteries?', opts:['Only anterior communicating artery','Only posterior communicating arteries','Both anterior and posterior communicating arteries','Basilar and vertebral arteries'], ans:2, exp:'The Circle of Willis is formed by: ACA × 2 + AComA (anterior part) + ICA × 2 + PComA × 2 + PCA × 2 (posterior part). Both anterior AND posterior communicating arteries are required.' },
+      { q:'Which bone is most commonly fractured in a fall on an outstretched hand (FOOSH)?', opts:['Lunate','Scaphoid','Radius (Colles)','Hamate'], ans:1, exp:'The scaphoid is the most commonly fractured carpal bone in FOOSH injuries. Its poor blood supply (enters distally) means avascular necrosis is a major complication. Tender in the anatomical snuffbox.' },
+    ],
+    physiology: [
+      { q:'The Frank-Starling law states that cardiac output increases when:', opts:['Heart rate decreases','Preload increases','Afterload increases','Contractility decreases'], ans:1, exp:'Frank-Starling law: increased venous return (preload) → increased ventricular end-diastolic volume → increased stroke volume → increased cardiac output. This is the "length-tension" relationship of cardiac muscle.' },
+      { q:'Normal glomerular filtration rate (GFR) is approximately:', opts:['50 mL/min','75 mL/min','125 mL/min','200 mL/min'], ans:2, exp:'Normal GFR in adults is approximately 125 mL/min (180 L/day filtered, ~1.5 L urine produced). GFR declines with age (~1 mL/min/yr after 40). eGFR <60 for >3 months = CKD.' },
+      { q:'Which segment of the nephron is primarily responsible for concentrating urine?', opts:['Proximal convoluted tubule','Thin descending loop of Henle','Thick ascending loop of Henle','Distal convoluted tubule'], ans:1, exp:'The thin descending limb of the loop of Henle is permeable to water, allowing water reabsorption into the hyperosmolar medullary interstitium, concentrating tubular fluid. The ascending limb is impermeable to water.' },
+      { q:'Which receptor mediates the baroreceptor reflex to decrease blood pressure?', opts:['α1-adrenergic','β1-adrenergic','Muscarinic (M2)','Angiotensin II (AT1)'], ans:2, exp:'Baroreceptors detect high BP → increase parasympathetic (vagal) tone via M2 muscarinic receptors on the SA node → decrease heart rate → decrease cardiac output → decrease BP.' },
+      { q:'The oxygen-haemoglobin dissociation curve shifts to the RIGHT in:', opts:['Alkalosis (high pH)','Hypothermia','Increased 2,3-BPG','Carbon monoxide poisoning'], ans:2, exp:'Right shift (Bohr effect) → decreased Hb-O₂ affinity → more O₂ unloaded to tissues. Causes: ↑CO₂, ↑H⁺ (acidosis), ↑temperature, ↑2,3-BPG. Left shift: opposite conditions (Hb holds onto O₂).' },
+      { q:'ADH (vasopressin) primarily acts on which nephron segment?', opts:['Proximal tubule','Ascending loop of Henle','Collecting duct','Bowman\'s capsule'], ans:2, exp:'ADH (AVP) acts primarily on the collecting duct (and late distal tubule) via V2 receptors → inserts aquaporin-2 channels → ↑water reabsorption → concentrated urine. Deficiency or resistance causes diabetes insipidus.' },
+      { q:'In metabolic acidosis with respiratory compensation, you would expect:', opts:['↑pH, ↑PaCO₂','↓pH, ↓PaCO₂','↑pH, ↓PaCO₂','↓pH, ↑PaCO₂'], ans:1, exp:'Metabolic acidosis: primary ↓HCO₃⁻ → ↓pH. Respiratory compensation: hyperventilation → ↓PaCO₂ (Kussmaul breathing in DKA). Expected PaCO₂ = 1.5 × [HCO₃⁻] + 8 ± 2 (Winter\'s formula).' },
+      { q:'Which phase of the cardiac action potential involves fast Na⁺ influx?', opts:['Phase 0 (depolarisation)','Phase 1 (early repolarisation)','Phase 2 (plateau)','Phase 4 (resting)'], ans:0, exp:'Phase 0 (rapid depolarisation) is caused by rapid Na⁺ influx through fast voltage-gated Na⁺ channels, raising the membrane potential from −90mV to +30mV. This is absent in SA/AV nodal cells (which use Ca²⁺ channels).' },
+      { q:'The pulmonary capillary wedge pressure (PCWP) reflects:', opts:['Right ventricular end-diastolic pressure','Left ventricular end-diastolic pressure','Aortic diastolic pressure','Right atrial pressure'], ans:1, exp:'PCWP is measured with a Swan-Ganz (pulmonary artery) catheter wedged distally. It reflects left atrial pressure ≈ left ventricular end-diastolic pressure (preload). Normal PCWP = 6–12 mmHg. Elevated PCWP in left heart failure.' },
+      { q:'Surfactant in the lung is produced by:', opts:['Type I pneumocytes','Type II pneumocytes','Clara cells','Alveolar macrophages'], ans:1, exp:'Type II pneumocytes (granular pneumocytes) produce surfactant (dipalmitoyl phosphatidylcholine — DPPC). Surfactant reduces surface tension, prevents alveolar collapse (atelectasis). Deficiency in RDS of the newborn.' },
+    ],
+    pharmacology: [
+      { q:'Which drug class is used as first-line treatment for heart failure with reduced ejection fraction (HFrEF)?', opts:['Calcium channel blockers','ACE inhibitors + Beta-blockers + Diuretics + ARNi','Loop diuretics alone','Digoxin alone'], ans:1, exp:'Evidence-based HFrEF treatment: ACE inhibitor (or ARNI = sacubitril/valsartan), beta-blocker (carvedilol/metoprolol/bisoprolol), MRA (spironolactone/eplerenone), SGLT2i (dapagliflozin/empagliflozin), + loop diuretics for congestion.' },
+      { q:'The mechanism of resistance to penicillin in S. aureus is mainly:', opts:['Altered ribosomal subunit','Efflux pump','β-lactamase production','Altered cell membrane'], ans:2, exp:'Most S. aureus resistance to penicillin G is via β-lactamase (penicillinase), which cleaves the β-lactam ring. MRSA uses an additional mechanism: altered PBP2a (mecA gene) — resistant to all β-lactams except ceftaroline.' },
+      { q:'Warfarin works by inhibiting:', opts:['Thrombin directly','Vitamin K-dependent factor synthesis','Platelet aggregation','Factor Xa directly'], ans:1, exp:'Warfarin inhibits Vitamin K epoxide reductase (VKOR) → prevents recycling of Vitamin K → ↓synthesis of factors II, VII, IX, X and Proteins C & S. Onset 2–5 days (limited by factor half-lives). Monitored by INR.' },
+      { q:'A patient on clarithromycin (macrolide antibiotic) is started on simvastatin. The main risk is:', opts:['Hypertension','Rhabdomyolysis','Serotonin syndrome','QT prolongation only'], ans:1, exp:'Clarithromycin is a potent CYP3A4 inhibitor → markedly ↑simvastatin plasma levels → ↑risk of myopathy and rhabdomyolysis. Simvastatin is contraindicated with strong CYP3A4 inhibitors. Use pravastatin (not CYP3A4-metabolised) instead.' },
+      { q:'Which antihypertensive is contraindicated in pregnancy due to teratogenicity?', opts:['Methyldopa','Labetalol','ACE inhibitors','Nifedipine'], ans:2, exp:'ACE inhibitors (and ARBs) are absolutely contraindicated in pregnancy — teratogenic (fetal renal tubular dysgenesis, oligohydramnios, growth retardation, skull ossification defects). Safe options: methyldopa, labetalol, nifedipine.' },
+      { q:'Naloxone reverses opioid overdose by acting as a:', opts:['Opioid agonist','Opioid partial agonist','Opioid antagonist','GABA agonist'], ans:2, exp:'Naloxone is a competitive opioid receptor antagonist (μ, κ, δ) — reverses respiratory depression, sedation, and miosis from opioid overdose. Short half-life (~1h) may require repeat dosing for long-acting opioids.' },
+      { q:'The "cheese reaction" with MAO inhibitors is due to interaction with which substance?', opts:['Phenylalanine','Tyramine','Serotonin','Dopamine'], ans:1, exp:'MAO inhibitors (MAOIs) prevent the breakdown of tyramine in the gut wall/liver. Eating tyramine-rich foods (aged cheese, cured meats, red wine) → excess tyramine → massive noradrenaline release → hypertensive crisis.' },
+      { q:'Which diuretic causes hyperkalaemia?', opts:['Furosemide','Hydrochlorothiazide','Spironolactone','Acetazolamide'], ans:2, exp:'Spironolactone is a potassium-sparing diuretic (aldosterone antagonist → ↓Na⁺/K⁺ exchange in collecting duct). Causes hyperkalaemia. Furosemide and thiazides cause hypokalaemia. Risk of fatal hyperkalaemia with concurrent ACEi/ARB.' },
+      { q:'Aspirin at low dose (75–100 mg) works by:', opts:['Reversibly inhibiting COX-1 and COX-2','Irreversibly inhibiting COX-1 → ↓thromboxane A₂','Reversibly inhibiting COX-2 only','Blocking ADP receptors on platelets'], ans:1, exp:'Low-dose aspirin irreversibly acetylates COX-1 → permanently inhibits thromboxane A₂ synthesis in platelets for their lifetime (~10 days). Platelets cannot regenerate COX since they lack nuclei. This antiplatelet effect is used in cardiovascular prevention.' },
+      { q:'Which drug is used as antidote for paracetamol (acetaminophen) overdose?', opts:['Naloxone','Flumazenil','N-acetylcysteine (NAC)','Dimercaprol'], ans:2, exp:'N-acetylcysteine (NAC) replenishes glutathione stores, which are depleted by the toxic metabolite NAPQI (produced by CYP2E1 in overdose). NAC is most effective within 8–10 hours. Treat based on Rumack-Matthew nomogram.' },
+    ],
+    pathology: [
+      { q:'The hallmark of irreversible cell injury is:', opts:['Cell swelling (hydropic change)','Mitochondrial swelling','Nuclear pyknosis','Cell membrane rupture (plasma membrane defect)'], ans:3, exp:'Irreversible (lethal) cell injury is characterized by plasma membrane disruption, which allows uncontrolled entry of calcium and loss of cellular contents. Nuclear changes (pyknosis, karyorrhexis, karyolysis) occur but membrane rupture is the defining point of no return.' },
+      { q:'Reed-Sternberg cells are pathognomonic of:', opts:['Non-Hodgkin lymphoma','Hodgkin lymphoma','Multiple myeloma','Burkitt lymphoma'], ans:1, exp:'Reed-Sternberg cells are large binucleated cells with prominent "owl eye" nucleoli, pathognomonic of Hodgkin lymphoma. They are derived from B cells and stain CD15+ and CD30+ (but CD20−). Classic in mixed cellularity and nodular sclerosis subtypes.' },
+      { q:'Which type of necrosis is associated with tuberculosis?', opts:['Coagulative necrosis','Liquefactive necrosis','Caseous necrosis','Fat necrosis'], ans:2, exp:'Caseous necrosis is characteristic of tuberculosis (and other mycobacterial infections, fungi). Grossly appears as cheese-like ("caseous" = cheese), white/grey friable material. Microscopically: amorphous granular debris surrounded by granulomatous inflammation.' },
+      { q:'The Philadelphia chromosome (BCR-ABL) is characteristically found in:', opts:['AML (M3)','Chronic Myeloid Leukaemia (CML)','Burkitt lymphoma','Multiple myeloma'], ans:1, exp:'The Philadelphia chromosome results from t(9;22) translocation → BCR-ABL fusion gene → constitutively active tyrosine kinase → uncontrolled cell proliferation. Found in >95% of CML and ~25% of adult ALL. Treated with imatinib (TKI).' },
+      { q:'Psammoma bodies are characteristically found in:', opts:['Glioblastoma','Papillary carcinoma of thyroid','Small cell carcinoma of lung','Fibroadenoma of breast'], ans:1, exp:'Psammoma bodies are concentric calcified structures seen in: Papillary thyroid carcinoma, Serous papillary ovarian carcinoma, Meningioma, and Papillary renal cell carcinoma. Mnemonic: PSaMMoMa — Papillary thyroid, Serous ovarian, Meningioma, Mesothelioma.' },
+      { q:'Which type of hypersensitivity reaction causes anaphylaxis?', opts:['Type I (IgE-mediated)','Type II (cytotoxic)','Type III (immune complex)','Type IV (cell-mediated)'], ans:0, exp:'Type I hypersensitivity (immediate/IgE-mediated): allergen cross-links IgE on mast cells → mast cell degranulation → histamine, leukotrienes, prostaglandins. Examples: anaphylaxis, allergic asthma, urticaria, hay fever. Treatment: adrenaline (epinephrine).' },
+      { q:'Amyloid deposits in Alzheimer\'s disease are composed of:', opts:['Tau protein aggregates','Amyloid β (Aβ) peptide — extracellular plaques','Alpha-synuclein','Prion protein (PrPSc)'], ans:1, exp:'Alzheimer\'s disease is characterized by extracellular amyloid β (Aβ) plaques (from APP cleavage by β/γ-secretases) AND intracellular neurofibrillary tangles (hyperphosphorylated tau). Down syndrome (trisomy 21 = extra APP gene) → early-onset Alzheimer.' },
+      { q:'Trousseau\'s sign (migratory thrombophlebitis) is associated with which malignancy?', opts:['Colon cancer','Pancreatic cancer','Lung cancer','Ovarian cancer'], ans:1, exp:'Trousseau\'s sign refers to migratory superficial thrombophlebitis and is classically associated with pancreatic adenocarcinoma (also other GI cancers). The tumour releases mucin and tissue factor → hypercoagulable state. Trousseau himself died of pancreatic cancer.' },
+      { q:'In type 2 diabetes mellitus, what is the primary pathophysiological defect?', opts:['Absolute insulin deficiency (autoimmune β-cell destruction)','Insulin resistance + progressive β-cell failure','Glucagon deficiency','Amylase deficiency'], ans:1, exp:'T2DM: initially insulin resistance (peripheral tissues do not respond) → compensatory hyperinsulinaemia → progressive β-cell exhaustion → relative insulin deficiency. Different from T1DM (autoimmune absolute deficiency). Strong genetic and lifestyle risk factors.' },
+      { q:'Which cell type is primarily responsible for granuloma formation?', opts:['Neutrophils','B lymphocytes','Epithelioid macrophages (histiocytes)','Natural killer cells'], ans:2, exp:'Granulomas consist of activated macrophages (epithelioid cells) + multinucleated giant cells (formed by macrophage fusion) + surrounding lymphocytes and fibroblasts. Type IV (delayed) hypersensitivity drives granuloma formation (e.g. TB, sarcoidosis, Crohn\'s).' },
+    ],
+    biochemistry: [
+      { q:'In glycolysis, the rate-limiting enzyme is:', opts:['Hexokinase','Phosphofructokinase-1 (PFK-1)','Pyruvate kinase','Aldolase'], ans:1, exp:'PFK-1 is the key regulatory (rate-limiting) enzyme of glycolysis. It is allosterically inhibited by ATP, citrate, and H⁺; activated by AMP and fructose-2,6-bisphosphate (F2,6BP — regulated by insulin/glucagon). F2,6BP is the most potent activator.' },
+      { q:'Phenylketonuria (PKU) is caused by deficiency of:', opts:['Tyrosinase','Phenylalanine hydroxylase','Homogentisate oxidase','Cystathionine synthase'], ans:1, exp:'PKU: deficiency of phenylalanine hydroxylase (PAH) → phenylalanine accumulates → converted to phenylketones. Autosomal recessive. Features: intellectual disability, seizures, "mousy" body odour, fair skin/hair (↓tyrosine → ↓melanin). Treated with phenylalanine-restricted diet + BH4.' },
+      { q:'Citric acid cycle (Krebs cycle) occurs in:', opts:['Cytoplasm','Mitochondrial outer membrane','Mitochondrial matrix','Endoplasmic reticulum'], ans:2, exp:'The citric acid (TCA/Krebs) cycle occurs in the mitochondrial matrix. It produces NADH, FADH₂, GTP, and CO₂. Glycolysis occurs in the cytoplasm; β-oxidation of fatty acids also occurs in the mitochondrial matrix.' },
+      { q:'Which vitamin deficiency causes Wernicke\'s encephalopathy?', opts:['Vitamin B12 (cobalamin)','Vitamin B1 (thiamine)','Vitamin B6 (pyridoxine)','Niacin (B3)'], ans:1, exp:'Wernicke\'s encephalopathy: thiamine (B1) deficiency → impaired pyruvate dehydrogenase and α-ketoglutarate dehydrogenase. Classic triad: confusion, ataxia, ophthalmoplegia. Common in chronic alcoholism, hyperemesis gravidarum. Treat urgently with IV thiamine.' },
+      { q:'The first committed step of cholesterol synthesis is catalysed by:', opts:['Acetyl-CoA acetyltransferase','HMG-CoA synthase','HMG-CoA reductase','Squalene synthase'], ans:2, exp:'HMG-CoA reductase (converts HMG-CoA to mevalonate) is the rate-limiting enzyme of cholesterol biosynthesis. This is the target of statins. The pathway: Acetyl-CoA → Acetoacetyl-CoA → HMG-CoA → (HMG-CoA reductase) → Mevalonate → → Cholesterol.' },
+      { q:'Glycogen storage disease (von Gierke\'s) is caused by deficiency of:', opts:['Glycogen phosphorylase','Debranching enzyme','Glucose-6-phosphatase','Branching enzyme'], ans:2, exp:'von Gierke\'s disease (GSD Type I): glucose-6-phosphatase deficiency → cannot convert G6P to glucose → severe fasting hypoglycaemia, hepatomegaly (glycogen + fat accumulation), lactic acidosis. Treated with frequent cornstarch feedings.' },
+      { q:'Which enzyme converts glucose-6-phosphate to 6-phosphogluconate in the pentose phosphate pathway?', opts:['Glucose-6-phosphatase','Glucose-6-phosphate dehydrogenase (G6PD)','Phosphoglucose isomerase','Hexokinase'], ans:1, exp:'G6PD (glucose-6-phosphate dehydrogenase) catalyses the first step of the pentose phosphate pathway, generating NADPH. NADPH is essential for glutathione reduction (antioxidant defence). G6PD deficiency → haemolytic anaemia triggered by oxidative stress (primaquine, fava beans, infections).' },
+      { q:'The urea cycle primarily takes place in the:', opts:['Liver cytoplasm only','Liver — starting in mitochondria, completing in cytoplasm','Kidneys','Both liver and muscle'], ans:1, exp:'The urea cycle partially occurs in the mitochondria (carbamoyl phosphate synthase I + OTC) and is completed in the cytoplasm (argininosuccinate synthetase, lyase, arginase). It occurs primarily in hepatocytes. Defects → hyperammonaemia.' },
+      { q:'Beta-oxidation of an 18-carbon saturated fatty acid yields how many Acetyl-CoA molecules?', opts:['7','8','9','18'], ans:2, exp:'An 18-carbon saturated FA undergoes 8 cycles of β-oxidation → 9 Acetyl-CoA molecules. Each cycle cleaves 2 carbons as Acetyl-CoA and also yields 1 NADH + 1 FADH₂. Total yield: 9 Acetyl-CoA, 8 NADH, 8 FADH₂.' },
+      { q:'Albinism is caused by deficiency of which enzyme?', opts:['Phenylalanine hydroxylase','Tyrosinase','Homogentisate oxidase','Branched-chain α-ketoacid dehydrogenase'], ans:1, exp:'Tyrosinase converts tyrosine → DOPA → melanin. Deficiency causes oculocutaneous albinism — lack of melanin in skin, hair, and eyes. Autosomal recessive. Increased risk of UV-related skin cancer due to lack of photoprotective melanin.' },
+    ],
+    medicine: [
+      { q:'The most common cause of community-acquired pneumonia (CAP) in adults is:', opts:['Staphylococcus aureus','Haemophilus influenzae','Streptococcus pneumoniae','Klebsiella pneumoniae'], ans:2, exp:'Streptococcus pneumoniae is the most common cause of CAP in adults worldwide (~30–40%). Other common causes: H. influenzae, Mycoplasma pneumoniae (atypical), Legionella (Pontiac fever), RSV (elderly). Staphylococcus is seen post-influenza and in IV drug users.' },
+      { q:'First-line treatment for uncomplicated urinary tract infection (UTI) in women:', opts:['Ciprofloxacin 500 mg BD × 3 days','Trimethoprim 200 mg BD × 7 days or Nitrofurantoin 100 mg BD × 5 days','Amoxicillin 500 mg TDS × 7 days','Cephalexin 500 mg QID × 7 days'], ans:1, exp:'First-line for uncomplicated lower UTI in women: Trimethoprim (7 days) or Nitrofurantoin (5 days, avoid if GFR <30). Ciprofloxacin is reserved for complicated UTI or pyelonephritis (guidelines discourage routine use for uncomplicated UTI to limit resistance).' },
+      { q:'Which ECG finding is characteristic of hyperkalaemia?', opts:['Prolonged QTc interval','Tall peaked T waves','Delta waves','ST depression'], ans:1, exp:'Hyperkalaemia ECG changes progress: peaked T waves → wide QRS → PR prolongation → flat P waves → sine wave → VF/asystole. Peaked T waves are the earliest sign. Treatment: calcium gluconate (cardiac membrane stabilisation), insulin/dextrose, bicarbonate, salbutamol, Kayexalate, dialysis.' },
+      { q:'A patient with blood pressure 160/100 mmHg should be classified as:', opts:['Elevated BP (pre-hypertension)','Stage 1 Hypertension','Stage 2 Hypertension','Hypertensive urgency'], ans:2, exp:'ACC/AHA 2017: Stage 2 Hypertension = SBP ≥140 or DBP ≥90 mmHg (or both). The patient\'s 160/100 meets Stage 2. Hypertensive urgency = >180/120 without end-organ damage; emergency = >180/120 with end-organ damage (HMOD).' },
+      { q:'Troponin I and troponin T are preferred biomarkers for myocardial infarction because:', opts:['They rise within 30 minutes of MI','They are specific to cardiac muscle and highly sensitive','They remain elevated for only 2–4 hours','They are the only markers that rise in MI'], ans:1, exp:'Cardiac troponin I (cTnI) and troponin T (cTnT) are highly specific to cardiac muscle (negligible expression elsewhere) and highly sensitive. They rise within 3–4 hours of MI, peak at 12–24 hours, and remain elevated for 7–10 days. High-sensitivity troponin (hs-cTn) detects MI earlier.' },
+      { q:'The most common cause of peptic ulcer disease (PUD) worldwide is:', opts:['NSAIDs','Helicobacter pylori','Zollinger-Ellison syndrome (gastrinoma)','Alcohol'], ans:1, exp:'H. pylori infection causes ~70–75% of duodenal ulcers and ~50–60% of gastric ulcers worldwide. It produces urease (hydrolyses urea → ammonia → mucosal damage), disrupts mucosal defence. Eradication with triple therapy (PPI + amoxicillin + clarithromycin) is curative.' },
+      { q:'Chvostek\'s sign and Trousseau\'s sign are clinical signs of:', opts:['Hyperkalaemia','Hypocalcaemia','Hypermagnesaemia','Hyponatraemia'], ans:1, exp:'Both signs indicate hypocalcaemia (tetany): Chvostek\'s = facial muscle twitch when tapping over facial nerve (CN VII) at the cheek. Trousseau\'s = carpal spasm when BP cuff inflated above systolic pressure for 3 min (occlusion → ↓Ca²⁺ → nerve hyperexcitability).' },
+      { q:'A patient with chronic alcoholism presents with confusion, ataxia, and nystagmus. The immediate treatment is:', opts:['IV glucose alone','IV thiamine (B1) before or with glucose','Oral folate 5 mg','IV haloperidol'], ans:1, exp:'This is Wernicke\'s encephalopathy (thiamine deficiency). Critical: IV thiamine MUST be given before or with glucose (glucose alone can precipitate or worsen Wernicke\'s by consuming remaining thiamine stores). Then give IV glucose for hypoglycaemia. IV thiamine 500 mg TDS for 3 days.' },
+      { q:'Which of the following is NOT a criterion for Systemic Inflammatory Response Syndrome (SIRS)?', opts:['Temperature >38°C or <36°C','Heart rate >90 bpm','Respiratory rate >20 or PaCO₂ <32 mmHg','Blood pressure <90/60 mmHg'], ans:3, exp:'SIRS criteria (2 or more required): (1) Temp >38°C or <36°C, (2) HR >90 bpm, (3) RR >20 or PaCO₂ <32 mmHg, (4) WBC >12,000 or <4,000 or >10% bands. Hypotension is a feature of SEPTIC SHOCK, not part of SIRS criteria.' },
+      { q:'The anti-inflammatory mechanism of glucocorticoids involves:', opts:['Blocking histamine receptors','Inhibiting phospholipase A₂ → ↓arachidonic acid release','COX-2 selective inhibition','Blocking TNF-α receptors directly'], ans:1, exp:'Glucocorticoids (e.g. prednisolone, dexamethasone) induce synthesis of annexin-1 (lipocortin-1) → inhibits phospholipase A₂ → ↓arachidonic acid release → ↓prostaglandins, leukotrienes, and thromboxanes. Also ↓NF-κB → ↓cytokine transcription (IL-1, IL-6, TNF-α).' },
+    ]
+  };
+
+  let selectedTopic = null;
+  let quizQuestions = [];
+  let currentQIdx = 0;
+  let quizScore = 0;
+  let quizAnswered = false;
+
+  function selectTopic(topic, btn) {
+    document.querySelectorAll('.quiz-topic-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedTopic = topic;
+    document.getElementById('startQuizBtn').disabled = false;
+  }
+
+  function startQuiz() {
+    if (!selectedTopic) return;
+    const bank = QUESTION_BANK[selectedTopic];
+    // Shuffle and take 10
+    quizQuestions = [...bank].sort(() => Math.random() - 0.5).slice(0, 10);
+    currentQIdx = 0; quizScore = 0;
+    document.getElementById('quizSetup').style.display = 'none';
+    document.getElementById('quizActive').classList.add('show');
+    document.getElementById('quizSummary').classList.remove('show');
+    showQuestion();
+  }
+
+  function showQuestion() {
+    quizAnswered = false;
+    const q = quizQuestions[currentQIdx];
+    document.getElementById('quizQNum').textContent = `Question ${currentQIdx+1} of ${quizQuestions.length}`;
+    document.getElementById('quizScoreBadge').textContent = `Score: ${quizScore}`;
+    document.getElementById('quizProgressFill').style.width = ((currentQIdx+1)/quizQuestions.length*100) + '%';
+    document.getElementById('quizQuestion').textContent = q.q;
+    document.getElementById('quizExplanation').classList.remove('show');
+    document.getElementById('quizNextBtn').style.display = 'none';
+
+    const optsCont = document.getElementById('quizOptions');
+    optsCont.innerHTML = q.opts.map((opt, i) =>
+      `<button class="quiz-option" onclick="answerQuestion(${i})">${String.fromCharCode(65+i)}. ${escHtml(opt)}</button>`
+    ).join('');
+  }
+
+  function answerQuestion(selectedIdx) {
+    if (quizAnswered) return;
+    quizAnswered = true;
+    const q = quizQuestions[currentQIdx];
+    const buttons = document.querySelectorAll('.quiz-option');
+    buttons.forEach(b => b.disabled = true);
+    buttons[selectedIdx].classList.add(selectedIdx === q.ans ? 'correct' : 'wrong');
+    buttons[q.ans].classList.add('correct');
+    if (selectedIdx === q.ans) quizScore++;
+    const expl = document.getElementById('quizExplanation');
+    expl.textContent = '💡 ' + q.exp;
+    expl.classList.add('show');
+    document.getElementById('quizNextBtn').style.display = 'inline-flex';
+    document.getElementById('quizScoreBadge').textContent = `Score: ${quizScore}`;
+  }
+
+  function nextQuestion() {
+    currentQIdx++;
+    if (currentQIdx >= quizQuestions.length) showSummary();
+    else showQuestion();
+  }
+
+  function showSummary() {
+    document.getElementById('quizActive').classList.remove('show');
+    const sum = document.getElementById('quizSummary');
+    sum.classList.add('show');
+    document.getElementById('quizFinalScore').textContent = `${quizScore}/${quizQuestions.length}`;
+    const pct = Math.round(quizScore/quizQuestions.length*100);
+    let msg = pct >= 80 ? '🌟 Excellent work! You have a strong grasp of this topic.' :
+              pct >= 60 ? '👍 Good effort! Review the questions you missed and try again.' :
+              '📚 Keep studying! Focus on the explanations for the questions you missed.';
+    document.getElementById('quizFinalMsg').textContent = msg;
+
+    const breakdown = document.getElementById('quizBreakdown');
+    breakdown.innerHTML = `
+      <div class="quiz-breakdown-item"><div class="quiz-breakdown-label">Correct</div><div class="quiz-breakdown-val" style="color:#16a34a;">${quizScore}</div></div>
+      <div class="quiz-breakdown-item"><div class="quiz-breakdown-label">Incorrect</div><div class="quiz-breakdown-val" style="color:#dc2626;">${quizQuestions.length - quizScore}</div></div>
+      <div class="quiz-breakdown-item"><div class="quiz-breakdown-label">Score %</div><div class="quiz-breakdown-val">${pct}%</div></div>
+      <div class="quiz-breakdown-item"><div class="quiz-breakdown-label">Topic</div><div class="quiz-breakdown-val" style="text-transform:capitalize;">${selectedTopic}</div></div>
+    `;
+  }
+
+  function restartQuiz() {
+    const bank = QUESTION_BANK[selectedTopic];
+    quizQuestions = [...bank].sort(() => Math.random() - 0.5).slice(0, 10);
+    currentQIdx = 0; quizScore = 0;
+    document.getElementById('quizSummary').classList.remove('show');
+    document.getElementById('quizActive').classList.add('show');
+    showQuestion();
+  }
+
+  function showQuizSetup() {
+    document.getElementById('quizSummary').classList.remove('show');
+    document.getElementById('quizActive').classList.remove('show');
+    document.getElementById('quizSetup').style.display = '';
+    document.querySelectorAll('.quiz-topic-btn').forEach(b => b.classList.remove('selected'));
+    selectedTopic = null;
+    document.getElementById('startQuizBtn').disabled = true;
+  }
+
+  /* ══════════════════════════════════════════════
+     LAB VALUES DATA
+  ══════════════════════════════════════════════ */
+  const LAB_DATA = {
+    'Complete Blood Count (CBC)': [
+      { test:'Haemoglobin (Hb)', male:'13.5–17.5', female:'11.5–15.5', unit:'g/dL', note:'Newborn: 14–20 g/dL' },
+      { test:'Haematocrit (Hct / PCV)', male:'41–53%', female:'36–46%', unit:'%', note:'' },
+      { test:'RBC count', male:'4.5–5.9', female:'3.8–5.2', unit:'×10¹²/L', note:'' },
+      { test:'MCV (Mean Corpuscular Volume)', male:'80–100', female:'80–100', unit:'fL', note:'<80=microcytic, >100=macrocytic' },
+      { test:'MCH', male:'27–33', female:'27–33', unit:'pg', note:'' },
+      { test:'MCHC', male:'31–37', female:'31–37', unit:'g/dL', note:'' },
+      { test:'White Blood Cells (WBC)', male:'4.5–11.0', female:'4.5–11.0', unit:'×10⁹/L', note:'Differential below' },
+      { test:'Neutrophils', male:'1.8–7.7', female:'1.8–7.7', unit:'×10⁹/L', note:'50–70% of WBC' },
+      { test:'Lymphocytes', male:'1.0–4.8', female:'1.0–4.8', unit:'×10⁹/L', note:'20–40% of WBC' },
+      { test:'Monocytes', male:'0.2–1.0', female:'0.2–1.0', unit:'×10⁹/L', note:'2–8% of WBC' },
+      { test:'Eosinophils', male:'0.0–0.45', female:'0.0–0.45', unit:'×10⁹/L', note:'1–4%. ↑ in allergy/parasites' },
+      { test:'Basophils', male:'0–0.2', female:'0–0.2', unit:'×10⁹/L', note:'<1%' },
+      { test:'Platelets', male:'150–400', female:'150–400', unit:'×10⁹/L', note:'<150=thrombocytopenia, >400=thrombocytosis' },
+    ],
+    'Electrolytes & Metabolic': [
+      { test:'Sodium (Na⁺)', male:'136–145', female:'136–145', unit:'mEq/L', note:'<135 hyponatraemia, >145 hypernatraemia' },
+      { test:'Potassium (K⁺)', male:'3.5–5.0', female:'3.5–5.0', unit:'mEq/L', note:'<3.5 hypokalaemia, >5.0 hyperkalaemia' },
+      { test:'Chloride (Cl⁻)', male:'98–106', female:'98–106', unit:'mEq/L', note:'' },
+      { test:'Bicarbonate (HCO₃⁻)', male:'22–29', female:'22–29', unit:'mEq/L', note:'Venous; arterial 22–26 mEq/L' },
+      { test:'Blood Urea Nitrogen (BUN)', male:'7–20', female:'7–20', unit:'mg/dL', note:'BUN:Cr ratio >20:1 → pre-renal' },
+      { test:'Serum Creatinine', male:'0.7–1.2', female:'0.5–1.0', unit:'mg/dL', note:'Adjusted for muscle mass' },
+      { test:'Uric Acid', male:'3.5–7.2', female:'2.6–6.0', unit:'mg/dL', note:'>7.0 → gout risk' },
+      { test:'Calcium (Ca²⁺) — total', male:'8.5–10.5', female:'8.5–10.5', unit:'mg/dL', note:'Correct for albumin: Ca + 0.8×(4-albumin)' },
+      { test:'Phosphate (PO₄³⁻)', male:'2.5–4.5', female:'2.5–4.5', unit:'mg/dL', note:'Inverse relationship with Ca²⁺' },
+      { test:'Magnesium (Mg²⁺)', male:'1.7–2.2', female:'1.7–2.2', unit:'mg/dL', note:'<1.7 → hypomagnesaemia (causes hypoCa)' },
+    ],
+    'Liver Function Tests (LFTs)': [
+      { test:'ALT (SGPT)', male:'7–56', female:'7–35', unit:'U/L', note:'Most liver-specific; ↑↑ in hepatitis/toxins' },
+      { test:'AST (SGOT)', male:'10–40', female:'10–35', unit:'U/L', note:'Less specific; ↑ in MI, muscle injury' },
+      { test:'Alkaline Phosphatase (ALP)', male:'44–147', female:'33–115', unit:'U/L', note:'↑ in cholestasis, bone disease, pregnancy' },
+      { test:'GGT (Gamma-GT)', male:'8–61', female:'5–36', unit:'U/L', note:'Sensitive marker for alcohol use & cholestasis' },
+      { test:'Total Bilirubin', male:'0.2–1.2', female:'0.2–1.2', unit:'mg/dL', note:'Direct + Indirect. >2.5 → clinical jaundice' },
+      { test:'Direct (conjugated) Bilirubin', male:'0.0–0.3', female:'0.0–0.3', unit:'mg/dL', note:'↑ in cholestasis, hepatitis' },
+      { test:'Albumin', male:'3.5–5.0', female:'3.5–5.0', unit:'g/dL', note:'Marker of synthetic function; ↓ in chronic disease' },
+      { test:'Total Protein', male:'6.3–8.2', female:'6.3–8.2', unit:'g/dL', note:'' },
+      { test:'PT / INR', male:'11–14 s (INR 0.9–1.1)', female:'11–14 s', unit:'sec / ratio', note:'Prolonged in liver disease, vit K deficiency, warfarin' },
+    ],
+    'Kidney Function': [
+      { test:'GFR / eGFR', male:'90–120', female:'90–120', unit:'mL/min/1.73m²', note:'<60 for >3 months = CKD. Stages G1–G5' },
+      { test:'Urine Protein (24h)', male:'<150', female:'<150', unit:'mg/day', note:'>300 mg/day = proteinuria; >3.5g/day = nephrotic' },
+      { test:'Urine Protein:Creatinine Ratio', male:'<0.2', female:'<0.2', unit:'mg/mg', note:'>0.2 suggests significant proteinuria' },
+      { test:'Urine Specific Gravity', male:'1.005–1.030', female:'1.005–1.030', unit:'', note:'<1.005 = very dilute, >1.030 = concentrated' },
+    ],
+    'Cardiac Biomarkers & Lipids': [
+      { test:'Troponin I (conventional)', male:'<0.04', female:'<0.04', unit:'ng/mL', note:'Rises 3–4h, peaks 12–24h, lasts 7–10 days' },
+      { test:'CK-MB', male:'<5% of total CK', female:'<5% of total CK', unit:'% or U/L', note:'Rises 3–6h; used if troponin unavailable' },
+      { test:'Total Cholesterol', male:'<200', female:'<200', unit:'mg/dL', note:'Desirable <200; Borderline 200–239; High ≥240' },
+      { test:'LDL Cholesterol', male:'<100 (optimal)', female:'<100', unit:'mg/dL', note:'<70 in very high CV risk; target with statins' },
+      { test:'HDL Cholesterol', male:'>40', female:'>50', unit:'mg/dL', note:'Higher is better; <40 (M)/<50 (F) = risk factor' },
+      { test:'Triglycerides (fasting)', male:'<150', female:'<150', unit:'mg/dL', note:'Borderline 150–199; High 200–499; Very high ≥500' },
+      { test:'BNP (B-type Natriuretic Peptide)', male:'<100', female:'<100', unit:'pg/mL', note:'↑ in heart failure. >400 = likely HF' },
+      { test:'NT-proBNP', male:'<125 (<75y)', female:'<125', unit:'pg/mL', note:'<300 rules out HF. Age-adjusted cutoffs exist' },
+    ],
+    'Thyroid & Hormones': [
+      { test:'TSH (Thyroid Stimulating Hormone)', male:'0.4–4.0', female:'0.4–4.0', unit:'mIU/L', note:'Best initial thyroid test. ↑ in hypothyroid, ↓ in hyperthyroid' },
+      { test:'Free T4 (fT4)', male:'0.8–1.8', female:'0.8–1.8', unit:'ng/dL', note:'' },
+      { test:'Free T3 (fT3)', male:'2.3–4.2', female:'2.3–4.2', unit:'pg/mL', note:'' },
+      { test:'Cortisol (morning, 8 am)', male:'6–23', female:'6–23', unit:'μg/dL', note:'Low → Addison\'s; High → Cushing\'s' },
+      { test:'Fasting Insulin', male:'2–25', female:'2–25', unit:'μU/mL', note:'' },
+      { test:'HbA1c', male:'<5.7%', female:'<5.7%', unit:'%', note:'5.7–6.4% = pre-diabetes; ≥6.5% = diabetes' },
+    ],
+    'Arterial Blood Gas (ABG) — Normal': [
+      { test:'pH', male:'7.35–7.45', female:'7.35–7.45', unit:'', note:'<7.35 acidosis, >7.45 alkalosis' },
+      { test:'PaO₂', male:'80–100', female:'80–100', unit:'mmHg', note:'<60 = respiratory failure (type I)' },
+      { test:'PaCO₂', male:'35–45', female:'35–45', unit:'mmHg', note:'<35 hyperventilation, >45 hypoventilation' },
+      { test:'HCO₃⁻ (arterial)', male:'22–26', female:'22–26', unit:'mEq/L', note:'' },
+      { test:'SpO₂', male:'95–100%', female:'95–100%', unit:'%', note:'<95% = hypoxaemia; <90% = respiratory failure' },
+      { test:'Base Excess (BE)', male:'−2 to +2', female:'−2 to +2', unit:'mEq/L', note:'<−2 = metabolic acidosis; >+2 = metabolic alkalosis' },
+    ]
+  };
+
+  function buildLabContent() {
+    const container = document.getElementById('labContent');
+    container.innerHTML = Object.entries(LAB_DATA).map(([cat, rows]) => `
+      <div class="lab-category" data-category="${cat.toLowerCase()}">
+        <div class="lab-category-title">📋 ${cat}</div>
+        <div style="overflow-x:auto;">
+          <table class="lab-table">
+            <thead><tr><th>Test</th><th>Male</th><th>Female</th><th>Unit</th><th>Notes</th></tr></thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr class="lab-row" data-search="${r.test.toLowerCase()} ${cat.toLowerCase()} ${r.note.toLowerCase()}">
+                  <td><strong>${r.test}</strong></td>
+                  <td class="lab-range">${r.male}</td>
+                  <td class="lab-range">${r.female}</td>
+                  <td class="lab-unit">${r.unit}</td>
+                  <td class="lab-note">${r.note}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `).join('');
+  }
+  buildLabContent();
+
+  function filterLabs() {
+    const q = document.getElementById('labSearch').value.toLowerCase().trim();
+    document.querySelectorAll('.lab-row').forEach(row => {
+      const match = row.dataset.search && row.dataset.search.includes(q);
+      row.style.display = q === '' || match ? '' : 'none';
+    });
+    document.querySelectorAll('.lab-category').forEach(cat => {
+      const visibleRows = cat.querySelectorAll('.lab-row:not([style*="display: none"])');
+      cat.style.display = visibleRows.length > 0 ? '' : 'none';
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     TAB SWITCHING
+  ══════════════════════════════════════════════ */
+  document.querySelectorAll('.med-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.med-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.med-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  /* ══════════════════════════════════════════════
+     INIT
+  ══════════════════════════════════════════════ */
+  loadDeck('anatomy');
+
+  /* ══════════════════════════════════════════════
+     UTILITY
+  ══════════════════════════════════════════════ */
+  function roundN(n, dp) { return Math.round(n * Math.pow(10,dp)) / Math.pow(10,dp); }
+  function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function showToast(msg, type='info') {
+    const container = document.querySelector('.toast-container');
+    if (!container) return;
+    const t = document.createElement('div');
+    const colors = { success:'#16a34a', info:'#2563eb', warning:'#d97706', error:'#dc2626' };
+    t.style.cssText = `background:${colors[type]||colors.info};color:#fff;padding:10px 18px;border-radius:10px;font-size:0.85rem;font-weight:600;pointer-events:all;box-shadow:0 4px 16px rgba(0,0,0,0.18);`;
+    t.textContent = msg;
+    container.appendChild(t);
+    setTimeout(() => t.remove(), 2500);
+  }
+
+  /* ══════════════════════════════════════════════
+     NAVBAR / HAMBURGER / SEARCH (standard)
+  ══════════════════════════════════════════════ */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  if (hamburger) hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon   = document.getElementById('themeIcon');
+  if (themeToggle) {
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.setAttribute('data-mode', t);
+      localStorage.setItem('ht-theme', t);
+      localStorage.setItem('ht-mode', t);
+      if (themeIcon) {
+        themeIcon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      }
+    }
+    const saved = localStorage.getItem('ht-theme') || 'light';
+    applyTheme(saved);
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  const navSearchBtn  = document.getElementById('navSearchBtn');
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchClose   = document.getElementById('searchClose');
+  if (navSearchBtn) navSearchBtn.addEventListener('click', () => searchOverlay.classList.add('open'));
+  if (searchClose)  searchClose.addEventListener('click', () => searchOverlay.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') searchOverlay && searchOverlay.classList.remove('open'); });
+
+  </script>
+</body>
+</html>

@@ -46,26 +46,18 @@ const OUTPUTS_DIR = path.join(__dirname, 'outputs');
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 // CORS — allow requests from HashmiTools frontend + localhost for development
-const allowedOrigins = [
-  'https://hashmitools.com',
-  'https://hashmitools.vercel.app',
-  'http://localhost:3000',
-  'http://localhost:5500',
-  'http://127.0.0.1:5500',
-  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : []),
-];
-
+// ROOT CAUSE FIX: Use permissive CORS that accepts any origin for this public
+// media-processing API. The backend has no user auth — CORS isn't a security
+// layer here. Strict CORS was causing silent "spinner then fail" errors.
 app.use(cors({
-  origin: (origin, cb) => {
-    // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin) return cb(null, true);
-    if (allowedOrigins.some(o => origin.startsWith(o))) return cb(null, true);
-    cb(new Error(`CORS: Origin "${origin}" not allowed`));
-  },
+  origin: true,   // Reflect any origin — fixes CORS failures from all frontends
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
 }));
+
+// Handle CORS preflight for all routes
+app.options('*', cors({ origin: true }));
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
@@ -221,7 +213,7 @@ app.post('/api/yt-metadata', async (req, res) => {
 
 // ── POST /api/process ─────────────────────────────────────────────────────────
 app.post('/api/process', processLimiter, async (req, res) => {
-  const { jobId, clipLength, numClips, cutMode, vertical, youtubeTitle } = req.body;
+  const { jobId, clipLength, numClips, cutMode, vertical, videoTitle } = req.body;
 
   // Input validation
   if (!jobId) return res.status(400).json({ error: 'jobId is required' });
@@ -255,7 +247,7 @@ app.post('/api/process', processLimiter, async (req, res) => {
   res.json({ jobId, status: 'processing', message: 'Processing started. Poll /api/status/:jobId for updates.' });
 
   // ── Async processing pipeline ──
-  processVideoJob(job, jobId, parsedClipLength, parsedNumClips, parsedCutMode, makeVertical, youtubeTitle || job.originalName)
+  processVideoJob(job, jobId, parsedClipLength, parsedNumClips, parsedCutMode, makeVertical, videoTitle || job.originalName)
     .catch(err => {
       console.error(`[process] Job ${jobId} failed:`, err);
       jobs.updateStatus(jobId, 'failed', err.message);

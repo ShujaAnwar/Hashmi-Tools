@@ -1,0 +1,67 @@
+<section class="ht-content-section" style="background:#fff;padding:48px 24px;max-width:860px;margin:48px auto 0;font-family:system-ui,sans-serif;line-height:1.75;color:#1a1a1a;">
+  <h2 style="font-size:1.75rem;font-weight:700;margin-bottom:16px;color:#111;">PDF Split and Merge — Organise Your Documents Without Desktop Software</h2>
+  <p>Two of the most common PDF document tasks — splitting a large PDF into individual sections, and merging multiple separate PDFs into a single document — have traditionally required paid desktop software or risky file uploads to online tools. Both operations can now be done entirely in your browser using the pdf-lib library with no server uploads, no file size costs, and no subscription.</p>
+  <p>These tools are particularly useful in Pakistani contexts where government offices, universities, banks, and employers frequently request documents as single PDF submissions. Assembling your CNIC, degree certificates, experience letters, and reference letters into a single, properly ordered PDF is a 60-second task with this tool — versus 20+ minutes of hunting for the right desktop app or risking a sensitive document upload to a random online service.</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">PDF Split: Common Scenarios</h3>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>Extract a single page</strong> — pull one page from a 50-page bank statement to share one specific transaction record</li>
+    <li style="margin-bottom:8px;"><strong>Split by range</strong> — separate pages 1–10 from pages 11–20 of a combined report, creating two focused documents</li>
+    <li style="margin-bottom:8px;"><strong>Extract every page as separate files</strong> — convert each page of a scanned multi-page document into individual PDFs for sorting and organisation</li>
+    <li style="margin-bottom:8px;"><strong>Remove confidential pages</strong> — extract all pages except the ones containing sensitive information before sharing</li>
+  </ul>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">PDF Merge: Common Scenarios</h3>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>Job application package</strong> — merge CV + degree certificate + experience letter + CNIC scan into one professionally ordered document</li>
+    <li style="margin-bottom:8px;"><strong>University application</strong> — combine all required certificates and supporting documents into a single submission file</li>
+    <li style="margin-bottom:8px;"><strong>Tax documentation</strong> — merge monthly invoices or receipts into a single annual PDF for FBR records</li>
+    <li style="margin-bottom:8px;"><strong>Compiled reports</strong> — assemble separate chapter PDFs, table of contents, and appendices into a single publication-ready document</li>
+    <li style="margin-bottom:8px;"><strong>Legal bundles</strong> — compile court filings, evidence, and supporting documents in required page order</li>
+  </ul>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">How the Split Algorithm Works</h3>
+  <ol style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;">Your PDF is loaded into pdf-lib in the browser memory</li>
+    <li style="margin-bottom:8px;">You specify the split points (page range, specific pages, or "every page")</li>
+    <li style="margin-bottom:8px;">pdf-lib creates a new PDFDocument object for each output section</li>
+    <li style="margin-bottom:8px;">Pages are copied from the source document to the appropriate output document using <code>copyPages()</code> — this preserves fonts, images, annotations, and formatting from the original</li>
+    <li style="margin-bottom:8px;">Each output document is serialised to bytes and downloaded as a separate PDF file</li>
+  </ol>
+  <p>The merge process works in reverse: each source document's pages are copied into a single target PDFDocument in the order you specify, then serialised and downloaded.</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Tips for Best Results</h3>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>Check page count first</strong> — use the page thumbnail view to confirm page numbers match what you expect before splitting</li>
+    <li style="margin-bottom:8px;"><strong>Password-protected PDFs</strong> — if a PDF requires a password to open, enter it before splitting/merging; the output documents will not be password-protected by default</li>
+    <li style="margin-bottom:8px;"><strong>Merge order matters</strong> — drag to reorder source documents before merging; the order in the thumbnail list becomes the order in the final PDF</li>
+    <li style="margin-bottom:8px;"><strong>Scanned PDFs vs. text PDFs</strong> — both are supported, but scanned PDFs will be larger files since each page is a high-resolution image rather than vector text</li>
+  </ul>
+
+  <h2 style="font-size:1.5rem;font-weight:700;margin:40px 0 20px;color:#111;">Frequently Asked Questions</h2>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Is there a limit on how many PDFs I can merge?</h3>
+    <p style="margin:0;color:#444;">Up to 20 PDFs can be merged in a single operation. Total combined size should stay under 200 MB for smooth browser performance. For very large merges, split the process: merge the first 10 documents, then merge that result with the next 10.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Will merged PDFs preserve bookmarks and hyperlinks from the originals?</h3>
+    <p style="margin:0;color:#444;">Hyperlinks within the PDF text are preserved. PDF bookmarks (the navigation tree) from individual documents are not automatically merged into a combined table of contents — you would need a more advanced tool (like Adobe Acrobat) to combine bookmark structures. For most document submission purposes, this limitation doesn't matter.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Can I add page numbers to the merged PDF?</h3>
+    <p style="margin:0;color:#444;">Page number headers/footers are planned as a feature. Currently, the merge tool combines pages without adding numbers. For documents requiring page numbering, open the merged PDF in the PDF Editor and use the "Add Text" function to manually add page numbers, or use a desktop tool like LibreOffice for automatic page numbering on the final document.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Are my PDFs uploaded to a server?</h3>
+    <p style="margin:0;color:#444;">No — all splitting and merging is performed by the pdf-lib JavaScript library running entirely in your browser. Documents containing sensitive content (financial records, contracts, identity documents) are never transmitted to any server. The browser DevTools Network tab will confirm zero upload requests during the entire process.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">What if my PDF fails to load?</h3>
+    <p style="margin:0;color:#444;">PDF loading failures usually have three causes: (1) the PDF is corrupted — try opening it in Adobe Reader first to verify; (2) the PDF uses encryption/DRM that restricts all programmatic access; (3) the PDF uses an obscure embedded font or compression format not supported by pdf-lib. For encrypted/DRM PDFs, the rights holder's software must be used. Contact us if you encounter a PDF that should work but doesn't.</p>
+  </div>
+</section>

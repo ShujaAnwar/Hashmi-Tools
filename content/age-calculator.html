@@ -1,0 +1,58 @@
+<section style="max-width:860px;margin:40px auto;padding:0 20px 60px">
+<style>
+.hta h2{font-size:1.3rem;font-weight:700;margin:32px 0 10px;color:var(--text-primary)}
+.hta h3{font-size:1.05rem;font-weight:700;margin:22px 0 8px;color:var(--text-primary)}
+.hta p{font-size:0.95rem;line-height:1.85;color:var(--text-secondary);margin-bottom:13px}
+.hta ul,.hta ol{padding-left:22px;color:var(--text-secondary);font-size:0.95rem;line-height:1.9;margin-bottom:14px}
+.hta .ex{background:var(--bg-secondary);border-left:4px solid #6366f1;border-radius:8px;padding:18px 22px;margin:18px 0}
+.hta .fq{border-top:1px solid var(--border-color);padding:14px 0 4px}
+.hta .fq b{display:block;color:var(--text-primary);margin-bottom:6px;font-size:0.95rem}
+</style>
+<div class="hta">
+<h2>Why Your Exact Age in Days and Months Matters</h2>
+<p>Knowing your age in years is fine for casual conversation, but many real-world situations demand precision down to months, weeks, or even individual days. Government job applications in Pakistan and the Gulf often set an upper age limit that is enforced to the exact date on the closing day. School admission cut-offs — such as "must turn 5 before 1 October" — are checked to the calendar day. Life insurance premiums are bracketed by age at next birthday. Working-holiday visa programmes like Australia's 35-year limit are judged on the day the application is lodged, not the year. This free age calculator gives you every figure you need: years, months, weeks, days, hours, and minutes of elapsed life — instantly.</p>
+
+<h2>How the Age Calculator Works — The Actual Logic</h2>
+<p>Simple subtraction of years produces the wrong answer for part of every year. A correct age calculation requires three passes:</p>
+<ol>
+<li><strong>Full calendar years:</strong> Subtract birth year from current year, then subtract 1 if today is before the birthday in the current year.</li>
+<li><strong>Remaining months:</strong> Count complete months from the last birthday anniversary to today.</li>
+<li><strong>Remaining days:</strong> Count days from the last completed-month anniversary to today, respecting the actual length of each month.</li>
+</ol>
+<p>Leap years matter for the total-days figure. A person born in 1992 has lived through more 29-February occurrences than someone born in 1993, so their total elapsed days differ even at the same "years old." This tool counts every actual calendar day, matching the method used by actuaries, courts, and government databases.</p>
+
+<h2>Who Needs This Tool</h2>
+<ul>
+<li><strong>Job applicants</strong> — Federal and provincial government posts in Pakistan (CSS, PMS, NTS) enforce age limits to the exact closing date. One day over and the form is rejected. Calculate your age as of the application deadline before you apply.</li>
+<li><strong>Parents enrolling children</strong> — School boards enforce age cutoffs strictly. Know your child's exact age on the cutoff date, not just an approximate year.</li>
+<li><strong>Doctors and nurses</strong> — Paediatric drug dosing, developmental milestone charts, and vaccination schedules are all given in exact months of age, not years.</li>
+<li><strong>HR and payroll officers</strong> — Gratuity calculations, pension eligibility, and EOBI contributions have month-level triggers in Pakistani labour law.</li>
+<li><strong>Visa applicants</strong> — Youth visa programmes, working-holiday schemes, and dependent-visa cutoffs are enforced to the day of application.</li>
+</ul>
+
+<h2>Worked Example — Step by Step</h2>
+<div class="ex">
+<p><strong>Birth date:</strong> 15 March 1995 &nbsp;·&nbsp; <strong>Reference date:</strong> 10 July 2025</p>
+<p><strong>Step 1 — Full years:</strong> 2025 − 1995 = 30. Since 10 July is <em>after</em> 15 March, the birthday has passed this year. Age = <strong>30 years</strong>.</p>
+<p><strong>Step 2 — Remaining months:</strong> From 15 March to 15 June = 3 full months. 10 July is before 15 July, so no 4th full month. Remaining = <strong>3 months</strong>.</p>
+<p><strong>Step 3 — Remaining days:</strong> From 15 June to 10 July = 25 days. Remaining = <strong>25 days</strong>.</p>
+<p><strong>Final result:</strong> 30 years, 3 months, 25 days — equivalent to 363 months, 1,577 weeks, or 11,044 total days.</p>
+</div>
+
+<h2>5 Common Mistakes in Manual Age Calculation</h2>
+<ul>
+<li><strong>Skipping the birthday-this-year check</strong> — subtracting years without asking "has the birthday passed yet this year" gives a result one year too high for part of the year.</li>
+<li><strong>Assuming 30 days in every month</strong> — February has 28 or 29; April, June, September, November have 30. Using 30 uniformly introduces 1–3 day errors each month.</li>
+<li><strong>Ignoring leap days in total-day counts</strong> — every 4 years adds an extra calendar day; across 30 years that is 7 or 8 extra days depending on birth year.</li>
+<li><strong>Confusing "age at next birthday" with "current age"</strong> — insurance and some legal documents use "age at nearest birthday" (rounds up after the halfway point), which differs from elapsed completed years.</li>
+<li><strong>Wrong timezone on the birthday</strong> — if you were born at 11 pm on 15 March in Pakistan Standard Time, the UTC date was already 16 March. For precise legal calculations, the local civil date at place of birth is what counts.</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+<div class="fq"><b>How is age calculated for someone born on 29 February?</b><p>In non-leap years the standard legal convention in most jurisdictions (including Pakistan) treats 1 March as the anniversary. Some UK and older Commonwealth documents use 28 February. This tool uses 1 March — the most widely applied rule. Always verify with the issuing authority if the document is legally sensitive.</p></div>
+<div class="fq"><b>Can I find the age difference between two people?</b><p>Yes. Enter one person's birth date, note the result, then enter the second person's birth date. Alternatively, enter Person A's birth date and set the "As of" date to Person B's birth date — the result is exactly how old Person A was when Person B was born, which is a quick way to find the age gap in years, months, and days.</p></div>
+<div class="fq"><b>Why does this calculator show a different total-days count than another site?</b><p>Almost always this comes down to leap year treatment. Some tools multiply years × 365 and add remainder days, which misses leap days. This calculator counts every actual calendar day between the two dates, which is the accurate method used by government systems and actuarial software.</p></div>
+<div class="fq"><b>Is this calculator accurate enough for visa or job applications?</b><p>The mathematical result is identical to a standard Gregorian calendar calculation and will match what a government system computes. However, always read the exact wording of the requirement — some schemes measure age "as of the date of application," others "as of the date the visa is issued," which can differ by months during processing.</p></div>
+<div class="fq"><b>Can I calculate the age of a company, building, or historical event?</b><p>Yes — the date picker accepts any past date, not just birth dates. Enter a founding date, construction year, or historical event date and you will get the precise elapsed time since that event, which is useful for anniversary planning, legal statute-of-limitations checks, and historical research.</p></div>
+</div>
+</section>

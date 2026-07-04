@@ -322,18 +322,30 @@
 
   <script src="../js/main.js"></script>
   <script>
+  // ── City database ──────────────────────────────────────────────────────────
   const CITIES = {
-    PK: [['Karachi',24.86,67.01],['Lahore',31.56,74.34],['Islamabad',33.72,73.04],['Rawalpindi',33.60,73.04],['Faisalabad',31.42,73.08],['Multan',30.20,71.48],['Peshawar',34.01,71.57],['Quetta',30.19,67.00],['Hyderabad',25.39,68.37],['Sialkot',32.49,74.53]],
-    SA: [['Makkah',21.39,39.86],['Madinah',24.47,39.60],['Riyadh',24.69,46.72],['Jeddah',21.54,39.17],['Dammam',26.44,50.10]],
-    AE: [['Dubai',25.20,55.27],['Abu Dhabi',24.47,54.37],['Sharjah',25.34,55.39]],
-    US: [['New York',40.71,-74.00],['Los Angeles',34.05,-118.24],['Chicago',41.85,-87.65],['Houston',29.76,-95.37]],
-    GB: [['London',51.51,-0.13],['Birmingham',52.48,-1.90],['Manchester',53.48,-2.24]],
-    IN: [['Delhi',28.61,77.21],['Mumbai',19.08,72.88],['Hyderabad',17.39,78.49]],
-    BD: [['Dhaka',23.81,90.41],['Chittagong',22.33,91.84]],
+    PK: [['Karachi',24.86,67.01],['Lahore',31.56,74.34],['Islamabad',33.72,73.04],['Rawalpindi',33.60,73.04],['Faisalabad',31.42,73.08],['Multan',30.20,71.48],['Peshawar',34.01,71.57],['Quetta',30.19,67.00],['Hyderabad',25.39,68.37],['Sialkot',32.49,74.53],['Gujranwala',32.16,74.19],['Bahawalpur',29.39,71.68],['Sargodha',32.08,72.67],['Sukkur',27.70,68.86],['Larkana',27.56,68.21]],
+    SA: [['Makkah',21.39,39.86],['Madinah',24.47,39.60],['Riyadh',24.69,46.72],['Jeddah',21.54,39.17],['Dammam',26.44,50.10],['Mecca',21.42,39.83]],
+    AE: [['Dubai',25.20,55.27],['Abu Dhabi',24.47,54.37],['Sharjah',25.34,55.39],['Ajman',25.41,55.44]],
+    US: [['New York',40.71,-74.00],['Los Angeles',34.05,-118.24],['Chicago',41.85,-87.65],['Houston',29.76,-95.37],['Dallas',32.78,-96.80]],
+    GB: [['London',51.51,-0.13],['Birmingham',52.48,-1.90],['Manchester',53.48,-2.24],['Bradford',53.80,-1.75]],
+    IN: [['Delhi',28.61,77.21],['Mumbai',19.08,72.88],['Hyderabad',17.39,78.49],['Lucknow',26.85,80.95]],
+    BD: [['Dhaka',23.81,90.41],['Chittagong',22.33,91.84],['Sylhet',24.89,91.87]],
     EG: [['Cairo',30.04,31.24],['Alexandria',31.20,29.92]],
-    TR: [['Istanbul',41.01,28.95],['Ankara',39.92,32.86]],
-    MY: [['Kuala Lumpur',3.15,101.69],['Penang',5.41,100.33]],
+    TR: [['Istanbul',41.01,28.95],['Ankara',39.92,32.86],['Bursa',40.19,29.06]],
+    MY: [['Kuala Lumpur',3.15,101.69],['Penang',5.41,100.33],['Johor Bahru',1.46,103.76]],
   };
+
+  // Aladhan method codes
+  const METHOD_CODES = {
+    'Karachi': 1,   // University of Islamic Sciences, Karachi
+    'ISNA':    2,   // Islamic Society of North America
+    'MWL':     3,   // Muslim World League
+    'Makkah':  4,   // Umm Al-Qura, Makkah
+    'Egypt':   5,   // Egyptian General Authority of Survey
+  };
+
+  let countdownTimer = null;
 
   function updateCities() {
     const country = document.getElementById('countrySelect').value;
@@ -349,135 +361,143 @@
     return (CITIES[country] || []).find(([name]) => name === cityName);
   }
 
-  function calcPrayerTimes(lat, lng, date) {
-    // Simplified prayer time calculation
-    const rad = Math.PI / 180;
-    const deg = 180 / Math.PI;
-    const JD = julianDate(date);
-    const eqTime = equationOfTime(JD);
-    const decl = sunDeclination(JD);
-    const method = document.getElementById('methodSelect').value;
-
-    const fajrAngle = method === 'Karachi' || method === 'MWL' ? 18 : method === 'ISNA' ? 15 : 18.5;
-    const ishaAngle = method === 'Karachi' || method === 'Egypt' ? 18 : method === 'ISNA' ? 15 : method === 'Makkah' ? 0 : 17;
-
-    const timezone = guessTimezone(lat, lng);
-    const solar = 12 - eqTime / 60 - (lng - timezone * 15) / 15;
-
-    function prayerHour(angle, isMorning) {
-      const cosH = (-Math.sin(angle * rad) + Math.sin(lat * rad) * Math.sin(decl * rad)) / (Math.cos(lat * rad) * Math.cos(decl * rad));
-      if (Math.abs(cosH) > 1) return null;
-      const H = Math.acos(cosH) * deg / 15;
-      return isMorning ? solar - H : solar + H;
-    }
-
-    const asrMultiplier = document.getElementById('asrMethod').value === 'Hanafi' ? 2 : 1;
-    function asrHour() {
-      const T = (asrMultiplier + Math.tan(Math.abs(lat - decl) * rad));
-      const A = Math.atan(1/T) * deg;
-      return prayerHour(90 - A, false);
-    }
-
-    return {
-      Fajr: prayerHour(fajrAngle, true),
-      Sunrise: prayerHour(0.833, true),
-      Dhuhr: solar + 0.0167,
-      Asr: asrHour(),
-      Maghrib: prayerHour(0.833, false),
-      Isha: ishaAngle === 0 ? prayerHour(0.833, false) + 1.5 : prayerHour(ishaAngle, false),
-    };
-  }
-
-  function julianDate(date) {
-    const y = date.getFullYear();
-    const m = date.getMonth() + 1;
-    const d = date.getDate();
-    if (m <= 2) { y--; m += 12; }
-    const A = Math.floor(y/100);
-    const B = 2 - A + Math.floor(A/4);
-    return Math.floor(365.25*(y+4716)) + Math.floor(30.6001*(m+1)) + d + B - 1524.5;
-  }
-
-  function equationOfTime(jd) {
-    const D = jd - 2451545.0;
-    const g = 357.529 + 0.98560028*D;
-    const q = 280.459 + 0.98564736*D;
-    const L = q + 1.915*Math.sin(g*Math.PI/180) + 0.020*Math.sin(2*g*Math.PI/180);
-    const e = 23.439 - 0.00000036*D;
-    const RA = Math.atan2(Math.cos(e*Math.PI/180)*Math.sin(L*Math.PI/180), Math.cos(L*Math.PI/180)) * 180/Math.PI;
-    return (q - RA) * 4;
-  }
-
-  function sunDeclination(jd) {
-    const D = jd - 2451545.0;
-    const g = 357.529 + 0.98560028*D;
-    const q = 280.459 + 0.98564736*D;
-    const L = q + 1.915*Math.sin(g*Math.PI/180) + 0.020*Math.sin(2*g*Math.PI/180);
-    const e = 23.439 - 0.00000036*D;
-    return Math.asin(Math.sin(e*Math.PI/180)*Math.sin(L*Math.PI/180)) * 180/Math.PI;
-  }
-
-  function guessTimezone(lat, lng) { return Math.round(lng / 15); }
-
-  function hoursToTime(hours, tz) {
-    if (hours === null || isNaN(hours)) return '--:--';
-    const adjusted = hours + tz;
-    const total = ((adjusted % 24) + 24) % 24;
-    const h = Math.floor(total);
-    const m = Math.floor((total - h) * 60);
-    const h12 = h % 12 || 12;
-    const ampm = h < 12 ? 'AM' : 'PM';
-    return `${h12}:${m.toString().padStart(2,'0')} ${ampm}`;
-  }
-
-  function loadPrayerTimes() {
+  // ── Main loader — uses Aladhan.com API (free, no key needed) ──────────────
+  async function loadPrayerTimes() {
     const city = getSelectedCity();
     if (!city) return;
-    const [name, lat, lng] = city;
+    const [cityName, lat, lng] = city;
     const country = document.getElementById('countrySelect').value;
-    const tz = guessTimezone(lat, lng);
-    const today = new Date();
+    const method = METHOD_CODES[document.getElementById('methodSelect').value] || 1;
+    const school = document.getElementById('asrMethod').value === 'Hanafi' ? 1 : 0; // 1=Hanafi, 0=Shafi
 
-    const times = calcPrayerTimes(lat, lng, today);
+    // Show loading state
+    document.getElementById('prayerCards').innerHTML = `
+      <div style="text-align:center;padding:32px;color:var(--text-muted);">
+        <i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+        Fetching accurate prayer times…
+      </div>`;
+    document.getElementById('nextPrayerName').textContent = '—';
+    document.getElementById('countdown').textContent = '—';
+
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2,'0');
+    const mm = String(today.getMonth()+1).padStart(2,'0');
+    const yyyy = today.getFullYear();
+
+    // Aladhan API: timingsByCity  or  timings (by lat/lng)
+    const url = `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=${method}&school=${school}`;
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.code !== 200) throw new Error(data.status || 'API error');
+      renderPrayerTimes(data.data.timings, cityName, country, today);
+      calcQibla(lat, lng);
+    } catch(err) {
+      document.getElementById('prayerCards').innerHTML = `
+        <div style="text-align:center;padding:24px;color:var(--accent-red,#ef4444);">
+          <i class="fas fa-exclamation-triangle" style="font-size:1.5rem;margin-bottom:8px;display:block;"></i>
+          Could not load prayer times. Please check your internet connection and try again.<br>
+          <small style="color:var(--text-muted);margin-top:6px;display:block;">${err.message}</small>
+          <button class="btn btn-outline" style="margin-top:12px;" onclick="loadPrayerTimes()">
+            <i class="fas fa-redo"></i> Retry
+          </button>
+        </div>`;
+    }
+  }
+
+  function renderPrayerTimes(timings, cityName, country, today) {
+    // timings from Aladhan are in HH:MM format (local time of the requested city)
     const prayers = [
-      { name: 'Fajr', arabic: 'فجر', icon: '🌙', time: times.Fajr },
-      { name: 'Sunrise', arabic: 'طلوع', icon: '🌅', time: times.Sunrise, isSunrise: true },
-      { name: 'Dhuhr', arabic: 'ظہر', icon: '☀️', time: times.Dhuhr },
-      { name: 'Asr', arabic: 'عصر', icon: '🌤️', time: times.Asr },
-      { name: 'Maghrib', arabic: 'مغرب', icon: '🌇', time: times.Maghrib },
-      { name: 'Isha', arabic: 'عشاء', icon: '🌙', time: times.Isha },
+      { name: 'Fajr',    arabic: 'فجر',  icon: '🌙', time: timings.Fajr },
+      { name: 'Sunrise', arabic: 'طلوع', icon: '🌅', time: timings.Sunrise, isSunrise: true },
+      { name: 'Dhuhr',   arabic: 'ظہر',  icon: '☀️', time: timings.Dhuhr },
+      { name: 'Asr',     arabic: 'عصر',  icon: '🌤️', time: timings.Asr },
+      { name: 'Maghrib', arabic: 'مغرب', icon: '🌇', time: timings.Maghrib },
+      { name: 'Isha',    arabic: 'عشاء', icon: '🌙', time: timings.Isha },
     ];
 
-    document.getElementById('locationDisplay').textContent = `${name}, ${country}`;
-    document.getElementById('prayerDate').textContent = today.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    document.getElementById('locationDisplay').textContent = `${cityName}, ${country}`;
+    document.getElementById('prayerDate').textContent = today.toLocaleDateString('en-US', {
+      weekday:'long', year:'numeric', month:'long', day:'numeric'
+    });
 
-    const now = today.getHours() + today.getMinutes()/60;
+    // Find next prayer using current local time HH:MM
+    const nowH = today.getHours();
+    const nowM = today.getMinutes();
+    const nowTotal = nowH * 60 + nowM;
+
     let nextPrayer = null;
     let minDiff = Infinity;
 
+    prayers.forEach(p => {
+      if (p.isSunrise) return;
+      const [ph, pm] = p.time.split(':').map(Number);
+      const pTotal = ph * 60 + pm;
+      const diff = pTotal - nowTotal;
+      if (diff > 0 && diff < minDiff) { minDiff = diff; nextPrayer = p; }
+    });
+    // If no upcoming prayer today, next is Fajr tomorrow
+    if (!nextPrayer) nextPrayer = prayers[0];
+
     document.getElementById('prayerCards').innerHTML = prayers.map(p => {
-      const timeStr = hoursToTime(p.time, tz);
-      const isNow = !p.isSunrise && p.time && (p.time + tz) > now && (p.time + tz - now) < minDiff;
-      if (isNow) { minDiff = p.time + tz - now; nextPrayer = p; }
-      const isActive = !p.isSunrise && nextPrayer === p;
+      const isActive = !p.isSunrise && nextPrayer && p.name === nextPrayer.name;
+      const [ph, pm] = p.time.split(':').map(Number);
+      const h12 = ph % 12 || 12;
+      const ampm = ph < 12 ? 'AM' : 'PM';
+      const displayTime = `${h12}:${String(pm).padStart(2,'0')} ${ampm}`;
       return `
-        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:${p.isSunrise ? 'transparent' : isActive ? 'rgba(99,102,241,0.1)' : 'var(--bg-glass)'};border:1px solid ${isActive ? 'rgba(99,102,241,0.3)' : 'var(--border-glass)'};border-radius:10px;transition:var(--transition);">
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;
+          background:${p.isSunrise ? 'transparent' : isActive ? 'rgba(99,102,241,0.1)' : 'var(--bg-glass)'};
+          border:1px solid ${isActive ? 'rgba(99,102,241,0.3)' : 'var(--border-glass)'};
+          border-radius:10px;transition:var(--transition);">
           <span style="font-size:1.5rem;flex-shrink:0;">${p.icon}</span>
           <div style="flex:1;">
-            <div style="font-weight:700;font-size:0.9rem;">${p.name} <span style="font-family:serif;color:var(--text-muted);font-size:0.8rem;">${p.arabic}</span></div>
+            <div style="font-weight:700;font-size:0.9rem;">
+              ${p.name} <span style="font-family:serif;color:var(--text-muted);font-size:0.8rem;">${p.arabic}</span>
+            </div>
             ${p.isSunrise ? '<div style="font-size:0.72rem;color:var(--text-muted);">Not a prayer time</div>' : ''}
           </div>
-          <div style="font-size:1rem;font-weight:700;font-family:\'Space Grotesk\',sans-serif;color:${isActive ? 'var(--accent-purple)' : 'var(--text-primary)'};">${timeStr}</div>
+          <div style="font-size:1rem;font-weight:700;font-family:'Space Grotesk',sans-serif;
+            color:${isActive ? 'var(--accent-purple)' : 'var(--text-primary)'};">${displayTime}</div>
           ${isActive ? '<span style="background:var(--accent-purple);color:white;font-size:0.65rem;font-weight:700;padding:2px 6px;border-radius:4px;">NEXT</span>' : ''}
-        </div>
-      `;
+        </div>`;
     }).join('');
 
-    // Qibla
-    calcQibla(lat, lng);
-    updateCountdown(nextPrayer, tz);
+    updateCountdown(nextPrayer, today);
   }
 
+  function updateCountdown(nextPrayer, today) {
+    if (countdownTimer) clearInterval(countdownTimer);
+    if (!nextPrayer) { document.getElementById('countdown').textContent = '—'; return; }
+
+    const [ph, pm] = nextPrayer.time.split(':').map(Number);
+    const prayerMs = new Date(today);
+    prayerMs.setHours(ph, pm, 0, 0);
+    // If already past (Fajr tomorrow case)
+    if (prayerMs <= new Date()) prayerMs.setDate(prayerMs.getDate() + 1);
+
+    document.getElementById('nextPrayerName').textContent = nextPrayer.name;
+
+    function tick() {
+      const diff = prayerMs - new Date();
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = `Time for ${nextPrayer.name}!`;
+        clearInterval(countdownTimer);
+        return;
+      }
+      const hh = Math.floor(diff / 3600000);
+      const mm = Math.floor((diff % 3600000) / 60000);
+      const ss = Math.floor((diff % 60000) / 1000);
+      document.getElementById('countdown').textContent =
+        `${hh}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+    }
+    tick();
+    countdownTimer = setInterval(tick, 1000);
+  }
+
+  // ── Qibla ─────────────────────────────────────────────────────────────────
   function calcQibla(lat, lng) {
     const meccaLat = 21.4225, meccaLng = 39.8262;
     const rad = Math.PI / 180;
@@ -487,11 +507,8 @@
     const y = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLng);
     let angle = Math.atan2(x, y) * 180 / Math.PI;
     if (angle < 0) angle += 360;
-
     document.getElementById('qiblaArrow').style.transform = `rotate(${angle}deg)`;
     document.getElementById('qiblaAngle').textContent = `Qibla: ${Math.round(angle)}° from North`;
-
-    // Distance
     const R = 6371;
     const dLat = (meccaLat - lat) * rad;
     const dLng2 = (meccaLng - lng) * rad;
@@ -500,40 +517,52 @@
     document.getElementById('meccaDistance').textContent = `Distance to Mecca: ${Math.round(dist).toLocaleString()} km`;
   }
 
-  function updateCountdown(nextPrayer, tz) {
-    if (!nextPrayer) { document.getElementById('countdown').textContent = '—'; return; }
-    const now = new Date();
-    const prayerHr = nextPrayer.time + tz;
-    const h = Math.floor(prayerHr);
-    const m = Math.floor((prayerHr - h) * 60);
-    const prayerDate = new Date(now);
-    prayerDate.setHours(((h % 24) + 24) % 24, m, 0, 0);
-    if (prayerDate < now) prayerDate.setDate(prayerDate.getDate() + 1);
-
-    function tick() {
-      const diff = prayerDate - new Date();
-      if (diff <= 0) { document.getElementById('countdown').textContent = 'Time for ' + nextPrayer.name + '!'; return; }
-      const hh = Math.floor(diff/3600000);
-      const mm = Math.floor((diff % 3600000) / 60000);
-      const ss = Math.floor((diff % 60000) / 1000);
-      document.getElementById('nextPrayerName').textContent = nextPrayer.name;
-      document.getElementById('countdown').textContent = `${hh}:${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`;
-      setTimeout(tick, 1000);
+  // ── Auto-detect location ──────────────────────────────────────────────────
+  async function detectLocation() {
+    if (!navigator.geolocation) {
+      HashmiTools.showToast('Geolocation not supported by your browser.', 'error'); return;
     }
-    tick();
-  }
-
-  function detectLocation() {
-    if (!navigator.geolocation) { HashmiTools.showToast('Geolocation not supported by your browser.', 'error'); return; }
-    HashmiTools.showToast('Detecting your location...', 'info');
-    navigator.geolocation.getCurrentPosition(pos => {
+    HashmiTools.showToast('Detecting your location…', 'info');
+    navigator.geolocation.getCurrentPosition(async pos => {
       const { latitude, longitude } = pos.coords;
-      calcQibla(latitude, longitude);
-      HashmiTools.showToast('Location detected!', 'success');
+      const method = METHOD_CODES[document.getElementById('methodSelect').value] || 1;
+      const school = document.getElementById('asrMethod').value === 'Hanafi' ? 1 : 0;
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2,'0');
+      const mm = String(today.getMonth()+1).padStart(2,'0');
+      const yyyy = today.getFullYear();
+
+      document.getElementById('prayerCards').innerHTML = `
+        <div style="text-align:center;padding:32px;color:var(--text-muted);">
+          <i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+          Fetching prayer times for your location…
+        </div>`;
+
+      try {
+        const url = `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${latitude}&longitude=${longitude}&method=${method}&school=${school}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.code !== 200) throw new Error(data.status);
+        // Try to get city name via reverse geocode
+        let label = `${latitude.toFixed(3)}, ${longitude.toFixed(3)}`;
+        try {
+          const geo = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+          const geoData = await geo.json();
+          const city = geoData.address?.city || geoData.address?.town || geoData.address?.village || '';
+          const country = geoData.address?.country_code?.toUpperCase() || '';
+          if (city) label = `${city}, ${country}`;
+        } catch(e) {}
+        document.getElementById('locationDisplay').textContent = label;
+        renderPrayerTimes(data.data.timings, label, '', today);
+        calcQibla(latitude, longitude);
+        HashmiTools.showToast('Location detected! Prayer times updated.', 'success');
+      } catch(err) {
+        HashmiTools.showToast('Could not fetch prayer times for your location.', 'error');
+      }
     }, () => HashmiTools.showToast('Could not detect location. Please select manually.', 'error'));
   }
 
-  // Init
+  // ── Init ──────────────────────────────────────────────────────────────────
   updateCities();
   HashmiTools.trackToolView('Prayer Times', 'tools/prayer-times.html', '🕐');
   </script>

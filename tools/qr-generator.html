@@ -494,7 +494,81 @@
         </aside>
       </div>
     </div>
-  </main>
+  <!-- HT-CONTENT-INJECTED -->
+<section class="ht-content-section" style="background:#fff;padding:48px 24px;max-width:860px;margin:48px auto 0;font-family:system-ui,sans-serif;line-height:1.75;color:#1a1a1a;">
+  <h2 style="font-size:1.75rem;font-weight:700;margin-bottom:16px;color:#111;">QR Code Generator — Create, Customise, and Download QR Codes Instantly</h2>
+  <p>QR codes (Quick Response codes) have gone from novelty to necessity. Restaurant menus, payment portals, product packaging, business cards, event tickets, Wi-Fi sharing, and app download links all rely on QR codes to bridge the physical and digital worlds. The ability to generate a QR code on demand — for a URL, a business card, a payment link, a Wi-Fi password — is a practical skill for anyone running a business, organising an event, or creating marketing materials.</p>
+  <p>This generator creates QR codes entirely in your browser using the qrcode.js library, with no server upload and no watermark. Generated codes can be downloaded as PNG (for printing and digital sharing) or SVG (for scalable, print-quality use in design files and print production).</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">How QR Codes Work</h3>
+  <p>A QR code is a two-dimensional matrix barcode that encodes data in a grid of black and white squares. Smartphones decode QR codes by photographing them and applying a Reed-Solomon error correction algorithm that can reconstruct the data even if up to 30% of the code is damaged or obscured — which is why logos can be placed in the centre of QR codes without breaking them.</p>
+  <p>QR codes can store different types of data:</p>
+  <table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-size:0.9rem;">
+    <thead>
+      <tr style="background:#f0f4ff;">
+        <th style="padding:10px;text-align:left;border:1px solid #dde3f0;">Data Type</th>
+        <th style="padding:10px;text-align:left;border:1px solid #dde3f0;">Format</th>
+        <th style="padding:10px;text-align:left;border:1px solid #dde3f0;">Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding:8px;border:1px solid #dde3f0;">URL</td><td style="padding:8px;border:1px solid #dde3f0;">https://example.com</td><td style="padding:8px;border:1px solid #dde3f0;">Link to website, landing page, product page</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:8px;border:1px solid #dde3f0;">Plain text</td><td style="padding:8px;border:1px solid #dde3f0;">Any text string</td><td style="padding:8px;border:1px solid #dde3f0;">Coupons, instructions, notices</td></tr>
+      <tr><td style="padding:8px;border:1px solid #dde3f0;">Email</td><td style="padding:8px;border:1px solid #dde3f0;">mailto:name@domain.com?subject=Hello</td><td style="padding:8px;border:1px solid #dde3f0;">Open pre-addressed email compose window</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:8px;border:1px solid #dde3f0;">Phone</td><td style="padding:8px;border:1px solid #dde3f0;">tel:+923001234567</td><td style="padding:8px;border:1px solid #dde3f0;">Tap to call a business number</td></tr>
+      <tr><td style="padding:8px;border:1px solid #dde3f0;">SMS</td><td style="padding:8px;border:1px solid #dde3f0;">sms:+923001234567?body=Hello</td><td style="padding:8px;border:1px solid #dde3f0;">Open pre-filled SMS draft</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:8px;border:1px solid #dde3f0;">Wi-Fi</td><td style="padding:8px;border:1px solid #dde3f0;">WIFI:S:NetworkName;T:WPA;P:password;;</td><td style="padding:8px;border:1px solid #dde3f0;">Scan to connect to Wi-Fi without typing password</td></tr>
+      <tr><td style="padding:8px;border:1px solid #dde3f0;">vCard</td><td style="padding:8px;border:1px solid #dde3f0;">BEGIN:VCARD...END:VCARD</td><td style="padding:8px;border:1px solid #dde3f0;">Scan to save contact card directly to phone</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Error Correction Levels</h3>
+  <p>QR codes have four error correction levels that determine how much damage they can sustain while remaining scannable:</p>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>Level L (Low) — 7% recovery</strong> — smallest code size, use for clean digital displays where no damage is expected</li>
+    <li style="margin-bottom:8px;"><strong>Level M (Medium) — 15% recovery</strong> — good balance for most print uses</li>
+    <li style="margin-bottom:8px;"><strong>Level Q (Quartile) — 25% recovery</strong> — recommended when printing outdoors or on textured surfaces</li>
+    <li style="margin-bottom:8px;"><strong>Level H (High) — 30% recovery</strong> — required when embedding a logo in the code; allows up to 30% of the code to be covered</li>
+  </ul>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Best Practices for Print-Quality QR Codes</h3>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>Minimum size</strong> — print QR codes at a minimum of 2.5 cm × 2.5 cm (1 inch × 1 inch) for reliable scanning at arm's length</li>
+    <li style="margin-bottom:8px;"><strong>Quiet zone</strong> — maintain a white border of at least 4 modules (cells) around all sides of the code; scanners need this quiet zone to locate the code</li>
+    <li style="margin-bottom:8px;"><strong>Contrast</strong> — dark code on light background; avoid low-contrast colour combinations; never use a white-on-colour code</li>
+    <li style="margin-bottom:8px;"><strong>Test before printing</strong> — always scan your generated QR code with multiple devices before printing large quantities</li>
+    <li style="margin-bottom:8px;"><strong>Use SVG for print</strong> — download as SVG for print projects; SVG scales infinitely without pixelation, unlike PNG which blurs when enlarged</li>
+  </ul>
+
+  <h2 style="font-size:1.5rem;font-weight:700;margin:40px 0 20px;color:#111;">Frequently Asked Questions</h2>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Do QR codes expire?</h3>
+    <p style="margin:0;color:#444;">Static QR codes (which directly encode the destination URL or data) never expire — they will work forever as long as the destination URL is still live. Dynamic QR codes (where a short URL redirects to a changeable destination) expire only if the service managing the short URL stops operating. QR codes generated by this tool are static and have no expiry.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Can I add my logo to the centre of the QR code?</h3>
+    <p style="margin:0;color:#444;">Yes — the generator supports logo overlay. Set error correction to Level H (30%) before adding a logo, and ensure the logo covers no more than 25–30% of the code area. Download the code as SVG, open in a vector editor (Inkscape, Adobe Illustrator), and place your logo in the centre, or use the logo upload feature directly in the generator which handles this automatically.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">What is the maximum data a QR code can store?</h3>
+    <p style="margin:0;color:#444;">A QR code can store up to 4,296 alphanumeric characters or 7,089 numeric digits at the lowest error correction level. In practice, shorter data produces smaller, more easily scannable codes. URLs should ideally be under 200 characters for clean codes; for vCards, use URL shorteners to keep the encoded string compact.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">How do I create a QR code for WhatsApp contact or group?</h3>
+    <p style="margin:0;color:#444;">For a WhatsApp direct message link, encode: <code>https://wa.me/923001234567</code> (replace with the full international number including country code, no + sign). For a WhatsApp group, use the group invite link from WhatsApp → Group Info → Invite via Link. Both encode as standard URLs.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">How do I create a UPI/payment QR code for Pakistani payment systems?</h3>
+    <p style="margin:0;color:#444;">For Easypaisa, JazzCash, and Raast payments, generate a QR code using the respective app's built-in QR generator (they produce payment-specific formats). A plain URL QR code won't trigger the payment app. For Raast IDs, the standard format for QR-based payments follows the ISO 20022 standard implemented by SBP — use your bank's app to generate the official payment QR.</p>
+  </div>
+</section>
+
+</main>
 
   
 

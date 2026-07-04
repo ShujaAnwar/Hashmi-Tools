@@ -1,0 +1,72 @@
+<section class="ht-content-section" style="background:#fff;padding:48px 24px;max-width:860px;margin:48px auto 0;font-family:system-ui,sans-serif;line-height:1.75;color:#1a1a1a;">
+  <h2 style="font-size:1.75rem;font-weight:700;margin-bottom:16px;color:#111;">HEX to RGB Color Converter — Understanding Color Formats in Web Design</h2>
+  <p>Color is one of the most fundamental elements of web design, yet color notation is a persistent source of confusion for developers and designers. A single color can be expressed in at least four different formats: HEX, RGB, HSL, and RGBA — and each format has specific use cases where it excels. Knowing when to use which format, and being able to convert between them instantly, is a daily requirement for anyone who writes CSS, creates design systems, or works with digital graphics.</p>
+  <p>This converter handles conversions between all major web color formats and provides a live preview of the resulting color, making it instantly clear whether the converted value is correct.</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Color Format Reference</h3>
+  <table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-size:0.9rem;">
+    <thead>
+      <tr style="background:#f0f4ff;">
+        <th style="padding:10px;text-align:left;border:1px solid #dde3f0;">Format</th>
+        <th style="padding:10px;text-align:left;border:1px solid #dde3f0;">Example</th>
+        <th style="padding:10px;text-align:left;border:1px solid #dde3f0;">Range</th>
+        <th style="padding:10px;text-align:left;border:1px solid #dde3f0;">Best Use</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding:10px;border:1px solid #dde3f0;">HEX</td><td style="padding:10px;border:1px solid #dde3f0;">#3b82f6</td><td style="padding:10px;border:1px solid #dde3f0;">00–FF per channel</td><td style="padding:10px;border:1px solid #dde3f0;">CSS, design tokens, copyable from design tools</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:10px;border:1px solid #dde3f0;">RGB</td><td style="padding:10px;border:1px solid #dde3f0;">rgb(59, 130, 246)</td><td style="padding:10px;border:1px solid #dde3f0;">0–255 per channel</td><td style="padding:10px;border:1px solid #dde3f0;">Dynamic manipulation in JavaScript, Canvas API</td></tr>
+      <tr><td style="padding:10px;border:1px solid #dde3f0;">RGBA</td><td style="padding:10px;border:1px solid #dde3f0;">rgba(59, 130, 246, 0.7)</td><td style="padding:10px;border:1px solid #dde3f0;">0–255 + 0–1 alpha</td><td style="padding:10px;border:1px solid #dde3f0;">Transparent overlays, modal backgrounds, shadows</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:10px;border:1px solid #dde3f0;">HSL</td><td style="padding:10px;border:1px solid #dde3f0;">hsl(217, 91%, 60%)</td><td style="padding:10px;border:1px solid #dde3f0;">0–360° / 0–100% / 0–100%</td><td style="padding:10px;border:1px solid #dde3f0;">Design systems, programmatic lightness/saturation adjustments</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">How HEX to RGB Conversion Works</h3>
+  <p>A HEX color like <code>#3b82f6</code> encodes three 8-bit color channels (Red, Green, Blue) as pairs of hexadecimal digits:</p>
+  <div style="background:#f8f9fa;border-radius:8px;padding:16px;margin-bottom:16px;font-family:monospace;font-size:0.9rem;">
+    #3b82f6 = R:3b + G:82 + B:f6<br>
+    3b (hex) = 3×16 + 11 = 59 (decimal)<br>
+    82 (hex) = 8×16 + 2 = 130 (decimal)<br>
+    f6 (hex) = 15×16 + 6 = 246 (decimal)<br>
+    → rgb(59, 130, 246)
+  </div>
+  <p>The reverse (RGB to HEX) divides each channel value by 16 to get the two hex digits. For example, Red = 59: 59 ÷ 16 = 3 remainder 11 → 3b.</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">When to Use HSL Over HEX/RGB</h3>
+  <p>HSL (Hue, Saturation, Lightness) is superior to HEX/RGB for one specific use case: creating color palettes and design systems. If you want a lighter version of your brand color, changing HSL lightness from 50% to 80% gives a predictable, perceptually lighter result. Doing the same in RGB (subtracting equal amounts from each channel) doesn't produce perceptually uniform lightness changes. Modern CSS design tokens and Tailwind CSS use HSL specifically because it's programmatically manipulable in a human-intuitive way.</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Common Color Conversion Scenarios</h3>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>From Figma/Sketch to CSS</strong> — design tools typically output HEX; CSS accepts all formats but HEX is most common</li>
+    <li style="margin-bottom:8px;"><strong>Adding transparency</strong> — HEX doesn't support alpha in older browsers; convert to RGBA when you need a semi-transparent color</li>
+    <li style="margin-bottom:8px;"><strong>JavaScript color manipulation</strong> — split RGB values to mathematically darken/lighten for hover states and dynamic theming</li>
+    <li style="margin-bottom:8px;"><strong>Checking color contrast</strong> — WCAG accessibility contrast ratio calculations work from RGB values</li>
+  </ul>
+
+  <h2 style="font-size:1.5rem;font-weight:700;margin:40px 0 20px;color:#111;">Frequently Asked Questions</h2>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">What is the difference between #RGB and #RRGGBB HEX formats?</h3>
+    <p style="margin:0;color:#444;">3-digit HEX (#f06) is shorthand for 6-digit HEX (#ff0066) — each digit is doubled. It only works when both digits of each channel are identical, so only 4,096 of the 16.7 million possible colors can be expressed as 3-digit HEX. Use 6-digit HEX for precise color matching.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Does CSS support 8-digit HEX (with alpha)?</h3>
+    <p style="margin:0;color:#444;">Yes — CSS Color Level 4 supports 8-digit HEX like #3b82f6cc where the last two digits (cc = 80% opacity) represent the alpha channel. Browser support is now excellent (Chrome, Firefox, Safari, Edge all support it). For older browser support, use rgba() instead.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">How many colors can be represented in RGB?</h3>
+    <p style="margin:0;color:#444;">Standard 8-bit-per-channel RGB represents 256 × 256 × 256 = 16,777,216 unique colors. This is what web browsers use. Professional photo editing works with 16-bit-per-channel color (65,536 values per channel) for smoother gradients and more editing headroom, but web displays typically show 8-bit.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">What is the HEX code for pure black, white, and common web colors?</h3>
+    <p style="margin:0;color:#444;">Black = #000000 (rgb 0,0,0) | White = #ffffff (rgb 255,255,255) | Red = #ff0000 | Green = #00ff00 | Blue = #0000ff | Gray = #808080. Tailwind CSS gray-900 = #111827 | Tailwind blue-500 = #3b82f6 — use the converter to check any Tailwind or Material Design color against its RGB equivalent.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Can I use this tool to check color accessibility contrast?</h3>
+    <p style="margin:0;color:#444;">This tool converts between formats and shows a color preview. For WCAG contrast ratio checking (ensuring text is readable against its background), use the RGB values this tool outputs as inputs in a dedicated contrast checker. WCAG AA requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text.</p>
+  </div>
+</section>

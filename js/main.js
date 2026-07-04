@@ -156,6 +156,8 @@ const toolsData = [
   { name: 'YouTube SEO Tool', url: 'tools/youtube-seo.html', cat: 'AI', icon: '▶️', tags: ['youtube','seo','title','description','tags','generator','video','channel','rank','optimize','thumbnail'] },
   { name: 'SEO Audit Pro', url: 'tools/seo-audit.html', cat: 'AI', icon: '🔍', tags: ['seo','audit','website','analysis','crawl','score','technical','meta','canonical','backlinks','performance'] },
   { name: 'AI Shorts Maker', url: 'tools/shorts-maker.html', cat: 'AI', icon: '🎬', tags: ['shorts','reels','tiktok','video','clips','highlight','cut','viral','youtube shorts','ai','ffmpeg','video editor','long video','short clips','social media video'] },
+  { name: 'AI CV / Resume Builder', url: 'tools/cv-builder.html', cat: 'AI', icon: '📄', tags: ['cv','resume','builder','ai resume','ats','ats score','pdf export','word export','resume template','job application','career','cover letter','bullet points','skills','experience'] },
+  { name: 'Medical Student Toolkit', url: 'tools/medical-toolkit.html', cat: 'Health', icon: '🩺', tags: ['medical','student','toolkit','drug dosage calculator','iv drip rate','bmi','bsa','gcs','apgar','clinical score','flashcards','mcq','quiz','lab values','nursing','pharmacy','mbbs','medical reference'] },
 
   // ── Pakistan Tools ──────────────────────────────────────────────
   { name: 'Pakistan Tax Calculator', url: 'tools/pakistan-tax.html', cat: 'Pakistan', icon: '🇵🇰', tags: ['tax','pakistan','fbr','income','salary','withholding','pkr','2025'] },

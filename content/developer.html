@@ -1,0 +1,78 @@
+<section class="ht-content-section" style="background:#fff;padding:48px 24px;max-width:860px;margin:48px auto 0;font-family:system-ui,sans-serif;line-height:1.75;color:#1a1a1a;">
+  <h2 style="font-size:1.75rem;font-weight:700;margin-bottom:16px;color:#111;">Developer Tools — Free Browser-Based Utilities for Programmers</h2>
+  <p>Every developer maintains a personal toolkit of small utilities they reach for constantly: a quick JSON formatter to make sense of an API response, a Base64 encoder/decoder for debugging JWT tokens, a color picker to grab a hex value, a URL encoder for safe query string construction. These tasks are trivial but genuinely time-consuming when they require opening a separate app, running a script, or fighting with command-line flags.</p>
+  <p>HashmiTools' Developer section puts these utilities in the browser — always available, no installation, no account. Every tool runs client-side so your data stays on your device. This matters for developers working with sensitive keys, tokens, credentials, or proprietary API responses that shouldn't be sent to unknown third-party servers.</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Tools in This Section</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:24px;">
+    <div style="border:1px solid #e0ffe0;border-radius:10px;padding:18px;background:#f8fff8;">
+      <strong style="color:#16a34a;">{ } JSON Formatter</strong>
+      <p style="margin:8px 0 0;font-size:0.9rem;color:#555;">Paste any JSON to format, validate, and syntax-highlight it. Minify mode for production, expand/collapse tree view for exploration.</p>
+    </div>
+    <div style="border:1px solid #e0ffe0;border-radius:10px;padding:18px;background:#f8fff8;">
+      <strong style="color:#16a34a;">🔒 Base64 Encoder/Decoder</strong>
+      <p style="margin:8px 0 0;font-size:0.9rem;color:#555;">Encode text or binary files to Base64. Decode Base64 strings including JWT payloads and data URIs.</p>
+    </div>
+    <div style="border:1px solid #e0ffe0;border-radius:10px;padding:18px;background:#f8fff8;">
+      <strong style="color:#16a34a;">🔗 URL Encoder/Decoder</strong>
+      <p style="margin:8px 0 0;font-size:0.9rem;color:#555;">Percent-encode special characters for safe URL usage. Decode encoded URLs to readable format.</p>
+    </div>
+    <div style="border:1px solid #e0ffe0;border-radius:10px;padding:18px;background:#f8fff8;">
+      <strong style="color:#16a34a;">🎨 HEX/RGB Converter</strong>
+      <p style="margin:8px 0 0;font-size:0.9rem;color:#555;">Convert between HEX, RGB, HSL, and RGBA colour formats. Live preview of the selected colour.</p>
+    </div>
+    <div style="border:1px solid #e0ffe0;border-radius:10px;padding:18px;background:#f8fff8;">
+      <strong style="color:#16a34a;">🔑 Password Generator</strong>
+      <p style="margin:8px 0 0;font-size:0.9rem;color:#555;">Cryptographically strong password generation with configurable length, character sets, and strength indicator.</p>
+    </div>
+    <div style="border:1px solid #e0ffe0;border-radius:10px;padding:18px;background:#f8fff8;">
+      <strong style="color:#16a34a;">📊 SEO Audit Tool</strong>
+      <p style="margin:8px 0 0;font-size:0.9rem;color:#555;">Paste HTML source for on-page SEO analysis: meta tags, heading structure, keyword density, canonical tags, schema markup.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Why Client-Side Processing Matters for Developers</h3>
+  <p>Most online developer tools send your input to their servers to process. For developers, this creates real security risks:</p>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>API keys and tokens</strong> — pasting a production API key into an online formatter that logs inputs could expose your entire backend</li>
+    <li style="margin-bottom:8px;"><strong>Customer data</strong> — debugging JSON that contains user information by sending it to a third-party tool may violate your privacy policy or GDPR/PDPA obligations</li>
+    <li style="margin-bottom:8px;"><strong>Proprietary code and configuration</strong> — database connection strings, environment variables, and internal API schemas should not leave your network</li>
+  </ul>
+  <p>Every tool in this section processes your data entirely in your browser using JavaScript. Nothing is transmitted to HashmiTools or any third party. You can verify this by disconnecting from the internet after the page loads — the tools continue to work.</p>
+
+  <h3 style="font-size:1.3rem;font-weight:700;margin:32px 0 12px;color:#111;">Who Uses These Tools</h3>
+  <ul style="padding-left:24px;margin:0 0 16px;">
+    <li style="margin-bottom:8px;"><strong>Full-stack developers</strong> debugging API responses and request/response bodies during development</li>
+    <li style="margin-bottom:8px;"><strong>DevOps engineers</strong> decoding Base64 secrets, examining JWT tokens, and constructing encoded configuration values</li>
+    <li style="margin-bottom:8px;"><strong>Frontend developers</strong> converting colour formats for CSS, generating test passwords, and encoding URL parameters</li>
+    <li style="margin-bottom:8px;"><strong>Computer science students</strong> learning how encoding schemes work by experimenting with real examples</li>
+    <li style="margin-bottom:8px;"><strong>QA testers</strong> constructing test inputs, decoding responses, and auditing page structure</li>
+  </ul>
+
+  <h2 style="font-size:1.5rem;font-weight:700;margin:40px 0 20px;color:#111;">Frequently Asked Questions</h2>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Is it safe to paste API keys into the Base64 or JSON tools?</h3>
+    <p style="margin:0;color:#444;">Yes — all tools on this page process data client-side in your browser. No data is sent to our servers. However, as general security hygiene, avoid pasting production secrets into any browser tool you haven't verified. After use, clear the input field and use Ctrl+Shift+Delete to clear browser memory if working with highly sensitive credentials.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Do these tools work offline?</h3>
+    <p style="margin:0;color:#444;">Yes, once the page is loaded. Since all processing is JavaScript running in your browser, these tools continue to work without an internet connection after initial page load. The one exception is the Currency Converter, which fetches live rates and requires connectivity for rate updates.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Is there a size limit for the JSON Formatter?</h3>
+    <p style="margin:0;color:#444;">The JSON Formatter handles files up to approximately 5 MB in the browser before performance degrades noticeably. For very large JSON files (10 MB+), command-line tools like jq or browser DevTools' JSON viewer are more appropriate. For typical API debugging (responses under 1 MB), the browser tool is fast and convenient.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Are more developer tools planned?</h3>
+    <p style="margin:0;color:#444;">Yes — a regex tester with live match highlighting, a cron expression builder, a diff tool for comparing two text blocks, and a timestamp converter (Unix/ISO/human-readable) are in development. Tool additions are prioritised based on user requests — use the contact form to suggest what you need.</p>
+  </div>
+
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:1.05rem;font-weight:700;margin:0 0 8px;color:#111;">Can I use these tools in a corporate environment?</h3>
+    <p style="margin:0;color:#444;">Since tools run client-side with no server data transmission, they are suitable for most corporate environments. However, always check your company's acceptable use policy for browser-based tools. If you need a self-hosted version for internal use in an enterprise environment, contact us through the contact form.</p>
+  </div>
+</section>

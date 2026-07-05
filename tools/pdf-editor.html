@@ -2,6 +2,10 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
   <script>
     (function(){
       var t=localStorage.getItem('ht-theme')||'light';
@@ -19,7 +23,7 @@
 <meta property="og:description" content="Edit any PDF in your browser. No signup needed. Files never leave your device.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<text y='.9em' font-size='90'>📄</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Pacifico&family=Dancing+Script:wght@700&family=Sacramento&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -610,6 +614,10 @@ a{color:var(--accent);text-decoration:none}
 .related-tools-grid li a span{font-size:1.5rem}
 .geo-footer{background:var(--bg-card,#fff);border-top:1px solid var(--border-glass,#e8edf4);padding:1.5rem;text-align:center;font-size:.8rem;color:var(--text-muted,#94a3b8);margin-top:2rem}
 .geo-footer a{color:var(--accent-purple,#6366f1);text-decoration:none}
+/* Extract text mode */
+#tool-extract-text.active{background:linear-gradient(135deg,#6366f1,#06b6d4)!important;color:#fff!important;border-color:transparent!important}
+#extract-mode-banner{display:none;position:fixed;top:106px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#6366f1,#06b6d4);color:#fff;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;z-index:9999;box-shadow:0 4px 20px rgba(99,102,241,.4);pointer-events:none;letter-spacing:.3px}
+#extract-mode-banner.visible{display:block}
 .breadcrumb-geo{display:flex;align-items:center;gap:.35rem;font-size:.8rem;color:var(--text-muted,#94a3b8);padding:.5rem 0 1rem;flex-wrap:wrap}
 .breadcrumb-geo a{color:var(--text-muted,#94a3b8);text-decoration:none}.breadcrumb-geo a:hover{color:#6366f1}
 .breadcrumb-geo .sep{color:var(--text-muted,#94a3b8)}
@@ -664,6 +672,11 @@ a{color:var(--accent);text-decoration:none}
     <button class="tb-btn" id="tool-shape" onclick="setTool('shape')" title="Shape"><i class="fas fa-shapes"></i><span>Shape</span></button>
     <button class="tb-btn" id="tool-sign" onclick="setTool('sign')" title="Signature"><i class="fas fa-signature"></i><span>Sign</span></button>
     <button class="tb-btn" id="tool-erase" onclick="setTool('erase')" title="Eraser (E)"><i class="fas fa-eraser"></i><span>Eraser</span></button>
+  </div>
+  <div class="tb-sep"></div>
+  <div class="tb-group">
+    <button class="tb-btn" id="tool-extract-text" onclick="toggleExtractTextMode()" title="Extract &amp; Edit existing PDF text"><i class="fas fa-i-cursor"></i><span>Edit Text</span></button>
+    <button class="tb-btn" id="clear-extracted-btn" onclick="clearExtractedText()" title="Clear extracted text overlays" style="display:none"><i class="fas fa-times-circle"></i><span>Clear</span></button>
   </div>
   <div class="tb-sep"></div>
   <div class="tb-group">
@@ -776,6 +789,9 @@ a{color:var(--accent);text-decoration:none}
     <button class="btn btn-secondary" style="padding:4px 10px;font-size:11px" onclick="dismissRestore()">Dismiss</button>
   </div>
 </div>
+
+<!-- EXTRACT TEXT MODE BANNER -->
+<div id="extract-mode-banner">✏️ Edit Mode — Click any text on the PDF to edit it</div>
 
 <!-- TOAST CONTAINER -->
 <div id="toast-wrap"></div>
@@ -1309,6 +1325,10 @@ async function renderPage(pageNum){
   updateUndoBtns();
   applyToolToCanvas();
   highlightThumb(pageNum);
+  // If extract text mode is active, overlay text for new page
+  if(typeof extractTextMode !== 'undefined' && extractTextMode){
+    setTimeout(()=>extractAndOverlayText(pageNum), 100);
+  }
 }
 
 function updatePageNav(){
@@ -1483,6 +1503,7 @@ function setTool(name){
     shape:  'Shape Tool — Drag to draw shape',
     sign:   'Signature Tool',
     erase:  'Eraser Tool — Click any element to remove it',
+    'extract-text': 'Edit Text Mode — Extracts existing PDF text as editable objects',
   };
   document.getElementById('status-tool').textContent = hints[name] || name;
 }
@@ -1555,6 +1576,141 @@ function handleTextClick(opt){
   tb.enterEditing();
   tb.selectAll();
   fabricCanvas.renderAll();
+}
+
+// ──────────────────────────────────────────
+// EXTRACT & EDIT EXISTING PDF TEXT
+// ──────────────────────────────────────────
+let extractTextMode = false;
+// Store extracted text items per page: { pageNum: [{ str, x, y, w, h, fontSize, fontName }] }
+const extractedTextItems = {};
+
+function toggleExtractTextMode(){
+  if(!pdfDoc){ showToast('Open a PDF first.', 'warn', 3000); return; }
+  extractTextMode = !extractTextMode;
+  const btn = document.getElementById('tool-extract-text');
+  const clearBtn = document.getElementById('clear-extracted-btn');
+  const banner = document.getElementById('extract-mode-banner');
+  btn.classList.toggle('active', extractTextMode);
+  banner.classList.toggle('visible', extractTextMode);
+  if(extractTextMode){
+    clearBtn.style.display = '';
+    showToast('Edit Mode ON — PDF text is now editable. Click any text to edit it.', 'info', 4000);
+    extractAndOverlayText(currentPage);
+  } else {
+    banner.classList.remove('visible');
+    showToast('Edit Mode OFF', 'info', 2000);
+  }
+}
+
+async function extractAndOverlayText(pageNum){
+  if(!pdfDoc || !fabricCanvas) return;
+  // If already extracted for this page, just restore objects
+  if(extractedTextItems[pageNum]){
+    overlayTextItems(extractedTextItems[pageNum], pageNum);
+    return;
+  }
+  showToast('Extracting text from page…', 'info', 2500);
+  try {
+    const page = await pdfDoc.getPage(pageNum);
+    const viewport = page.getViewport({ scale: zoom });
+    const textContent = await page.getTextContent();
+    const items = [];
+    for(const item of textContent.items){
+      if(!item.str || !item.str.trim()) continue;
+      // PDF transform: [scaleX, skewX, skewY, scaleY, translateX, translateY]
+      const tx = item.transform;
+      const scaleX = tx[0], scaleY = tx[3];
+      const pdfX = tx[4], pdfY = tx[5];
+      // Convert PDF coords (bottom-left origin) to canvas coords (top-left origin)
+      const pageHeight = page.getViewport({ scale: 1 }).height;
+      const canvasX = pdfX * zoom;
+      const canvasY = (pageHeight - pdfY) * zoom;
+      const fontSize = Math.abs(scaleY) * zoom;
+      const itemWidth = item.width ? item.width * zoom : (item.str.length * fontSize * 0.55);
+      items.push({
+        str: item.str,
+        x: canvasX,
+        y: canvasY - fontSize, // anchor to top-left of text
+        w: Math.max(itemWidth, 30),
+        h: fontSize * 1.3,
+        fontSize: Math.max(Math.round(fontSize), 6),
+        fontName: (item.fontName || 'Arial').replace(/[^a-zA-Z\s]/g,'').trim() || 'Arial',
+        hasPdfSpace: item.hasEOL || false,
+      });
+    }
+    extractedTextItems[pageNum] = items;
+    if(items.length === 0){
+      showToast('No selectable text found on this page (may be a scanned/image PDF).', 'warn', 5000);
+      return;
+    }
+    showToast(`Found ${items.length} text items — now editable!`, 'success', 3000);
+    overlayTextItems(items, pageNum);
+  } catch(e){
+    console.error('Text extract error:', e);
+    showToast('Could not extract text from this page.', 'error', 4000);
+  }
+}
+
+function overlayTextItems(items, pageNum){
+  if(!fabricCanvas) return;
+  // Remove any previously added extracted-text objects for clean re-overlay
+  const existing = fabricCanvas.getObjects().filter(o => o._extractedText);
+  existing.forEach(o => fabricCanvas.remove(o));
+
+  // Map common PDF font names to web-safe fonts
+  function mapFont(name){
+    const n = (name||'').toLowerCase();
+    if(n.includes('times') || n.includes('serif')) return 'Times New Roman';
+    if(n.includes('courier') || n.includes('mono')) return 'Courier New';
+    if(n.includes('helvetica') || n.includes('sans')) return 'Helvetica';
+    if(n.includes('georgia')) return 'Georgia';
+    return 'Arial';
+  }
+
+  let added = 0;
+  for(const item of items){
+    if(!item.str.trim()) continue;
+    const ff = mapFont(item.fontName);
+    const tb = new fabric.IText(item.str, {
+      left: item.x,
+      top: item.y,
+      fontSize: item.fontSize,
+      fontFamily: ff,
+      fill: '#000000',
+      opacity: 1,
+      selectionColor: 'rgba(99,102,241,.25)',
+      borderColor: '#6366f1',
+      cornerColor: '#6366f1',
+      editingBorderColor: '#6366f1',
+      padding: 2,
+      lockScalingFlip: true,
+      _extractedText: true,
+      _origStr: item.str,
+    });
+    fabricCanvas.add(tb);
+    added++;
+  }
+
+  // Hide the PDF canvas layer behind fabric so text doesn't double-show
+  // We keep it visible but the fabric objects sit on top and are interactive
+  fabricCanvas.renderAll();
+  applyToolToCanvas();
+}
+
+function clearExtractedText(){
+  if(!fabricCanvas) return;
+  const existing = fabricCanvas.getObjects().filter(o => o._extractedText);
+  existing.forEach(o => fabricCanvas.remove(o));
+  fabricCanvas.renderAll();
+  // Reset mode
+  extractTextMode = false;
+  document.getElementById('tool-extract-text').classList.remove('active');
+  document.getElementById('extract-mode-banner').classList.remove('visible');
+  document.getElementById('clear-extracted-btn').style.display = 'none';
+  showToast('Extracted text cleared.', 'info', 2000);
+  // Clear cache so re-extraction fetches fresh
+  delete extractedTextItems[currentPage];
 }
 
 // ──────────────────────────────────────────

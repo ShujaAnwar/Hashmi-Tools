@@ -2,6 +2,10 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
   <script>
     (function(){
       var t=localStorage.getItem('ht-theme')||'light';
@@ -563,16 +567,14 @@
         </h1>
         <p class="hts-hero-sub">
           Manage bookings, tickets, invoices, and customers — all in one powerful desktop application.
-          Works offline. Pay once, own forever.
+          Works offline. One-time payment, own forever.
         </p>
         <div class="hts-hero-ctas">
-          <!-- TODO: Replace href with actual download link once trial is hosted -->
-          <a href="#download-trial" class="hts-btn-primary">
-            <i class="fas fa-download"></i> Download Free Trial
+          <a href="mailto:hashmidigitalpro@gmail.com" class="hts-btn-primary">
+            <i class="fas fa-envelope"></i> Email Us to Get Started
           </a>
-          <!-- TODO: Replace href="#pricing" to scroll, or link to payment processor once set up -->
-          <a href="#pricing" class="hts-btn-secondary">
-            <i class="fas fa-shopping-cart"></i> Buy Now — From $25
+          <a href="https://wa.me/923132710182?text=Hi%2C%20I%20am%20interested%20in%20Hashmi%20Travel%20Solution%20software." class="hts-btn-secondary" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> WhatsApp Us
           </a>
         </div>
         <div class="hts-hero-trust">
@@ -764,8 +766,20 @@
     <div class="hts-container">
       <div class="hts-section-header">
         <div class="hts-section-label">Simple Pricing</div>
-        <h2 class="hts-section-title">One-Time Purchase. Own It Forever.</h2>
-        <p class="hts-section-sub">No subscriptions. No hidden fees. Pay once and use the software for life.</p>
+        <h2 class="hts-section-title">Get Started — Contact Us Today</h2>
+        <p class="hts-section-sub">Interested in Hashmi Travel Solution? Contact us directly via email or WhatsApp and we'll get you set up quickly.</p>
+      </div>
+
+      <!-- Contact Banner -->
+      <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:36px;">
+        <a href="mailto:hashmidigitalpro@gmail.com" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:1rem;box-shadow:0 4px 20px rgba(99,102,241,.3);">
+          <i class="fas fa-envelope" style="font-size:1.2rem;"></i>
+          hashmidigitalpro@gmail.com
+        </a>
+        <a href="https://wa.me/923132710182?text=Hi%2C%20I%20am%20interested%20in%20Hashmi%20Travel%20Solution." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:1rem;box-shadow:0 4px 20px rgba(37,211,102,.3);">
+          <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i>
+          WhatsApp: +92 313 2710182
+        </a>
       </div>
 
       <div class="hts-pricing-grid">
@@ -790,12 +804,10 @@
             <li><i class="fas fa-check-circle"></i> Payment Tracking</li>
             <li><i class="fas fa-check-circle"></i> Email Support</li>
           </ul>
-          <!-- TODO: Replace href="#buy-single" with actual Gumroad/Stripe checkout link -->
-          <!-- Example: href="https://hashmitools.gumroad.com/l/travel-solution-single" -->
-          <button class="hts-pricing-cta" onclick="handlePurchase('single')">
-            <i class="fas fa-shopping-cart"></i> Buy Single License — $25
-          </button>
-          <p class="hts-pricing-note">🔑 License key delivered instantly via email</p>
+          <a href="mailto:hashmidigitalpro@gmail.com?subject=Hashmi%20Travel%20Solution%20-%20Single%20License%20Inquiry" class="hts-pricing-cta" style="display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;">
+            <i class="fas fa-envelope"></i> Contact Us — Single License
+          </a>
+          <p class="hts-pricing-note">📧 Email us or WhatsApp for pricing &amp; delivery</p>
         </div>
 
         <!-- Enterprise -->
@@ -819,22 +831,20 @@
             <li><i class="fas fa-check-circle"></i> Bulk Data Import/Export</li>
             <li><i class="fas fa-check-circle"></i> Priority Email Support</li>
           </ul>
-          <!-- TODO: Replace href="#buy-enterprise" with actual Gumroad/Stripe checkout link -->
-          <!-- Example: href="https://hashmitools.gumroad.com/l/travel-solution-enterprise" -->
-          <button class="hts-pricing-cta" onclick="handlePurchase('enterprise')">
-            <i class="fas fa-shopping-cart"></i> Buy Enterprise License — $40
-          </button>
-          <p class="hts-pricing-note">🔑 License key delivered instantly via email</p>
+          <a href="mailto:hashmidigitalpro@gmail.com?subject=Hashmi%20Travel%20Solution%20-%20Enterprise%20License%20Inquiry" class="hts-pricing-cta" style="display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;">
+            <i class="fas fa-envelope"></i> Contact Us — Enterprise License
+          </a>
+          <p class="hts-pricing-note">📧 Email us or WhatsApp for pricing &amp; delivery</p>
         </div>
 
       </div>
 
       <div class="hts-pricing-disclaimer">
-        <span><i class="fas fa-lock" style="color:var(--hts-green);"></i> Secure payment processing</span>
+        <span><i class="fas fa-envelope" style="color:var(--hts-green);"></i> hashmidigitalpro@gmail.com</span>
         <span>·</span>
-        <span><i class="fas fa-key" style="color:var(--hts-gold);"></i> License key delivered instantly via email</span>
+        <span><i class="fab fa-whatsapp" style="color:#25d366;"></i> <a href="https://wa.me/923132710182" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">+92 313 2710182</a></span>
         <span>·</span>
-        <span><i class="fas fa-undo" style="color:var(--hts-blue-light);"></i> 30-day money-back guarantee</span>
+        <span><i class="fas fa-headset" style="color:var(--hts-blue-light);"></i> Fast response — usually within 24 hours</span>
       </div>
     </div>
   </section>
@@ -853,28 +863,28 @@
       <div class="hts-steps">
         <div class="hts-step">
           <div class="hts-step-num">1</div>
-          <div class="hts-step-title">Purchase Your License</div>
-          <div class="hts-step-desc">Choose Single ($25) or Enterprise ($40) and complete secure checkout. Accepts all major cards.</div>
+          <div class="hts-step-title">Contact Us</div>
+          <div class="hts-step-desc">Email us at <strong>hashmidigitalpro@gmail.com</strong> or WhatsApp <strong>+92 313 2710182</strong> to express your interest.</div>
         </div>
         <div class="hts-step">
           <div class="hts-step-num">2</div>
-          <div class="hts-step-title">Receive License Key</div>
-          <div class="hts-step-desc">Your unique license key is delivered instantly to your email. Keep it safe — it's tied to your purchase.</div>
+          <div class="hts-step-title">Choose Your License</div>
+          <div class="hts-step-desc">We'll help you choose between Single User or Enterprise license based on your agency's size and requirements.</div>
         </div>
         <div class="hts-step">
           <div class="hts-step-num">3</div>
-          <div class="hts-step-title">Download &amp; Install</div>
-          <div class="hts-step-desc">Download Hashmi Travel Solution and run the installer on your Windows PC. Installation takes under 2 minutes.</div>
+          <div class="hts-step-title">Receive Setup Package</div>
+          <div class="hts-step-desc">After confirmation, we send you the installer and license key via email. Installation takes under 2 minutes.</div>
         </div>
         <div class="hts-step">
           <div class="hts-step-num">4</div>
-          <div class="hts-step-title">Enter License Key</div>
-          <div class="hts-step-desc">On first launch, enter your license key to activate. One-time activation — no repeated verification needed.</div>
+          <div class="hts-step-title">Activate &amp; Launch</div>
+          <div class="hts-step-desc">Enter your license key on first launch to activate. One-time activation — works fully offline after that.</div>
         </div>
         <div class="hts-step">
           <div class="hts-step-num">5</div>
-          <div class="hts-step-title">Start Managing</div>
-          <div class="hts-step-desc">Your software is activated and ready. No internet required after activation. Manage your agency fully offline.</div>
+          <div class="hts-step-title">Ongoing Support</div>
+          <div class="hts-step-desc">We're available via email and WhatsApp for installation help, usage questions, and future updates.</div>
         </div>
       </div>
     </div>
@@ -998,24 +1008,22 @@
   <!-- ══════════════════════════════════════════════
        BOTTOM CTA
   ══════════════════════════════════════════════ -->
-  <section class="hts-cta-section" id="download-trial">
+  <section class="hts-cta-section" id="contact-us">
     <div class="hts-container" style="position:relative;z-index:1;">
-      <h2 class="hts-cta-title">Ready to streamline your travel agency?</h2>
-      <p class="hts-cta-sub">Try it free, or jump straight in with a lifetime license for as little as $25.</p>
+      <h2 class="hts-cta-title">Interested? Get in Touch!</h2>
+      <p class="hts-cta-sub">Contact us via email or WhatsApp — we'll help you get started with the right license for your agency.</p>
       <div class="hts-cta-btns">
-        <!-- TODO: Replace with actual download link once trial is hosted -->
-        <a href="#download-trial" class="hts-btn-primary">
-          <i class="fas fa-download"></i> Download Free Trial
+        <a href="mailto:hashmidigitalpro@gmail.com?subject=Hashmi%20Travel%20Solution%20Inquiry" class="hts-btn-primary">
+          <i class="fas fa-envelope"></i> hashmidigitalpro@gmail.com
         </a>
-        <!-- TODO: Replace with actual payment processor link (Gumroad/Stripe) -->
-        <a href="#pricing" class="hts-btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">
-          <i class="fas fa-shopping-cart"></i> Buy License — From $25
+        <a href="https://wa.me/923132710182?text=Hi%2C%20I%20am%20interested%20in%20Hashmi%20Travel%20Solution%20software." class="hts-btn-secondary" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> WhatsApp: +92 313 2710182
         </a>
       </div>
       <div style="margin-top:20px;opacity:0.75;font-size:0.82rem;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
-        <span>✅ 30-day money-back guarantee</span>
-        <span>✅ Instant delivery</span>
-        <span>✅ No subscription</span>
+        <span>✅ Fast response within 24 hours</span>
+        <span>✅ One-time payment, lifetime license</span>
+        <span>✅ Full setup support included</span>
       </div>
     </div>
   </section>
@@ -1053,22 +1061,13 @@
   }
 
   /* ──────────────────────────────────────────────
-     Purchase handler
-     TODO: Replace window.open URLs with actual payment processor links.
-     Recommended options:
-       - Gumroad: https://hashmitools.gumroad.com/l/travel-solution-single
-       - Lemon Squeezy: https://hashmitools.lemonsqueezy.com/checkout/buy/...
-       - Stripe Checkout: requires backend license key generation setup
+     Contact redirect helper
   ────────────────────────────────────────────── */
-  function handlePurchase(type) {
-    const links = {
-      single:     '#buy-single',     // TODO: Replace with actual checkout URL
-      enterprise: '#buy-enterprise'  // TODO: Replace with actual checkout URL
-    };
-    const names = { single:'Single User License ($25)', enterprise:'Enterprise License ($40)' };
-    // Placeholder — show a toast until real checkout link is set up
-    showToast(`Redirecting to secure checkout for ${names[type]}…`, 'info');
-    // window.open(links[type], '_blank'); // Uncomment when real URL is set
+  function contactUs(type) {
+    const subject = type === 'enterprise'
+      ? 'Hashmi Travel Solution - Enterprise License Inquiry'
+      : 'Hashmi Travel Solution - Single License Inquiry';
+    window.location.href = 'mailto:hashmidigitalpro@gmail.com?subject=' + encodeURIComponent(subject);
   }
 
   /* ──────────────────────────────────────────────

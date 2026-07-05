@@ -2,6 +2,10 @@
 <html lang="en" data-mode="light" data-theme="light" data-accent="purple">
 <head>
 <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
   <script>
     (function(){
       var t=localStorage.getItem('ht-theme')||'light';
@@ -205,16 +209,30 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div class="card-body" style="font-size:.88rem;color:var(--text-secondary);line-height:1.8">
       <p><strong style="color:var(--text-primary)">How it works:</strong> Uses a deep-learning AI model (ONNX/WebAssembly) that runs entirely inside your browser. The model detects foreground subjects and removes the background producing a transparent PNG — all locally, with zero server uploads.</p>
       <p style="margin-top:.5rem"><strong style="color:var(--text-primary)">Best results for:</strong> People / portraits, Products on solid backgrounds, Animals, Cars, Objects with clear edges.</p>
-      <p style="margin-top:.5rem"><strong style="color:var(--text-primary)">First run note:</strong> The AI model (~40MB) downloads once on first use and is cached by your browser. Subsequent uses are instant.</p>
+      <p style="margin-top:.5rem"><strong style="color:var(--text-primary)">First run note:</strong> The AI model (~170MB) downloads once on first use and is cached by your browser. Subsequent uses are instant. Requires a stable internet connection for the first download.</p>
       <p style="margin-top:.5rem"><strong style="color:var(--text-primary)">Privacy:</strong> Your image never leaves your device. Processing is 100% local.</p>
     </div>
   </div>
 </div>
 
-<!-- Load @imgly/background-removal — runs 100% in browser via WASM/ONNX -->
+<!-- Transformers.js — Hugging Face RMBG-1.4 background removal, runs in browser -->
 <script type="module">
-import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/+esm';
-window.__imglyRemoveBg = removeBackground;
+import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.2/dist/transformers.min.js';
+env.allowLocalModels = false;
+env.useBrowserCache = true;
+window.__htBgRemove = async function(imageBlob, onProgress) {
+  const segmenter = await pipeline('image-segmentation', 'briaai/RMBG-1.4', {
+    device: 'wasm',
+    dtype: 'fp32',
+    progress_callback: onProgress
+  });
+  // Convert blob to base64 URL for Transformers.js
+  const url = URL.createObjectURL(imageBlob);
+  const output = await segmenter(url);
+  URL.revokeObjectURL(url);
+  return output;
+};
+console.log('Transformers.js loaded');
 </script>
 <script>
 let originalBlob=null, resultImageUrl=null;
@@ -241,57 +259,80 @@ async function processBackground(){
   document.getElementById('processingOverlay').classList.add('show');
   document.getElementById('processingText').innerHTML=
     '<i class="fas fa-cog fa-spin" style="font-size:1.5rem;display:block;margin-bottom:8px;"></i>'
-    +'Running AI model in your browser…<br><small style="color:rgba(255,255,255,.7)">First run downloads ~40MB model (cached after)</small>';
+    +'Running AI model in your browser…<br><small style="color:rgba(255,255,255,.7)">First run downloads ~170MB model (cached after)</small>';
 
-  // Wait for the ESM import to resolve
+  // Wait for the ESM import to resolve (module loads async)
   let attempts=0;
-  while(!window.__imglyRemoveBg && attempts++<30) await new Promise(r=>setTimeout(r,200));
-  if(!window.__imglyRemoveBg){
+  while(!window.__htBgRemove && attempts++<50) await new Promise(r=>setTimeout(r,300));
+  if(!window.__htBgRemove){
     document.getElementById('processingOverlay').classList.remove('show');
-    showToast('AI model failed to load. Please refresh the page.','error');
+    showToast('AI library failed to load. Please check your connection and refresh.','error');
     return;
   }
 
   try{
-    const config={
-      progress:(key,current,total)=>{
-        if(total>0){
-          const pct=Math.round((current/total)*100);
-          document.getElementById('processingText').innerHTML=
-            `<i class="fas fa-cog fa-spin" style="font-size:1.5rem;display:block;margin-bottom:8px;"></i>`
-            +`Downloading AI model… ${pct}%<br>`
-            +`<div style="background:rgba(255,255,255,.2);border-radius:4px;height:6px;width:200px;margin:8px auto;">`
-            +`<div style="background:#6366f1;height:6px;border-radius:4px;width:${pct}%"></div></div>`
-            +`<small style="color:rgba(255,255,255,.7)">Cached after first download</small>`;
-        }
+    function onProgress(info){
+      if(info && info.status === 'progress' && info.total > 0){
+        const pct = Math.round((info.loaded/info.total)*100);
+        document.getElementById('processingText').innerHTML=
+          `<i class="fas fa-cog fa-spin" style="font-size:1.5rem;display:block;margin-bottom:8px;"></i>`
+          +`Loading AI model… ${pct}%<br>`
+          +`<div style="background:rgba(255,255,255,.2);border-radius:4px;height:6px;width:200px;margin:8px auto;">`
+          +`<div style="background:#6366f1;height:6px;border-radius:4px;width:${pct}%"></div></div>`
+          +`<small style="color:rgba(255,255,255,.7)">Cached after first download</small>`;
+      } else if(info && info.status === 'done'){
+        document.getElementById('processingText').innerHTML=
+          '<i class="fas fa-cog fa-spin" style="font-size:1.5rem;display:block;margin-bottom:8px;"></i>'
+          +'Removing background…';
       }
-    };
+    }
 
-    const blob = await window.__imglyRemoveBg(originalBlob, config);
-    resultImageUrl = URL.createObjectURL(blob);
+    const output = await window.__htBgRemove(originalBlob, onProgress);
 
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.getElementById('resultCanvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-      document.getElementById('processingOverlay').classList.remove('show');
-      document.getElementById('statsRow').innerHTML=`
-        <div class="stat-pill">Size: <strong>${fmtSize(originalBlob.size)}</strong></div>
-        <div class="stat-pill">Output: <strong>${img.naturalWidth}×${img.naturalHeight}</strong></div>
-        <div class="stat-pill" style="color:var(--accent-green)"><i class="fas fa-check"></i> <strong>Done</strong></div>
-      `;
-      showToast('Background removed successfully!','success');
-    };
-    img.src = resultImageUrl;
+    // output is array of {label, score, mask} — mask is an HTMLImageElement or similar
+    if(!output || output.length === 0) throw new Error('No output from model');
+    const maskItem = output[0];
+
+    // Create canvas with original image + mask applied
+    const origImg = document.getElementById('originalImg');
+    const canvas = document.getElementById('resultCanvas');
+    canvas.width = origImg.naturalWidth;
+    canvas.height = origImg.naturalHeight;
+    const ctx = canvas.getContext('2d');
+
+    // Draw original
+    ctx.drawImage(origImg, 0, 0);
+
+    // Apply mask — mask.mask is an HTMLImageElement
+    const maskCanvas = document.createElement('canvas');
+    maskCanvas.width = canvas.width;
+    maskCanvas.height = canvas.height;
+    const maskCtx = maskCanvas.getContext('2d');
+    maskCtx.drawImage(maskItem.mask, 0, 0, canvas.width, canvas.height);
+    const maskData = maskCtx.getImageData(0, 0, canvas.width, canvas.height);
+
+    // Apply mask as alpha channel
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    for(let i = 0; i < imgData.data.length; i += 4){
+      imgData.data[i+3] = maskData.data[i]; // use mask red channel as alpha
+    }
+    ctx.putImageData(imgData, 0, 0);
+
+    // Save result as blob URL for background color options
+    canvas.toBlob(blob => { resultImageUrl = URL.createObjectURL(blob); }, 'image/png');
+
+    document.getElementById('processingOverlay').classList.remove('show');
+    document.getElementById('statsRow').innerHTML=`
+      <div class="stat-pill">Size: <strong>${fmtSize(originalBlob.size)}</strong></div>
+      <div class="stat-pill">Output: <strong>${canvas.width}×${canvas.height}</strong></div>
+      <div class="stat-pill" style="color:var(--accent-green)"><i class="fas fa-check"></i> <strong>Done</strong></div>
+    `;
+    showToast('Background removed successfully!','success');
 
   } catch(e){
     document.getElementById('processingOverlay').classList.remove('show');
-    showToast('Error removing background: '+e.message,'error');
-    console.error(e);
+    showToast('Error: '+e.message,'error');
+    console.error('BG remove error:', e);
   }
 }
 

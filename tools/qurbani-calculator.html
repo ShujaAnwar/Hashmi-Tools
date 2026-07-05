@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="light" data-accent="purple">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
+  <script>
+    (function(){
+      var t=localStorage.getItem('ht-theme')||'light';
+      document.documentElement.setAttribute('data-theme',t);
+      document.documentElement.setAttribute('data-mode',t);
+    })();
+  </script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qurbani Calculator 2025 — Shares, Cost & Rules | HashmiTools</title>
+<meta name="description" content="Free Qurbani Calculator for Eid ul-Adha 2025. Calculate number of shares, cost per person, eligible animals, and Qurbani rules for Pakistan. Cow=7 shares, Goat=1 share.">
+<meta name="keywords" content="qurbani calculator, qurbani shares, eid ul adha calculator, bakra eid, qurbani 2025, qurbani rules pakistan, cow shares qurbani">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hashmitools.com/tools/qurbani-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/tools.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<script src="../assets/js/theme.js"></script>
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Qurbani Calculator","description":"Calculate Qurbani shares, cost, and eligible animals for Eid ul-Adha 2025.","url":"https://hashmitools.com/tools/qurbani-calculator.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"PKR"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+</script>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="islamic.html" class="nav-link active">Islamic Tools</a>
+      <a href="../blog.html" class="nav-link">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="tool-page-header">
+  <div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="islamic.html">Islamic Tools</a><i class="fas fa-chevron-right"></i><span>Qurbani Calculator</span></nav>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:3rem;">🐄</div>
+      <div>
+        <h1 class="tool-title">Qurbani Calculator 2025</h1>
+        <p class="tool-desc">Calculate Qurbani shares, animal cost, and eligibility for Eid ul-Adha</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="tool-main">
+  <div class="container">
+    <div class="tool-layout">
+      <div>
+
+        <!-- Animal Type -->
+        <div class="tool-box" style="margin-bottom:20px;">
+          <div class="tool-box-header"><i class="fas fa-paw"></i> Select Animal & Participants</div>
+          <div class="tool-box-body">
+
+            <!-- Animal Cards -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;" id="animalGrid">
+              <div class="animal-card active" data-animal="cow" data-shares="7" onclick="selectAnimal(this)">
+                <div style="font-size:2.5rem;">🐄</div>
+                <div style="font-weight:700;margin-top:6px;">Cow / Ox</div>
+                <div style="font-size:.8rem;color:var(--text-secondary);">گائے / بیل</div>
+                <div class="shares-badge">7 Shares</div>
+              </div>
+              <div class="animal-card" data-animal="buffalo" data-shares="7" onclick="selectAnimal(this)">
+                <div style="font-size:2.5rem;">🐃</div>
+                <div style="font-weight:700;margin-top:6px;">Buffalo</div>
+                <div style="font-size:.8rem;color:var(--text-secondary);">بھینس</div>
+                <div class="shares-badge">7 Shares</div>
+              </div>
+              <div class="animal-card" data-animal="camel" data-shares="7" onclick="selectAnimal(this)">
+                <div style="font-size:2.5rem;">🐪</div>
+                <div style="font-weight:700;margin-top:6px;">Camel</div>
+                <div style="font-size:.8rem;color:var(--text-secondary);">اونٹ</div>
+                <div class="shares-badge">7 Shares</div>
+              </div>
+              <div class="animal-card" data-animal="goat" data-shares="1" onclick="selectAnimal(this)">
+                <div style="font-size:2.5rem;">🐐</div>
+                <div style="font-weight:700;margin-top:6px;">Goat</div>
+                <div style="font-size:.8rem;color:var(--text-secondary);">بکرا / بکری</div>
+                <div class="shares-badge">1 Share</div>
+              </div>
+              <div class="animal-card" data-animal="sheep" data-shares="1" onclick="selectAnimal(this)">
+                <div style="font-size:2.5rem;">🐑</div>
+                <div style="font-weight:700;margin-top:6px;">Sheep / Ram</div>
+                <div style="font-size:.8rem;color:var(--text-secondary);">دُنبہ / بھیڑ</div>
+                <div class="shares-badge">1 Share</div>
+              </div>
+              <div class="animal-card" data-animal="goat2" data-shares="1" onclick="selectAnimal(this)">
+                <div style="font-size:2.5rem;">🐏</div>
+                <div style="font-weight:700;margin-top:6px;">Male Goat</div>
+                <div style="font-size:.8rem;color:var(--text-secondary);">بکرا</div>
+                <div class="shares-badge">1 Share</div>
+              </div>
+            </div>
+
+            <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:.88rem;color:var(--text-secondary);">
+              <strong style="color:#10b981;">📌 Selected:</strong> <span id="selectedAnimalLabel">Cow / Ox — 7 shares per animal</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+              <div class="form-group" style="margin:0;">
+                <label class="form-label">Number of Participants (Hissay داروں)</label>
+                <input type="number" class="form-input" id="participants" value="7" min="1" max="7" onchange="calculate()">
+                <div style="font-size:.78rem;color:var(--text-muted);margin-top:4px;" id="participantNote">Max 7 for cow/buffalo/camel</div>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label">Total Animal Cost (Rs.)</label>
+                <input type="number" class="form-input" id="animalCost" placeholder="e.g. 70000" value="70000" onchange="calculate()">
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+              <div class="form-group" style="margin:0;">
+                <label class="form-label">Number of Animals</label>
+                <input type="number" class="form-input" id="numAnimals" value="1" min="1" onchange="calculate()">
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label">Butcher / Processing Cost (Rs.)</label>
+                <input type="number" class="form-input" id="butcherCost" placeholder="e.g. 5000" value="5000" onchange="calculate()">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="calculate()" style="width:100%;padding:14px;font-size:1rem;">
+              <i class="fas fa-calculator"></i> Calculate Qurbani
+            </button>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="tool-box" id="resultBox" style="margin-bottom:20px;">
+          <div class="tool-box-header" style="background:rgba(16,185,129,0.1);">
+            <i class="fas fa-check-circle" style="color:#10b981;"></i> Qurbani Summary
+          </div>
+          <div class="tool-box-body">
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;" id="resultCards"></div>
+
+            <!-- Participant breakdown -->
+            <div id="participantTable"></div>
+          </div>
+        </div>
+
+        <!-- Rules Box -->
+        <div class="tool-box" style="margin-bottom:20px;">
+          <div class="tool-box-header"><i class="fas fa-book-open"></i> Qurbani Rules (Hanafi Fiqh)</div>
+          <div class="tool-box-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;font-size:.875rem;">
+                <div style="font-weight:700;color:var(--accent-purple);margin-bottom:4px;">🐄 Large Animals</div>
+                <div style="color:var(--text-secondary);">Cow, Buffalo, Camel = <strong>7 shares</strong>. Each share is valid as a separate Qurbani for one person or family.</div>
+              </div>
+              <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;font-size:.875rem;">
+                <div style="font-weight:700;color:var(--accent-purple);margin-bottom:4px;">🐐 Small Animals</div>
+                <div style="color:var(--text-secondary);">Goat, Sheep, Ram = <strong>1 share only</strong>. One goat = one complete Qurbani for one person or entire household.</div>
+              </div>
+              <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;font-size:.875rem;">
+                <div style="font-weight:700;color:var(--accent-purple);margin-bottom:4px;">📅 Minimum Age</div>
+                <div style="color:var(--text-secondary);">Goat/Sheep: min 1 year. Cow/Buffalo: min 2 years. Camel: min 5 years. Younger animals are not valid.</div>
+              </div>
+              <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;font-size:.875rem;">
+                <div style="font-weight:700;color:var(--accent-purple);margin-bottom:4px;">💰 Who Must Do Qurbani?</div>
+                <div style="color:var(--text-secondary);">Qurbani is Wajib (obligatory) on every Muslim adult who possesses Nisab (≈ 87.48g gold / 612.36g silver equivalent) on the days of Eid.</div>
+              </div>
+              <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;font-size:.875rem;">
+                <div style="font-weight:700;color:var(--accent-purple);margin-bottom:4px;">🥩 Meat Distribution</div>
+                <div style="color:var(--text-secondary);">Recommended: 1/3 for self, 1/3 for relatives/neighbours, 1/3 for the poor. Sharing with the poor is strongly encouraged.</div>
+              </div>
+              <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;font-size:.875rem;">
+                <div style="font-weight:700;color:var(--accent-purple);margin-bottom:4px;">🗓️ Valid Days</div>
+                <div style="color:var(--text-secondary);">10th, 11th, and 12th Dhul Hijjah. Qurbani performed after Eid prayer on 10th until sunset on 12th is valid.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prices Reference -->
+        <div class="tool-box" style="margin-bottom:20px;">
+          <div class="tool-box-header"><i class="fas fa-tag"></i> 2025 Approximate Market Prices (Pakistan)</div>
+          <div class="tool-box-body" style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:.875rem;">
+              <thead>
+                <tr style="background:rgba(99,102,241,.08);">
+                  <th style="padding:10px;text-align:left;border-bottom:2px solid var(--border-glass);">Animal</th>
+                  <th style="padding:10px;text-align:right;border-bottom:2px solid var(--border-glass);">Min Price</th>
+                  <th style="padding:10px;text-align:right;border-bottom:2px solid var(--border-glass);">Avg Price</th>
+                  <th style="padding:10px;text-align:right;border-bottom:2px solid var(--border-glass);">Share Cost (Avg)</th>
+                </tr>
+              </thead>
+              <tbody id="priceTable">
+                <tr><td style="padding:9px;border-bottom:1px solid var(--border-glass);">🐐 Goat (Bakra)</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 25,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 50,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);font-weight:600;color:var(--accent-purple);">Rs. 50,000</td></tr>
+                <tr style="background:rgba(99,102,241,.03);"><td style="padding:9px;border-bottom:1px solid var(--border-glass);">🐑 Sheep / Dumba</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 30,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 55,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);font-weight:600;color:var(--accent-purple);">Rs. 55,000</td></tr>
+                <tr><td style="padding:9px;border-bottom:1px solid var(--border-glass);">🐄 Cow (per share)</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 8,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 15,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);font-weight:600;color:var(--accent-purple);">Rs. 15,000</td></tr>
+                <tr style="background:rgba(99,102,241,.03);"><td style="padding:9px;border-bottom:1px solid var(--border-glass);">🐄 Full Cow</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 60,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 100,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);font-weight:600;color:var(--accent-purple);">Rs. ~14,300</td></tr>
+                <tr><td style="padding:9px;border-bottom:1px solid var(--border-glass);">🐃 Buffalo (per share)</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 12,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);">Rs. 22,000</td><td style="padding:9px;text-align:right;border-bottom:1px solid var(--border-glass);font-weight:600;color:var(--accent-purple);">Rs. 22,000</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:.78rem;color:var(--text-muted);margin-top:8px;">* Prices are approximate estimates for 2025. Actual market prices vary by city, animal quality, and Eid proximity. Always verify with local mandi.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <aside>
+        <div class="sidebar-ad">Advertisement</div>
+        <div class="tool-box" style="margin-top:16px;">
+          <div class="tool-box-header">🕌 Islamic Tools</div>
+          <div class="tool-box-body" style="display:flex;flex-direction:column;gap:8px;">
+            <a href="zakat-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:.875rem;">🕌 Zakat Calculator</a>
+            <a href="prayer-times.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:.875rem;">🕐 Prayer Times</a>
+            <a href="inheritance-calculator.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:.875rem;">⚖️ Inheritance Calc</a>
+            <a href="hijri-converter.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg-glass);border-radius:8px;color:var(--text-secondary);font-size:.875rem;">📅 Hijri Converter</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<!-- Injected content for AdSense depth -->
+<section style="background:#fff;padding:40px 24px;max-width:860px;margin:40px auto 0;font-family:system-ui,sans-serif;line-height:1.75;color:#1a1a1a;">
+  <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:16px;">Qurbani Calculator — Complete Guide for Eid ul-Adha 2025</h2>
+  <p>Qurbani (also written as Qurban or Udhiyah) is the Islamic ritual sacrifice performed on Eid ul-Adha — the 10th, 11th, and 12th of Dhul Hijjah. It commemorates Prophet Ibrahim's (AS) willingness to sacrifice his son in obedience to Allah, and Allah's mercy in replacing the sacrifice with a ram. Every Muslim adult who possesses the Nisab threshold on the days of Eid is obligated to perform Qurbani — this is Wajib according to Hanafi fiqh and Sunnah Mu'akkadah according to other madhabs.</p>
+
+  <h3 style="font-size:1.2rem;font-weight:700;margin:24px 0 10px;">How Many Shares Per Animal?</h3>
+  <p>The number of permissible shares differs by animal type:</p>
+  <ul style="padding-left:20px;margin:0 0 16px;">
+    <li style="margin-bottom:6px;"><strong>Large animals (Cow, Buffalo, Camel)</strong> — 7 shares per animal. Up to 7 people can jointly purchase one large animal, each person's share counting as a valid Qurbani.</li>
+    <li style="margin-bottom:6px;"><strong>Small animals (Goat, Sheep, Ram/Dumba)</strong> — 1 share only. One goat or sheep counts as a complete Qurbani for one person or an entire household.</li>
+  </ul>
+
+  <h3 style="font-size:1.2rem;font-weight:700;margin:24px 0 10px;">Who Is Qurbani Obligatory For?</h3>
+  <p>Qurbani is Wajib (obligatory) on every sane, adult (baligh) Muslim who is not a traveller (musafir) and who possesses wealth equal to or exceeding the Nisab threshold on the days of Eid. The Nisab for Qurbani is the same as for Zakat: equivalent to 87.48 grams of gold or 612.36 grams of silver — whichever is lower. In Pakistan, as of 2025, this translates to approximately Rs. 15,000–20,000 in net assets above basic needs.</p>
+
+  <h3 style="font-size:1.2rem;font-weight:700;margin:24px 0 10px;">Qurbani on Behalf of Others</h3>
+  <p>It is permissible and highly rewarding to perform Qurbani on behalf of deceased relatives, Prophet Muhammad (PBUH), or any Muslim. When performing on behalf of a deceased person, no additional Nisab is required — one share per deceased person is added as a separate intention. The Prophet (PBUH) would sacrifice one ram on behalf of his entire Ummah.</p>
+
+  <h2 style="font-size:1.4rem;font-weight:700;margin:32px 0 16px;">Frequently Asked Questions</h2>
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:16px;margin-bottom:12px;">
+    <h3 style="font-size:1rem;font-weight:700;margin:0 0 8px;">Can 7 family members share one cow?</h3>
+    <p style="margin:0;color:#444;font-size:.9rem;">Yes. Up to 7 participants can share one cow or buffalo. Each participant's share counts as their individual Qurbani, provided each person's intention (niyyah) is for Qurbani specifically — not just to share the meat. All partners must be Muslim and have the correct intention.</p>
+  </div>
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:16px;margin-bottom:12px;">
+    <h3 style="font-size:1rem;font-weight:700;margin:0 0 8px;">Can fewer than 7 people share a cow?</h3>
+    <p style="margin:0;color:#444;font-size:.9rem;">Yes. 2, 3, 4, 5, or 6 people can share a cow — not only 7. Fewer than 7 is perfectly valid. The rule is a maximum of 7, not exactly 7. Each person's share just increases in proportion to the fewer participants.</p>
+  </div>
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:16px;margin-bottom:12px;">
+    <h3 style="font-size:1rem;font-weight:700;margin:0 0 8px;">When is Qurbani time in 2025?</h3>
+    <p style="margin:0;color:#444;font-size:.9rem;">Eid ul-Adha 2025 is expected around June 6–7, 2025 (subject to moon sighting). Qurbani is valid from after the Eid prayer on 10th Dhul Hijjah until sunset on 12th Dhul Hijjah — giving 3 days total. In Pakistan, local mosque announcements confirm the exact date each year.</p>
+  </div>
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:16px;margin-bottom:12px;">
+    <h3 style="font-size:1rem;font-weight:700;margin:0 0 8px;">What is the minimum age for Qurbani animals?</h3>
+    <p style="margin:0;color:#444;font-size:.9rem;">Goat and sheep: minimum 1 year (12 months). Cow and buffalo: minimum 2 years. Camel: minimum 5 years. A sheep/dumba that has reached 6 months but looks like a 1-year-old may be acceptable in emergency when no 1-year-old sheep is available, per Hanafi ruling.</p>
+  </div>
+  <div style="border:1px solid #e8ecf0;border-radius:10px;padding:16px;margin-bottom:12px;">
+    <h3 style="font-size:1rem;font-weight:700;margin:0 0 8px;">How should Qurbani meat be distributed?</h3>
+    <p style="margin:0;color:#444;font-size:.9rem;">The recommended (mustahabb) distribution is three equal parts: 1/3 for your own household, 1/3 for relatives and neighbours, and 1/3 for the poor and needy. Giving to the poor is strongly encouraged. You may keep the entire meat for yourself if needed, but distributing to the poor is the Sunnah.</p>
+  </div>
+</section>
+
+<style>
+.animal-card {
+  border: 2px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--bg-card);
+  position: relative;
+}
+.animal-card:hover { border-color: var(--accent-purple); transform: translateY(-2px); }
+.animal-card.active { border-color: var(--accent-purple); background: rgba(99,102,241,.08); }
+.shares-badge {
+  display: inline-block;
+  background: rgba(99,102,241,.15);
+  color: var(--accent-purple);
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 6px;
+}
+.result-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.result-card .rc-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--gradient-main, linear-gradient(135deg,#6366f1,#06b6d4));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.result-card .rc-lbl { font-size: .8rem; color: var(--text-muted); margin-top: 4px; }
+</style>
+
+<footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></div></footer>
+
+<script src="../js/main.js"></script>
+<script>
+let selectedShares = 7;
+let selectedAnimalName = 'Cow / Ox';
+
+function selectAnimal(el) {
+  document.querySelectorAll('.animal-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  selectedShares = parseInt(el.dataset.shares);
+  selectedAnimalName = el.querySelector('div:nth-child(2)').textContent;
+
+  const participantsInput = document.getElementById('participants');
+  const note = document.getElementById('participantNote');
+
+  if (selectedShares === 1) {
+    participantsInput.max = 1;
+    participantsInput.value = 1;
+    note.textContent = 'Goat/Sheep: 1 share per animal only';
+  } else {
+    participantsInput.max = 7;
+    if (parseInt(participantsInput.value) > 7) participantsInput.value = 7;
+    note.textContent = 'Max 7 for cow/buffalo/camel';
+  }
+
+  document.getElementById('selectedAnimalLabel').textContent =
+    selectedAnimalName + ' — ' + selectedShares + (selectedShares === 1 ? ' share' : ' shares') + ' per animal';
+
+  calculate();
+}
+
+function calculate() {
+  const participants = Math.max(1, Math.min(selectedShares, parseInt(document.getElementById('participants').value) || 1));
+  const animalCost = parseFloat(document.getElementById('animalCost').value) || 0;
+  const numAnimals = Math.max(1, parseInt(document.getElementById('numAnimals').value) || 1);
+  const butcherCost = parseFloat(document.getElementById('butcherCost').value) || 0;
+
+  const totalAnimalCost = animalCost * numAnimals;
+  const totalButcher = butcherCost * numAnimals;
+  const totalCost = totalAnimalCost + totalButcher;
+  const costPerShare = participants > 0 ? totalCost / participants : totalCost;
+  const totalShares = numAnimals * selectedShares;
+
+  // Result cards
+  const cards = [
+    { val: numAnimals, lbl: 'Number of Animals' },
+    { val: participants, lbl: 'Total Participants' },
+    { val: 'Rs. ' + fmt(Math.round(costPerShare)), lbl: 'Cost Per Share' },
+    { val: 'Rs. ' + fmt(Math.round(totalCost)), lbl: 'Total Cost' },
+  ];
+
+  document.getElementById('resultCards').innerHTML = cards.map(c => `
+    <div class="result-card">
+      <div class="rc-val">${c.val}</div>
+      <div class="rc-lbl">${c.lbl}</div>
+    </div>`).join('');
+
+  // Participant table
+  let rows = '';
+  for (let i = 1; i <= participants; i++) {
+    rows += `<tr>
+      <td style="padding:9px;border-bottom:1px solid var(--border-glass);">Participant ${i}</td>
+      <td style="padding:9px;border-bottom:1px solid var(--border-glass);text-align:center;">1 Share</td>
+      <td style="padding:9px;border-bottom:1px solid var(--border-glass);text-align:right;font-weight:700;color:var(--accent-purple);">Rs. ${fmt(Math.round(costPerShare))}</td>
+      <td style="padding:9px;border-bottom:1px solid var(--border-glass);text-align:center;"><span style="background:rgba(16,185,129,.1);color:#10b981;font-size:.75rem;padding:2px 8px;border-radius:20px;font-weight:700;">✅ Valid</span></td>
+    </tr>`;
+  }
+
+  document.getElementById('participantTable').innerHTML = `
+    <div style="font-weight:700;margin-bottom:10px;font-size:.9rem;">Participant Breakdown</div>
+    <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:.875rem;">
+      <thead>
+        <tr style="background:rgba(99,102,241,.06);">
+          <th style="padding:9px;text-align:left;border-bottom:2px solid var(--border-glass);">Participant</th>
+          <th style="padding:9px;text-align:center;border-bottom:2px solid var(--border-glass);">Shares</th>
+          <th style="padding:9px;text-align:right;border-bottom:2px solid var(--border-glass);">Amount (Rs.)</th>
+          <th style="padding:9px;text-align:center;border-bottom:2px solid var(--border-glass);">Status</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+      <tfoot>
+        <tr style="background:rgba(99,102,241,.06);font-weight:700;">
+          <td style="padding:9px;">Total</td>
+          <td style="padding:9px;text-align:center;">${participants}</td>
+          <td style="padding:9px;text-align:right;color:var(--accent-purple);">Rs. ${fmt(Math.round(totalCost))}</td>
+          <td style="padding:9px;"></td>
+        </tr>
+      </tfoot>
+    </table></div>`;
+}
+
+function fmt(n) { return n.toLocaleString('en-PK'); }
+
+// Init
+calculate();
+if(typeof HashmiTools !== 'undefined') HashmiTools.trackToolView('Qurbani Calculator', 'tools/qurbani-calculator.html', '🐄');
+</script>
+
+<!-- AdSense init -->
+<script>
+(function(){
+  var ads = document.querySelectorAll('.adsbygoogle');
+  for(var i=0;i<ads.length;i++){ try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){} }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="light" data-accent="purple">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+<link rel="shortcut icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
+<script>
+  (function(){
+    var t=localStorage.getItem('ht-theme')||'light';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-mode',t);
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Your Future — AI Career Roadmap Generator | HashmiTools</title>
+<meta name="description" content="Free AI-powered career roadmap generator for Pakistan and South Asia. Enter your details and get a personalized step-by-step career plan with resources, income ideas, and phases.">
+<meta name="keywords" content="career roadmap, plan your future, career planning pakistan, ai career advisor, future planning, career guidance pakistan, digiskills, freelancing guide">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hashmitools.com/tools/plan-your-future.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/tools.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<script src="../assets/js/theme.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Plan Your Future — AI Career Roadmap","description":"AI-powered career roadmap generator with South Asian context. Enter your background to receive a personalized, phased career plan.","url":"https://hashmitools.com/tools/plan-your-future.html","applicationCategory":"EducationalApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"PKR"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary,#fff);color:var(--text-primary,#1a1a2e);}
+.pyf-wrap{max-width:860px;margin:0 auto;padding:24px 16px 60px;}
+label{display:block;font-size:.85rem;font-weight:600;margin-bottom:5px;color:var(--text-secondary,#555);}
+input[type="text"],input[type="number"],select,textarea{
+  width:100%;padding:10px 14px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:10px;
+  font-family:inherit;font-size:.95rem;background:var(--bg-primary,#fff);color:var(--text-primary,#1a1a2e);
+  transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+.form-field{margin-bottom:0;}
+
+/* API KEY SECTION */
+.api-section{padding:16px;background:rgba(99,102,241,.05);border:1px solid rgba(99,102,241,.2);border-radius:12px;margin-bottom:20px;}
+.api-title{font-weight:700;font-size:.9rem;margin-bottom:8px;}
+.api-note{font-size:.78rem;color:var(--text-secondary,#777);margin-top:6px;}
+.api-note a{color:#6366f1;}
+
+/* SKILL CHIPS */
+.chips-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.chip{padding:6px 14px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s;user-select:none;}
+.chip.selected{border-color:#6366f1;background:rgba(99,102,241,.1);color:#6366f1;}
+
+/* RADIO GROUPS */
+.radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.radio-item{padding:8px 14px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:8px;cursor:pointer;font-size:.83rem;font-weight:600;transition:all .2s;}
+.radio-item.selected{border-color:#6366f1;background:rgba(99,102,241,.1);color:#6366f1;}
+.radio-item input{display:none;}
+
+/* BUTTONS */
+.generate-btn{display:block;width:100%;padding:16px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border:none;border-radius:12px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:24px;}
+.generate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.3);}
+.generate-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* LOADING */
+.loading-state{display:none;text-align:center;padding:60px 20px;}
+.loading-icon{font-size:3.5rem;animation:spin 2s linear infinite;display:block;margin:0 auto 20px;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.loading-text{font-size:1.1rem;font-weight:600;color:var(--text-secondary,#777);}
+
+/* RESULTS */
+.roadmap-results{display:none;}
+.personal-msg{padding:20px 24px;background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.06));border-radius:16px;border:1px solid rgba(99,102,241,.2);margin-bottom:24px;}
+.pm-greeting{font-size:1.15rem;font-weight:700;margin-bottom:8px;}
+.pm-strategy{font-size:.92rem;line-height:1.7;color:var(--text-secondary,#555);}
+.section-head{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-secondary,#777);margin-bottom:14px;}
+
+/* PHASE TIMELINE */
+.phases-wrap{position:relative;margin-bottom:28px;}
+.phases-wrap::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#6366f1,#06b6d4);z-index:0;}
+.phase-item{position:relative;padding-left:60px;margin-bottom:20px;}
+.phase-dot{position:absolute;left:16px;top:12px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#06b6d4);border:3px solid var(--bg-primary,#fff);box-shadow:0 0 0 2px #6366f1;z-index:1;}
+.phase-card{border:1px solid var(--border-color,#e5e7eb);border-radius:14px;overflow:hidden;background:var(--bg-card,#fff);}
+.phase-header{padding:14px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.phase-header:hover{background:rgba(99,102,241,.03);}
+.ph-meta{display:flex;align-items:center;gap:10px;}
+.ph-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ph-title{font-weight:700;font-size:.95rem;}
+.ph-duration{font-size:.78rem;color:var(--text-secondary,#777);}
+.ph-toggle{color:var(--text-secondary,#aaa);transition:transform .2s;font-size:.85rem;}
+.ph-toggle.open{transform:rotate(180deg);}
+.phase-body{display:none;padding:0 18px 16px;border-top:1px solid var(--border-color,#e5e7eb);}
+.phase-body.open{display:block;}
+.phase-focus{padding:10px 14px;background:rgba(99,102,241,.05);border-radius:8px;margin-bottom:10px;font-size:.88rem;font-weight:600;margin-top:14px;}
+.phase-actions{list-style:none;margin-bottom:10px;}
+.phase-actions li{padding:5px 0 5px 20px;position:relative;font-size:.87rem;border-bottom:1px solid var(--border-color,#e5e7eb);}
+.phase-actions li:last-child{border-bottom:none;}
+.phase-actions li::before{content:'→';position:absolute;left:0;color:#6366f1;font-weight:700;}
+.free-res{margin-top:8px;}
+.free-res-label{font-size:.78rem;font-weight:700;color:var(--text-secondary,#777);margin-bottom:6px;text-transform:uppercase;}
+.res-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.res-tag{padding:3px 10px;background:rgba(16,185,129,.08);color:#16a34a;border-radius:20px;font-size:.75rem;font-weight:700;}
+.milestone-box{margin-top:10px;padding:8px 14px;background:rgba(245,158,11,.08);border-radius:8px;font-size:.83rem;font-weight:700;color:#92400e;}
+.milestone-box::before{content:'🎯 Milestone: ';}
+
+/* SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:28px;}
+.skill-card{padding:14px;border:1px solid var(--border-color,#e5e7eb);border-radius:12px;background:var(--bg-card,#fff);}
+.sk-name{font-weight:700;font-size:.9rem;margin-bottom:4px;}
+.sk-why{font-size:.78rem;color:var(--text-secondary,#777);margin-bottom:6px;line-height:1.4;}
+.sk-learn{font-size:.78rem;font-weight:600;color:#6366f1;}
+.sk-time{font-size:.72rem;color:var(--text-secondary,#999);margin-top:4px;}
+
+/* INCOME */
+.income-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:28px;}
+.income-card{padding:14px;border:1.5px solid rgba(16,185,129,.2);border-radius:12px;background:rgba(16,185,129,.03);}
+.ic-opp{font-weight:700;font-size:.9rem;margin-bottom:6px;}
+.ic-how{font-size:.78rem;color:var(--text-secondary,#777);margin-bottom:8px;line-height:1.4;}
+.ic-income{display:inline-block;padding:3px 10px;background:rgba(16,185,129,.15);color:#16a34a;border-radius:20px;font-size:.78rem;font-weight:700;}
+
+/* START TODAY BOX */
+.start-today{padding:20px 24px;background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.05));border:2px solid rgba(245,158,11,.3);border-radius:16px;margin-bottom:24px;}
+.st-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#92400e;margin-bottom:8px;}
+.st-action{font-size:1.05rem;font-weight:700;line-height:1.5;color:var(--text-primary,#1a1a2e);}
+
+/* WARNINGS */
+.warnings-box{padding:14px;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.15);border-radius:12px;margin-bottom:20px;}
+.warn-item{padding:5px 0 5px 20px;position:relative;font-size:.83rem;color:#991b1b;}
+.warn-item::before{content:'⚠';position:absolute;left:0;}
+
+/* ACTION BUTTONS */
+.result-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;}
+.btn-pdf{padding:12px 24px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.9rem;}
+.btn-edit{padding:12px 24px;background:transparent;border:2px solid #6366f1;color:#6366f1;border-radius:10px;font-weight:700;cursor:pointer;font-size:.9rem;}
+
+/* ERROR */
+.error-box{padding:16px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:12px;margin-bottom:20px;display:none;}
+.error-box p{font-size:.88rem;color:#991b1b;}
+</style>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../trending.html" class="nav-link active">Trending</a>
+      <a href="../blog.html" class="nav-link">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="tool-page-header">
+  <div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="../trending.html">Trending</a><i class="fas fa-chevron-right"></i><span>Plan Your Future</span></nav>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:3rem;">🗺️</div>
+      <div>
+        <h1 class="tool-title">Plan Your Future</h1>
+        <p class="tool-subtitle">AI-powered career roadmap — personalized for Pakistan &amp; South Asia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main style="padding:24px 0;">
+<div class="pyf-wrap">
+
+  <!-- API KEY -->
+  <div class="api-section">
+    <div class="api-title">🔑 Claude AI API Key (required)</div>
+    <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-..." autocomplete="off">
+    <div class="api-note">
+      Your key is saved only in your browser. Get a free key at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (free tier available). Never shared with our servers.
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div id="formSection">
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="fname">Full Name *</label>
+        <input type="text" id="fname" placeholder="e.g. Ahmed Hassan">
+      </div>
+      <div class="form-field">
+        <label for="fage">Current Age *</label>
+        <input type="number" id="fage" placeholder="e.g. 22" min="14" max="65">
+      </div>
+      <div class="form-field">
+        <label for="feducation">Education Level *</label>
+        <select id="feducation">
+          <option value="">-- Select --</option>
+          <option>Matric (Grade 10)</option>
+          <option>Intermediate / FSc / FA</option>
+          <option>Bachelor's Degree</option>
+          <option>Master's Degree</option>
+          <option>PhD / Doctorate</option>
+          <option>No formal education</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="ffield">Current Field / Subject</label>
+        <input type="text" id="ffield" placeholder="e.g. Computer Science, Commerce">
+      </div>
+      <div class="form-field">
+        <label for="fcity">City / Country *</label>
+        <input type="text" id="fcity" placeholder="e.g. Karachi, Pakistan">
+      </div>
+      <div class="form-field">
+        <label for="fgoal">Primary Goal *</label>
+        <select id="fgoal">
+          <option value="">-- Select --</option>
+          <option>Get a good job</option>
+          <option>Start my own business</option>
+          <option>Study abroad</option>
+          <option>Achieve financial independence</option>
+          <option>Change career</option>
+          <option>Help support my family</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="fdream">Dream Career / Job *</label>
+        <input type="text" id="fdream" placeholder="e.g. Software Engineer, Freelancer, Doctor">
+      </div>
+      <div class="form-field">
+        <label for="fchallenge">Biggest Challenge</label>
+        <select id="fchallenge">
+          <option value="">-- Select --</option>
+          <option>No money for education</option>
+          <option>No guidance / mentorship</option>
+          <option>Family pressure</option>
+          <option>No skills yet</option>
+          <option>Don't know where to start</option>
+          <option>Language barrier</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-field" style="margin-bottom:18px;">
+      <label>Timeline *</label>
+      <div class="radio-group" id="rTimeline">
+        <label class="radio-item" onclick="selectRadio('rTimeline',this)"><input type="radio" name="timeline" value="1 year">1 Year</label>
+        <label class="radio-item" onclick="selectRadio('rTimeline',this)"><input type="radio" name="timeline" value="3 years">3 Years</label>
+        <label class="radio-item" onclick="selectRadio('rTimeline',this)"><input type="radio" name="timeline" value="5 years">5 Years</label>
+        <label class="radio-item" onclick="selectRadio('rTimeline',this)"><input type="radio" name="timeline" value="10 years">10 Years</label>
+      </div>
+    </div>
+
+    <div class="form-field" style="margin-bottom:18px;">
+      <label>Monthly Budget for Learning *</label>
+      <div class="radio-group" id="rBudget">
+        <label class="radio-item" onclick="selectRadio('rBudget',this)"><input type="radio" name="budget" value="None / Zero">None (Zero)</label>
+        <label class="radio-item" onclick="selectRadio('rBudget',this)"><input type="radio" name="budget" value="Under $50 / month">Under $50/mo</label>
+        <label class="radio-item" onclick="selectRadio('rBudget',this)"><input type="radio" name="budget" value="$50–$200 / month">$50–$200/mo</label>
+        <label class="radio-item" onclick="selectRadio('rBudget',this)"><input type="radio" name="budget" value="$200–$500 / month">$200–$500/mo</label>
+        <label class="radio-item" onclick="selectRadio('rBudget',this)"><input type="radio" name="budget" value="$500+ / month">$500+/mo</label>
+      </div>
+    </div>
+
+    <div class="form-field" style="margin-bottom:18px;">
+      <label>Current Skills (select all that apply)</label>
+      <div class="chips-wrap" id="skillsChips">
+        <div class="chip" onclick="toggleChip(this)">💻 Computer</div>
+        <div class="chip" onclick="toggleChip(this)">🇬🇧 English</div>
+        <div class="chip" onclick="toggleChip(this)">📖 Urdu</div>
+        <div class="chip" onclick="toggleChip(this)">🚗 Driving</div>
+        <div class="chip" onclick="toggleChip(this)">💼 Sales</div>
+        <div class="chip" onclick="toggleChip(this)">🎓 Teaching</div>
+        <div class="chip" onclick="toggleChip(this)">🏥 Medical</div>
+        <div class="chip" onclick="toggleChip(this)">📿 Religious Education</div>
+        <div class="chip" onclick="toggleChip(this)">🎨 Design</div>
+        <div class="chip" onclick="toggleChip(this)">📱 Social Media</div>
+        <div class="chip" onclick="toggleChip(this)">🔧 Technical/Mechanical</div>
+        <div class="chip" onclick="toggleChip(this)">Other</div>
+      </div>
+    </div>
+
+    <div class="form-field" style="margin-bottom:18px;">
+      <label>Currently Working?</label>
+      <div class="radio-group" id="rWorking">
+        <label class="radio-item" onclick="selectRadio('rWorking',this)"><input type="radio" name="working" value="Yes">Yes</label>
+        <label class="radio-item" onclick="selectRadio('rWorking',this)"><input type="radio" name="working" value="No">No</label>
+      </div>
+    </div>
+
+    <div class="error-box" id="errorBox"><p id="errorMsg"></p></div>
+
+    <button class="generate-btn" id="generateBtn" onclick="generateRoadmap()">🗺️ Generate My Roadmap</button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-state" id="loadingState">
+    <span class="loading-icon">🧭</span>
+    <div class="loading-text">Crafting your personalized roadmap...</div>
+    <div style="font-size:.82rem;color:var(--text-secondary,#777);margin-top:8px;">Analysing your profile with AI — may take 15–30 seconds</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="roadmap-results" id="roadmapResults">
+    <div class="result-actions">
+      <button class="btn-pdf" onclick="downloadPDF()"><i class="fas fa-download"></i> Download as PDF</button>
+      <button class="btn-edit" onclick="editPlan()"><i class="fas fa-edit"></i> Edit My Plan</button>
+    </div>
+
+    <div class="personal-msg">
+      <div class="pm-greeting" id="pmGreeting">👋</div>
+      <div id="pmMessage"></div>
+      <div class="pm-strategy" id="pmStrategy" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(99,102,241,.1);"></div>
+    </div>
+
+    <div class="section-head">📅 Your Roadmap Phases</div>
+    <div class="phases-wrap" id="phasesWrap"></div>
+
+    <div class="section-head">🛠️ Key Skills to Learn</div>
+    <div class="skills-grid" id="skillsGrid"></div>
+
+    <div class="section-head">💰 Income Opportunities</div>
+    <div class="income-grid" id="incomeGrid"></div>
+
+    <div id="warningsWrap"></div>
+
+    <div class="start-today">
+      <div class="st-label">⚡ Do This TODAY</div>
+      <div class="st-action" id="startTodayText"></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 HashmiTools.com — Free Online Tools. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+let lastRoadmapData = null;
+let savedFormData = {};
+
+function selectRadio(groupId, labelEl){
+  document.querySelectorAll(`#${groupId} .radio-item`).forEach(l=>l.classList.remove('selected'));
+  labelEl.classList.add('selected');
+}
+
+function toggleChip(el){ el.classList.toggle('selected'); }
+
+function getFormData(){
+  const apiKey = document.getElementById('apiKeyInput').value.trim();
+  const name = document.getElementById('fname').value.trim();
+  const age = document.getElementById('fage').value.trim();
+  const education = document.getElementById('feducation').value;
+  const field = document.getElementById('ffield').value.trim();
+  const city = document.getElementById('fcity').value.trim();
+  const goal = document.getElementById('fgoal').value;
+  const dream = document.getElementById('fdream').value.trim();
+  const challenge = document.getElementById('fchallenge').value;
+  const timeline = document.querySelector('#rTimeline .radio-item.selected input')?.value || '';
+  const budget = document.querySelector('#rBudget .radio-item.selected input')?.value || '';
+  const working = document.querySelector('#rWorking .radio-item.selected input')?.value || '';
+  const skills = Array.from(document.querySelectorAll('#skillsChips .chip.selected')).map(c=>c.textContent.trim()).join(', ') || 'None mentioned';
+  return {apiKey,name,age,education,field,city,goal,dream,challenge,timeline,budget,working,skills};
+}
+
+function showError(msg){ const b=document.getElementById('errorBox'); b.style.display='block'; document.getElementById('errorMsg').textContent=msg; }
+function hideError(){ document.getElementById('errorBox').style.display='none'; }
+
+async function generateRoadmap(){
+  hideError();
+  const d = getFormData();
+  savedFormData = d;
+
+  if(!d.apiKey){ showError('Please enter your Claude API key at the top.'); return; }
+  if(!d.name){ showError('Please enter your full name.'); return; }
+  if(!d.age || isNaN(d.age)){ showError('Please enter a valid age.'); return; }
+  if(!d.education){ showError('Please select your education level.'); return; }
+  if(!d.city){ showError('Please enter your city/country.'); return; }
+  if(!d.goal){ showError('Please select your primary goal.'); return; }
+  if(!d.dream){ showError('Please enter your dream career.'); return; }
+  if(!d.timeline){ showError('Please select a timeline.'); return; }
+  if(!d.budget){ showError('Please select a monthly budget.'); return; }
+
+  // Save API key
+  localStorage.setItem('ht-claude-key', d.apiKey);
+
+  document.getElementById('formSection').style.display='none';
+  document.getElementById('loadingState').style.display='block';
+  document.getElementById('roadmapResults').style.display='none';
+
+  const prompt = `You are a compassionate career advisor with expertise in South Asian contexts, especially Pakistan. Create a realistic, actionable roadmap for:
+Name: ${d.name}, Age: ${d.age}, Education: ${d.education} in ${d.field||'general'}, City: ${d.city}, Goal: ${d.goal}, Dream career: ${d.dream}, Timeline: ${d.timeline}, Budget: ${d.budget}, Skills: ${d.skills}, Challenge: ${d.challenge||'Not mentioned'}, Working: ${d.working||'Not specified'}
+
+Consider Pakistani/South Asian context. Mention real platforms where relevant: Coursera, YouTube, Digiskills.pk, Fiverr, Upwork, Daraz, Rozee.pk, LinkedIn, Skillshare.
+
+Return ONLY valid JSON with no extra text, no markdown code fences:
+{
+  "personalMessage": "2-3 warm sentences addressing ${d.name} directly using their name",
+  "overallStrategy": "2-3 sentences summarizing the approach",
+  "phases": [
+    {
+      "phase": 1,
+      "title": "Phase title",
+      "duration": "Months 1-3",
+      "focus": "One sentence on what to focus on",
+      "actions": ["Action 1", "Action 2", "Action 3", "Action 4"],
+      "freeResources": ["Resource 1 (platform)", "Resource 2"],
+      "milestone": "What success looks like at end of this phase"
+    }
+  ],
+  "keySkillsToLearn": [
+    {
+      "skill": "Skill name",
+      "why": "Why this skill matters for their goal",
+      "howToLearn": "Specific platform or method",
+      "timeToBasicLevel": "e.g. 4–6 weeks"
+    }
+  ],
+  "incomeOpportunities": [
+    {
+      "opportunity": "Opportunity name",
+      "howToStart": "Practical first step",
+      "estimatedMonthlyIncome": "e.g. PKR 30,000–80,000 / month after 6 months"
+    }
+  ],
+  "warningFlags": ["Realistic challenge or pitfall to watch out for"],
+  "nextActionToday": "The single most important thing ${d.name} should do TODAY"
+}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': d.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-opus-4-5',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if(!response.ok){
+      const err = await response.json().catch(()=>({}));
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    const result = await response.json();
+    const text = result.content[0].text;
+
+    // Extract JSON from the response
+    let jsonText = text.trim();
+    if(jsonText.includes('```')){
+      jsonText = jsonText.replace(/```json?\n?/g,'').replace(/```/g,'').trim();
+    }
+    const data = JSON.parse(jsonText);
+    lastRoadmapData = data;
+    renderRoadmap(data);
+  } catch(e){
+    document.getElementById('loadingState').style.display='none';
+    document.getElementById('formSection').style.display='block';
+    showError('Error: ' + e.message + '. Check your API key and try again.');
+  }
+}
+
+function renderRoadmap(data){
+  document.getElementById('loadingState').style.display='none';
+  document.getElementById('roadmapResults').style.display='block';
+
+  // Personal message
+  document.getElementById('pmGreeting').textContent = '👋 Hi ' + (savedFormData.name||'there') + '!';
+  document.getElementById('pmMessage').textContent = data.personalMessage || '';
+  document.getElementById('pmStrategy').textContent = data.overallStrategy || '';
+
+  // Phases
+  const phases = data.phases || [];
+  document.getElementById('phasesWrap').innerHTML = phases.map((p,i)=>`
+    <div class="phase-item">
+      <div class="phase-dot"></div>
+      <div class="phase-card">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="ph-meta">
+            <div class="ph-num">${p.phase||i+1}</div>
+            <div>
+              <div class="ph-title">${escHtml(p.title||'Phase '+(i+1))}</div>
+              <div class="ph-duration">${escHtml(p.duration||'')}</div>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down ph-toggle ${i===0?'open':''}"></i>
+        </div>
+        <div class="phase-body ${i===0?'open':''}">
+          <div class="phase-focus">${escHtml(p.focus||'')}</div>
+          <ul class="phase-actions">${(p.actions||[]).map(a=>`<li>${escHtml(a)}</li>`).join('')}</ul>
+          <div class="free-res">
+            <div class="free-res-label">Free Resources</div>
+            <div class="res-tags">${(p.freeResources||[]).map(r=>`<span class="res-tag">📚 ${escHtml(r)}</span>`).join('')}</div>
+          </div>
+          ${p.milestone?`<div class="milestone-box">${escHtml(p.milestone)}</div>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+
+  // Skills
+  document.getElementById('skillsGrid').innerHTML = (data.keySkillsToLearn||[]).map(s=>`
+    <div class="skill-card">
+      <div class="sk-name">🛠️ ${escHtml(s.skill||'')}</div>
+      <div class="sk-why">${escHtml(s.why||'')}</div>
+      <div class="sk-learn">Learn via: ${escHtml(s.howToLearn||'')}</div>
+      <div class="sk-time">⏱ ${escHtml(s.timeToBasicLevel||'')}</div>
+    </div>`).join('');
+
+  // Income
+  document.getElementById('incomeGrid').innerHTML = (data.incomeOpportunities||[]).map(o=>`
+    <div class="income-card">
+      <div class="ic-opp">💰 ${escHtml(o.opportunity||'')}</div>
+      <div class="ic-how">${escHtml(o.howToStart||'')}</div>
+      <span class="ic-income">${escHtml(o.estimatedMonthlyIncome||'')}</span>
+    </div>`).join('');
+
+  // Warnings
+  const warnFlags = data.warningFlags || [];
+  document.getElementById('warningsWrap').innerHTML = warnFlags.length ? `
+    <div class="warnings-box" style="margin-bottom:20px;">
+      <div class="section-head">⚠️ Things to Watch Out For</div>
+      ${warnFlags.map(w=>`<div class="warn-item">${escHtml(w)}</div>`).join('')}
+    </div>` : '';
+
+  // Start today
+  document.getElementById('startTodayText').textContent = data.nextActionToday || '';
+
+  document.getElementById('roadmapResults').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function togglePhase(header){
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.ph-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  toggle.classList.toggle('open',!isOpen);
+}
+
+function editPlan(){
+  document.getElementById('roadmapResults').style.display='none';
+  document.getElementById('formSection').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function downloadPDF(){
+  const el = document.getElementById('roadmapResults');
+  try{
+    const canvas = await html2canvas(el,{scale:1.5,useCORS:true,logging:false});
+    const imgData = canvas.toDataURL('image/jpeg',0.85);
+    const {jsPDF} = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const imgW = pageW;
+    const imgH = (canvas.height * pageW) / canvas.width;
+    let heightLeft = imgH;
+    let position = 0;
+    pdf.addImage(imgData,'JPEG',0,position,imgW,imgH);
+    heightLeft -= pageH;
+    while(heightLeft > 0){
+      position = heightLeft - imgH;
+      pdf.addPage();
+      pdf.addImage(imgData,'JPEG',0,position,imgW,imgH);
+      heightLeft -= pageH;
+    }
+    pdf.save(`roadmap-${(savedFormData.name||'plan').replace(/\s+/g,'-').toLowerCase()}.pdf`);
+  } catch(e){ alert('PDF generation failed: ' + e.message); }
+}
+
+function escHtml(str){
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Restore saved API key
+window.addEventListener('DOMContentLoaded', ()=>{
+  const saved = localStorage.getItem('ht-claude-key');
+  if(saved) document.getElementById('apiKeyInput').value = saved;
+});
+</script>
+
+<script>
+(function(){
+  var ads = document.querySelectorAll('.adsbygoogle');
+  for(var i=0;i<ads.length;i++){ try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){} }
+})();
+</script>
+</body>
+</html>

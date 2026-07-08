@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="light" data-accent="purple">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+<link rel="shortcut icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
+<script>
+  (function(){
+    var t=localStorage.getItem('ht-theme')||'light';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-mode',t);
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free IQ Test Online — Numerical, Spatial &amp; Verbal | HashmiTools</title>
+<meta name="description" content="Take a free IQ test online with 240 questions covering Numerical, Spatial and Verbal reasoning. Get your IQ score instantly with detailed breakdown. Entertainment purposes.">
+<meta name="keywords" content="free iq test online, iq test, intelligence test, numerical iq, spatial iq, verbal iq, iq score, mensa test, cognitive test">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hashmitools.com/tools/iq-test.html">
+<meta property="og:title" content="Free IQ Test Online — Numerical, Spatial & Verbal | HashmiTools">
+<meta property="og:description" content="Test your IQ for free — 240 questions, instant score, detailed breakdown. No signup required.">
+<meta property="og:url" content="https://hashmitools.com/tools/iq-test.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/tools.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<script src="../assets/js/theme.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Free IQ Test Online","description":"Take a free IQ test covering Numerical, Spatial and Verbal reasoning. Get your IQ score with detailed breakdown.","url":"https://hashmitools.com/tools/iq-test.html","applicationCategory":"EducationalApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this IQ test accurate?","acceptedAnswer":{"@type":"Answer","text":"This test is for entertainment and educational purposes only. It is not a clinically validated IQ assessment. For an official IQ score, please consult a licensed psychologist."}},{"@type":"Question","name":"How long does the test take?","acceptedAnswer":{"@type":"Answer","text":"The Quick test takes 10 minutes (15 questions), the Standard test 20 minutes (30 questions), and the Full test 40 minutes (45 questions). Times vary by difficulty level."}},{"@type":"Question","name":"What types of questions are included?","acceptedAnswer":{"@type":"Answer","text":"The test includes Numerical Reasoning (number sequences, ratios, arithmetic), Spatial Reasoning (pattern recognition, rotation, odd-one-out), and Verbal Reasoning (analogies, logical deduction)."}},{"@type":"Question","name":"How is the IQ score calculated?","acceptedAnswer":{"@type":"Answer","text":"Your percentage correct is mapped to an IQ range (70–145). Difficulty multipliers (0.85×–1.20×) adjust your raw score. The average IQ is 100."}},{"@type":"Question","name":"Can I save my IQ score?","acceptedAnswer":{"@type":"Answer","text":"Yes! Your last 5 scores are automatically saved to your browser's localStorage so you can track your progress over time."}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"How to Take the IQ Test","step":[{"@type":"HowToStep","name":"Choose Test Type","text":"Select Numerical, Spatial, Verbal, or Full IQ test from the landing page."},{"@type":"HowToStep","name":"Select Difficulty","text":"Choose Beginner, Standard, Advanced, or Mensa-Level difficulty."},{"@type":"HowToStep","name":"Answer Questions","text":"Answer all questions within the time limit. You cannot go back once an answer is submitted."},{"@type":"HowToStep","name":"View Results","text":"See your IQ score, classification, per-category breakdown, and score history."}]}
+</script>
+
+<style>
+:root{--iq-blue:#3b82f6;--iq-purple:#8b5cf6;--iq-green:#10b981;--iq-orange:#f59e0b;--iq-red:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary,#fff);color:var(--text-primary,#1a1a2e);}
+
+/* LANDING */
+.iq-landing{max-width:900px;margin:0 auto;padding:32px 16px;}
+.iq-hero{text-align:center;margin-bottom:36px;}
+.iq-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
+.iq-hero p{font-size:1rem;color:var(--text-secondary,#555);max-width:600px;margin:0 auto;}
+.iq-stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:20px 0;}
+.iq-stat{text-align:center;padding:12px 20px;background:var(--bg-card,#f8f9fa);border-radius:12px;border:1px solid var(--border-color,#e5e7eb);}
+.iq-stat .sv{font-size:1.4rem;font-weight:800;color:var(--iq-purple);}
+.iq-stat .sl{font-size:.75rem;color:var(--text-secondary,#777);margin-top:2px;}
+
+/* TEST TYPE CARDS */
+.iq-types{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:32px;}
+.iq-type-card{border:2px solid var(--border-color,#e5e7eb);border-radius:16px;padding:20px;cursor:pointer;transition:all .25s;text-align:center;background:var(--bg-card,#fff);position:relative;}
+.iq-type-card:hover,.iq-type-card.selected{border-color:var(--iq-purple);background:rgba(99,102,241,.05);}
+.iq-type-card.selected::after{content:'✓';position:absolute;top:10px;right:14px;color:var(--iq-purple);font-weight:800;font-size:1.1rem;}
+.itc-icon{font-size:2.2rem;margin-bottom:10px;}
+.itc-title{font-weight:700;font-size:1rem;margin-bottom:4px;}
+.itc-meta{font-size:.78rem;color:var(--text-secondary,#777);}
+.itc-tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:8px;}
+.itc-tag{font-size:.7rem;padding:2px 8px;border-radius:20px;background:rgba(99,102,241,.1);color:var(--iq-purple);font-weight:600;}
+
+/* DIFFICULTY */
+.diff-section{margin-bottom:28px;}
+.diff-section h3{font-size:.9rem;font-weight:700;margin-bottom:12px;color:var(--text-secondary,#555);text-transform:uppercase;letter-spacing:.05em;}
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+.diff-card{border:2px solid var(--border-color,#e5e7eb);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;background:var(--bg-card,#fff);}
+.diff-card:hover,.diff-card.selected{border-color:var(--iq-blue);}
+.diff-card.selected{background:rgba(59,130,246,.06);}
+.dc-name{font-weight:700;font-size:.9rem;margin-bottom:4px;}
+.dc-mult{font-size:.75rem;color:var(--text-secondary,#777);}
+.dc-desc{font-size:.75rem;color:var(--text-secondary,#777);margin-top:4px;}
+
+/* START BUTTON */
+.iq-start-btn{display:block;width:100%;max-width:320px;margin:0 auto;padding:16px 32px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border:none;border-radius:12px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
+.iq-start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.3);}
+.iq-start-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* SCORE HISTORY */
+.score-history{margin-top:32px;padding:20px;background:var(--bg-card,#f8f9fa);border-radius:16px;border:1px solid var(--border-color,#e5e7eb);}
+.sh-title{font-weight:700;margin-bottom:12px;font-size:.95rem;}
+.sh-list{display:flex;flex-wrap:wrap;gap:8px;}
+.sh-item{padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:700;background:rgba(99,102,241,.1);color:var(--iq-purple);border:1px solid rgba(99,102,241,.2);}
+
+/* TEST SCREEN */
+.iq-test-screen{max-width:720px;margin:0 auto;padding:24px 16px;display:none;}
+.test-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap;}
+.test-progress-wrap{flex:1;min-width:200px;}
+.tp-label{font-size:.78rem;color:var(--text-secondary,#777);margin-bottom:6px;display:flex;justify-content:space-between;}
+.tp-bar{height:8px;background:var(--border-color,#e5e7eb);border-radius:4px;overflow:hidden;}
+.tp-fill{height:100%;background:linear-gradient(90deg,#6366f1,#06b6d4);border-radius:4px;transition:width .4s;}
+.test-timer{display:flex;align-items:center;gap:8px;font-size:1.1rem;font-weight:700;padding:8px 16px;background:var(--bg-card,#f8f9fa);border-radius:10px;border:1px solid var(--border-color,#e5e7eb);}
+.test-timer.warning{color:#ef4444;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.test-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;margin-bottom:12px;}
+.badge-num{background:rgba(59,130,246,.1);color:#3b82f6;}
+.badge-spa{background:rgba(139,92,246,.1);color:#8b5cf6;}
+.badge-ver{background:rgba(16,185,129,.1);color:#10b981;}
+.q-box{background:var(--bg-card,#f8f9fa);border-radius:16px;padding:24px;border:1px solid var(--border-color,#e5e7eb);margin-bottom:20px;}
+.q-num{font-size:.8rem;color:var(--text-secondary,#777);margin-bottom:10px;font-weight:600;}
+.q-text{font-size:1.05rem;font-weight:600;line-height:1.6;margin-bottom:20px;}
+.q-options{display:grid;gap:10px;}
+.q-opt{padding:12px 16px;border:2px solid var(--border-color,#e5e7eb);border-radius:10px;cursor:pointer;font-size:.95rem;transition:all .2s;background:var(--bg-primary,#fff);text-align:left;}
+.q-opt:hover{border-color:var(--iq-purple);background:rgba(99,102,241,.04);}
+.q-opt.correct{border-color:var(--iq-green);background:rgba(16,185,129,.08);color:var(--iq-green);}
+.q-opt.wrong{border-color:var(--iq-red);background:rgba(239,68,68,.08);color:var(--iq-red);}
+.q-opt:disabled{cursor:not-allowed;}
+
+/* RESULTS SCREEN */
+.iq-results{max-width:800px;margin:0 auto;padding:24px 16px;display:none;}
+.iq-score-hero{text-align:center;padding:32px 24px;background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.06));border-radius:20px;margin-bottom:24px;border:1px solid rgba(99,102,241,.15);}
+.iq-big-num{font-size:clamp(3.5rem,10vw,6rem);font-weight:900;background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.iq-category-label{font-size:1.3rem;font-weight:700;margin:8px 0 4px;}
+.iq-score-range{font-size:.9rem;color:var(--text-secondary,#777);}
+.iq-scale{margin:20px 0;position:relative;height:20px;background:linear-gradient(90deg,#ef4444,#f59e0b,#10b981,#3b82f6,#8b5cf6);border-radius:10px;}
+.iq-scale-marker{position:absolute;top:-6px;width:8px;height:32px;background:#fff;border:3px solid #1a1a2e;border-radius:4px;transform:translateX(-50%);transition:left .8s cubic-bezier(.34,1.56,.64,1);}
+.iq-scale-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--text-secondary,#777);margin-top:4px;}
+.iq-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px;}
+.iq-cat-card{padding:16px;border-radius:14px;border:1px solid var(--border-color,#e5e7eb);text-align:center;background:var(--bg-card,#f8f9fa);}
+.iq-cat-icon{font-size:1.6rem;margin-bottom:6px;}
+.iq-cat-name{font-size:.78rem;font-weight:600;color:var(--text-secondary,#777);margin-bottom:4px;}
+.iq-cat-score{font-size:1.4rem;font-weight:800;}
+.iq-cat-pct{font-size:.75rem;color:var(--text-secondary,#777);}
+.iq-insight{padding:16px 20px;background:var(--bg-card,#f8f9fa);border-radius:14px;border-left:4px solid var(--iq-purple);margin-bottom:16px;}
+.iq-insight h4{font-weight:700;margin-bottom:8px;font-size:.9rem;}
+.iq-insight ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;}
+.iq-insight ul li{padding:4px 12px;background:rgba(99,102,241,.08);border-radius:20px;font-size:.8rem;font-weight:600;color:var(--iq-purple);}
+.iq-disclaimer{text-align:center;font-size:.78rem;color:var(--text-secondary,#777);padding:12px;background:rgba(245,158,11,.06);border-radius:10px;border:1px solid rgba(245,158,11,.2);margin-bottom:20px;}
+.iq-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.btn-retake{padding:12px 28px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+.btn-share{padding:12px 28px;background:transparent;color:var(--iq-purple);border:2px solid var(--iq-purple);border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../trending.html" class="nav-link active">Trending</a>
+      <a href="../blog.html" class="nav-link">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="tool-page-header">
+  <div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="../trending.html">Trending</a><i class="fas fa-chevron-right"></i><span>IQ Test</span></nav>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:3rem;">🧠</div>
+      <div>
+        <h1 class="tool-title">Free IQ Test Online</h1>
+        <p class="tool-subtitle">Numerical · Spatial · Verbal — 240 questions, instant score, no signup</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main style="padding:24px 0 60px;">
+
+<!-- ===== LANDING SCREEN ===== -->
+<div id="landingScreen">
+  <div class="iq-landing">
+    <div class="iq-hero">
+      <h1>Discover Your IQ Score</h1>
+      <p>Choose a test type and difficulty. Answer honestly. Your results are private and stored only on your device.</p>
+    </div>
+    <div class="iq-stats">
+      <div class="iq-stat"><div class="sv">240</div><div class="sl">Total Questions</div></div>
+      <div class="iq-stat"><div class="sv">4</div><div class="sl">Test Types</div></div>
+      <div class="iq-stat"><div class="sv">4</div><div class="sl">Difficulty Levels</div></div>
+      <div class="iq-stat"><div class="sv">100%</div><div class="sl">Free &amp; Private</div></div>
+    </div>
+
+    <h3 style="font-size:.9rem;font-weight:700;margin-bottom:14px;color:var(--text-secondary,#555);text-transform:uppercase;letter-spacing:.05em;">Step 1 — Choose Test Type</h3>
+    <div class="iq-types">
+      <div class="iq-type-card" onclick="selectType('numerical',this)">
+        <div class="itc-icon">🔢</div>
+        <div class="itc-title">Numerical IQ</div>
+        <div class="itc-meta">15 questions · 10 min</div>
+        <div class="itc-tags"><span class="itc-tag">Sequences</span><span class="itc-tag">Ratios</span><span class="itc-tag">Word Problems</span></div>
+      </div>
+      <div class="iq-type-card" onclick="selectType('spatial',this)">
+        <div class="itc-icon">🔷</div>
+        <div class="itc-title">Spatial IQ</div>
+        <div class="itc-meta">15 questions · 12 min</div>
+        <div class="itc-tags"><span class="itc-tag">Patterns</span><span class="itc-tag">Rotation</span><span class="itc-tag">Odd One Out</span></div>
+      </div>
+      <div class="iq-type-card" onclick="selectType('verbal',this)">
+        <div class="itc-icon">📖</div>
+        <div class="itc-title">Verbal IQ</div>
+        <div class="itc-meta">15 questions · 10 min</div>
+        <div class="itc-tags"><span class="itc-tag">Analogies</span><span class="itc-tag">Deduction</span><span class="itc-tag">Vocabulary</span></div>
+      </div>
+      <div class="iq-type-card" onclick="selectType('full',this)">
+        <div class="itc-icon">🧠</div>
+        <div class="itc-title">Full IQ Test</div>
+        <div class="itc-meta">45 questions · 35 min</div>
+        <div class="itc-tags"><span class="itc-tag">All Types</span><span class="itc-tag">Best Score</span></div>
+      </div>
+    </div>
+
+    <div class="diff-section">
+      <h3>Step 2 — Choose Difficulty</h3>
+      <div class="diff-grid">
+        <div class="diff-card" onclick="selectDiff('beginner',this)">
+          <div class="dc-name">🟢 Beginner</div>
+          <div class="dc-mult">Multiplier × 0.85</div>
+          <div class="dc-desc">Simple patterns, basic arithmetic</div>
+        </div>
+        <div class="diff-card" onclick="selectDiff('standard',this)">
+          <div class="dc-name">🔵 Standard</div>
+          <div class="dc-mult">Multiplier × 1.00</div>
+          <div class="dc-desc">Average adult difficulty</div>
+        </div>
+        <div class="diff-card" onclick="selectDiff('advanced',this)">
+          <div class="dc-name">🟡 Advanced</div>
+          <div class="dc-mult">Multiplier × 1.12</div>
+          <div class="dc-desc">Complex reasoning required</div>
+        </div>
+        <div class="diff-card" onclick="selectDiff('mensa',this)">
+          <div class="dc-name">🔴 Mensa-Level</div>
+          <div class="dc-mult">Multiplier × 1.20</div>
+          <div class="dc-desc">Top 2% challenge questions</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="iq-start-btn" id="startBtn" onclick="startTest()" disabled>Select test type &amp; difficulty to begin</button>
+
+    <div class="score-history" id="scoreHistory" style="display:none;">
+      <div class="sh-title">📊 Your Recent Scores</div>
+      <div class="sh-list" id="shList"></div>
+    </div>
+
+    <div style="margin-top:32px;padding:16px;background:var(--bg-card,#f8f9fa);border-radius:14px;font-size:.82rem;color:var(--text-secondary,#777);text-align:center;">
+      ⚠️ <strong>Disclaimer:</strong> This test is for entertainment purposes only and is not a clinically validated IQ assessment. For an official IQ evaluation, consult a licensed psychologist.
+    </div>
+  </div>
+</div>
+
+<!-- ===== TEST SCREEN ===== -->
+<div class="iq-test-screen" id="testScreen">
+  <div class="test-header">
+    <div class="test-progress-wrap">
+      <div class="tp-label">
+        <span id="progressLabel">Question 1 of 15</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="tp-bar"><div class="tp-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+    <div class="test-timer" id="timerBox">
+      <i class="fas fa-clock"></i>
+      <span id="timerDisplay">10:00</span>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div id="qBadge" class="test-badge badge-num">Numerical</div>
+    <div class="q-num" id="qNum">Question 1</div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-options" id="qOptions"></div>
+  </div>
+</div>
+
+<!-- ===== RESULTS SCREEN ===== -->
+<div class="iq-results" id="resultsScreen">
+  <div class="iq-score-hero">
+    <div style="font-size:.85rem;color:var(--text-secondary,#777);margin-bottom:8px;font-weight:600;">YOUR IQ SCORE</div>
+    <div class="iq-big-num" id="resBigNum">100</div>
+    <div class="iq-category-label" id="resCatLabel">Average Intelligence</div>
+    <div class="iq-score-range" id="resRange">IQ Range 90–109</div>
+    <div style="margin:20px 0 4px;">
+      <div class="iq-scale" id="iqScale">
+        <div class="iq-scale-marker" id="iqMarker" style="left:50%"></div>
+      </div>
+      <div class="iq-scale-labels">
+        <span>70</span><span>80</span><span>90</span><span>100</span><span>110</span><span>120</span><span>130</span><span>145+</span>
+      </div>
+    </div>
+    <div style="font-size:.82rem;color:var(--text-secondary,#777);margin-top:4px;" id="resDiff"></div>
+  </div>
+
+  <div class="iq-breakdown" id="resBreakdown"></div>
+
+  <div class="iq-insight" id="strengthsBox">
+    <h4>💪 Your Strengths</h4>
+    <ul id="strengthsList"></ul>
+  </div>
+  <div class="iq-insight" id="improveBox" style="border-left-color:var(--iq-orange);">
+    <h4>📈 Areas to Improve</h4>
+    <ul id="improveList"></ul>
+  </div>
+
+  <div class="iq-disclaimer">⚠️ For entertainment only — not a clinically validated IQ test. Average IQ is 100.</div>
+
+  <div class="score-history" style="margin-bottom:20px;">
+    <div class="sh-title">📊 Score History (last 5)</div>
+    <div class="sh-list" id="resHistoryList"></div>
+  </div>
+
+  <div class="iq-actions">
+    <button class="btn-retake" onclick="retakeTest()">🔄 Retake Test</button>
+    <button class="btn-share" onclick="shareScore()">📤 Share Score</button>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 HashmiTools.com — Free Online Tools. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ==================== QUESTION BANK ====================
+const QUESTIONS = {
+
+// ---------- NUMERICAL ----------
+numerical: {
+beginner:[
+  {q:"What comes next: 2, 4, 6, 8, ?",opts:["9","10","11","12"],a:1},
+  {q:"What is 15 + 27?",opts:["40","41","42","43"],a:2},
+  {q:"A bag has 5 red and 3 blue balls. What fraction is red?",opts:["3/8","5/8","5/3","3/5"],a:1},
+  {q:"What comes next: 1, 3, 5, 7, ?",opts:["8","9","10","11"],a:1},
+  {q:"If 3 apples cost Rs.12, what do 7 apples cost?",opts:["Rs.24","Rs.28","Rs.30","Rs.35"],a:1},
+  {q:"What is 8 × 7?",opts:["54","55","56","57"],a:2},
+  {q:"What comes next: 10, 20, 30, 40, ?",opts:["45","48","50","55"],a:2},
+  {q:"What is 100 − 37?",opts:["61","62","63","64"],a:2},
+  {q:"Half of 84 is?",opts:["40","41","42","44"],a:2},
+  {q:"What comes next: 5, 10, 15, 20, ?",opts:["22","23","24","25"],a:3},
+  {q:"If a train travels 60 km/h, how far in 2 hours?",opts:["100 km","110 km","120 km","130 km"],a:2},
+  {q:"What is 144 ÷ 12?",opts:["10","11","12","13"],a:2},
+  {q:"Which is the largest? 2/3, 3/4, 5/8, 7/12",opts:["2/3","3/4","5/8","7/12"],a:1},
+  {q:"What comes next: 1, 4, 9, 16, ?",opts:["20","24","25","30"],a:2},
+  {q:"3² + 4² = ?",opts:["20","24","25","30"],a:2}
+],
+standard:[
+  {q:"What comes next: 3, 6, 12, 24, ?",opts:["36","42","48","54"],a:2},
+  {q:"A shirt costs $40. After 25% discount, price is?",opts:["$28","$29","$30","$31"],a:2},
+  {q:"Find the odd one out: 8, 27, 64, 100, 125",opts:["8","27","100","125"],a:2},
+  {q:"What comes next: 2, 5, 10, 17, 26, ?",opts:["35","37","38","39"],a:1},
+  {q:"If x:y = 3:5 and y = 20, what is x?",opts:["10","11","12","13"],a:2},
+  {q:"A car depreciates 10% per year. After 2 years, value of $10,000 car?",opts:["$8,000","$8,100","$8,200","$9,000"],a:1},
+  {q:"What comes next: 1, 1, 2, 3, 5, 8, ?",opts:["11","12","13","14"],a:2},
+  {q:"Sum of angles in a pentagon?",opts:["360°","450°","540°","720°"],a:2},
+  {q:"A is 20% more than B. B is what % less than A?",opts:["16.67%","18%","20%","25%"],a:0},
+  {q:"What comes next: 4, 9, 25, 49, 121, ?",opts:["144","169","196","225"],a:1},
+  {q:"Train 200m long passes a pole in 20s. Speed?",opts:["8 m/s","10 m/s","12 m/s","15 m/s"],a:1},
+  {q:"Log₁₀(1000) = ?",opts:["2","3","10","100"],a:1},
+  {q:"What comes next: 1, 8, 27, 64, ?",opts:["100","120","125","150"],a:2},
+  {q:"Work done by 5 men in 6 days. Same work, 3 men in how many days?",opts:["8","9","10","12"],a:2},
+  {q:"If 40% of N = 120, then N = ?",opts:["280","300","320","350"],a:1}
+],
+advanced:[
+  {q:"What comes next: 3, 7, 15, 31, 63, ?",opts:["120","124","126","127"],a:3},
+  {q:"A cistern fills in 4h, empties in 6h. Both open, fills in?",opts:["10h","11h","12h","14h"],a:2},
+  {q:"What is the value of i⁴ where i=√−1?",opts:["−1","0","1","i"],a:2},
+  {q:"What comes next: 2, 3, 5, 7, 11, 13, ?",opts:["15","16","17","19"],a:2},
+  {q:"Compound interest on $1000 at 10% for 2 years?",opts:["$200","$210","$220","$221"],a:1},
+  {q:"What comes next: 1, 2, 6, 24, 120, ?",opts:["360","480","720","840"],a:2},
+  {q:"If f(x)=2x²−3x+1, find f(3)?",opts:["8","9","10","11"],a:2},
+  {q:"HCF of 36 and 48?",opts:["6","8","9","12"],a:3},
+  {q:"Speed of a clock's minute hand in degrees/hour?",opts:["360°","60°","180°","720°"],a:0},
+  {q:"What comes next: 1, 3, 9, 27, 81, ?",opts:["162","243","324","405"],a:1},
+  {q:"4 men build a wall in 6 days. 8 men build 2 walls in how many days?",opts:["4","5","6","8"],a:2},
+  {q:"√(0.04) = ?",opts:["0.02","0.2","0.4","2"],a:1},
+  {q:"What comes next: 0, 1, 3, 6, 10, 15, ?",opts:["18","20","21","22"],a:2},
+  {q:"A geometric sequence: 6, 12, 24. What is the 6th term?",opts:["96","144","192","216"],a:2},
+  {q:"If 2x + 3y = 12 and x = y, find x?",opts:["1.5","2","2.4","3"],a:2}
+],
+mensa:[
+  {q:"What comes next: 2, 3, 5, 7, 11, 13, 17, 19, 23, ?",opts:["27","28","29","31"],a:2},
+  {q:"A clock shows 3:15. What is the angle between hands?",opts:["0°","7.5°","15°","22.5°"],a:1},
+  {q:"What comes next: 1, 11, 21, 1211, 111221, ?",opts:["1221","312211","112211","312221"],a:1},
+  {q:"Three numbers in AP have sum 15 and product 80. Find the largest?",opts:["5","6","7","8"],a:3},
+  {q:"How many 3-digit numbers are divisible by both 4 and 6?",opts:["37","38","75","76"],a:2},
+  {q:"What comes next: 6, 28, 496, ?",opts:["1000","4096","8128","8192"],a:2},
+  {q:"If sin θ = 5/13, find tan θ?",opts:["5/12","12/13","5/13","12/5"],a:0},
+  {q:"An integer × its reverse = 8712. The integer is?",opts:["88","89","99","98"],a:0},
+  {q:"What comes next: 2, 12, 36, 80, 150, ?",opts:["224","252","256","280"],a:1},
+  {q:"Sum of all prime numbers between 1 and 20?",opts:["58","60","77","89"],a:2},
+  {q:"Find next term: 0, 7, 26, 63, 124, ?",opts:["196","208","215","217"],a:2},
+  {q:"A and B together: 12 days. A alone: 20 days. B alone?",opts:["28","30","32","36"],a:1},
+  {q:"What comes next: 2, 5, 14, 41, 122, ?",opts:["365","366","367","369"],a:0},
+  {q:"Remainder when 2^100 is divided by 3?",opts:["0","1","2","Cannot determine"],a:1},
+  {q:"If p and q are prime with p+q = 50 and p−q = 12, find p×q?",opts:["391","441","481","529"],a:2}
+]
+},
+
+// ---------- SPATIAL ----------
+spatial: {
+beginner:[
+  {q:"Which shape has 3 sides and 3 angles?",opts:["Square","Pentagon","Triangle","Hexagon"],a:2},
+  {q:"Odd one out — shapes: Circle, Square, Triangle, Sphere",opts:["Circle","Square","Triangle","Sphere"],a:3},
+  {q:"A cube has how many faces?",opts:["4","5","6","8"],a:2},
+  {q:"Which is the mirror image of 'b'?",opts:["d","p","q","r"],a:1},
+  {q:"Odd one out: Red, Blue, Green, Heavy",opts:["Red","Blue","Green","Heavy"],a:3},
+  {q:"A square is rotated 90°. It becomes?",opts:["A rectangle","A square","A rhombus","A diamond"],a:1},
+  {q:"How many edges does a cube have?",opts:["6","8","10","12"],a:3},
+  {q:"Which letter looks the same upside down?",opts:["A","B","H","R"],a:2},
+  {q:"Pattern: 🔴🔵🔴🔵🔴 — next?",opts:["🔴","🔵","🟢","🟡"],a:1},
+  {q:"Odd one out: 🐕 🐈 🦁 🌸",opts:["🐕","🐈","🦁","🌸"],a:3},
+  {q:"A rectangle is folded in half lengthwise. Result?",opts:["Square","Smaller rectangle","Triangle","Rhombus"],a:1},
+  {q:"How many corners does a pentagon have?",opts:["4","5","6","8"],a:1},
+  {q:"Odd one out: Sun, Moon, Star, Cloud, Planet",opts:["Sun","Moon","Cloud","Planet"],a:2},
+  {q:"Pattern: 1□, 2□□, 3□□□ — 4th row has how many □?",opts:["3","4","5","6"],a:1},
+  {q:"Which shape has all sides equal and all angles equal?",opts:["Rectangle","Rhombus","Square","Parallelogram"],a:2}
+],
+standard:[
+  {q:"Odd one out — 3D shapes: Cube, Cylinder, Cone, Square",opts:["Cube","Cylinder","Cone","Square"],a:3},
+  {q:"A 4×4 grid has how many 2×2 squares total (including overlapping)?",opts:["4","6","8","9"],a:3},
+  {q:"Pattern: ◼◻◼◻◼ next two?",opts:["◻◼","◼◻","◼◼","◻◻"],a:0},
+  {q:"If NORTH is UP, and you rotate 90° clockwise, EAST faces?",opts:["Up","Down","Left","Right"],a:0},
+  {q:"How many triangles are in a 4×4 grid of triangles?",opts:["16","18","20","24"],a:0},
+  {q:"Odd one out: Pentagon, Hexagon, Octagon, Decagon, Quadrilateral",opts:["Pentagon","Hexagon","Quadrilateral","Decagon"],a:2},
+  {q:"A cube is cut in half. Cross-section is?",opts:["Circle","Triangle","Square","Rectangle"],a:2},
+  {q:"Pattern of rotations: ▶ ▼ ◀ ▲ ▶ ▼ next?",opts:["▶","◀","▲","▼"],a:2},
+  {q:"How many faces does a triangular prism have?",opts:["4","5","6","7"],a:1},
+  {q:"Odd one out (by symmetry): Circle, Square, Equilateral Triangle, Scalene Triangle",opts:["Circle","Square","Equilateral Triangle","Scalene Triangle"],a:3},
+  {q:"A clock face is reflected in a mirror. 3 o'clock appears at?",opts:["3","6","9","12"],a:2},
+  {q:"How many diagonals does a hexagon have?",opts:["6","7","8","9"],a:3},
+  {q:"Pattern: 2, 4, 8 (shapes per step) — 5th step has?",opts:["16","24","32","40"],a:2},
+  {q:"Odd one out by number of faces: Cube, Tetrahedron, Octahedron, Sphere",opts:["Cube","Tetrahedron","Octahedron","Sphere"],a:3},
+  {q:"A square paper is folded diagonally and a corner cut off. Unfolded shows?",opts:["1 hole","2 holes","4 holes","Triangle cut"],a:0}
+],
+advanced:[
+  {q:"A die has 1 opposite 6, 2 opposite 5, 3 opposite 4. Total of all faces = ?",opts:["18","19","20","21"],a:3},
+  {q:"Pattern: 1, 4, 9, 16 — shape with this many dots — 6th in series?",opts:["25","36","49","64"],a:1},
+  {q:"How many cubes make up a 3×3×3 cube minus all corners?",opts:["19","20","21","22"],a:0},
+  {q:"Odd one out by axis of symmetry: A, H, I, J, M",opts:["A","H","J","M"],a:2},
+  {q:"A rotating 3D object viewed from front = circle, from side = rectangle. Shape?",opts:["Cone","Cylinder","Sphere","Torus"],a:1},
+  {q:"Pattern: +1 side each row — triangle→square→pentagon. 7th shape?",opts:["Octagon","Nonagon","Heptagon","Decagon"],a:1},
+  {q:"How many squares (all sizes) are in a 4×4 grid?",opts:["16","24","28","30"],a:3},
+  {q:"A cube has each face painted. Cut into 27 equal cubes. How many have exactly 2 painted faces?",opts:["8","10","12","14"],a:2},
+  {q:"Odd one out by reflection symmetry: S, Z, N, O",opts:["S","Z","N","O"],a:3},
+  {q:"Net of a cube: which of these shapes CANNOT fold into a cube? (L-shape/Z-shape/T-shape/linear)",opts:["L-shape","Z-shape","T-shape","Linear (1×6)"],a:3},
+  {q:"Pattern: each term adds a row — triangle numbers 1,3,6,10,15. Next after 15?",opts:["18","20","21","25"],a:2},
+  {q:"A rectangle (6×4) is cut into two identical pieces by a diagonal. Each piece area?",opts:["10","11","12","13"],a:2},
+  {q:"Odd one out by 3D symmetry: Cube, Sphere, Cylinder, Cone",opts:["Cube","Sphere","Cylinder","Cone"],a:3},
+  {q:"Looking at a cube from corner, you see how many faces?",opts:["1","2","3","4"],a:2},
+  {q:"Pattern: each move rotates 45° clockwise — start ▶. After 5 moves?",opts:["▶","↘","▼","↙"],a:3}
+],
+mensa:[
+  {q:"A 4D hypercube has how many vertices?",opts:["8","12","16","24"],a:2},
+  {q:"Fold a 3×3 square of paper in thirds both ways and punch hole in centre. Unfold: how many holes?",opts:["1","4","8","9"],a:3},
+  {q:"How many non-congruent triangles can be made on a 3×3 dot grid?",opts:["6","8","10","12"],a:1},
+  {q:"A unit cube is cut by 3 planes through opposite edge midpoints. How many pieces?",opts:["4","6","7","8"],a:2},
+  {q:"Odd one out by topological genus: Sphere, Torus, Mug, Figure-8 tube",opts:["Sphere","Torus","Mug","Figure-8 tube"],a:0},
+  {q:"In a 3D rotation: 90° around X then 90° around Y ≠ 90° around Y then 90° around X. This shows?",opts:["Commutativity","Non-commutativity","Associativity","Symmetry"],a:1},
+  {q:"A Moebius strip has how many sides?",opts:["0","1","2","3"],a:1},
+  {q:"Penrose tiling uses how many prototile shapes?",opts:["1","2","3","4"],a:1},
+  {q:"How many regular polyhedra (Platonic solids) exist?",opts:["3","4","5","6"],a:2},
+  {q:"Pattern: 2,3,5,7,11 (prime sequence in binary position). What digit is the 10th prime 29 in?",opts:["5th bit","6th bit","Binary 11101","Position 10"],a:2},
+  {q:"A Klein bottle has how many boundaries?",opts:["0","1","2","4"],a:0},
+  {q:"How many distinct nets does a cube have?",opts:["8","10","11","12"],a:2},
+  {q:"A sphere is topologically equivalent to?",opts:["Torus","Disc with no hole","Tetrahedron","Cylinder"],a:2},
+  {q:"Odd one out by Euler characteristic (V−E+F): Cube, Tetrahedron, Octahedron, Torus",opts:["Cube","Tetrahedron","Octahedron","Torus"],a:3},
+  {q:"In a 4×4 Latin square, minimum number of distinct symbols needed?",opts:["2","3","4","5"],a:2}
+]
+},
+
+// ---------- VERBAL ----------
+verbal: {
+beginner:[
+  {q:"Odd one out: Dog, Cat, Tiger, Rose",opts:["Dog","Cat","Tiger","Rose"],a:3},
+  {q:"Book is to Read as Fork is to?",opts:["Kitchen","Cook","Eat","Food"],a:2},
+  {q:"What is the antonym of 'Happy'?",opts:["Joyful","Sad","Excited","Calm"],a:1},
+  {q:"Doctor : Hospital :: Teacher : ?",opts:["Student","School","Blackboard","Lesson"],a:1},
+  {q:"Odd one out: Apple, Mango, Banana, Carrot",opts:["Apple","Mango","Banana","Carrot"],a:3},
+  {q:"Complete: Bird is to Fly as Fish is to?",opts:["Water","Swim","Dive","Sea"],a:1},
+  {q:"Hot : Cold :: Day : ?",opts:["Sun","Bright","Night","Noon"],a:2},
+  {q:"Odd one out: Red, Blue, Green, Circle",opts:["Red","Blue","Green","Circle"],a:3},
+  {q:"Book : Library :: Painting : ?",opts:["Artist","Museum","Canvas","Gallery"],a:3},
+  {q:"Odd one out: January, March, April, July",opts:["January","March","April","July"],a:2},
+  {q:"Pen : Write :: Knife : ?",opts:["Sharp","Metal","Cut","Kitchen"],a:2},
+  {q:"Eye : See :: Ear : ?",opts:["Listen","Hear","Sound","Music"],a:1},
+  {q:"Odd one out: Hammer, Saw, Chisel, Nail",opts:["Hammer","Saw","Chisel","Nail"],a:3},
+  {q:"King : Queen :: Rooster : ?",opts:["Hen","Chicken","Egg","Bird"],a:0},
+  {q:"What is the synonym of 'Begin'?",opts:["End","Start","Pause","Stop"],a:1}
+],
+standard:[
+  {q:"Odd one out: Microscope, Telescope, Binoculars, Stethoscope",opts:["Microscope","Telescope","Binoculars","Stethoscope"],a:3},
+  {q:"Petal : Flower :: Page : ?",opts:["Paper","Write","Book","Library"],a:2},
+  {q:"All roses are flowers. Some flowers fade quickly. Therefore?",opts:["All roses fade quickly","Some roses may fade quickly","No roses fade","All flowers are roses"],a:1},
+  {q:"Odd one out by property: Iron, Gold, Wood, Copper",opts:["Iron","Gold","Wood","Copper"],a:2},
+  {q:"Marathon : Running :: Regatta : ?",opts:["Cycling","Rowing/Sailing","Swimming","Boxing"],a:1},
+  {q:"Odd one out: Symphony, Sonata, Concerto, Fresco",opts:["Symphony","Sonata","Concerto","Fresco"],a:3},
+  {q:"If some doctors are kind and all kind people are patient, which must be true?",opts:["All doctors are patient","Some doctors are patient","No doctors are patient","All patients are doctors"],a:1},
+  {q:"Odd one out: Stalagmite, Stalactite, Geyser, Limestone",opts:["Stalagmite","Stalactite","Geyser","Limestone"],a:2},
+  {q:"Archipelago : Islands :: Anthology : ?",opts:["Authors","Poems/Stories","Books","Libraries"],a:1},
+  {q:"Odd one out: Amphibian, Reptile, Mammal, Algae",opts:["Amphibian","Reptile","Mammal","Algae"],a:3},
+  {q:"No fish are mammals. All whales are mammals. Therefore?",opts:["Some fish are whales","No whales are fish","Some whales are fish","All mammals are whales"],a:1},
+  {q:"Odd one out: Latitude, Longitude, Altitude, Servitude",opts:["Latitude","Longitude","Altitude","Servitude"],a:3},
+  {q:"Ephemeral means?",opts:["Lasting forever","Short-lived","Ancient","Spiritual"],a:1},
+  {q:"Eulogy : Death :: Encomium : ?",opts:["Praise","Sadness","Birth","Criticism"],a:0},
+  {q:"Odd one out: Herbivore, Carnivore, Omnivore, Invertebrate",opts:["Herbivore","Carnivore","Omnivore","Invertebrate"],a:3}
+],
+advanced:[
+  {q:"If P→Q and Q→R, which is guaranteed true?",opts:["R→P","P→R","Q→P","R→Q"],a:1},
+  {q:"Odd one out by derivation: Astronomy, Geology, Astrology, Meteorology",opts:["Astronomy","Geology","Astrology","Meteorology"],a:2},
+  {q:"Lucid : Pellucid :: Opaque : ?",opts:["Transparent","Murky","Clear","Bright"],a:1},
+  {q:"All A are B. Some B are C. No C are D. Which must be false?",opts:["Some A are C","All A are D","Some B are not C","All D are not C"],a:1},
+  {q:"Odd one out by etymology (language of origin): Algebra, Algorithm, Admiral, Sofa",opts:["Algebra","Algorithm","Admiral","Sofa"],a:2},
+  {q:"Sanguine : Pessimistic :: Loquacious : ?",opts:["Talkative","Quiet","Angry","Happy"],a:1},
+  {q:"If neither A nor B is true, and C is true only when A or B is true, then?",opts:["C is true","C is false","C may be true","Cannot determine"],a:1},
+  {q:"Odd one out by logical category: 'All crows are black' / 'Some birds fly' / 'No fish walk' / 'Penguins are birds'",opts:["All crows are black","Some birds fly","No fish walk","Penguins are birds"],a:1},
+  {q:"Tendentious : Biased :: Sanguine : ?",opts:["Angry","Doubtful","Optimistic","Fearful"],a:2},
+  {q:"No valid syllogism can have: two negative premises / an undistributed middle term / both",opts:["Two negative premises only","Undistributed middle term only","Both","Neither"],a:2},
+  {q:"Odd one out by word formation: Breakfast, Understand, Overlook, Comprehend",opts:["Breakfast","Understand","Overlook","Comprehend"],a:3},
+  {q:"Pleonasm is the use of?",opts:["Irony","Redundant words","Hidden meaning","Foreign terms"],a:1},
+  {q:"If 'FRIEND' is coded as 'GSJFOE', how is 'ENEMY' coded?",opts:["FOFNZ","FNFNZ","FOFMY","FOFNZ"],a:0},
+  {q:"Odd one out by classical root: Democracy, Monarchy, Theocracy, Anarchy, Bureaucracy",opts:["Democracy","Monarchy","Theocracy","Anarchy"],a:3},
+  {q:"Syllepsis is a figure of speech where one word governs two others in different senses. Example?",opts:["She broke his heart and his guitar","The sun rose and set","He spoke slowly and deliberately","Birds sing at dawn"],a:0}
+],
+mensa:[
+  {q:"'All that glitters is not gold' is an example of?",opts:["Litotes","Metalepsis","Syncope","Synecdoche"],a:1},
+  {q:"If ABCD is true, and A implies ¬C, then which cannot be simultaneously true?",opts:["A and B","A and C","B and D","C and D"],a:1},
+  {q:"Odd one out by philosophical category: Solipsism, Nihilism, Empiricism, Phenomenology",opts:["Solipsism","Nihilism","Empiricism","Phenomenology"],a:1},
+  {q:"Apophenia is the tendency to perceive?",opts:["Random patterns as meaningful","Meaningful patterns as random","Others' emotions","Time distortion"],a:0},
+  {q:"In formal logic, modus tollens states: if P→Q and ¬Q, then?",opts:["P","¬P","Q","¬Q follows"],a:1},
+  {q:"Odd one out by rhetorical device: 'Time flies', 'Break a leg', 'The world is a stage', 'He runs hot and cold'",opts:["Time flies","Break a leg","The world is a stage","He runs hot and cold"],a:1},
+  {q:"Paraprosdokian is a figure where the latter part of a sentence is?",opts:["Synonymous with the first","Surprising or unexpected","A direct repetition","A metaphor"],a:1},
+  {q:"If all A→B, all B→C, and some C→D, which is definitely true?",opts:["All A→D","Some A→D","No A→D","All D→A"],a:1},
+  {q:"Zeugma differs from syllepsis by?",opts:["Using more words","Applying one word grammatically to two, where fit is imperfect for one","Being a type of metaphor","Appearing only in poetry"],a:1},
+  {q:"Odd one out by logical fallacy type: Ad hominem, Straw man, Slippery slope, Hypothetical syllogism",opts:["Ad hominem","Straw man","Slippery slope","Hypothetical syllogism"],a:3},
+  {q:"In modal logic, □P means?",opts:["P is possible","P is necessary","P is contingent","P is false"],a:1},
+  {q:"Odd one out: Catachresis, Antiphrasis, Antanaclasis, Paradox",opts:["Catachresis","Antiphrasis","Antanaclasis","Paradox"],a:0},
+  {q:"The Sorites paradox involves?",opts:["A single false premise","Vague predicates and heaps","Circular reasoning","False dichotomy"],a:1},
+  {q:"If a statement is tautologically true, its truth table shows?",opts:["All F","All T","Mix of T and F","Depends on variables"],a:1},
+  {q:"Odd one out by epistemological school: Rationalism, Empiricism, Pragmatism, Transcendentalism",opts:["Rationalism","Empiricism","Pragmatism","Transcendentalism"],a:3}
+]
+}
+};
+
+// ==================== STATE ====================
+let selectedType = null;
+let selectedDiff = null;
+let currentQuestions = [];
+let currentIdx = 0;
+let answers = [];
+let timerInterval = null;
+let timeLeft = 0;
+let catScores = {};
+let testStartTime = null;
+
+const TYPE_CONFIG = {
+  numerical: {label:'Numerical', icon:'🔢', badge:'badge-num', color:'#3b82f6', times:{beginner:600,standard:720,advanced:840,mensa:900}},
+  spatial:   {label:'Spatial',   icon:'🔷', badge:'badge-spa', color:'#8b5cf6', times:{beginner:720,standard:840,advanced:900,mensa:960}},
+  verbal:    {label:'Verbal',    icon:'📖', badge:'badge-ver', color:'#10b981', times:{beginner:600,standard:720,advanced:840,mensa:900}},
+  full:      {label:'Full IQ',   icon:'🧠', badge:'badge-num', color:'#f59e0b', times:{beginner:1200,standard:1500,advanced:1800,mensa:2100}}
+};
+
+const DIFF_MULT = {beginner:0.85, standard:1.0, advanced:1.12, mensa:1.20};
+
+function selectType(type, el){
+  selectedType = type;
+  document.querySelectorAll('.iq-type-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  updateStartBtn();
+}
+
+function selectDiff(diff, el){
+  selectedDiff = diff;
+  document.querySelectorAll('.diff-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  updateStartBtn();
+}
+
+function updateStartBtn(){
+  const btn = document.getElementById('startBtn');
+  if(selectedType && selectedDiff){
+    btn.disabled = false;
+    btn.textContent = '🧠 Start Test';
+  }
+}
+
+function buildQuestions(){
+  currentQuestions = [];
+  catScores = {};
+  if(selectedType === 'full'){
+    // 15 from each type (all difficulty pool)
+    ['numerical','spatial','verbal'].forEach(type=>{
+      const pool = QUESTIONS[type][selectedDiff];
+      catScores[type] = {correct:0, total:0};
+      pool.forEach(q=>currentQuestions.push({...q, type}));
+    });
+    // Shuffle
+    for(let i=currentQuestions.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [currentQuestions[i],currentQuestions[j]]=[currentQuestions[j],currentQuestions[i]];
+    }
+  } else {
+    catScores[selectedType] = {correct:0, total:0};
+    const pool = QUESTIONS[selectedType][selectedDiff];
+    currentQuestions = pool.map(q=>({...q, type:selectedType}));
+  }
+}
+
+function startTest(){
+  if(!selectedType || !selectedDiff) return;
+  buildQuestions();
+  answers = new Array(currentQuestions.length).fill(null);
+  currentIdx = 0;
+  testStartTime = Date.now();
+  const conf = TYPE_CONFIG[selectedType] || TYPE_CONFIG['full'];
+  timeLeft = conf.times[selectedDiff];
+  document.getElementById('landingScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'block';
+  renderQuestion();
+  startTimer();
+}
+
+function renderQuestion(){
+  const q = currentQuestions[currentIdx];
+  const total = currentQuestions.length;
+  const pct = Math.round(currentIdx/total*100);
+  document.getElementById('progressLabel').textContent = `Question ${currentIdx+1} of ${total}`;
+  document.getElementById('progressPct').textContent = pct+'%';
+  document.getElementById('progressFill').style.width = pct+'%';
+  const conf = TYPE_CONFIG[q.type];
+  const badge = document.getElementById('qBadge');
+  badge.textContent = conf.label;
+  badge.className = 'test-badge ' + conf.badge;
+  document.getElementById('qNum').textContent = `Question ${currentIdx+1} / ${total}`;
+  document.getElementById('qText').textContent = q.q;
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = q.opts.map((o,i)=>`<button class="q-opt" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('');
+}
+
+function answer(idx){
+  const q = currentQuestions[currentIdx];
+  answers[currentIdx] = idx;
+  const buttons = document.querySelectorAll('.q-opt');
+  buttons.forEach((b,i)=>{
+    b.disabled = true;
+    if(i === q.a) b.classList.add('correct');
+    else if(i === idx) b.classList.add('wrong');
+  });
+  // Track
+  const type = q.type;
+  if(!catScores[type]) catScores[type]={correct:0,total:0};
+  catScores[type].total++;
+  if(idx === q.a) catScores[type].correct++;
+  setTimeout(()=>{
+    currentIdx++;
+    if(currentIdx < currentQuestions.length) renderQuestion();
+    else finishTest();
+  }, 700);
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft<=0){ clearInterval(timerInterval); finishTest(); }
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60);
+  const s = timeLeft%60;
+  document.getElementById('timerDisplay').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  const box = document.getElementById('timerBox');
+  box.classList.toggle('warning', timeLeft <= 60);
+}
+
+function finishTest(){
+  clearInterval(timerInterval);
+  const totalCorrect = Object.values(catScores).reduce((sum,c)=>sum+c.correct,0);
+  const totalQs = currentQuestions.length;
+  const pct = totalCorrect/totalQs;
+  const rawIQ = calcIQ(pct);
+  const mult = DIFF_MULT[selectedDiff];
+  let finalIQ = Math.round(rawIQ * mult);
+  finalIQ = Math.max(70, Math.min(145, finalIQ));
+  const cat = getIQCategory(finalIQ);
+  saveScore(finalIQ, cat);
+  showResults(finalIQ, cat, totalCorrect, totalQs);
+}
+
+function calcIQ(pct){
+  if(pct <= 0.20) return 75;
+  if(pct <= 0.35) return 85;
+  if(pct <= 0.50) return 95;
+  if(pct <= 0.65) return 105;
+  if(pct <= 0.80) return 115;
+  if(pct <= 0.90) return 125;
+  return 138;
+}
+
+function getIQCategory(iq){
+  if(iq < 70)  return {label:'Borderline',        range:'Below 70',  color:'#9ca3af'};
+  if(iq < 80)  return {label:'Low Average',        range:'70–79',     color:'#6b7280'};
+  if(iq < 90)  return {label:'Low Average',        range:'80–89',     color:'#6b7280'};
+  if(iq < 100) return {label:'Average Intelligence',range:'90–99',    color:'#3b82f6'};
+  if(iq < 110) return {label:'Average Intelligence',range:'100–109',  color:'#3b82f6'};
+  if(iq < 120) return {label:'Above Average',      range:'110–119',   color:'#10b981'};
+  if(iq < 130) return {label:'Superior Intelligence',range:'120–129', color:'#8b5cf6'};
+  return        {label:'Very Superior / Gifted',   range:'130–145',   color:'#f59e0b'};
+}
+
+function showResults(iq, cat, correct, total){
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('resultsScreen').style.display='block';
+  document.getElementById('resBigNum').textContent = iq;
+  document.getElementById('resCatLabel').textContent = cat.label;
+  document.getElementById('resRange').textContent = 'IQ Range ' + cat.range;
+  document.getElementById('resDiff').textContent = `Difficulty: ${selectedDiff.charAt(0).toUpperCase()+selectedDiff.slice(1)} (×${DIFF_MULT[selectedDiff]}) | Score: ${correct}/${total}`;
+  // Scale marker
+  const pct = Math.max(0,Math.min(100, (iq - 70) / (145-70) * 100));
+  document.getElementById('iqMarker').style.left = pct+'%';
+  // Breakdown
+  const breakdown = document.getElementById('resBreakdown');
+  const icons = {numerical:'🔢',spatial:'🔷',verbal:'📖'};
+  const labels = {numerical:'Numerical',spatial:'Spatial',verbal:'Verbal'};
+  breakdown.innerHTML = Object.entries(catScores).map(([type,sc])=>{
+    const p = sc.total ? Math.round(sc.correct/sc.total*100) : 0;
+    const c = p>=80?'#10b981':p>=60?'#3b82f6':'#ef4444';
+    return `<div class="iq-cat-card">
+      <div class="iq-cat-icon">${icons[type]||'🧠'}</div>
+      <div class="iq-cat-name">${labels[type]||type}</div>
+      <div class="iq-cat-score" style="color:${c}">${sc.correct}/${sc.total}</div>
+      <div class="iq-cat-pct">${p}% correct</div>
+    </div>`;
+  }).join('');
+  // Strengths & improvements
+  const sorted = Object.entries(catScores).sort((a,b)=>{
+    const pa = a[1].total?a[1].correct/a[1].total:0;
+    const pb = b[1].total?b[1].correct/b[1].total:0;
+    return pb-pa;
+  });
+  const strengths = sorted.filter(([,sc])=>sc.total&&sc.correct/sc.total>=0.6).map(([t])=>labels[t]||t);
+  const improve = sorted.filter(([,sc])=>sc.total&&sc.correct/sc.total<0.6).map(([t])=>labels[t]||t);
+  document.getElementById('strengthsList').innerHTML = (strengths.length?strengths:['Keep Practicing']).map(s=>`<li>${s}</li>`).join('');
+  document.getElementById('improveList').innerHTML = (improve.length?improve:['Great job — all areas strong!']).map(s=>`<li>${s}</li>`).join('');
+  // History
+  const history = loadHistory();
+  document.getElementById('resHistoryList').innerHTML = history.map(h=>`<div class="sh-item">IQ ${h.score} — ${h.type} ${h.diff} — ${h.date}</div>`).join('') || '<div style="font-size:.82rem;color:var(--text-secondary,#777);">No previous scores yet.</div>';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function saveScore(iq, cat){
+  const history = loadHistory();
+  history.unshift({score:iq, category:cat.label, type:selectedType, diff:selectedDiff, date:new Date().toLocaleDateString()});
+  localStorage.setItem('ht-iq-history', JSON.stringify(history.slice(0,5)));
+}
+
+function loadHistory(){
+  try{ return JSON.parse(localStorage.getItem('ht-iq-history')||'[]'); } catch(e){ return []; }
+}
+
+function retakeTest(){
+  document.getElementById('resultsScreen').style.display='none';
+  document.getElementById('landingScreen').style.display='block';
+  loadScoreHistory();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function shareScore(){
+  const iq = document.getElementById('resBigNum').textContent;
+  const cat = document.getElementById('resCatLabel').textContent;
+  const text = `I scored IQ ${iq} (${cat}) on the HashmiTools Free IQ Test! Try it: https://hashmitools.com/tools/iq-test.html`;
+  if(navigator.share){ navigator.share({title:'My IQ Score',text}); }
+  else { navigator.clipboard.writeText(text).then(()=>alert('Score copied to clipboard!')); }
+}
+
+function loadScoreHistory(){
+  const history = loadHistory();
+  const box = document.getElementById('scoreHistory');
+  const list = document.getElementById('shList');
+  if(history.length){
+    box.style.display='block';
+    list.innerHTML = history.map(h=>`<div class="sh-item">IQ ${h.score} — ${h.type} ${h.diff}</div>`).join('');
+  }
+}
+
+// Init
+loadScoreHistory();
+</script>
+
+<script>
+(function(){
+  var ads = document.querySelectorAll('.adsbygoogle');
+  for(var i=0;i<ads.length;i++){ try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){} }
+})();
+</script>
+</body>
+</html>

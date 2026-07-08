@@ -509,6 +509,17 @@
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       margin:16px 0 8px;
     }
+    .quiz-diff-btn {
+      padding:6px 14px; border:2px solid var(--border-color); border-radius:20px;
+      cursor:pointer; font-size:0.8rem; font-weight:600; background:var(--bg-card);
+      color:var(--text-secondary); font-family:inherit; transition:all 0.18s;
+    }
+    .quiz-diff-btn:hover { border-color:var(--med-blue); color:var(--med-blue); }
+    .quiz-diff-btn.active { border-color:var(--med-blue); background:rgba(37,99,235,0.1); color:var(--med-blue); }
+    .quiz-subj-pill {
+      padding:5px 12px; border-radius:16px; font-size:0.78rem; font-weight:700;
+      background:rgba(37,99,235,0.08); color:var(--med-blue); border:1px solid rgba(37,99,235,0.2);
+    }
     .quiz-score-breakdown {
       display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; text-align:left;
     }
@@ -626,6 +637,7 @@
         <button class="med-tab" data-tab="flashcards">📇 Flashcards</button>
         <button class="med-tab" data-tab="quiz">📝 MCQ Quiz</button>
         <button class="med-tab" data-tab="labs">🔬 Lab Values</button>
+        <button class="med-tab" data-tab="morpho">🧫 Shape-Maker</button>
       </div>
     </div>
 
@@ -1240,18 +1252,35 @@
 
         <!-- Setup -->
         <div class="quiz-setup" id="quizSetup">
-          <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:16px;">Select a topic to start a 10-question quiz:</p>
-          <div class="quiz-topic-grid">
-            <button class="quiz-topic-btn" onclick="selectTopic('anatomy', this)"><span class="quiz-topic-icon">🦴</span>Anatomy</button>
-            <button class="quiz-topic-btn" onclick="selectTopic('physiology', this)"><span class="quiz-topic-icon">❤️</span>Physiology</button>
-            <button class="quiz-topic-btn" onclick="selectTopic('pharmacology', this)"><span class="quiz-topic-icon">💊</span>Pharmacology</button>
-            <button class="quiz-topic-btn" onclick="selectTopic('pathology', this)"><span class="quiz-topic-icon">🔬</span>Pathology</button>
-            <button class="quiz-topic-btn" onclick="selectTopic('biochemistry', this)"><span class="quiz-topic-icon">🧪</span>Biochemistry</button>
-            <button class="quiz-topic-btn" onclick="selectTopic('medicine', this)"><span class="quiz-topic-icon">🩺</span>General Medicine</button>
+          <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:12px;">Select a topic and difficulty, then start your quiz:</p>
+
+          <!-- Difficulty Filter -->
+          <div style="margin-bottom:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Difficulty</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="quiz-diff-btn active" data-diff="all" onclick="selectDifficulty('all',this)">All</button>
+              <button class="quiz-diff-btn" data-diff="easy" onclick="selectDifficulty('easy',this)">🟢 Easy</button>
+              <button class="quiz-diff-btn" data-diff="medium" onclick="selectDifficulty('medium',this)">🟡 Medium</button>
+              <button class="quiz-diff-btn" data-diff="hard" onclick="selectDifficulty('hard',this)">🔴 Hard</button>
+            </div>
           </div>
-          <button class="med-btn med-btn-full" id="startQuizBtn" onclick="startQuiz()" disabled>
-            <i class="fas fa-play"></i> Start Quiz
-          </button>
+
+          <div style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Subject</div>
+          <div class="quiz-topic-grid">
+            <button class="quiz-topic-btn" onclick="selectTopic('anatomy', this)"><span class="quiz-topic-icon">🦴</span>Anatomy<br><small style="font-weight:400;font-size:0.7rem;opacity:0.7">40 Qs</small></button>
+            <button class="quiz-topic-btn" onclick="selectTopic('physiology', this)"><span class="quiz-topic-icon">❤️</span>Physiology<br><small style="font-weight:400;font-size:0.7rem;opacity:0.7">40 Qs</small></button>
+            <button class="quiz-topic-btn" onclick="selectTopic('pharmacology', this)"><span class="quiz-topic-icon">💊</span>Pharmacology<br><small style="font-weight:400;font-size:0.7rem;opacity:0.7">40 Qs</small></button>
+            <button class="quiz-topic-btn" onclick="selectTopic('pathology', this)"><span class="quiz-topic-icon">🔬</span>Pathology<br><small style="font-weight:400;font-size:0.7rem;opacity:0.7">30 Qs</small></button>
+            <button class="quiz-topic-btn" onclick="selectTopic('biochemistry', this)"><span class="quiz-topic-icon">🧪</span>Biochemistry<br><small style="font-weight:400;font-size:0.7rem;opacity:0.7">30 Qs</small></button>
+            <button class="quiz-topic-btn" onclick="selectTopic('medicine', this)"><span class="quiz-topic-icon">🩺</span>Clinical Medicine<br><small style="font-weight:400;font-size:0.7rem;opacity:0.7">20 Qs</small></button>
+            <button class="quiz-topic-btn" onclick="selectTopic('all', this)" style="grid-column:1/-1"><span class="quiz-topic-icon">🎯</span>All Subjects (Mixed)<br><small style="font-weight:400;font-size:0.7rem;opacity:0.7">200+ Qs</small></button>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;margin-top:14px;">
+            <div style="font-size:0.82rem;color:var(--text-secondary);flex:1;" id="quizAvailableCount"></div>
+            <button class="med-btn" id="startQuizBtn" onclick="startQuiz()" disabled style="min-width:140px;">
+              <i class="fas fa-play"></i> Start Quiz (10 Qs)
+            </button>
+          </div>
         </div>
 
         <!-- Active quiz -->
@@ -1273,6 +1302,9 @@
           </div>
         </div>
 
+        <!-- Active quiz — difficulty badge -->
+        <div id="quizDiffBadge" style="display:none;margin-bottom:10px;"></div>
+
         <!-- Summary -->
         <div class="quiz-summary" id="quizSummary">
           <div style="font-size:3rem;margin-bottom:8px;">🎉</div>
@@ -1280,9 +1312,14 @@
           <div class="quiz-final-score" id="quizFinalScore">0/10</div>
           <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:16px;" id="quizFinalMsg"></p>
           <div class="quiz-score-breakdown" id="quizBreakdown"></div>
+          <!-- Per-subject breakdown (shown for mixed/all quizzes) -->
+          <div id="subjectBreakdownSection" style="display:none;margin-top:16px;text-align:left;">
+            <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;color:var(--text-secondary);letter-spacing:0.06em;margin-bottom:8px;">Per-Subject Scores</div>
+            <div id="subjectBreakdownGrid" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+          </div>
           <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
-            <button class="med-btn med-btn-sm med-btn-outline" onclick="restartQuiz()"><i class="fas fa-redo"></i> Retry Same Topic</button>
-            <button class="med-btn med-btn-sm" onclick="showQuizSetup()"><i class="fas fa-list"></i> Choose New Topic</button>
+            <button class="med-btn med-btn-sm med-btn-outline" onclick="restartQuiz()"><i class="fas fa-redo"></i> Retry</button>
+            <button class="med-btn med-btn-sm" onclick="showQuizSetup()"><i class="fas fa-list"></i> New Topic</button>
           </div>
         </div>
       </div>
@@ -1306,6 +1343,84 @@
         </div>
 
         <div id="labContent"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         TAB 8 — MORPHOGENETIC FIELD / SHAPE-MAKER GAME
+    ══════════════════════════════════════════════ -->
+    <div class="med-panel" id="tab-morpho">
+      <div class="med-disclaimer">
+        <span style="font-size:1.1rem;flex-shrink:0;">🧫</span>
+        <span><strong>Educational Game — Morphogenetic Fields:</strong> A morphogenetic field is the coordinating signal that guides cells to form specific shapes during embryonic development. In this simulation each coloured dot represents a cell. Activate the field to watch cells self-organise into your chosen shape — just like real morphogenesis!</span>
+      </div>
+
+      <div class="med-card" style="padding:20px 24px;">
+        <div class="med-card-title"><span class="med-icon">🧫</span>The Shape-Maker Game</div>
+        <p style="font-size:.88rem;color:var(--text-secondary,#555);margin-bottom:20px;line-height:1.6;">
+          Imagine you have many tiny building blocks — like cells! A <strong>Morphogenetic Field</strong> is like an invisible guide that tells these blocks where to go to make a specific shape.
+          Add cells, choose a shape, then hit <strong>Activate Field</strong> to watch morphogenesis in action!
+        </p>
+
+        <!-- Canvas container keeps it centred and responsive -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+          <canvas id="morphoCanvas" width="580" height="380"
+            style="background:#F8FDFF;border:2px dashed var(--border-color,#607D8B);border-radius:12px;
+                   cursor:crosshair;box-shadow:inset 0 0 8px rgba(0,0,0,.08);
+                   max-width:100%;"></canvas>
+
+          <!-- Controls -->
+          <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+            <button class="med-btn" id="morphoAddBtn">➕ Add 50 Cells</button>
+
+            <select id="morphoShape"
+              style="padding:10px 32px 10px 14px;font-family:inherit;font-size:.9rem;
+                     border:2px solid var(--border-color,#e5e7eb);border-radius:24px;
+                     background:var(--button-bg,#4DD0E1);color:#fff;cursor:pointer;
+                     -webkit-appearance:none;appearance:none;
+                     background-image:url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.6-6.4H18.4c-5%200-9.3%201.8-13.6%206.4-4.2%204.6-6.4%2010.5-6.4%2016.6%200%206.1%202.2%2011.9%206.4%2016.6l128%20127.9c4.2%204.6%2010.2%206.4%2016.6%206.4s12.4-1.8%2016.6-6.4l128-127.9c4.2-4.6%206.4-10.5%206.4-16.6-.1-6.1-2.3-11.9-6.5-16.5z%22%2F%3E%3C%2Fsvg%3E');
+                     background-repeat:no-repeat;background-position:right 12px center;background-size:10px;">
+              <option value="heart">❤️ Heart</option>
+              <option value="star">⭐ Star</option>
+              <option value="circle">⭕ Circle</option>
+              <option value="triangle">🔺 Triangle</option>
+              <option value="dna">🧬 DNA Helix</option>
+              <option value="hexagon">⬡ Hexagon</option>
+            </select>
+
+            <button class="med-btn" id="morphoActivateBtn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);">⚡ Activate Field!</button>
+            <button class="med-btn" id="morphoResetBtn" style="background:#ef4444;">🔄 Reset</button>
+          </div>
+
+          <!-- Stats row -->
+          <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+            <div style="padding:6px 16px;background:rgba(99,102,241,.08);border-radius:20px;font-size:.8rem;font-weight:700;">
+              🔵 Cells: <span id="morphoCellCount">0</span>
+            </div>
+            <div style="padding:6px 16px;background:rgba(6,182,212,.08);border-radius:20px;font-size:.8rem;font-weight:700;">
+              🎯 Status: <span id="morphoStatus">Idle — Add cells to begin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biology info card -->
+        <div style="margin-top:24px;padding:16px;background:rgba(99,102,241,.05);border-radius:12px;border-left:4px solid #6366f1;">
+          <div style="font-weight:700;font-size:.88rem;margin-bottom:8px;color:var(--text-primary,#1a1a2e);">🔬 The Real Science Behind This Game</div>
+          <div style="font-size:.82rem;color:var(--text-secondary,#555);line-height:1.6;">
+            <p style="margin-bottom:8px;">
+              <strong>Morphogenetic fields</strong> were first proposed by biologist Hans Spemann (Nobel 1935) to explain how embryonic cells "know" where to go and what to become.
+              In real biology, these fields are set up by <strong>morphogen gradients</strong> — molecules like Sonic Hedgehog (SHH), BMP, and Wnt — that diffuse from organising centres and create positional information.
+            </p>
+            <p style="margin-bottom:8px;">
+              <strong>Key concept: positional information</strong> — Lewis Wolpert's French Flag Model (1969) describes how cells read their position along a morphogen gradient and differentiate accordingly.
+              The simulation simplifies this: each cell receives a "target coordinate" from the field and moves toward it, mimicking chemotaxis.
+            </p>
+            <p>
+              <strong>Clinical relevance:</strong> Disruption of morphogenetic signalling causes congenital malformations.
+              Holoprosencephaly (SHH), polydactyly (SHH/Gli), cleft palate (TGF-β), and cardiac septal defects (Wnt/Notch) all arise from morphogen pathway mutations.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1845,105 +1960,303 @@
   }
 
   /* ══════════════════════════════════════════════
-     MCQ QUIZ
+     MCQ QUIZ — 200+ questions
   ══════════════════════════════════════════════ */
   const QUESTION_BANK = {
     anatomy: [
-      { q:'Which nerve is damaged in "wrist drop"?', opts:['Median nerve','Ulnar nerve','Radial nerve','Musculocutaneous nerve'], ans:2, exp:'The radial nerve supplies the extensors of the wrist and fingers. Damage (e.g. at the spiral groove of humerus — "Saturday night palsy") causes wrist drop.' },
-      { q:'The femoral nerve arises from which lumbar segments?', opts:['L1, L2, L3','L2, L3, L4','L3, L4, L5','L4, L5, S1'], ans:1, exp:'The femoral nerve arises from the posterior divisions of L2, L3, L4 of the lumbar plexus. It innervates the anterior compartment of the thigh (quadriceps).' },
-      { q:'Which structure forms the medial boundary of the femoral triangle?', opts:['Sartorius','Inguinal ligament','Adductor longus','Pectineus'], ans:2, exp:'The femoral triangle has: Superior = inguinal ligament, Lateral = sartorius, Medial = adductor longus. Contents: NAVY (N=femoral nerve, A=femoral artery, V=femoral vein, Y=lymphatics).' },
-      { q:'The diaphragm opening for the oesophagus is at which vertebral level?', opts:['T6','T8','T10','T12'], ans:2, exp:'The oesophagus passes through the diaphragm at T10. Mnemonic: "I (IVC) eat (oesophagus) at (aorta) 8, 10, 12".' },
-      { q:'Which artery supplies the majority of the interventricular septum?', opts:['Right coronary artery','Left circumflex artery','Left anterior descending artery','Posterior descending artery'], ans:2, exp:'The left anterior descending (LAD) artery supplies the anterior 2/3 of the interventricular septum. Hence LAD occlusion causes anterior MI with septal involvement.' },
-      { q:'McBurney\'s point, the site of maximum tenderness in appendicitis, is located at:', opts:['1/2 way between ASIS and umbilicus','1/3 from ASIS to umbilicus','1/3 from umbilicus to ASIS','2/3 from ASIS to umbilicus'], ans:1, exp:'McBurney\'s point is 1/3 of the distance from the anterior superior iliac spine (ASIS) to the umbilicus. This corresponds to the base of the appendix in most individuals.' },
-      { q:'The inguinal canal in the male contains which structure?', opts:['Round ligament','Spermatic cord','Ilioinguinal nerve only','Testicular artery only'], ans:1, exp:'In males, the inguinal canal contains the spermatic cord (ductus deferens, testicular vessels, lymphatics, nerves) plus the ilioinguinal nerve. In females it contains the round ligament of the uterus.' },
-      { q:'Structures passing through the foramen magnum include all EXCEPT:', opts:['Medulla oblongata','Vertebral arteries','Facial nerve (CN VII)','Spinal accessory nerve (CN XI)'], ans:2, exp:'The facial nerve (CN VII) exits through the stylomastoid foramen, NOT the foramen magnum. The foramen magnum transmits the medulla, meninges, vertebral arteries, anterior/posterior spinal arteries, and CN XI spinal roots.' },
-      { q:'The Circle of Willis is formed by which pair of communicating arteries?', opts:['Only anterior communicating artery','Only posterior communicating arteries','Both anterior and posterior communicating arteries','Basilar and vertebral arteries'], ans:2, exp:'The Circle of Willis is formed by: ACA × 2 + AComA (anterior part) + ICA × 2 + PComA × 2 + PCA × 2 (posterior part). Both anterior AND posterior communicating arteries are required.' },
-      { q:'Which bone is most commonly fractured in a fall on an outstretched hand (FOOSH)?', opts:['Lunate','Scaphoid','Radius (Colles)','Hamate'], ans:1, exp:'The scaphoid is the most commonly fractured carpal bone in FOOSH injuries. Its poor blood supply (enters distally) means avascular necrosis is a major complication. Tender in the anatomical snuffbox.' },
+      // LIMBS
+      { id:'an1', subject:'anatomy', difficulty:'easy', q:'Which nerve is damaged in "wrist drop"?', opts:['Median nerve','Ulnar nerve','Radial nerve','Musculocutaneous nerve'], correct:2, exp:'The radial nerve supplies the extensors of the wrist and fingers. Damage at the spiral groove of the humerus ("Saturday night palsy") causes wrist drop — inability to extend wrist and fingers.' },
+      { id:'an2', subject:'anatomy', difficulty:'easy', q:'The femoral nerve arises from which lumbar segments?', opts:['L1, L2, L3','L2, L3, L4','L3, L4, L5','L4, L5, S1'], correct:1, exp:'The femoral nerve arises from the posterior divisions of L2, L3, L4 of the lumbar plexus. It innervates the anterior compartment of the thigh including the quadriceps femoris.' },
+      { id:'an3', subject:'anatomy', difficulty:'easy', q:'Which bone is most commonly fractured in a fall on an outstretched hand (FOOSH)?', opts:['Lunate','Scaphoid','Distal radius','Hamate'], correct:1, exp:'The scaphoid is the most commonly fractured carpal bone in FOOSH injuries. Its poor blood supply (enters distally) means avascular necrosis is a major complication. Tender in the anatomical snuffbox.' },
+      { id:'an4', subject:'anatomy', difficulty:'easy', q:'The inguinal canal in males contains which structure?', opts:['Round ligament','Spermatic cord','Ilioinguinal nerve only','Testicular artery only'], correct:1, exp:'In males, the inguinal canal contains the spermatic cord (ductus deferens, testicular vessels, lymphatics, nerves) plus the ilioinguinal nerve. In females it contains the round ligament of the uterus.' },
+      { id:'an5', subject:'anatomy', difficulty:'easy', q:'Which structure forms the medial boundary of the femoral triangle?', opts:['Sartorius','Inguinal ligament','Adductor longus','Pectineus'], correct:2, exp:'Femoral triangle: Superior = inguinal ligament, Lateral = sartorius, Medial = adductor longus. Contents (medial to lateral): femoral vein, artery, nerve — mnemonic NAVY (nerve, artery, vein, Y-fronts/lymphatics).' },
+      { id:'an6', subject:'anatomy', difficulty:'medium', q:'Which muscle is the primary flexor of the elbow and is also involved in supination?', opts:['Brachioradialis','Biceps brachii','Brachialis','Pronator teres'], correct:1, exp:'Biceps brachii has two actions: powerful flexion of the elbow (especially against resistance) AND supination of the forearm. Brachialis is the primary pure flexor but without supination action.' },
+      { id:'an7', subject:'anatomy', difficulty:'medium', q:'Damage to the ulnar nerve at the wrist causes which deformity?', opts:['Wrist drop','Claw hand (ring and little fingers)','Ape hand','Benediction hand'], correct:1, exp:'Ulnar nerve damage at the wrist (Guyon\'s canal) causes claw hand in the ring and little fingers (clawing = lumbricals paralysed for these digits). Median nerve damage causes ape hand / benediction hand.' },
+      { id:'an8', subject:'anatomy', difficulty:'medium', q:'The popliteal fossa contains all the following EXCEPT:', opts:['Popliteal artery','Tibial nerve','Common peroneal nerve','Saphenous nerve'], correct:3, exp:'The saphenous nerve is a branch of the femoral nerve and runs in the adductor (Hunter\'s) canal, not the popliteal fossa. The popliteal fossa contains the popliteal artery/vein, tibial nerve, and common peroneal nerve.' },
+      { id:'an9', subject:'anatomy', difficulty:'medium', q:'The rotator cuff is composed of which four muscles?', opts:['Supraspinatus, infraspinatus, teres major, subscapularis','Supraspinatus, infraspinatus, teres minor, subscapularis','Deltoid, supraspinatus, infraspinatus, teres minor','Supraspinatus, teres major, teres minor, coracobrachialis'], correct:1, exp:'SITS mnemonic: Supraspinatus (abduction 0–15°), Infraspinatus (lateral rotation), Teres minor (lateral rotation), Subscapularis (medial rotation). Supraspinatus is most commonly torn (at its insertion on the greater tubercle).' },
+      { id:'an10', subject:'anatomy', difficulty:'hard', q:'The profunda femoris artery is a branch of the:', opts:['External iliac artery','Femoral artery','Obturator artery','Popliteal artery'], correct:1, exp:'The profunda femoris (deep femoral artery) is the largest branch of the femoral artery, arising 3–4 cm below the inguinal ligament. It supplies most of the thigh muscles and gives off the medial and lateral circumflex femoral arteries.' },
+      // THORAX
+      { id:'an11', subject:'anatomy', difficulty:'easy', q:'The diaphragm opening for the oesophagus is at which vertebral level?', opts:['T6','T8','T10','T12'], correct:2, exp:'Mnemonic "I eat at 10": IVC passes at T8 (with right phrenic nerve), oesophagus + vagus nerves at T10, aorta + thoracic duct + azygos vein at T12 (through the aortic hiatus).' },
+      { id:'an12', subject:'anatomy', difficulty:'easy', q:'Which artery supplies the majority of the interventricular septum?', opts:['Right coronary artery','Left circumflex artery','Left anterior descending artery','Posterior descending artery'], correct:2, exp:'The LAD (left anterior descending) artery supplies the anterior 2/3 of the interventricular septum plus the anterior wall of the left ventricle. LAD occlusion ("widow maker") causes anterior MI with septal involvement.' },
+      { id:'an13', subject:'anatomy', difficulty:'medium', q:'The left recurrent laryngeal nerve hooks around which structure?', opts:['Subclavian artery','Aortic arch (ligamentum arteriosum)','Common carotid artery','Pulmonary trunk'], correct:1, exp:'The left RLN hooks under the aortic arch at the ligamentum arteriosum. The right RLN hooks under the right subclavian artery. Hence left-sided aortic aneurysm/lung tumours can cause left RLN palsy (hoarseness).' },
+      { id:'an14', subject:'anatomy', difficulty:'medium', q:'The right lung has how many lobes and bronchopulmonary segments?', opts:['2 lobes, 8 segments','2 lobes, 10 segments','3 lobes, 10 segments','3 lobes, 8 segments'], correct:2, exp:'Right lung: 3 lobes (upper, middle, lower) with 10 bronchopulmonary segments. Left lung: 2 lobes (upper, lower) with 8–9 segments (cardiac notch removes some). Each segment has its own segmental bronchus and artery.' },
+      { id:'an15', subject:'anatomy', difficulty:'hard', q:'Which structure separates the superior and posterior mediastinum?', opts:['Sternal angle (angle of Louis)','T4/T5 disc level','Carina of trachea','Pericardium'], correct:1, exp:'The sternal angle (angle of Louis) corresponds to the T4/T5 intervertebral disc level. This is the landmark for the superior mediastinum (above) and inferior mediastinum (below). Also where the trachea bifurcates at the carina.' },
+      { id:'an16', subject:'anatomy', difficulty:'medium', q:'In a pleural effusion, fluid first accumulates in which part of the pleural cavity?', opts:['Cardiac notch','Costodiaphragmatic recess','Costomediastinal recess','Pulmonary ligament'], correct:1, exp:'The costodiaphragmatic recess is the lowest point of the pleural cavity — fluid accumulates here first due to gravity. It extends to ~2 vertebral levels below the lung border. Dullness to percussion and reduced breath sounds at the base.' },
+      // ABDOMEN
+      { id:'an17', subject:'anatomy', difficulty:'easy', q:'McBurney\'s point is located at:', opts:['1/2 way between ASIS and umbilicus','1/3 from ASIS to umbilicus','1/3 from umbilicus to ASIS','2/3 from ASIS to umbilicus'], correct:1, exp:'McBurney\'s point is 1/3 of the distance from the anterior superior iliac spine (ASIS) to the umbilicus. This corresponds to the base of the appendix in most individuals and is the point of maximum tenderness in appendicitis.' },
+      { id:'an18', subject:'anatomy', difficulty:'medium', q:'The portal vein is formed by the union of which two veins?', opts:['Superior mesenteric vein + inferior mesenteric vein','Superior mesenteric vein + splenic vein','Splenic vein + inferior mesenteric vein','Splenic vein + left gastric vein'], correct:1, exp:'The portal vein is formed behind the neck of the pancreas by the union of the superior mesenteric vein (SMV) and the splenic vein. The inferior mesenteric vein usually drains into the splenic vein.' },
+      { id:'an19', subject:'anatomy', difficulty:'medium', q:'The foregut is supplied by which artery?', opts:['Superior mesenteric artery','Inferior mesenteric artery','Coeliac trunk','Renal artery'], correct:2, exp:'Coeliac trunk supplies the foregut (lower oesophagus to upper duodenum including liver, spleen, pancreas). SMA supplies midgut (lower duodenum to 2/3 transverse colon). IMA supplies hindgut (1/3 transverse to rectum).' },
+      { id:'an20', subject:'anatomy', difficulty:'hard', q:'The transpyloric plane (of Addison) is at which vertebral level?', opts:['L1','L2','L3','T12'], correct:0, exp:'The transpyloric plane (L1) passes through: pylorus of stomach, fundus of gallbladder, 1st part of duodenum, hepatic flexure (right), splenic flexure (left), hila of both kidneys, origins of SMA and SMV, and the tip of the 9th costal cartilage.' },
+      // NEURO
+      { id:'an21', subject:'anatomy', difficulty:'easy', q:'Structures passing through the foramen magnum include all EXCEPT:', opts:['Medulla oblongata','Vertebral arteries','Facial nerve (CN VII)','Spinal accessory nerve roots (CN XI)'], correct:2, exp:'The facial nerve (CN VII) exits via the stylomastoid foramen. The foramen magnum transmits: medulla oblongata, meninges, vertebral arteries, anterior and posterior spinal arteries, and the spinal roots of CN XI.' },
+      { id:'an22', subject:'anatomy', difficulty:'easy', q:'The Circle of Willis includes both anterior AND posterior communicating arteries. Which vessels form the anterior part?', opts:['Posterior cerebral arteries','Anterior cerebral arteries + anterior communicating artery','Middle cerebral arteries','Basilar artery'], correct:1, exp:'Anterior part of Circle of Willis: bilateral ACAs + anterior communicating artery. Posterior part: bilateral ICAs + posterior communicating arteries + bilateral PCAs. Both communicating arteries are required to complete the circle.' },
+      { id:'an23', subject:'anatomy', difficulty:'medium', q:'Broca\'s area (speech production) is located in which region?', opts:['Posterior superior temporal gyrus (left)','Inferior frontal gyrus (left) — pars triangularis and opercularis','Supramarginal gyrus','Angular gyrus'], correct:1, exp:'Broca\'s area (Brodmann areas 44, 45) is in the inferior frontal gyrus (pars triangularis + opercularis) of the dominant (usually left) hemisphere. Damage → Broca\'s (expressive/non-fluent) aphasia: understands but cannot speak fluently.' },
+      { id:'an24', subject:'anatomy', difficulty:'medium', q:'The internal capsule separates which two structures?', opts:['Thalamus and hypothalamus','Caudate nucleus/thalamus (medially) and lentiform nucleus (laterally)','Corpus callosum and fornix','Putamen and globus pallidus'], correct:1, exp:'The internal capsule is a white matter band between: caudate nucleus + thalamus (medially) and lentiform nucleus (putamen + globus pallidus laterally). It carries all motor and sensory fibres between cortex and brainstem/spinal cord.' },
+      { id:'an25', subject:'anatomy', difficulty:'hard', q:'A lesion of the right optic tract causes:', opts:['Right homonymous hemianopia','Left homonymous hemianopia','Right monocular blindness','Bitemporal hemianopia'], correct:1, exp:'The right optic tract carries fibres from the right temporal retina + left nasal retina → both represent the left visual field. Lesion of right optic tract → left homonymous hemianopia (loss of left visual field in both eyes).' },
+      { id:'an26', subject:'anatomy', difficulty:'hard', q:'Which nucleus in the hypothalamus controls the circadian rhythm?', opts:['Paraventricular nucleus','Suprachiasmatic nucleus','Mammillary body','Arcuate nucleus'], correct:1, exp:'The suprachiasmatic nucleus (SCN) of the hypothalamus is the master circadian pacemaker. It receives direct light input from the retina via the retinohypothalamic tract and coordinates daily rhythms of sleep, temperature, and hormone secretion.' },
+      { id:'an27', subject:'anatomy', difficulty:'medium', q:'The basal ganglia circuit initiates voluntary movement via which pathway?', opts:['Direct pathway (facilitates movement)','Indirect pathway (inhibits movement)','Both pathways equally','Neither — cerebellum initiates movement'], correct:0, exp:'Direct pathway: Cortex → striatum (GABA, inhibits GPi/SNr) → disinhibits thalamus → excites cortex → facilitates movement. Indirect pathway does the opposite (inhibits movement). Loss of dopamine in Parkinson\'s reduces direct pathway → bradykinesia.' },
+      { id:'an28', subject:'anatomy', difficulty:'hard', q:'The dorsal column-medial lemniscal pathway decussates at:', opts:['Level of entry into spinal cord','Medulla (caudal medulla — nucleus gracilis/cuneatus)','Pons','Midbrain'], correct:1, exp:'Dorsal column fibres ascend ipsilaterally to the nucleus gracilis (lower body) and nucleus cuneatus (upper body) in the caudal medulla, then cross as the medial lemniscus. Spinothalamic tract crosses within 1–2 segments at spinal cord level.' },
+      // Additional anatomy
+      { id:'an29', subject:'anatomy', difficulty:'easy', q:'The sciatic nerve is the longest nerve in the body and exits the pelvis through:', opts:['Obturator foramen','Greater sciatic foramen (below piriformis)','Lesser sciatic foramen','Femoral canal'], correct:1, exp:'The sciatic nerve (L4–S3) exits the pelvis through the greater sciatic foramen, passing below the piriformis muscle. It then passes through the posterior thigh to divide into tibial and common peroneal nerves above the popliteal fossa.' },
+      { id:'an30', subject:'anatomy', difficulty:'medium', q:'Horner\'s syndrome consists of which triad?', opts:['Ptosis, miosis, anhidrosis (ipsilateral)','Ptosis, mydriasis, anhidrosis (contralateral)','Exophthalmos, tachycardia, tremor','Ptosis, miosis, exophthalmos'], correct:0, exp:'Horner\'s syndrome results from interruption of the sympathetic pathway to the eye: ptosis (levator palpebrae - partial), miosis (pupil constriction, no dilation), anhidrosis (lack of sweating on ipsilateral face). Causes: Pancoast tumour, carotid dissection, lateral medullary syndrome.' },
+      { id:'an31', subject:'anatomy', difficulty:'medium', q:'Which cranial nerve is tested by the gag reflex (afferent limb)?', opts:['CN V (Trigeminal)','CN VII (Facial)','CN IX (Glossopharyngeal)','CN X (Vagus)'], correct:2, exp:'Gag reflex: afferent = CN IX (glossopharyngeal, sensory from posterior pharynx), efferent = CN X (vagus, motor to pharyngeal muscles). Both are tested by stimulating the posterior pharyngeal wall. Loss indicates brainstem or nerve damage.' },
+      { id:'an32', subject:'anatomy', difficulty:'hard', q:'The blood-brain barrier is maintained primarily by:', opts:['Astrocyte cell bodies','Tight junctions between cerebral endothelial cells','Pericytes alone','Microglia'], correct:1, exp:'The BBB is primarily formed by tight junctions (zonula occludens) between adjacent cerebral capillary endothelial cells, preventing paracellular passage. Astrocyte end-feet and pericytes support and regulate the BBB but the tight junctions themselves form the physical barrier.' },
+      { id:'an33', subject:'anatomy', difficulty:'medium', q:'The femoral hernia passes through:', opts:['Inguinal canal','Femoral canal (medial to femoral vein)','Obturator canal','Hiatus semilunaris'], correct:1, exp:'Femoral hernia passes through the femoral canal (medial to the femoral vein, posterior to the inguinal ligament). More common in women (wider pelvis). Risk of strangulation is high due to the rigid femoral ring. Presents as groin lump below and lateral to pubic tubercle.' },
+      { id:'an34', subject:'anatomy', difficulty:'medium', q:'Which segment of the liver is the caudate lobe?', opts:['Segment I','Segment II','Segment IV','Segment VIII'], correct:0, exp:'Couinaud liver segmentation: Segment I = caudate lobe (functionally independent, drains directly into IVC). Segments II–IV = left lobe. Segments V–VIII = right lobe. The middle hepatic vein separates right and left lobes.' },
+      { id:'an35', subject:'anatomy', difficulty:'hard', q:'The thoracic duct drains into the venous system at:', opts:['Right subclavian vein','Junction of left subclavian and left internal jugular veins','Superior vena cava','Right jugular vein'], correct:1, exp:'The thoracic duct (which drains lymph from everything below the diaphragm + left upper body + left side of head) drains into the junction of the left subclavian and left internal jugular veins. The right lymphatic duct drains the right upper body into the right side.' },
+      { id:'an36', subject:'anatomy', difficulty:'easy', q:'The median nerve is compressed in carpal tunnel syndrome at the wrist. Which thenar muscle is SPARED?', opts:['Abductor pollicis brevis','Flexor pollicis brevis (superficial head)','Opponens pollicis','Adductor pollicis'], correct:3, exp:'Adductor pollicis is innervated by the ulnar nerve (deep branch), not the median nerve. Carpal tunnel syndrome (median nerve compression) causes weakness of APB, FPB (superficial head), and opponens pollicis → weakness of thumb opposition.' },
+      { id:'an37', subject:'anatomy', difficulty:'hard', q:'The hepatoduodenal ligament (free edge of lesser omentum) contains:', opts:['Portal vein, hepatic artery, bile duct (portal triad)','Only the portal vein','Hepatic veins and bile duct','Common hepatic artery only'], correct:0, exp:'The hepatoduodenal ligament (free edge of lesser omentum) contains the portal triad: portal vein (posterior), hepatic artery proper (left), and common bile duct (right). Pringle manoeuvre compresses this structure to control hepatic bleeding.' },
+      { id:'an38', subject:'anatomy', difficulty:'medium', q:'The parotid gland is traversed by which cranial nerve?', opts:['CN V3 (mandibular)','CN VII (facial nerve)','CN IX (glossopharyngeal)','CN X (vagus)'], correct:1, exp:'CN VII (facial nerve) passes through the parotid gland, dividing into temporal, zygomatic, buccal, mandibular, and cervical branches within it. Parotid surgery (parotidectomy) risks facial nerve damage → facial palsy. CN IX supplies secretomotor fibres via the parotid gland.' },
+      { id:'an39', subject:'anatomy', difficulty:'hard', q:'Trendelenburg\'s test is positive in paralysis of which muscle?', opts:['Gluteus maximus','Gluteus medius','Tensor fasciae latae','Piriformis'], correct:1, exp:'Gluteus medius (and gluteus minimus) abduct the hip and stabilise the pelvis during single-leg stance. Paralysis (e.g. superior gluteal nerve damage, hip dislocation) → positive Trendelenburg\'s sign: pelvis drops on the UNAFFECTED side when standing on the affected leg.' },
+      { id:'an40', subject:'anatomy', difficulty:'hard', q:'Which dermatome covers the umbilicus?', opts:['T8','T10','T12','L1'], correct:1, exp:'T10 dermatome covers the umbilicus. Useful landmarks: T4 = nipple level, T10 = umbilicus, L1 = inguinal ligament. These are used to determine the level of spinal anaesthesia and assess sensory levels in spinal cord injuries.' },
     ],
     physiology: [
-      { q:'The Frank-Starling law states that cardiac output increases when:', opts:['Heart rate decreases','Preload increases','Afterload increases','Contractility decreases'], ans:1, exp:'Frank-Starling law: increased venous return (preload) → increased ventricular end-diastolic volume → increased stroke volume → increased cardiac output. This is the "length-tension" relationship of cardiac muscle.' },
-      { q:'Normal glomerular filtration rate (GFR) is approximately:', opts:['50 mL/min','75 mL/min','125 mL/min','200 mL/min'], ans:2, exp:'Normal GFR in adults is approximately 125 mL/min (180 L/day filtered, ~1.5 L urine produced). GFR declines with age (~1 mL/min/yr after 40). eGFR <60 for >3 months = CKD.' },
-      { q:'Which segment of the nephron is primarily responsible for concentrating urine?', opts:['Proximal convoluted tubule','Thin descending loop of Henle','Thick ascending loop of Henle','Distal convoluted tubule'], ans:1, exp:'The thin descending limb of the loop of Henle is permeable to water, allowing water reabsorption into the hyperosmolar medullary interstitium, concentrating tubular fluid. The ascending limb is impermeable to water.' },
-      { q:'Which receptor mediates the baroreceptor reflex to decrease blood pressure?', opts:['α1-adrenergic','β1-adrenergic','Muscarinic (M2)','Angiotensin II (AT1)'], ans:2, exp:'Baroreceptors detect high BP → increase parasympathetic (vagal) tone via M2 muscarinic receptors on the SA node → decrease heart rate → decrease cardiac output → decrease BP.' },
-      { q:'The oxygen-haemoglobin dissociation curve shifts to the RIGHT in:', opts:['Alkalosis (high pH)','Hypothermia','Increased 2,3-BPG','Carbon monoxide poisoning'], ans:2, exp:'Right shift (Bohr effect) → decreased Hb-O₂ affinity → more O₂ unloaded to tissues. Causes: ↑CO₂, ↑H⁺ (acidosis), ↑temperature, ↑2,3-BPG. Left shift: opposite conditions (Hb holds onto O₂).' },
-      { q:'ADH (vasopressin) primarily acts on which nephron segment?', opts:['Proximal tubule','Ascending loop of Henle','Collecting duct','Bowman\'s capsule'], ans:2, exp:'ADH (AVP) acts primarily on the collecting duct (and late distal tubule) via V2 receptors → inserts aquaporin-2 channels → ↑water reabsorption → concentrated urine. Deficiency or resistance causes diabetes insipidus.' },
-      { q:'In metabolic acidosis with respiratory compensation, you would expect:', opts:['↑pH, ↑PaCO₂','↓pH, ↓PaCO₂','↑pH, ↓PaCO₂','↓pH, ↑PaCO₂'], ans:1, exp:'Metabolic acidosis: primary ↓HCO₃⁻ → ↓pH. Respiratory compensation: hyperventilation → ↓PaCO₂ (Kussmaul breathing in DKA). Expected PaCO₂ = 1.5 × [HCO₃⁻] + 8 ± 2 (Winter\'s formula).' },
-      { q:'Which phase of the cardiac action potential involves fast Na⁺ influx?', opts:['Phase 0 (depolarisation)','Phase 1 (early repolarisation)','Phase 2 (plateau)','Phase 4 (resting)'], ans:0, exp:'Phase 0 (rapid depolarisation) is caused by rapid Na⁺ influx through fast voltage-gated Na⁺ channels, raising the membrane potential from −90mV to +30mV. This is absent in SA/AV nodal cells (which use Ca²⁺ channels).' },
-      { q:'The pulmonary capillary wedge pressure (PCWP) reflects:', opts:['Right ventricular end-diastolic pressure','Left ventricular end-diastolic pressure','Aortic diastolic pressure','Right atrial pressure'], ans:1, exp:'PCWP is measured with a Swan-Ganz (pulmonary artery) catheter wedged distally. It reflects left atrial pressure ≈ left ventricular end-diastolic pressure (preload). Normal PCWP = 6–12 mmHg. Elevated PCWP in left heart failure.' },
-      { q:'Surfactant in the lung is produced by:', opts:['Type I pneumocytes','Type II pneumocytes','Clara cells','Alveolar macrophages'], ans:1, exp:'Type II pneumocytes (granular pneumocytes) produce surfactant (dipalmitoyl phosphatidylcholine — DPPC). Surfactant reduces surface tension, prevents alveolar collapse (atelectasis). Deficiency in RDS of the newborn.' },
+      // CARDIAC
+      { id:'ph1', subject:'physiology', difficulty:'easy', q:'The Frank-Starling law states that cardiac output increases when:', opts:['Heart rate decreases','Preload increases','Afterload increases','Contractility decreases'], correct:1, exp:'Frank-Starling law: increased venous return (preload) → increased LVEDV → increased sarcomere stretch → increased force of contraction → increased stroke volume → increased cardiac output. This is the intrinsic length-tension relationship of cardiac muscle.' },
+      { id:'ph2', subject:'physiology', difficulty:'easy', q:'Which phase of the ventricular action potential involves the Ca²⁺ plateau?', opts:['Phase 0','Phase 1','Phase 2','Phase 3'], correct:2, exp:'Phase 2 (plateau phase) is maintained by slow L-type Ca²⁺ channel opening, which balances K⁺ efflux. This prolonged depolarisation prevents tetanic contractions in cardiac muscle (unlike skeletal muscle). Ca²⁺ entry also triggers Ca²⁺-induced Ca²⁺ release from SR.' },
+      { id:'ph3', subject:'physiology', difficulty:'easy', q:'Which phase of the cardiac action potential involves fast Na⁺ influx?', opts:['Phase 0 (depolarisation)','Phase 1 (early repolarisation)','Phase 2 (plateau)','Phase 4 (resting)'], correct:0, exp:'Phase 0 (rapid depolarisation) is caused by rapid Na⁺ influx through fast voltage-gated Na⁺ channels, raising membrane potential from −90mV to +30mV. This is absent in SA/AV nodal cells (which use slow Ca²⁺ channels for depolarisation).' },
+      { id:'ph4', subject:'physiology', difficulty:'medium', q:'The pulmonary capillary wedge pressure (PCWP) reflects:', opts:['Right ventricular end-diastolic pressure','Left ventricular end-diastolic pressure','Aortic diastolic pressure','Mean pulmonary artery pressure'], correct:1, exp:'PCWP (measured by Swan-Ganz catheter wedged in pulmonary artery) reflects left atrial pressure ≈ LVEDP (preload). Normal = 6–12 mmHg. Elevated in left heart failure. Reduced in hypovolaemia. Helps distinguish cardiogenic from non-cardiogenic pulmonary oedema.' },
+      { id:'ph5', subject:'physiology', difficulty:'medium', q:'Which receptor mediates the baroreceptor reflex bradycardia?', opts:['α1-adrenergic','β1-adrenergic','Muscarinic M2','Angiotensin II AT1'], correct:2, exp:'Baroreceptors (carotid sinus, aortic arch) detect ↑BP → increase vagal (parasympathetic) tone → M2 muscarinic receptors on SA node → ↑IKACh → hyperpolarisation → ↓heart rate → ↓CO → ↓BP. Atropine blocks M2 → reverses vagally-mediated bradycardia.' },
+      { id:'ph6', subject:'physiology', difficulty:'hard', q:'During isovolumetric contraction, which valves are closed?', opts:['Both aortic and mitral valves are closed','Aortic open, mitral closed','Aortic closed, mitral open','Both are open'], correct:0, exp:'Isovolumetric contraction: phase between mitral valve closure (start of systole) and aortic valve opening. Both valves are CLOSED, ventricular volume is constant, pressure rises rapidly. Lasts ~50ms. Volume ≈ LVEDV (~130mL). Ends when LV pressure exceeds aortic pressure.' },
+      { id:'ph7', subject:'physiology', difficulty:'hard', q:'The QRS complex of the ECG corresponds to:', opts:['Atrial depolarisation','Ventricular depolarisation','Atrial repolarisation','Ventricular repolarisation'], correct:1, exp:'P wave = atrial depolarisation. QRS complex = ventricular depolarisation (atrial repolarisation is buried within QRS). T wave = ventricular repolarisation. ST segment = plateau of action potential. QT interval = total ventricular electrical systole.' },
+      { id:'ph8', subject:'physiology', difficulty:'medium', q:'Cardiac output equals:', opts:['Heart rate × stroke volume','Stroke volume × preload','Heart rate × LVEDV','Blood pressure × heart rate'], correct:0, exp:'CO = HR × SV. Normal CO = 70 bpm × 70 mL = 4.9 L/min (≈5 L/min). Cardiac index = CO/BSA (normal 2.2–4.2 L/min/m²). Stroke volume is determined by preload (Frank-Starling), afterload (arterial resistance), and contractility.' },
+      { id:'ph9', subject:'physiology', difficulty:'medium', q:'The oxygen-haemoglobin dissociation curve shifts RIGHT in:', opts:['Alkalosis (↑pH)','Hypothermia','Increased 2,3-BPG','Carbon monoxide poisoning'], correct:2, exp:'Right shift (Bohr effect) → ↓Hb-O₂ affinity → more O₂ unloaded to tissues. Causes: ↑CO₂, ↑H⁺ (acidosis), ↑temperature, ↑2,3-BPG (chronic hypoxia, anaemia). Left shift (↑affinity, less unloading): fetal Hb, CO poisoning, hypothermia, alkalosis.' },
+      { id:'ph10', subject:'physiology', difficulty:'easy', q:'Normal resting heart rate is maintained by which pacemaker?', opts:['AV node','Bundle of His','SA node','Purkinje fibres'], correct:2, exp:'SA node is the primary pacemaker with intrinsic rate 60–100 bpm. AV node fires at 40–60 bpm (junctional rhythm), bundle of His at 30–40 bpm, and Purkinje fibres at 20–40 bpm. Each lower pacemaker takes over if the one above fails.' },
+      // RENAL
+      { id:'ph11', subject:'physiology', difficulty:'easy', q:'Normal GFR is approximately:', opts:['50 mL/min','75 mL/min','125 mL/min','200 mL/min'], correct:2, exp:'Normal GFR ≈ 125 mL/min (180 L/day filtered, ~1.5 L urine produced). GFR = (Urine[creatinine] × Urine volume) / Plasma[creatinine]. eGFR <60 mL/min/1.73m² for >3 months = CKD. CKD staging: G1 (>90) to G5 (<15 = renal failure).' },
+      { id:'ph12', subject:'physiology', difficulty:'easy', q:'ADH (vasopressin) acts primarily on which nephron segment?', opts:['Proximal tubule','Ascending loop of Henle','Collecting duct','Bowman\'s capsule'], correct:2, exp:'ADH acts on collecting duct principal cells via V2 receptors → activates adenylyl cyclase → ↑cAMP → inserts aquaporin-2 (AQP2) water channels → ↑water reabsorption → concentrated urine. V1 receptors in vasculature cause vasoconstriction.' },
+      { id:'ph13', subject:'physiology', difficulty:'medium', q:'The thick ascending limb of the loop of Henle is:', opts:['Permeable to water and solutes','Impermeable to water but actively transports NaCl','Permeable to water only','Impermeable to both water and solutes'], correct:1, exp:'The thick ascending limb (TAL) is impermeable to water but actively reabsorbs NaCl via the Na-K-2Cl cotransporter (NKCC2). This makes tubular fluid hypotonic and builds the medullary osmotic gradient. NKCC2 is the target of loop diuretics (furosemide).' },
+      { id:'ph14', subject:'physiology', difficulty:'medium', q:'Aldosterone acts on which cells of the collecting duct?', opts:['Intercalated cells (H⁺ secretion)','Principal cells (Na⁺ reabsorption + K⁺ secretion)','Macula densa cells','Juxtaglomerular cells'], correct:1, exp:'Aldosterone binds cytosolic mineralocorticoid receptors in collecting duct principal cells → ↑ENaC (apical Na⁺ channels) and ↑Na/K-ATPase (basolateral) → ↑Na⁺ reabsorption (and water follows) + ↑K⁺ secretion. Net effect: ↑BP, ↓[K⁺].' },
+      { id:'ph15', subject:'physiology', difficulty:'hard', q:'In metabolic acidosis, the expected respiratory compensation is:', opts:['↑pH, ↑PaCO₂','↓pH, ↓PaCO₂','↑pH, ↓PaCO₂','Normal pH, ↓PaCO₂'], correct:1, exp:'Metabolic acidosis: ↓HCO₃⁻ → ↓pH. Respiratory compensation: hyperventilation → ↓PaCO₂ → ↑pH. Expected PaCO₂ = 1.5 × [HCO₃⁻] + 8 ± 2 (Winter\'s formula). Kussmaul breathing in DKA. Compensation is incomplete; full correction requires HCO₃⁻ repletion.' },
+      { id:'ph16', subject:'physiology', difficulty:'hard', q:'Renin is secreted by juxtaglomerular cells in response to all EXCEPT:', opts:['↓renal perfusion pressure','↓NaCl at macula densa','↑Sympathetic stimulation (β1)','↑Blood pressure'], correct:3, exp:'Renin is stimulated by: ↓renal perfusion pressure (baroreceptor in afferent arteriole), ↓NaCl at macula densa, and β1-adrenergic stimulation. ↑BP suppresses renin via negative feedback. Renin cleaves angiotensinogen → angiotensin I.' },
+      // RESPIRATORY
+      { id:'ph17', subject:'physiology', difficulty:'easy', q:'Surfactant is produced by which lung cell?', opts:['Type I pneumocytes','Type II pneumocytes','Clara (club) cells','Alveolar macrophages'], correct:1, exp:'Type II pneumocytes produce surfactant (mainly dipalmitoyl phosphatidylcholine — DPPC). Surfactant reduces surface tension, preventing alveolar collapse. Absent before 35 weeks gestation → neonatal RDS. Treated with exogenous surfactant (beractant, poractant).' },
+      { id:'ph18', subject:'physiology', difficulty:'medium', q:'The V/Q ratio is highest in which zone of the upright lung?', opts:['Apex (Zone 1)','Middle (Zone 2)','Base (Zone 3)','Equal throughout'], correct:0, exp:'In the upright lung, ventilation (V) and perfusion (Q) both increase from apex to base, but Q increases more. V/Q ratio: apex (Zone 1) ≈ 3.3 (well-ventilated, under-perfused), base (Zone 3) ≈ 0.6 (under-ventilated, well-perfused). Average V/Q ≈ 0.8.' },
+      { id:'ph19', subject:'physiology', difficulty:'medium', q:'The Hering-Breuer reflex prevents over-inflation of the lungs via:', opts:['Central chemoreceptors in medulla','Stretch receptors in bronchial smooth muscle (via vagus)','Peripheral chemoreceptors in carotid bodies','J receptors in alveolar walls'], correct:1, exp:'Hering-Breuer reflex: lung inflation activates slowly adapting stretch receptors in bronchial smooth muscle → signals via vagus to pontine respiratory group → inhibits further inspiration. Important in newborns; less active in adults at normal tidal volumes.' },
+      { id:'ph20', subject:'physiology', difficulty:'hard', q:'Hypoxic pulmonary vasoconstriction (HPV) serves which function?', opts:['Increases total pulmonary blood flow','Diverts blood from poorly ventilated to well-ventilated alveoli','Decreases pulmonary vascular resistance','Increases diffusion of CO₂'], correct:1, exp:'HPV: alveolar hypoxia → local pulmonary arteriole vasoconstriction → ↓blood flow to hypoventilated areas → diverts blood to better-ventilated alveoli → optimises V/Q matching. Mechanism involves K⁺ channel inhibition and smooth muscle depolarisation. Inhibited by volatile anaesthetics.' },
+      // GI
+      { id:'ph21', subject:'physiology', difficulty:'easy', q:'Gastric acid secretion is stimulated by all EXCEPT:', opts:['Gastrin','Histamine (H2)','Acetylcholine (M3)','Secretin'], correct:3, exp:'Secretin (released from S cells in duodenum in response to acid) INHIBITS gastric acid secretion and stimulates pancreatic HCO₃⁻ secretion. Gastric acid is stimulated by gastrin, histamine (via H2 receptors), and acetylcholine (via M3 receptors).' },
+      { id:'ph22', subject:'physiology', difficulty:'medium', q:'Which hormone causes relaxation of the sphincter of Oddi and contraction of the gallbladder?', opts:['Secretin','Cholecystokinin (CCK)','Gastrin','Motilin'], correct:1, exp:'CCK (released by I cells in duodenum in response to fat + protein): contracts gallbladder → bile release; relaxes sphincter of Oddi → bile flows into duodenum; stimulates pancreatic enzyme secretion; inhibits gastric emptying.' },
+      { id:'ph23', subject:'physiology', difficulty:'medium', q:'The intrinsic factor (required for B12 absorption) is secreted by:', opts:['Chief cells','Parietal cells','Mucous neck cells','G cells'], correct:1, exp:'Parietal (oxyntic) cells in the gastric fundus/body secrete: intrinsic factor (glycoprotein that binds B12 for absorption in terminal ileum) AND hydrochloric acid (HCl). Autoimmune destruction of parietal cells → no IF → pernicious anaemia.' },
+      { id:'ph24', subject:'physiology', difficulty:'hard', q:'Iron is primarily absorbed in which segment of the intestine?', opts:['Stomach','Duodenum and proximal jejunum','Ileum','Large intestine'], correct:1, exp:'Iron is absorbed in the duodenum and proximal jejunum. Ferric (Fe³⁺) is reduced to ferrous (Fe²⁺) by duodenal cytochrome B (DcytB). Fe²⁺ enters enterocytes via DMT-1 (divalent metal transporter-1). Transferred to blood by ferroportin. Regulated by hepcidin (from liver).' },
+      // Additional physiology
+      { id:'ph25', subject:'physiology', difficulty:'easy', q:'Normal blood pH range is:', opts:['7.25–7.35','7.35–7.45','7.45–7.55','7.20–7.40'], correct:1, exp:'Normal arterial blood pH = 7.35–7.45. pH <7.35 = acidaemia, pH >7.45 = alkalaemia. Normal PaCO₂ = 35–45 mmHg, HCO₃⁻ = 22–26 mEq/L. The Henderson-Hasselbalch equation: pH = 6.1 + log([HCO₃⁻] / 0.03 × PaCO₂).' },
+      { id:'ph26', subject:'physiology', difficulty:'medium', q:'The term "functional residual capacity" (FRC) is:', opts:['RV + IRV','ERV + RV','TV + IRV','IC + RV'], correct:1, exp:'FRC = ERV (expiratory reserve volume) + RV (residual volume). It is the volume remaining in the lungs after normal passive expiration. FRC ≈ 2.5 L. FRC cannot be measured by spirometry alone (requires body plethysmography or helium dilution — RV cannot be exhaled).' },
+      { id:'ph27', subject:'physiology', difficulty:'hard', q:'In shock, the body compensates by all EXCEPT:', opts:['Tachycardia','Peripheral vasoconstriction','Increased ADH secretion','Decreased renin release'], correct:3, exp:'In shock: baroreceptors detect ↓BP → ↑SNS → tachycardia + vasoconstriction; ↓renal perfusion → ↑renin → ↑angiotensin II → ↑aldosterone (Na/water retention); ↓blood volume → ↑ADH (via volume receptors). Renin INCREASES in shock, not decreases.' },
+      { id:'ph28', subject:'physiology', difficulty:'medium', q:'Erythropoietin (EPO) is primarily produced by:', opts:['Liver (hepatocytes)','Peritubular interstitial cells of the kidney','Bone marrow stromal cells','Spleen'], correct:1, exp:'EPO is produced by peritubular interstitial fibroblasts of the renal cortex in response to hypoxia (via HIF-1α pathway). EPO stimulates erythroid progenitors in bone marrow → ↑RBC production. In CKD, EPO production fails → normochromic normocytic anaemia.' },
+      { id:'ph29', subject:'physiology', difficulty:'medium', q:'Insulin promotes glucose uptake in which tissues via GLUT-4 transporters?', opts:['Brain and liver','Skeletal muscle and adipose tissue','Kidneys and gut','Red blood cells'], correct:1, exp:'GLUT-4 is expressed in insulin-sensitive tissues: skeletal muscle and adipose tissue. Insulin → tyrosine kinase → PI3K/Akt signalling → GLUT-4 vesicles translocate to plasma membrane → ↑glucose uptake. Brain (GLUT-1/3), liver (GLUT-2), RBCs (GLUT-1) are insulin-independent.' },
+      { id:'ph30', subject:'physiology', difficulty:'hard', q:'The counter-current multiplier mechanism in the kidney occurs in:', opts:['Proximal convoluted tubule','Loop of Henle','Distal convoluted tubule','Collecting duct'], correct:1, exp:'The loop of Henle acts as a counter-current multiplier: TAL actively pumps NaCl out → creates medullary hyperosmolarity (up to 1200 mOsm/kg at papilla). Thin descending limb loses water to this gradient. This hyperosmolarity enables ADH-driven urine concentration in the collecting duct.' },
+      { id:'ph31', subject:'physiology', difficulty:'medium', q:'Central chemoreceptors that regulate breathing are located in the:', opts:['Carotid bodies','Aortic arch','Ventral medulla (sensitive to CSF pH/CO₂)','Hypothalamus'], correct:2, exp:'Central chemoreceptors in the ventral surface of the medulla respond primarily to ↑PaCO₂ (which crosses BBB and lowers CSF pH → stimulates ventilation). They do not directly sense O₂. Peripheral chemoreceptors (carotid/aortic bodies) respond to ↓PaO₂, ↑PaCO₂, ↓pH.' },
+      { id:'ph32', subject:'physiology', difficulty:'easy', q:'The normal QTc interval in adults should be less than:', opts:['350 ms','400 ms','440–450 ms (men < 440, women < 460)','500 ms'], correct:2, exp:'Normal QTc (Bazett corrected): men <440 ms, women <460 ms. QTc >500 ms = high risk of torsades de pointes. Causes of prolonged QT: drugs (quinidine, haloperidol, erythromycin), hypokalaemia, hypocalcaemia, hypothyroidism, congenital (LQTS).' },
+      { id:'ph33', subject:'physiology', difficulty:'hard', q:'The Fick principle for calculating cardiac output uses:', opts:['Heart rate and stroke volume measured by echo','O₂ consumption ÷ arteriovenous O₂ difference','Blood pressure and heart rate','Pulmonary artery pressure alone'], correct:1, exp:'Fick principle: CO = VO₂ / (CaO₂ - CvO₂), where VO₂ = O₂ consumption (mL/min), CaO₂ = arterial O₂ content, CvO₂ = venous O₂ content. The a-v O₂ difference widens when CO falls (tissues extract more O₂) and narrows when CO rises.' },
+      { id:'ph34', subject:'physiology', difficulty:'medium', q:'Angiotensin II causes all the following EXCEPT:', opts:['Vasoconstriction (AT1 receptor)','Aldosterone secretion','ADH release','Vasodilation of afferent arteriole'], correct:3, exp:'Angiotensin II (via AT1): systemic vasoconstriction, aldosterone secretion (↑Na/water retention), ↑ADH secretion, CONSTRICTS efferent arteriole (maintains GFR), and stimulates cardiac hypertrophy. ACEi/ARBs block these effects → lower BP + protect kidneys.' },
+      { id:'ph35', subject:'physiology', difficulty:'medium', q:'Mast cell degranulation releases which primary vasoactive mediator?', opts:['Serotonin','Histamine','Thromboxane A2','Bradykinin'], correct:1, exp:'Mast cells (and basophils) store preformed histamine in granules. Upon activation (IgE cross-linking, complement C3a/C5a, trauma), degranulation releases histamine → H1 receptors → vasodilation, ↑vascular permeability, bronchoconstriction. H2 receptors → gastric acid secretion.' },
+      { id:'ph36', subject:'physiology', difficulty:'hard', q:'Which cells produce nitric oxide (NO) to cause vascular smooth muscle relaxation?', opts:['Smooth muscle cells','Vascular endothelial cells','Platelets','Mast cells'], correct:1, exp:'Vascular endothelial cells produce NO via eNOS (endothelial nitric oxide synthase) in response to shear stress, acetylcholine, and bradykinin. NO diffuses to smooth muscle → activates guanylyl cyclase → ↑cGMP → relaxation (vasodilation). Basis for nitrates (donate NO) in angina.' },
+      { id:'ph37', subject:'physiology', difficulty:'medium', q:'The P wave of the ECG represents:', opts:['Ventricular depolarisation','Atrial depolarisation','Ventricular repolarisation','AV nodal conduction'], correct:1, exp:'P wave = atrial depolarisation (SA node fires → atria contract). PR interval = AV nodal conduction delay (0.12–0.20 s). QRS = ventricular depolarisation. T wave = ventricular repolarisation. Absent P waves = AF or junctional rhythm.' },
+      { id:'ph38', subject:'physiology', difficulty:'hard', q:'In a normal swallowing reflex, the upper oesophageal sphincter (UOS) is controlled by:', opts:['Involuntary smooth muscle (autonomic)','Voluntary cricopharyngeus muscle (striated, CN IX/X)','Enteric nervous system only','Gastrin-mediated relaxation'], correct:1, exp:'UOS = cricopharyngeus muscle (striated muscle, tonically contracted). During swallowing: CN IX/X motor fibres relax cricopharyngeus → UOS opens → allows bolus entry. Dysfunction (cricopharyngeal achalasia) → Zenker\'s diverticulum. Lower oesophageal sphincter (LOS) is smooth muscle.' },
+      { id:'ph39', subject:'physiology', difficulty:'medium', q:'Which ion is primarily responsible for the resting membrane potential?', opts:['Na⁺ (intracellular low)','K⁺ (high intracellular concentration + permeable membrane at rest)','Cl⁻','Ca²⁺'], correct:1, exp:'Resting membrane potential (≈−70 mV in neurons) is primarily determined by K⁺. The high intracellular [K⁺] + high resting K⁺ permeability (IK1 channels) means K⁺ leaks out → inside becomes negative. Nernst equation for K⁺: E_K ≈ −94 mV (close to resting potential).' },
+      { id:'ph40', subject:'physiology', difficulty:'hard', q:'Fetal haemoglobin (HbF) has a higher affinity for oxygen than adult HbA because:', opts:['It has two γ subunits instead of β subunits, which bind 2,3-BPG less avidly','It has a different α subunit with lower Bohr effect','It has four α chains','It contains zinc instead of iron'], correct:0, exp:'HbF (α2γ2): γ subunits bind 2,3-BPG less avidly than β subunits (less negative charge in γ). ↓2,3-BPG effect → ↑O₂ affinity → left shift of dissociation curve → HbF preferentially picks up O₂ from maternal HbA at the placenta. HbA (α2β2) readily releases O₂ to fetus.' },
     ],
     pharmacology: [
-      { q:'Which drug class is used as first-line treatment for heart failure with reduced ejection fraction (HFrEF)?', opts:['Calcium channel blockers','ACE inhibitors + Beta-blockers + Diuretics + ARNi','Loop diuretics alone','Digoxin alone'], ans:1, exp:'Evidence-based HFrEF treatment: ACE inhibitor (or ARNI = sacubitril/valsartan), beta-blocker (carvedilol/metoprolol/bisoprolol), MRA (spironolactone/eplerenone), SGLT2i (dapagliflozin/empagliflozin), + loop diuretics for congestion.' },
-      { q:'The mechanism of resistance to penicillin in S. aureus is mainly:', opts:['Altered ribosomal subunit','Efflux pump','β-lactamase production','Altered cell membrane'], ans:2, exp:'Most S. aureus resistance to penicillin G is via β-lactamase (penicillinase), which cleaves the β-lactam ring. MRSA uses an additional mechanism: altered PBP2a (mecA gene) — resistant to all β-lactams except ceftaroline.' },
-      { q:'Warfarin works by inhibiting:', opts:['Thrombin directly','Vitamin K-dependent factor synthesis','Platelet aggregation','Factor Xa directly'], ans:1, exp:'Warfarin inhibits Vitamin K epoxide reductase (VKOR) → prevents recycling of Vitamin K → ↓synthesis of factors II, VII, IX, X and Proteins C & S. Onset 2–5 days (limited by factor half-lives). Monitored by INR.' },
-      { q:'A patient on clarithromycin (macrolide antibiotic) is started on simvastatin. The main risk is:', opts:['Hypertension','Rhabdomyolysis','Serotonin syndrome','QT prolongation only'], ans:1, exp:'Clarithromycin is a potent CYP3A4 inhibitor → markedly ↑simvastatin plasma levels → ↑risk of myopathy and rhabdomyolysis. Simvastatin is contraindicated with strong CYP3A4 inhibitors. Use pravastatin (not CYP3A4-metabolised) instead.' },
-      { q:'Which antihypertensive is contraindicated in pregnancy due to teratogenicity?', opts:['Methyldopa','Labetalol','ACE inhibitors','Nifedipine'], ans:2, exp:'ACE inhibitors (and ARBs) are absolutely contraindicated in pregnancy — teratogenic (fetal renal tubular dysgenesis, oligohydramnios, growth retardation, skull ossification defects). Safe options: methyldopa, labetalol, nifedipine.' },
-      { q:'Naloxone reverses opioid overdose by acting as a:', opts:['Opioid agonist','Opioid partial agonist','Opioid antagonist','GABA agonist'], ans:2, exp:'Naloxone is a competitive opioid receptor antagonist (μ, κ, δ) — reverses respiratory depression, sedation, and miosis from opioid overdose. Short half-life (~1h) may require repeat dosing for long-acting opioids.' },
-      { q:'The "cheese reaction" with MAO inhibitors is due to interaction with which substance?', opts:['Phenylalanine','Tyramine','Serotonin','Dopamine'], ans:1, exp:'MAO inhibitors (MAOIs) prevent the breakdown of tyramine in the gut wall/liver. Eating tyramine-rich foods (aged cheese, cured meats, red wine) → excess tyramine → massive noradrenaline release → hypertensive crisis.' },
-      { q:'Which diuretic causes hyperkalaemia?', opts:['Furosemide','Hydrochlorothiazide','Spironolactone','Acetazolamide'], ans:2, exp:'Spironolactone is a potassium-sparing diuretic (aldosterone antagonist → ↓Na⁺/K⁺ exchange in collecting duct). Causes hyperkalaemia. Furosemide and thiazides cause hypokalaemia. Risk of fatal hyperkalaemia with concurrent ACEi/ARB.' },
-      { q:'Aspirin at low dose (75–100 mg) works by:', opts:['Reversibly inhibiting COX-1 and COX-2','Irreversibly inhibiting COX-1 → ↓thromboxane A₂','Reversibly inhibiting COX-2 only','Blocking ADP receptors on platelets'], ans:1, exp:'Low-dose aspirin irreversibly acetylates COX-1 → permanently inhibits thromboxane A₂ synthesis in platelets for their lifetime (~10 days). Platelets cannot regenerate COX since they lack nuclei. This antiplatelet effect is used in cardiovascular prevention.' },
-      { q:'Which drug is used as antidote for paracetamol (acetaminophen) overdose?', opts:['Naloxone','Flumazenil','N-acetylcysteine (NAC)','Dimercaprol'], ans:2, exp:'N-acetylcysteine (NAC) replenishes glutathione stores, which are depleted by the toxic metabolite NAPQI (produced by CYP2E1 in overdose). NAC is most effective within 8–10 hours. Treat based on Rumack-Matthew nomogram.' },
+      // MECHANISMS
+      { id:'pk1', subject:'pharmacology', difficulty:'easy', q:'Warfarin works by inhibiting:', opts:['Thrombin directly','Vitamin K epoxide reductase (VKOR)','Platelet ADP receptors','Factor Xa directly'], correct:1, exp:'Warfarin inhibits VKOR → prevents recycling of Vitamin K (to its active hydroquinone form) → ↓synthesis of clotting factors II, VII, IX, X and Proteins C & S. Onset 2–5 days (half-life of factor VII = 6h limits onset). Monitored by PT/INR.' },
+      { id:'pk2', subject:'pharmacology', difficulty:'easy', q:'Low-dose aspirin (75–100 mg) works by:', opts:['Reversibly inhibiting COX-1 and COX-2','Irreversibly acetylating COX-1 → ↓thromboxane A₂','Reversibly inhibiting COX-2 only','Blocking platelet ADP P2Y12 receptors'], correct:1, exp:'Low-dose aspirin irreversibly acetylates COX-1 → permanently inhibits TXA₂ synthesis in platelets for their 10-day lifespan. Platelets lack nuclei, so cannot regenerate COX. This antiplatelet effect prevents MI and stroke.' },
+      { id:'pk3', subject:'pharmacology', difficulty:'easy', q:'Metformin\'s primary mechanism of action in type 2 DM is:', opts:['Stimulates insulin secretion from β-cells','Inhibits hepatic gluconeogenesis via AMPK activation','Blocks α-glucosidase in intestine','Increases insulin receptor sensitivity only'], correct:1, exp:'Metformin activates AMPK (AMP-activated protein kinase) → inhibits complex I of mitochondrial respiratory chain → ↑AMP/ATP ratio → AMPK activation → ↓hepatic gluconeogenesis (primary effect) + ↑peripheral glucose uptake. Does not cause hypoglycaemia alone.' },
+      { id:'pk4', subject:'pharmacology', difficulty:'medium', q:'A patient on clarithromycin is given simvastatin. The main risk is:', opts:['Hypertension','Rhabdomyolysis (muscle breakdown)','Serotonin syndrome','QT prolongation only'], correct:1, exp:'Clarithromycin is a potent CYP3A4 inhibitor → ↑simvastatin AUC by >10-fold → ↑risk of myopathy and rhabdomyolysis. Simvastatin and lovastatin are highly CYP3A4-dependent. Use pravastatin or rosuvastatin (not CYP3A4-metabolised) with CYP3A4 inhibitors.' },
+      { id:'pk5', subject:'pharmacology', difficulty:'medium', q:'The mechanism of resistance to penicillin in S. aureus is mainly:', opts:['Altered ribosomal 30S subunit','Efflux pump','β-lactamase production (cleaves β-lactam ring)','Reduced outer membrane permeability'], correct:2, exp:'Most S. aureus resistance to penicillin G/V is via β-lactamase (penicillinase) — cleaves the β-lactam ring. MRSA uses an additional mechanism: altered PBP2a (encoded by mecA gene) → resistant to all β-lactams except ceftaroline.' },
+      { id:'pk6', subject:'pharmacology', difficulty:'hard', q:'Aminoglycosides (e.g., gentamicin) work by:', opts:['Inhibiting cell wall synthesis','Irreversible binding to 30S ribosomal subunit → misreading of mRNA','Inhibiting RNA polymerase','Blocking dihydrofolate reductase'], correct:1, exp:'Aminoglycosides irreversibly bind the 30S ribosomal subunit → cause misreading of mRNA → incorporation of wrong amino acids → dysfunctional proteins. Concentration-dependent killing. Key toxicities: nephrotoxicity (ATN), ototoxicity (irreversible). Monitor trough levels.' },
+      { id:'pk7', subject:'pharmacology', difficulty:'hard', q:'The "cheese reaction" with MAO inhibitors involves excess:', opts:['Phenylalanine','Tyramine','Serotonin','Dopamine'], correct:1, exp:'MAOIs prevent breakdown of tyramine (indirect sympathomimetic) in gut/liver. Tyramine-rich foods (aged cheese, cured meats, chianti) → massive noradrenaline release → hypertensive crisis. MAOIs also cause serotonin syndrome with SSRIs/pethidine.' },
+      // DRUG OF CHOICE
+      { id:'pk8', subject:'pharmacology', difficulty:'easy', q:'First-line drug of choice for community-acquired pneumonia in a healthy adult under 65:', opts:['Ciprofloxacin','Amoxicillin 500 mg TDS or Doxycycline 100 mg BD','Vancomycin IV','Meropenem IV'], correct:1, exp:'Uncomplicated CAP in young healthy adults: oral amoxicillin (first choice for pneumococcal cover) OR doxycycline (if atypical coverage needed). Severity guides choice: CURB-65 ≥3 = hospital admission + IV antibiotics. BTS/NICE guidance recommends amoxicillin + doxycycline for atypical coverage.' },
+      { id:'pk9', subject:'pharmacology', difficulty:'easy', q:'Which antihypertensive is contraindicated in pregnancy?', opts:['Methyldopa','Labetalol','ACE inhibitors / ARBs','Nifedipine'], correct:2, exp:'ACE inhibitors and ARBs are absolutely contraindicated in pregnancy — fetal renal tubular dysplasia, oligohydramnios, intrauterine growth restriction, skull bone defects. Safe antihypertensives in pregnancy: methyldopa, labetalol, nifedipine.' },
+      { id:'pk10', subject:'pharmacology', difficulty:'medium', q:'Drug of choice for H. pylori eradication (standard triple therapy) is:', opts:['Omeprazole + Amoxicillin + Clarithromycin × 7–14 days','Ciprofloxacin + Metronidazole × 3 days','Ranitidine + Tetracycline × 7 days','PPI alone × 4 weeks'], correct:0, exp:'Standard triple therapy: PPI (omeprazole/lansoprazole) + amoxicillin 1g BD + clarithromycin 500 mg BD × 7–14 days. Eradication rate ~85%. Quadruple therapy (bismuth + metronidazole + tetracycline + PPI) for clarithromycin resistance or second-line treatment.' },
+      { id:'pk11', subject:'pharmacology', difficulty:'medium', q:'Drug of choice for status epilepticus (first-line IV agent):', opts:['Phenytoin','Lorazepam (IV benzodiazepine)','Levetiracetam','Sodium valproate'], correct:1, exp:'Status epilepticus (seizure >5 min or 2+ seizures without recovery): First-line = IV lorazepam 0.1 mg/kg (or diazepam PR if no IV access). Second-line = IV levetiracetam, phenytoin, or sodium valproate. General anaesthesia (thiopental/propofol) for refractory SE.' },
+      { id:'pk12', subject:'pharmacology', difficulty:'hard', q:'Drug of choice for ventricular fibrillation refractory to 3 defibrillation attempts in cardiac arrest:', opts:['Lidocaine IV','Amiodarone 300 mg IV bolus','Magnesium sulphate','Atropine 3 mg IV'], correct:1, exp:'ALS protocol: after 3 defibrillations and CPR, give adrenaline 1 mg IV (every 3–5 min) + amiodarone 300 mg IV bolus. Amiodarone stabilises cardiac membrane, slows conduction, prolongs refractory period. Lidocaine is an alternative if amiodarone unavailable.' },
+      // SIDE EFFECTS
+      { id:'pk13', subject:'pharmacology', difficulty:'easy', q:'Which diuretic causes hyperkalaemia?', opts:['Furosemide (loop)','Hydrochlorothiazide (thiazide)','Spironolactone (K⁺-sparing)','Acetazolamide (carbonic anhydrase inhibitor)'], correct:2, exp:'Spironolactone (aldosterone antagonist) → ↓Na/K exchange in collecting duct → ↑K⁺ retention. Risk of life-threatening hyperkalaemia, especially when combined with ACEi/ARBs. Furosemide and thiazides cause hypokalaemia (wasted in urine).' },
+      { id:'pk14', subject:'pharmacology', difficulty:'easy', q:'The most common side effect of ACE inhibitors is:', opts:['Hyperkalaemia','Dry cough (bradykinin accumulation)','Angio-oedema (rare but life-threatening)','Rash only'], correct:1, exp:'ACE inhibitors prevent bradykinin breakdown (ACE also degrades bradykinin) → bradykinin accumulates in airway → stimulates sensory C fibres → dry persistent cough in ~10–15% of patients. If cough is intolerable, switch to ARB (sartans do not affect bradykinin).' },
+      { id:'pk15', subject:'pharmacology', difficulty:'medium', q:'Chloroquine/hydroxychloroquine long-term side effect requiring monitoring:', opts:['Nephrotoxicity','Retinal toxicity (Bull\'s eye maculopathy)','Pulmonary fibrosis','Bone marrow suppression'], correct:1, exp:'Long-term chloroquine/hydroxychloroquine use → accumulates in retinal pigment epithelium → hydroxychloroquine retinopathy ("bull\'s eye" maculopathy) → irreversible visual loss. Annual ophthalmology review required after 5 years of use (RCOPHTH guidelines).' },
+      { id:'pk16', subject:'pharmacology', difficulty:'medium', q:'Rifampicin causes all the following EXCEPT:', opts:['Orange/red discolouration of body fluids','Hepatotoxicity','CYP450 inhibition (reduces effectiveness of other drugs)','Flu-like syndrome with intermittent dosing'], correct:2, exp:'Rifampicin is a potent CYP450 INDUCER (not inhibitor) — reduces efficacy of OCP, warfarin, antiretrovirals, corticosteroids. Orange body fluids (harmless), hepatotoxicity, and flu-like syndrome (intermittent dosing) are real side effects. Correct: CYP induction reduces drug levels.' },
+      { id:'pk17', subject:'pharmacology', difficulty:'hard', q:'Vancomycin causes "red man syndrome" which is due to:', opts:['IgE-mediated allergy','Direct mast cell degranulation (non-immunological histamine release)','Complement activation','Type III immune complex reaction'], correct:1, exp:'Red man syndrome (flushing, erythema, pruritus of face/neck/trunk) is caused by rapid IV infusion of vancomycin → direct non-IgE-mediated mast cell degranulation → histamine release. Prevented by slowing infusion rate (over ≥60 min) and pre-treatment with antihistamine. Not a true allergy.' },
+      // ANTIDOTES
+      { id:'pk18', subject:'pharmacology', difficulty:'easy', q:'Antidote for paracetamol (acetaminophen) overdose:', opts:['Naloxone','Flumazenil','N-acetylcysteine (NAC)','Dimercaprol'], correct:2, exp:'NAC replenishes glutathione stores depleted by NAPQI (toxic CYP2E1 metabolite). Most effective within 8–10 h. Treat using Rumack-Matthew nomogram (plasma level vs time). IV NAC given as 3-bag regimen. Late presentation (>24h) can still benefit if ALT elevated.' },
+      { id:'pk19', subject:'pharmacology', difficulty:'easy', q:'Naloxone reverses opioid toxidrome by:', opts:['Opioid receptor agonism','Partial agonism','Competitive opioid receptor antagonism (μ, κ, δ)','GABA-A antagonism'], correct:2, exp:'Naloxone competitively antagonises μ (mu), κ (kappa), and δ (delta) opioid receptors — reverses respiratory depression, sedation, and miosis. Half-life ~1h (shorter than most opioids) → may require repeat dosing or infusion. IV/IM/intranasal routes available.' },
+      { id:'pk20', subject:'pharmacology', difficulty:'medium', q:'Antidote for heparin overdose is:', opts:['Vitamin K','Protamine sulphate','Fresh frozen plasma','Tranexamic acid'], correct:1, exp:'Protamine sulphate (positively charged protein) binds negatively charged heparin → forms stable complex → neutralises anticoagulant effect. 1 mg protamine neutralises ~100 units heparin. Partially reverses LMWH (≈60–80%). Risk: anaphylaxis (especially in fish allergy, vasectomy).' },
+      { id:'pk21', subject:'pharmacology', difficulty:'medium', q:'Flumazenil is the antidote for benzodiazepine overdose. Its mechanism is:', opts:['Agonist at GABA-A receptor','GABA-A receptor competitive antagonist at benzodiazepine site','Blocks Na⁺ channels','Inhibits benzodiazepine metabolism'], correct:1, exp:'Flumazenil competitively antagonises the benzodiazepine (allosteric) binding site on GABA-A receptors → reverses sedation and respiratory depression. Short half-life (~1h) vs long-acting BZDs → resedation risk. Does NOT reverse alcohol/barbiturate effects.' },
+      { id:'pk22', subject:'pharmacology', difficulty:'hard', q:'Digoxin toxicity is treated with:', opts:['Amiodarone','Atropine + temporary pacing + digoxin-specific antibody fragments (Digibind)','DC cardioversion','Magnesium sulphate alone'], correct:1, exp:'Digoxin toxicity (nausea, vomiting, yellow vision, bradyarrhythmias, VT): Digibind (digoxin-specific Fab antibody fragments) binds free digoxin → renal excretion. Supportive: atropine for bradycardia, temporary pacing, correct hypokalaemia (↓K⁺ worsens toxicity). Avoid DC cardioversion if possible.' },
+      { id:'pk23', subject:'pharmacology', difficulty:'hard', q:'Organophosphate poisoning (e.g., insecticides) is treated with:', opts:['N-acetylcysteine + oxygen','Atropine (large doses) + pralidoxime (within 24h)','Calcium gluconate + sodium bicarbonate','Physostigmine + diazepam'], correct:1, exp:'Organophosphates irreversibly inhibit acetylcholinesterase → ↑ACh → cholinergic crisis (SLUDGE: Salivation, Lacrimation, Urination, Defaecation, GI distress, Emesis + bradycardia, miosis, bronchospasm). Treatment: large-dose atropine (blocks muscarinic effects) + pralidoxime (regenerates AChE if given within 24h before "ageing").' },
+      // Additional pharmacology
+      { id:'pk24', subject:'pharmacology', difficulty:'easy', q:'β-blockers are contraindicated in:', opts:['Hypertension with tachycardia','Stable angina','Severe asthma / COPD with bronchospasm','Post-MI patients'], correct:2, exp:'β-blockers (especially non-selective: propranolol) block β2 receptors in bronchial smooth muscle → bronchoconstriction → dangerous in severe asthma/COPD with reversible bronchospasm. Cardioselective β1 blockers (bisoprolol, metoprolol) are less risky but still generally avoided in severe asthma.' },
+      { id:'pk25', subject:'pharmacology', difficulty:'medium', q:'Statins (HMG-CoA reductase inhibitors) lower LDL by:', opts:['Directly binding LDL particles','Inhibiting HMG-CoA reductase → ↓intrahepatic cholesterol → ↑LDL receptors → ↑LDL clearance','Increasing biliary cholesterol excretion','Activating PPAR-α'], correct:1, exp:'Statins inhibit HMG-CoA reductase (rate-limiting enzyme of cholesterol synthesis) → ↓intracellular cholesterol → upregulation of hepatic LDL receptors via SREBP pathway → ↑LDL clearance from plasma. PCSK9 inhibitors prevent LDL receptor degradation (further ↑clearance).' },
+      { id:'pk26', subject:'pharmacology', difficulty:'medium', q:'Which antibiotic class is effective against MRSA?', opts:['Penicillins','Cephalosporins (first/second/third gen)','Vancomycin / Linezolid / Daptomycin / Tedizolid','Aminoglycosides alone'], correct:2, exp:'MRSA (altered PBP2a via mecA gene) is resistant to all β-lactam antibiotics. Treatment options: vancomycin (IV, glycopeptide), linezolid (oxazolidinone — bacteriostatic), daptomycin (lipopeptide — NOT for lung infections), ceftaroline (5th-gen cephalosporin — active against MRSA).' },
+      { id:'pk27', subject:'pharmacology', difficulty:'easy', q:'Which drug class is first-line for heart failure with reduced ejection fraction (HFrEF)?', opts:['Calcium channel blockers','ACEi + β-blocker + MRA + SGLT2i (the "4 pillars")','Loop diuretics alone','Digoxin alone'], correct:1, exp:'Evidence-based HFrEF (4 pillars): ACEi/ARNI (sacubitril-valsartan), evidence-based β-blocker (bisoprolol/carvedilol/metoprolol succinate), MRA (spironolactone/eplerenone), SGLT2i (dapagliflozin/empagliflozin). Loop diuretics for symptom relief (no mortality benefit). Digoxin: 5th-line only.' },
+      { id:'pk28', subject:'pharmacology', difficulty:'hard', q:'Serotonin syndrome (from SSRIs + MAOIs/pethidine) classically presents with:', opts:['Bradycardia, hypothermia, waxy rigidity','Hyperthermia, clonus, agitation, diaphoresis','Salivation, bradycardia, miosis, bronchospasm','Hyperthermia, lead-pipe rigidity, ↑CK, confusion'], correct:1, exp:'Serotonin syndrome: excess serotonergic activity → Hunter criteria: clonus (inducible/spontaneous/ocular) + agitation/diaphoresis + hyperthermia + tachycardia. Contrast with NMS: slower onset, "lead-pipe" rigidity, ↑↑CK, no clonus. Treatment: stop offending agent, cyproheptadine, cooling, benzodiazepines.' },
+      { id:'pk29', subject:'pharmacology', difficulty:'medium', q:'Which tuberculosis drug causes optic neuritis as a significant side effect?', opts:['Rifampicin','Isoniazid','Ethambutol','Pyrazinamide'], correct:2, exp:'Ethambutol → optic neuritis (dose-dependent) → reduced visual acuity and colour vision loss (red-green discrimination first affected). Baseline and monthly visual acuity assessment required. Other TB drug toxicities: Isoniazid → peripheral neuropathy (give pyridoxine B6); Pyrazinamide → hyperuricaemia/hepatotoxicity; Rifampicin → hepatotoxicity, orange urine, enzyme induction.' },
+      { id:'pk30', subject:'pharmacology', difficulty:'hard', q:'The mechanism of action of thrombolytic agents (e.g., alteplase/rtPA) is:', opts:['Blocking thrombin activity','Converting plasminogen → plasmin → fibrinolysis','Inhibiting platelet aggregation via ADP blockade','Inhibiting Factor Xa'], correct:1, exp:'Thrombolytics (alteplase = recombinant tPA): convert plasminogen to plasmin (serine protease) → cleaves fibrin cross-links → dissolves thrombus. Used in STEMI (if PCI unavailable), ischaemic stroke (<4.5h), massive PE with haemodynamic compromise. Major risk: intracranial haemorrhage.' },
+      { id:'pk31', subject:'pharmacology', difficulty:'medium', q:'Lithium toxicity is monitored by plasma levels and presents with:', opts:['Extrapyramidal symptoms + NMS','Coarse tremor, confusion, ataxia, seizures, renal diabetes insipidus','Fine tremor only','QTc prolongation as sole feature'], correct:1, exp:'Lithium toxicity (therapeutic range 0.6–1.2 mmol/L; toxic >1.5 mmol/L): coarse tremor, ataxia, confusion, nystagmus, seizures; long-term: nephrogenic diabetes insipidus, hypothyroidism, hypercalcaemia, Ebstein\'s anomaly (fetal exposure). Narrow therapeutic index → regular monitoring.' },
+      { id:'pk32', subject:'pharmacology', difficulty:'hard', q:'The drug of choice for acute Plasmodium falciparum malaria in Pakistan/South Asia:', opts:['Chloroquine monotherapy','Artemisinin-based combination therapy (ACT)','Primaquine alone','Doxycycline alone'], correct:1, exp:'P. falciparum is chloroquine-resistant in Pakistan. Artemisinin-based combination therapy (ACT): artemether-lumefantrine or artesunate + amodiaquine. WHO recommends ACT as first-line. Artesunate IV for severe malaria. Primaquine added to clear hepatic hypnozoites (for P. vivax/ovale; check G6PD first).' },
+      { id:'pk33', subject:'pharmacology', difficulty:'medium', q:'Morphine\'s primary receptor is:', opts:['κ (kappa) opioid receptor','μ (mu) opioid receptor','δ (delta) opioid receptor','Sigma receptor'], correct:1, exp:'Morphine (and most clinical opioids) acts primarily on μ (mu) receptors → analgesia, respiratory depression, euphoria, constipation, urinary retention, miosis. κ receptors → dysphoria, sedation, spinal analgesia. δ receptors → analgesia + mood effects. Endogenous μ ligands: β-endorphin, enkephalins.' },
+      { id:'pk34', subject:'pharmacology', difficulty:'medium', q:'Heparin anticoagulant effect is monitored by:', opts:['PT/INR','APTT (activated partial thromboplastin time)','Anti-Xa level only','Bleeding time'], correct:1, exp:'Unfractionated heparin (UFH) activates antithrombin III → inhibits thrombin (IIa) and Xa. Monitored by APTT (target 1.5–2.5× normal). LMWHs (enoxaparin) are monitored by anti-Xa levels (renally cleared — monitor in CKD/pregnancy). No routine monitoring needed for prophylactic LMWH in standard patients.' },
+      { id:'pk35', subject:'pharmacology', difficulty:'hard', q:'Drug-induced lupus (DIL) is classically associated with:', opts:['Penicillin, amoxicillin','Hydralazine, procainamide, isoniazid, minocycline','Warfarin, heparin','Rifampicin, ethambutol'], correct:1, exp:'Drug-induced lupus classically associated with procainamide (highest risk), hydralazine, isoniazid, minocycline, and anti-TNF agents. DIL → anti-histone antibodies (not anti-dsDNA). Resolves on stopping the drug. Features: arthralgia, fever, serositis, positive ANA.' },
+      { id:'pk36', subject:'pharmacology', difficulty:'easy', q:'The antidote for benzodiazepine overdose is:', opts:['Naloxone','Flumazenil','Physostigmine','Glucose'], correct:1, exp:'Flumazenil competitively antagonises the benzodiazepine site on GABA-A receptors → reverses sedation. Short half-life → resedation risk. Important note: can precipitate seizures in BZD-dependent patients or those taking BZDs for epilepsy. Does NOT reverse alcohol, barbiturates, or other CNS depressants.' },
+      { id:'pk37', subject:'pharmacology', difficulty:'medium', q:'Which drug class requires checking eGFR before prescribing due to risk of lactic acidosis?', opts:['Sulfonylureas','Metformin (contraindicated if eGFR <30 mL/min)','DPP-4 inhibitors','Acarbose'], correct:1, exp:'Metformin can accumulate in renal impairment → lactic acidosis risk. NICE guidance: stop/do not start if eGFR <30. Use with caution eGFR 30–45. Also hold before IV contrast and in acute illness. Rare but life-threatening lactic acidosis (mortality ~50%). Monitor renal function annually.' },
+      { id:'pk38', subject:'pharmacology', difficulty:'hard', q:'Cisplatin (platinum-based chemotherapy) causes which dose-limiting toxicity?', opts:['Cardiotoxicity (cardiomyopathy)','Nephrotoxicity + peripheral neuropathy + severe emesis','Pulmonary fibrosis','Bone marrow suppression only'], correct:1, exp:'Cisplatin dose-limiting toxicities: nephrotoxicity (ATN — ameliorated by aggressive IV saline hydration + amifostine), peripheral sensory neuropathy, severe nausea/vomiting (prevent with ondansetron + dexamethasone + aprepitant), ototoxicity (high-frequency hearing loss). Compare with carboplatin (less nephro/neuro but more myelosuppression).' },
+      { id:'pk39', subject:'pharmacology', difficulty:'medium', q:'Which anticonvulsant is teratogenic and causes neural tube defects?', opts:['Lamotrigine','Levetiracetam','Sodium valproate','Carbamazepine (to a lesser extent)'], correct:2, exp:'Sodium valproate has the highest teratogenic risk among anticonvulsants: neural tube defects (~1–2%), facial abnormalities, cleft palate, cognitive impairment in children (fetal valproate syndrome). UK MHRA: valproate must not be used in women of childbearing potential without pregnancy prevention programme.' },
+      { id:'pk40', subject:'pharmacology', difficulty:'hard', q:'Mannitol, an osmotic diuretic, is used in raised intracranial pressure. Its mechanism is:', opts:['Blocks Na-K-2Cl cotransporter in TAL','Creates osmotic gradient drawing water from brain into vascular space','Inhibits carbonic anhydrase','Blocks ENaC channels in collecting duct'], correct:1, exp:'Mannitol (IV) → hyperosmolar → draws water from cerebral cells and interstitium into vascular space → reduces brain volume and ICP. Effect within 15–30 min. Also transiently increases CBF. Used for herniation, head trauma, acute glaucoma. Monitor serum osmolarity and electrolytes.' },
     ],
     pathology: [
-      { q:'The hallmark of irreversible cell injury is:', opts:['Cell swelling (hydropic change)','Mitochondrial swelling','Nuclear pyknosis','Cell membrane rupture (plasma membrane defect)'], ans:3, exp:'Irreversible (lethal) cell injury is characterized by plasma membrane disruption, which allows uncontrolled entry of calcium and loss of cellular contents. Nuclear changes (pyknosis, karyorrhexis, karyolysis) occur but membrane rupture is the defining point of no return.' },
-      { q:'Reed-Sternberg cells are pathognomonic of:', opts:['Non-Hodgkin lymphoma','Hodgkin lymphoma','Multiple myeloma','Burkitt lymphoma'], ans:1, exp:'Reed-Sternberg cells are large binucleated cells with prominent "owl eye" nucleoli, pathognomonic of Hodgkin lymphoma. They are derived from B cells and stain CD15+ and CD30+ (but CD20−). Classic in mixed cellularity and nodular sclerosis subtypes.' },
-      { q:'Which type of necrosis is associated with tuberculosis?', opts:['Coagulative necrosis','Liquefactive necrosis','Caseous necrosis','Fat necrosis'], ans:2, exp:'Caseous necrosis is characteristic of tuberculosis (and other mycobacterial infections, fungi). Grossly appears as cheese-like ("caseous" = cheese), white/grey friable material. Microscopically: amorphous granular debris surrounded by granulomatous inflammation.' },
-      { q:'The Philadelphia chromosome (BCR-ABL) is characteristically found in:', opts:['AML (M3)','Chronic Myeloid Leukaemia (CML)','Burkitt lymphoma','Multiple myeloma'], ans:1, exp:'The Philadelphia chromosome results from t(9;22) translocation → BCR-ABL fusion gene → constitutively active tyrosine kinase → uncontrolled cell proliferation. Found in >95% of CML and ~25% of adult ALL. Treated with imatinib (TKI).' },
-      { q:'Psammoma bodies are characteristically found in:', opts:['Glioblastoma','Papillary carcinoma of thyroid','Small cell carcinoma of lung','Fibroadenoma of breast'], ans:1, exp:'Psammoma bodies are concentric calcified structures seen in: Papillary thyroid carcinoma, Serous papillary ovarian carcinoma, Meningioma, and Papillary renal cell carcinoma. Mnemonic: PSaMMoMa — Papillary thyroid, Serous ovarian, Meningioma, Mesothelioma.' },
-      { q:'Which type of hypersensitivity reaction causes anaphylaxis?', opts:['Type I (IgE-mediated)','Type II (cytotoxic)','Type III (immune complex)','Type IV (cell-mediated)'], ans:0, exp:'Type I hypersensitivity (immediate/IgE-mediated): allergen cross-links IgE on mast cells → mast cell degranulation → histamine, leukotrienes, prostaglandins. Examples: anaphylaxis, allergic asthma, urticaria, hay fever. Treatment: adrenaline (epinephrine).' },
-      { q:'Amyloid deposits in Alzheimer\'s disease are composed of:', opts:['Tau protein aggregates','Amyloid β (Aβ) peptide — extracellular plaques','Alpha-synuclein','Prion protein (PrPSc)'], ans:1, exp:'Alzheimer\'s disease is characterized by extracellular amyloid β (Aβ) plaques (from APP cleavage by β/γ-secretases) AND intracellular neurofibrillary tangles (hyperphosphorylated tau). Down syndrome (trisomy 21 = extra APP gene) → early-onset Alzheimer.' },
-      { q:'Trousseau\'s sign (migratory thrombophlebitis) is associated with which malignancy?', opts:['Colon cancer','Pancreatic cancer','Lung cancer','Ovarian cancer'], ans:1, exp:'Trousseau\'s sign refers to migratory superficial thrombophlebitis and is classically associated with pancreatic adenocarcinoma (also other GI cancers). The tumour releases mucin and tissue factor → hypercoagulable state. Trousseau himself died of pancreatic cancer.' },
-      { q:'In type 2 diabetes mellitus, what is the primary pathophysiological defect?', opts:['Absolute insulin deficiency (autoimmune β-cell destruction)','Insulin resistance + progressive β-cell failure','Glucagon deficiency','Amylase deficiency'], ans:1, exp:'T2DM: initially insulin resistance (peripheral tissues do not respond) → compensatory hyperinsulinaemia → progressive β-cell exhaustion → relative insulin deficiency. Different from T1DM (autoimmune absolute deficiency). Strong genetic and lifestyle risk factors.' },
-      { q:'Which cell type is primarily responsible for granuloma formation?', opts:['Neutrophils','B lymphocytes','Epithelioid macrophages (histiocytes)','Natural killer cells'], ans:2, exp:'Granulomas consist of activated macrophages (epithelioid cells) + multinucleated giant cells (formed by macrophage fusion) + surrounding lymphocytes and fibroblasts. Type IV (delayed) hypersensitivity drives granuloma formation (e.g. TB, sarcoidosis, Crohn\'s).' },
+      // CELL INJURY
+      { id:'pt1', subject:'pathology', difficulty:'easy', q:'The hallmark of irreversible cell injury is:', opts:['Cell swelling (hydropic change)','Mitochondrial swelling','Nuclear pyknosis','Plasma membrane rupture / loss of membrane integrity'], correct:3, exp:'Irreversible (lethal) cell injury is defined by plasma membrane disruption — allows uncontrolled Ca²⁺ entry and loss of cellular contents. Nuclear changes (pyknosis, karyorrhexis, karyolysis) are markers of cell death but membrane rupture is the point of no return.' },
+      { id:'pt2', subject:'pathology', difficulty:'easy', q:'Which type of necrosis is characteristic of tuberculosis?', opts:['Coagulative necrosis','Liquefactive necrosis','Caseous necrosis','Fat necrosis'], correct:2, exp:'Caseous necrosis (from Latin caseum = cheese): amorphous granular debris, white-grey, friable — characteristic of TB granulomas (and other mycobacteria, fungi). Microscopically: amorphous eosinophilic material surrounded by granulomatous inflammation with Langhans giant cells.' },
+      { id:'pt3', subject:'pathology', difficulty:'medium', q:'Coagulative necrosis is characteristically seen in:', opts:['Brain infarction','Myocardial infarction (and most organ infarcts)','Pancreatic necrosis','TB granuloma'], correct:1, exp:'Coagulative necrosis: cell architecture preserved but cells dead (ghost outlines) — proteases are denatured. Seen in most organ infarcts (heart, kidney, spleen). EXCEPTION: brain infarction → liquefactive necrosis (rich in proteolytic enzymes from microglia/macrophages).' },
+      { id:'pt4', subject:'pathology', difficulty:'medium', q:'Which programmed cell death pathway involves cytochrome C release from mitochondria?', opts:['Extrinsic pathway (death receptor)','Intrinsic (mitochondrial) pathway of apoptosis','Necroptosis','Pyroptosis'], correct:1, exp:'Intrinsic apoptosis: cellular stress → ↑proapoptotic proteins (Bax, Bak) → mitochondrial outer membrane permeabilisation → cytochrome C release → apoptosome formation with Apaf-1 → activates caspase-9 → effector caspases (3, 6, 7). Bcl-2/Bcl-xL proteins inhibit this pathway.' },
+      // INFLAMMATION
+      { id:'pt5', subject:'pathology', difficulty:'easy', q:'Which type of hypersensitivity reaction causes anaphylaxis?', opts:['Type I (IgE-mediated)','Type II (cytotoxic/antibody-dependent)','Type III (immune complex)','Type IV (delayed/cell-mediated)'], correct:0, exp:'Type I (immediate) hypersensitivity: allergen → IgE cross-linking on mast cells → degranulation → histamine, leukotrienes (LTC4/D4/E4), tryptase, PGD2. Examples: anaphylaxis, allergic asthma, urticaria. Treatment: IM adrenaline (epinephrine 1:1000) 0.5 mg.' },
+      { id:'pt6', subject:'pathology', difficulty:'medium', q:'Which cell type is primarily responsible for granuloma formation?', opts:['Neutrophils','B lymphocytes','Epithelioid macrophages (histiocytes)','Eosinophils'], correct:2, exp:'Granulomas = activated macrophages (epithelioid cells) + multinucleated giant cells (macrophage fusion — Langhans type: nuclei at periphery) + surrounding CD4+ T lymphocytes + fibroblasts. Driven by Type IV hypersensitivity. Causes: TB, sarcoidosis, Crohn\'s, berylliosis, leprosy.' },
+      { id:'pt7', subject:'pathology', difficulty:'medium', q:'Chronic granulomatous disease (CGD) is caused by deficiency of:', opts:['C3 complement protein','NADPH oxidase (impaired respiratory burst)','Myeloperoxidase','CD18 (β2 integrin)'], correct:1, exp:'CGD: X-linked (or AR) deficiency of NADPH oxidase (phagocyte oxidase) → inability to generate superoxide and reactive oxygen species → impaired killing of catalase-positive organisms (S. aureus, Aspergillus, Klebsiella, Serratia). NBT (nitroblue tetrazolium) test: no colour change.' },
+      // NEOPLASIA
+      { id:'pt8', subject:'pathology', difficulty:'easy', q:'Reed-Sternberg cells are pathognomonic of:', opts:['Non-Hodgkin lymphoma','Hodgkin lymphoma','Multiple myeloma','Burkitt lymphoma'], correct:1, exp:'Reed-Sternberg cells: large binucleated/multinucleated cells with prominent "owl eye" nucleoli (large eosinophilic nucleoli). CD15+ and CD30+, CD20−. Pathognomonic of Hodgkin lymphoma. Found in: nodular sclerosis (most common, young adults, lacunar RS cells), mixed cellularity, and other subtypes.' },
+      { id:'pt9', subject:'pathology', difficulty:'medium', q:'The Philadelphia chromosome t(9;22) causing BCR-ABL is characteristically found in:', opts:['AML (M3 / APL)','Chronic Myeloid Leukaemia (CML)','Burkitt lymphoma t(8;14)','Multiple myeloma'], correct:1, exp:'Philadelphia chromosome: t(9;22)(q34;q11) → BCR-ABL fusion gene → constitutively active tyrosine kinase → uncontrolled myeloid proliferation. Found in >95% CML. Also in ~25% adult ALL (worse prognosis). Imatinib (Gleevec) specifically inhibits BCR-ABL → revolutionised CML treatment.' },
+      { id:'pt10', subject:'pathology', difficulty:'medium', q:'Psammoma bodies are classically associated with all EXCEPT:', opts:['Papillary thyroid carcinoma','Serous papillary ovarian carcinoma','Meningioma','Follicular carcinoma of thyroid'], correct:3, exp:'Psammoma bodies (concentric laminated calcifications) are seen in PSaMMoMa: Papillary thyroid carcinoma, Serous papillary ovarian carcinoma, Meningioma, Mesothelioma (and papillary RCC). Follicular thyroid carcinoma does NOT typically have psammoma bodies.' },
+      { id:'pt11', subject:'pathology', difficulty:'medium', q:'Trousseau\'s sign (migratory thrombophlebitis) is classically associated with:', opts:['Colon cancer','Pancreatic adenocarcinoma','Lung squamous cell carcinoma','Ovarian carcinoma'], correct:1, exp:'Trousseau\'s sign = migratory superficial thrombophlebitis associated with occult malignancy, classically pancreatic adenocarcinoma. Tumour releases mucin + tissue factor → hypercoagulable state. Trousseau himself died of pancreatic cancer. Also associated with other GI and lung malignancies.' },
+      { id:'pt12', subject:'pathology', difficulty:'hard', q:'Li-Fraumeni syndrome involves mutation in which tumour suppressor gene?', opts:['BRCA1/2','TP53 (p53)','RB1 (retinoblastoma)','APC'], correct:1, exp:'Li-Fraumeni syndrome: autosomal dominant mutation in TP53 (guardian of the genome) → multiple primary malignancies at young age (sarcomas, breast cancer, brain tumours, leukaemia, adrenocortical carcinoma). p53 normally triggers cell cycle arrest and apoptosis in response to DNA damage.' },
+      { id:'pt13', subject:'pathology', difficulty:'hard', q:'Amyloid deposits in Alzheimer\'s disease consist of:', opts:['Tau protein — extracellular plaques','Amyloid-β (Aβ42) — extracellular senile plaques','Alpha-synuclein — Lewy bodies','Prion protein (PrPSc) — spongiform plaques'], correct:1, exp:'Alzheimer\'s: extracellular amyloid-β (Aβ42) plaques (from APP cleavage by β-secretase/BACE1 and γ-secretase/presenilin) + intracellular neurofibrillary tangles (hyperphosphorylated tau). Down syndrome (trisomy 21 = extra APP gene) → early-onset AD by age 40–50.' },
+      // Additional pathology
+      { id:'pt14', subject:'pathology', difficulty:'medium', q:'In type 2 DM, the primary pathophysiological mechanism is:', opts:['Autoimmune β-cell destruction (Type I)','Insulin resistance + progressive β-cell exhaustion','Glucagon receptor deficiency','Amyloid deposition in pancreas (only)'], correct:1, exp:'T2DM: initially peripheral insulin resistance (especially skeletal muscle and liver) → compensatory ↑insulin → progressive β-cell exhaustion → relative insulin deficiency. Pancreatic islet amyloid (IAPP/amylin) is a pathological finding. Strong genetic basis + lifestyle factors.' },
+      { id:'pt15', subject:'pathology', difficulty:'medium', q:'Virchow\'s triad for thrombosis consists of:', opts:['Inflammation, infection, infarction','Stasis, endothelial injury, hypercoagulability','Atherosclerosis, hypertension, diabetes','Hypoxia, acidosis, anaemia'], correct:1, exp:'Virchow\'s triad: (1) Stasis (↓blood flow — AF, immobility, post-surgery), (2) Endothelial injury (atherosclerosis, trauma, surgery), (3) Hypercoagulability (thrombophilia, malignancy, OCP, pregnancy). All three contribute to DVT/PE. Understanding this guides prophylaxis.' },
+      { id:'pt16', subject:'pathology', difficulty:'hard', q:'Haemochromatosis is caused by excess iron deposition and is associated with mutation in:', opts:['Transferrin gene','HFE gene (C282Y mutation — reduces hepcidin signalling)','Ceruloplasmin gene','ATP7B gene (Wilson\'s)'], correct:1, exp:'Hereditary haemochromatosis: HFE gene mutation (C282Y homozygous most common) → reduced hepcidin → ↑ferroportin activity → ↑intestinal Fe absorption → iron deposits in liver, heart, pancreas, joints, pituitary, skin. Triad: cirrhosis + diabetes + skin bronzing ("bronze diabetes").' },
+      { id:'pt17', subject:'pathology', difficulty:'medium', q:'The Warburg effect describes which metabolic phenomenon in cancer cells?', opts:['Increased oxidative phosphorylation','Preferential use of aerobic glycolysis (glucose → lactate despite O₂)','Decreased glucose uptake','Increased β-oxidation of fatty acids'], correct:1, exp:'Warburg effect: cancer cells preferentially use glycolysis → lactate even in presence of O₂ (aerobic glycolysis). This provides rapid ATP, biosynthetic precursors (ribose, amino acids), and reduced oxidative damage. Basis for FDG-PET scanning (cancer cells have ↑glucose uptake detectable by radiotracer).' },
+      { id:'pt18', subject:'pathology', difficulty:'hard', q:'Dystrophic calcification occurs in:', opts:['Normal tissue with hypercalcaemia','Necrotic or abnormal tissue with normal calcium levels','Normal tissue with normal calcium levels','Metastatic deposits only'], correct:1, exp:'Dystrophic calcification: calcium deposits in necrotic/damaged tissue with NORMAL serum calcium. E.g. atherosclerotic plaques, old TB foci, tumours. Contrast with metastatic calcification: calcium deposits in normal tissue with ABNORMAL (↑) serum calcium (hyperparathyroidism, hypervitaminosis D).' },
+      { id:'pt19', subject:'pathology', difficulty:'medium', q:'The most common cause of death in patients with SLE (systemic lupus erythematosus) is:', opts:['CNS lupus','Cardiovascular disease (accelerated atherosclerosis)','Lupus nephritis → renal failure','Infection (from immunosuppression)'], correct:3, exp:'In the modern immunosuppressive treatment era, infection (from immunosuppressive therapy — corticosteroids, azathioprine, cyclophosphamide) is the leading cause of death in SLE. Lupus nephritis, cardiovascular disease, and CNS lupus are other important causes of morbidity and mortality.' },
+      { id:'pt20', subject:'pathology', difficulty:'hard', q:'Which p53 mutation type is the "gain-of-function" mutation rather than loss-of-function?', opts:['Missense mutations producing stable p53 protein with new oncogenic properties','Frameshift (truncating) mutations','Deletion of entire TP53 locus','Silent synonymous mutations'], correct:0, exp:'Most TP53 missense mutations produce a stable, full-length, non-functional protein that can act as dominant-negative (sequesters WT p53 in tetramer) AND gain new oncogenic functions: activates pro-growth genes, promotes invasion and metastasis. Most common hotspot: R175H, R248W, R273H, R249S.' },
+      { id:'pt21', subject:'pathology', difficulty:'easy', q:'Type III hypersensitivity (immune complex deposition) causes which diseases?', opts:['Contact dermatitis, tuberculin test','SLE, post-streptococcal glomerulonephritis, serum sickness','Goodpasture\'s syndrome, ABO incompatibility','Anaphylaxis, allergic asthma'], correct:1, exp:'Type III: soluble antigen-antibody complexes deposit in vessel walls/tissues → complement activation → neutrophil recruitment → tissue damage. Examples: SLE (anti-dsDNA), post-strep GN, serum sickness, Arthus reaction, farmer\'s lung (hypersensitivity pneumonitis). Complement C3 and C4 are consumed.' },
+      { id:'pt22', subject:'pathology', difficulty:'medium', q:'Burkitt\'s lymphoma is associated with which chromosomal translocation?', opts:['t(9;22) — BCR-ABL','t(8;14) — c-MYC/IgH','t(14;18) — BCL2/IgH','t(11;14) — BCL1/IgH (cyclin D1)'], correct:1, exp:'Burkitt\'s lymphoma: t(8;14) → c-MYC oncogene (chromosome 8) juxtaposed to IgH gene (chromosome 14) → c-MYC overexpression → uncontrolled B-cell proliferation. Endemic (EBV-associated, jaw tumour in African children), sporadic (abdominal tumour, young adults), and immunodeficiency-associated forms.' },
+      { id:'pt23', subject:'pathology', difficulty:'hard', q:'Hyaline membranes seen in neonatal RDS are composed of:', opts:['Mucus only','Fibrin + necrotic epithelial cells lining alveolar walls','Amyloid','Surfactant aggregates'], correct:1, exp:'Neonatal RDS (surfactant deficiency in premature lungs): ↓surfactant → alveolar collapse → hypoxia → endothelial/epithelial damage → protein-rich exudate (fibrin + necrotic cells) lines alveoli as "hyaline membranes." Treatment: antenatal steroids (betamethasone), exogenous surfactant (beractant).' },
+      { id:'pt24', subject:'pathology', difficulty:'medium', q:'The "starry sky" pattern on histology is characteristic of:', opts:['Hodgkin lymphoma','Burkitt\'s lymphoma','Multiple myeloma','AML-M3'], correct:1, exp:'Burkitt\'s lymphoma: rapid proliferating B-cells (Ki-67 ≈ 100%) with macrophages engulfing apoptotic debris → "starry sky" pattern (macrophages = stars against blue lymphoma cell background = sky). Also shows squared-off nuclei, multiple nucleoli, and lipid vacuoles in cytoplasm.' },
+      { id:'pt25', subject:'pathology', difficulty:'hard', q:'Metaplasia of the lower oesophagus (Barrett\'s oesophagus) involves:', opts:['Stratified squamous → transitional epithelium','Stratified squamous → intestinal columnar epithelium (intestinal metaplasia)','Simple columnar → squamous epithelium','Pseudostratified → stratified squamous'], correct:1, exp:'Barrett\'s oesophagus: chronic GORD → stratified squamous epithelium of lower oesophagus replaced by specialised intestinal columnar epithelium (with goblet cells). Metaplasia itself is not malignant, but dysplasia → risk of oesophageal adenocarcinoma (2x per year). Diagnosed by endoscopy + biopsy.' },
+      { id:'pt26', subject:'pathology', difficulty:'medium', q:'Karyorrhexis refers to:', opts:['Nuclear condensation (shrinkage)','Nuclear fragmentation during cell death','Nuclear dissolution','Loss of nuclear staining'], correct:1, exp:'Nuclear changes in cell death: Pyknosis = nuclear condensation/darkening; Karyorrhexis = nuclear fragmentation (breaks into pieces); Karyolysis = nuclear dissolution (fading, eosin-staining nucleus disappears). These occur sequentially. Karyorrhexis is characteristic of apoptosis (chromatin condensation + fragmentation).' },
+      { id:'pt27', subject:'pathology', difficulty:'hard', q:'Acute phase reactants that DECREASE during inflammation include:', opts:['CRP and fibrinogen','Ferritin and haptoglobin','Albumin and transferrin','Procalcitonin and SAA'], correct:2, exp:'Positive acute phase reactants (↑in inflammation): CRP, ESR, fibrinogen, ferritin, haptoglobin, SAA, procalcitonin, complement. NEGATIVE acute phase reactants (↓in inflammation): albumin and transferrin (production shifted toward positive reactants by IL-6/IL-1). Hypoalbuminaemia in chronic disease/infection.' },
+      { id:'pt28', subject:'pathology', difficulty:'medium', q:'Goodpasture\'s syndrome is an example of which hypersensitivity type?', opts:['Type I (IgE-mediated)','Type II (anti-GBM antibodies — anti-collagen IV)','Type III (immune complex)','Type IV (cell-mediated)'], correct:1, exp:'Goodpasture\'s syndrome (Type II): autoantibodies against α3 chain of type IV collagen in glomerular and alveolar basement membranes → pulmonary haemorrhage + rapidly progressive GN. Linear IgG and C3 on IF. Treatment: plasmapheresis + cyclophosphamide + steroids.' },
+      { id:'pt29', subject:'pathology', difficulty:'medium', q:'Emphysema (centriacinar type — most common) is caused by:', opts:['Destruction of alveolar walls by elastase (from neutrophils/macrophages) in smokers','Fibrosis of alveolar walls','Mucus hypersecretion causing airway obstruction','Smooth muscle hypertrophy'], correct:0, exp:'Centriacinar emphysema: smoking → neutrophil/macrophage recruitment → elastase and oxidants → destruction of alveolar walls around respiratory bronchioles → ↑compliance but ↓elastic recoil → air trapping. α1-antitrypsin deficiency → panacinar emphysema (lower lobes predominant).' },
+      { id:'pt30', subject:'pathology', difficulty:'hard', q:'The Gleason grading system is used for:', opts:['Breast carcinoma','Prostate adenocarcinoma','Bladder transitional cell carcinoma','Renal cell carcinoma'], correct:1, exp:'Gleason score (prostate adenocarcinoma): pathologist assigns grade 1–5 to primary and secondary growth patterns → sum = Gleason score (2–10). Grade groups 1–5 (GS 6, 3+4=7, 4+3=7, 8, 9–10). Higher score = poorer differentiation = worse prognosis. PSA + Gleason + T stage guide treatment.' },
     ],
     biochemistry: [
-      { q:'In glycolysis, the rate-limiting enzyme is:', opts:['Hexokinase','Phosphofructokinase-1 (PFK-1)','Pyruvate kinase','Aldolase'], ans:1, exp:'PFK-1 is the key regulatory (rate-limiting) enzyme of glycolysis. It is allosterically inhibited by ATP, citrate, and H⁺; activated by AMP and fructose-2,6-bisphosphate (F2,6BP — regulated by insulin/glucagon). F2,6BP is the most potent activator.' },
-      { q:'Phenylketonuria (PKU) is caused by deficiency of:', opts:['Tyrosinase','Phenylalanine hydroxylase','Homogentisate oxidase','Cystathionine synthase'], ans:1, exp:'PKU: deficiency of phenylalanine hydroxylase (PAH) → phenylalanine accumulates → converted to phenylketones. Autosomal recessive. Features: intellectual disability, seizures, "mousy" body odour, fair skin/hair (↓tyrosine → ↓melanin). Treated with phenylalanine-restricted diet + BH4.' },
-      { q:'Citric acid cycle (Krebs cycle) occurs in:', opts:['Cytoplasm','Mitochondrial outer membrane','Mitochondrial matrix','Endoplasmic reticulum'], ans:2, exp:'The citric acid (TCA/Krebs) cycle occurs in the mitochondrial matrix. It produces NADH, FADH₂, GTP, and CO₂. Glycolysis occurs in the cytoplasm; β-oxidation of fatty acids also occurs in the mitochondrial matrix.' },
-      { q:'Which vitamin deficiency causes Wernicke\'s encephalopathy?', opts:['Vitamin B12 (cobalamin)','Vitamin B1 (thiamine)','Vitamin B6 (pyridoxine)','Niacin (B3)'], ans:1, exp:'Wernicke\'s encephalopathy: thiamine (B1) deficiency → impaired pyruvate dehydrogenase and α-ketoglutarate dehydrogenase. Classic triad: confusion, ataxia, ophthalmoplegia. Common in chronic alcoholism, hyperemesis gravidarum. Treat urgently with IV thiamine.' },
-      { q:'The first committed step of cholesterol synthesis is catalysed by:', opts:['Acetyl-CoA acetyltransferase','HMG-CoA synthase','HMG-CoA reductase','Squalene synthase'], ans:2, exp:'HMG-CoA reductase (converts HMG-CoA to mevalonate) is the rate-limiting enzyme of cholesterol biosynthesis. This is the target of statins. The pathway: Acetyl-CoA → Acetoacetyl-CoA → HMG-CoA → (HMG-CoA reductase) → Mevalonate → → Cholesterol.' },
-      { q:'Glycogen storage disease (von Gierke\'s) is caused by deficiency of:', opts:['Glycogen phosphorylase','Debranching enzyme','Glucose-6-phosphatase','Branching enzyme'], ans:2, exp:'von Gierke\'s disease (GSD Type I): glucose-6-phosphatase deficiency → cannot convert G6P to glucose → severe fasting hypoglycaemia, hepatomegaly (glycogen + fat accumulation), lactic acidosis. Treated with frequent cornstarch feedings.' },
-      { q:'Which enzyme converts glucose-6-phosphate to 6-phosphogluconate in the pentose phosphate pathway?', opts:['Glucose-6-phosphatase','Glucose-6-phosphate dehydrogenase (G6PD)','Phosphoglucose isomerase','Hexokinase'], ans:1, exp:'G6PD (glucose-6-phosphate dehydrogenase) catalyses the first step of the pentose phosphate pathway, generating NADPH. NADPH is essential for glutathione reduction (antioxidant defence). G6PD deficiency → haemolytic anaemia triggered by oxidative stress (primaquine, fava beans, infections).' },
-      { q:'The urea cycle primarily takes place in the:', opts:['Liver cytoplasm only','Liver — starting in mitochondria, completing in cytoplasm','Kidneys','Both liver and muscle'], ans:1, exp:'The urea cycle partially occurs in the mitochondria (carbamoyl phosphate synthase I + OTC) and is completed in the cytoplasm (argininosuccinate synthetase, lyase, arginase). It occurs primarily in hepatocytes. Defects → hyperammonaemia.' },
-      { q:'Beta-oxidation of an 18-carbon saturated fatty acid yields how many Acetyl-CoA molecules?', opts:['7','8','9','18'], ans:2, exp:'An 18-carbon saturated FA undergoes 8 cycles of β-oxidation → 9 Acetyl-CoA molecules. Each cycle cleaves 2 carbons as Acetyl-CoA and also yields 1 NADH + 1 FADH₂. Total yield: 9 Acetyl-CoA, 8 NADH, 8 FADH₂.' },
-      { q:'Albinism is caused by deficiency of which enzyme?', opts:['Phenylalanine hydroxylase','Tyrosinase','Homogentisate oxidase','Branched-chain α-ketoacid dehydrogenase'], ans:1, exp:'Tyrosinase converts tyrosine → DOPA → melanin. Deficiency causes oculocutaneous albinism — lack of melanin in skin, hair, and eyes. Autosomal recessive. Increased risk of UV-related skin cancer due to lack of photoprotective melanin.' },
+      // ENZYMES
+      { id:'bc1', subject:'biochemistry', difficulty:'easy', q:'In glycolysis, the committed rate-limiting enzyme is:', opts:['Hexokinase','Phosphofructokinase-1 (PFK-1)','Pyruvate kinase','Phosphoglucose isomerase'], correct:1, exp:'PFK-1 is the key regulatory enzyme of glycolysis. Inhibited by: ATP, citrate, H⁺. Activated by: AMP, fructose-2,6-bisphosphate (most potent activator — regulated by insulin/glucagon via PFK-2). This is the committed irreversible step (after this, glucose is committed to glycolysis).' },
+      { id:'bc2', subject:'biochemistry', difficulty:'easy', q:'Citric acid (Krebs) cycle occurs in which cellular compartment?', opts:['Cytoplasm','Mitochondrial outer membrane','Mitochondrial matrix','Smooth ER'], correct:2, exp:'TCA cycle occurs in the mitochondrial matrix. Products per turn: 3 NADH + 1 FADH₂ + 1 GTP + 2 CO₂. Glycolysis is cytoplasmic. β-oxidation of fatty acids also in mitochondrial matrix. Gluconeogenesis: partly mitochondrial (pyruvate → oxaloacetate) + partly cytoplasmic.' },
+      { id:'bc3', subject:'biochemistry', difficulty:'medium', q:'The rate-limiting enzyme of the urea cycle is:', opts:['Argininosuccinate synthetase','Carbamoyl phosphate synthetase I (CPS I)','Ornithine transcarbamylase (OTC)','Arginase'], correct:1, exp:'CPS I (carbamoyl phosphate synthetase I) in the mitochondria is the rate-limiting enzyme of the urea cycle. Activated by N-acetylglutamate (NAG). OTC deficiency is the most common urea cycle defect (X-linked) → hyperammonaemia. Urea cycle: mitochondria (CPS I + OTC) → cytoplasm (rest).' },
+      { id:'bc4', subject:'biochemistry', difficulty:'medium', q:'Which enzyme deficiency causes phenylketonuria (PKU)?', opts:['Tyrosinase','Phenylalanine hydroxylase (PAH)','Homogentisate oxidase','Cystathionine β-synthase'], correct:1, exp:'PKU: PAH deficiency → phenylalanine accumulates → converted to phenylketones (phenylpyruvate, phenylacetate). AR disorder. Features: intellectual disability, seizures, "mousy" odour, fair phenotype (↓tyrosine → ↓melanin). Newborn screening (Guthrie/heel-prick test). Diet + BH4 (cofactor supplementation).' },
+      { id:'bc5', subject:'biochemistry', difficulty:'easy', q:'HMG-CoA reductase (target of statins) is the rate-limiting enzyme in:', opts:['Glycolysis','Fatty acid oxidation','Cholesterol biosynthesis (mevalonate pathway)','Ketogenesis'], correct:2, exp:'HMG-CoA reductase converts HMG-CoA → mevalonate (rate-limiting step of cholesterol synthesis). Statins inhibit this enzyme → ↓intracellular cholesterol → ↑LDL receptor expression → ↑LDL clearance. Regulated by cholesterol (feedback), insulin (↑activity), and glucagon (↓activity).' },
+      // VITAMINS
+      { id:'bc6', subject:'biochemistry', difficulty:'easy', q:'Thiamine (B1) deficiency causes:', opts:['Pellagra (dermatitis, diarrhoea, dementia)','Wernicke\'s encephalopathy + Beriberi','Scurvy (perifollicular haemorrhages)','Peripheral neuropathy + subacute degeneration of cord'], correct:1, exp:'Thiamine (B1) deficiency: impaired pyruvate dehydrogenase, α-ketoglutarate dehydrogenase, and transketolase. Wernicke\'s (confusion, ataxia, ophthalmoplegia) → Korsakoff\'s (confabulation, amnesia). Dry beriberi (peripheral neuropathy), wet beriberi (high-output cardiac failure). Common in alcoholism.' },
+      { id:'bc7', subject:'biochemistry', difficulty:'easy', q:'Vitamin C (ascorbic acid) deficiency causes scurvy. Its biochemical role is:', opts:['Coenzyme for fatty acid synthesis','Hydroxylation of proline and lysine residues in collagen synthesis','Carboxylation of clotting factors II, VII, IX, X','Antioxidant only (no enzymatic role)'], correct:1, exp:'Vitamin C is a cofactor for prolyl and lysyl hydroxylase enzymes that hydroxylate proline and lysine residues → essential for collagen cross-linking. Deficiency → fragile collagen → perifollicular haemorrhages, scurvy grass, corkscrew hairs, bleeding gums, poor wound healing.' },
+      { id:'bc8', subject:'biochemistry', difficulty:'medium', q:'Vitamin B12 (cobalamin) is required for which two enzymatic reactions?', opts:['Pyruvate dehydrogenase + TCA cycle','Methionine synthase + methylmalonyl-CoA mutase','Thymidylate synthase + homocysteine remethylation','Fatty acid synthesis + gluconeogenesis'], correct:1, exp:'B12 is required for: (1) Methionine synthase: homocysteine + methylTHF → methionine + THF (folate "trap" — B12 deficiency causes folate deficiency too); (2) Methylmalonyl-CoA mutase: methylmalonyl-CoA → succinyl-CoA (substrate for TCA). Deficiency → megaloblastic anaemia + subacute combined degeneration of spinal cord.' },
+      { id:'bc9', subject:'biochemistry', difficulty:'medium', q:'Niacin (B3) deficiency causes pellagra. Niacin is a precursor of:', opts:['FAD (flavin adenine dinucleotide)','NAD⁺ and NADP⁺','Coenzyme A','Pyridoxal phosphate (PLP)'], correct:1, exp:'Niacin → NAD⁺ (electron carrier in redox reactions, glycolysis, TCA, β-oxidation) and NADP⁺ (pentose phosphate pathway, fatty acid synthesis, cholesterol synthesis). Pellagra: 3D\'s — Dermatitis (photosensitive), Diarrhoea, Dementia. Also caused by carcinoid syndrome (tryptophan → serotonin, not niacin) and isoniazid.' },
+      { id:'bc10', subject:'biochemistry', difficulty:'medium', q:'Vitamin D deficiency in children causes rickets. The active form of vitamin D is:', opts:['25-hydroxyvitamin D (calcidiol) — formed in liver','1,25-dihydroxyvitamin D (calcitriol) — final hydroxylation in kidney','Vitamin D3 (cholecalciferol) — from skin','7-dehydrocholesterol'], correct:1, exp:'Vitamin D pathway: Skin (UV-B) → D3 (cholecalciferol) → liver (25-hydroxylase) → 25-OH-D3 (calcidiol, storage form, measured clinically) → kidney (1α-hydroxylase) → 1,25-(OH)2-D3 (calcitriol, active form). Calcitriol → ↑intestinal Ca absorption + ↑renal Ca reabsorption + bone mineralisation.' },
+      // METABOLISM
+      { id:'bc11', subject:'biochemistry', difficulty:'medium', q:'Glucose-6-phosphate dehydrogenase (G6PD) deficiency leads to haemolysis because:', opts:['G6PD is required for glycolysis — no ATP produced','G6PD produces NADPH needed for glutathione reduction (antioxidant); without it, RBCs cannot resist oxidative stress','G6PD synthesises haemoglobin','G6PD activates the complement system'], correct:1, exp:'G6PD catalyses the first step of the pentose phosphate pathway → NADPH. NADPH reduces glutathione (G-S-S-G → 2 G-SH) via glutathione reductase. G-SH neutralises reactive oxygen species. G6PD deficiency → oxidative stress → Heinz body formation + haemolysis triggered by: primaquine, dapsone, fava beans, infections.' },
+      { id:'bc12', subject:'biochemistry', difficulty:'easy', q:'Beta-oxidation of an 18-carbon saturated fatty acid (stearic acid) yields how many Acetyl-CoA?', opts:['7','8','9','18'], correct:2, exp:'18C saturated FA → 8 cycles of β-oxidation → 9 Acetyl-CoA (each cycle removes 2 carbons). Also produces per cycle: 1 NADH + 1 FADH₂. Total: 9 Acetyl-CoA + 8 NADH + 8 FADH₂. Formula: number of cycles = (n/2) − 1; Acetyl-CoA = n/2 where n = carbon number.' },
+      { id:'bc13', subject:'biochemistry', difficulty:'hard', q:'Von Gierke\'s disease (GSD Type I) is caused by deficiency of:', opts:['Glycogen phosphorylase (liver)','Glucose-6-phosphatase','Debranching enzyme (amylo-1,6-glucosidase)','Branching enzyme'], correct:1, exp:'GSD Type I (von Gierke\'s): glucose-6-phosphatase deficiency → G6P cannot be converted to glucose → severe fasting hypoglycaemia, hepatomegaly/nephromegaly (glycogen + fat accumulation), lactic acidosis, hyperuricaemia, hyperlipidaemia. Treat with frequent high-carbohydrate feeds + uncooked cornstarch.' },
+      { id:'bc14', subject:'biochemistry', difficulty:'medium', q:'Which metabolic pathway produces NADPH used for fatty acid synthesis?', opts:['TCA cycle','Glycolysis','Pentose phosphate pathway (hexose monophosphate shunt)','β-oxidation'], correct:2, exp:'Pentose phosphate pathway (PPP) produces: (1) NADPH (for reductive biosynthesis — fatty acid synthesis, cholesterol synthesis, glutathione reduction) and (2) ribose-5-phosphate (for nucleotide synthesis). Occurs in cytoplasm. Important in liver, adrenal cortex (steroidogenesis), RBCs (antioxidant defence).' },
+      { id:'bc15', subject:'biochemistry', difficulty:'hard', q:'The enzyme pyruvate carboxylase (mitochondrial) is activated by which molecule?', opts:['AMP','Acetyl-CoA','NADH','Oxaloacetate'], correct:1, exp:'Pyruvate carboxylase (pyruvate + CO₂ + ATP → oxaloacetate) is allosterically activated by acetyl-CoA. When acetyl-CoA accumulates (e.g. fatty acid oxidation), pyruvate carboxylase is activated → ↑OAA → ↑gluconeogenesis + ↑TCA cycle flux. Essential for gluconeogenesis from pyruvate/lactate/alanine.' },
+      // Additional biochemistry
+      { id:'bc16', subject:'biochemistry', difficulty:'easy', q:'Albinism is caused by deficiency of which enzyme?', opts:['Phenylalanine hydroxylase','Tyrosinase','Homogentisate oxidase','Histidase'], correct:1, exp:'Tyrosinase: tyrosine → DOPA → dopaquinone → melanin (melanogenesis). Tyrosinase deficiency → oculocutaneous albinism (OCA1) — absence of melanin in skin, hair, and eyes. Autosomal recessive. Increased risk of skin cancer (lack of photoprotective melanin). OCA2: MC1R/P-gene mutation, some residual pigment.' },
+      { id:'bc17', subject:'biochemistry', difficulty:'medium', q:'Alkaptonuria (ochronosis) is caused by deficiency of:', opts:['Phenylalanine hydroxylase','Tyrosinase','Homogentisate oxidase','Fumarylacetoacetate hydrolase'], correct:2, exp:'Alkaptonuria: homogentisate oxidase deficiency → homogentisic acid accumulates → urine turns black on standing (oxidation) + ochronosis (dark pigment deposits in cartilage, connective tissue, sclerae) + arthritis. Autosomal recessive, AR. HGA is a metabolite of phenylalanine/tyrosine catabolism.' },
+      { id:'bc18', subject:'biochemistry', difficulty:'hard', q:'Which enzyme is deficient in Tay-Sachs disease?', opts:['Glucocerebrosidase (β-glucosidase)','Hexosaminidase A (GM2 gangliosidase)','Sphingomyelinase','α-galactosidase A'], correct:1, exp:'Tay-Sachs: deficiency of hexosaminidase A → GM2 ganglioside accumulates in neurons. AR, predominantly Ashkenazi Jewish. Presents: 4–6 months, cherry-red spot (fovea), developmental regression, seizures, exaggerated startle, death by 2–3 years. No enzyme replacement available (unlike Gaucher\'s).' },
+      { id:'bc19', subject:'biochemistry', difficulty:'medium', q:'Maple syrup urine disease (MSUD) is caused by deficiency of:', opts:['Phenylalanine hydroxylase','Branched-chain α-ketoacid dehydrogenase (BCKDH)','Cystathionine β-synthase','Fumarylacetoacetate hydrolase'], correct:1, exp:'MSUD: BCKDH deficiency → leucine, isoleucine, valine (branched-chain amino acids) and their ketoacids accumulate. AR disorder. Features: maple syrup odour of urine, encephalopathy, seizures, hypoglycaemia in neonates. Treat: BCAA-restricted diet + thiamine supplementation (cofactor for BCKDH).' },
+      { id:'bc20', subject:'biochemistry', difficulty:'hard', q:'Biotin (B7) is the cofactor for which class of enzymes?', opts:['Oxidases','Carboxylases (CO₂ carrier)','Transaminases','Kinases'], correct:1, exp:'Biotin is the cofactor for carboxylase enzymes: (1) Pyruvate carboxylase, (2) Acetyl-CoA carboxylase (rate-limiting for fatty acid synthesis), (3) Propionyl-CoA carboxylase, (4) β-methylcrotonyl-CoA carboxylase. All add CO₂ (as HCO₃⁻) to a substrate, requiring ATP. Biotin is covalently attached by biotinidase.' },
+      { id:'bc21', subject:'biochemistry', difficulty:'medium', q:'Homocystinuria (elevated homocysteine) is caused by deficiency of:', opts:['Methionine synthase (B12-dependent)','Cystathionine β-synthase (CBS) — B6-dependent','Both equally','Betaine:homocysteine methyltransferase'], correct:1, exp:'CBS deficiency → homocysteine accumulates → homocystinuria. AR. Features: marfanoid habitus, lens dislocation (downward — opposite to Marfan\'s which is up/temporal), intellectual disability, vascular thromboembolism. Treat: high-dose B6 (pyridoxine — cofactor for CBS), methionine-restricted diet, betaine.' },
+      { id:'bc22', subject:'biochemistry', difficulty:'easy', q:'Which vitamin requires intrinsic factor (from parietal cells) for absorption?', opts:['Vitamin B6 (pyridoxine)','Vitamin B12 (cobalamin)','Folate (B9)','Vitamin B1 (thiamine)'], correct:1, exp:'Vitamin B12 binds salivary R-protein in stomach → pancreatic proteases cleave R-protein → B12 binds intrinsic factor (IF, produced by parietal cells) → IF-B12 complex absorbed in terminal ileum via cubam receptor. Pernicious anaemia = autoimmune parietal cell destruction → no IF → B12 malabsorption.' },
+      { id:'bc23', subject:'biochemistry', difficulty:'hard', q:'Lesch-Nyhan syndrome is caused by deficiency of:', opts:['Adenosine deaminase (ADA)','Hypoxanthine-guanine phosphoribosyltransferase (HGPRT)','Xanthine oxidase','Purine nucleoside phosphorylase'], correct:1, exp:'Lesch-Nyhan: HGPRT deficiency → cannot salvage hypoxanthine/guanine → excess purine → uric acid overproduction → gout. X-linked recessive (boys). Neurological: self-mutilation (lip/finger biting), choreoathetosis, intellectual disability, spasticity. Allopurinol reduces uric acid but doesn\'t fix neurological symptoms.' },
+      { id:'bc24', subject:'biochemistry', difficulty:'medium', q:'During starvation (>3 days), the brain\'s primary fuel source becomes:', opts:['Glucose (from gluconeogenesis)','Fatty acids','Ketone bodies (β-hydroxybutyrate, acetoacetate)','Amino acids directly'], correct:2, exp:'Starvation: glycogen depleted in 24h → gluconeogenesis (from amino acids/glycerol) → but liver also produces ketone bodies from acetyl-CoA (fatty acid β-oxidation). After 3 days, brain adapts to use ketone bodies as primary fuel (reduces muscle protein wasting by ~50%). RBCs still need glucose.' },
+      { id:'bc25', subject:'biochemistry', difficulty:'hard', q:'The Km of an enzyme represents:', opts:['Maximum reaction velocity','Substrate concentration at which reaction velocity = ½ Vmax (measure of enzyme-substrate affinity)','Product concentration at equilibrium','Enzyme concentration'], correct:1, exp:'Km (Michaelis constant) = [S] at which V = Vmax/2. Low Km → high affinity (enzyme works at lower substrate concentrations). High Km → low affinity. Competitive inhibitors ↑apparent Km (inhibitor competes for active site) without changing Vmax. Non-competitive inhibitors ↓Vmax without changing Km.' },
+      { id:'bc26', subject:'biochemistry', difficulty:'medium', q:'Collagen synthesis requires hydroxylation of proline and lysine, which depends on:', opts:['Vitamin D + calcium','Vitamin C (ascorbate) as cofactor for hydroxylases','Vitamin K (γ-carboxylation)','Iron as structural component'], correct:1, exp:'Prolyl hydroxylase and lysyl hydroxylase (require vitamin C as cofactor + Fe²⁺) hydroxylate proline → hydroxyproline and lysine → hydroxylysine in nascent collagen chains. Hydroxylation enables cross-linking (triple helix formation). Vitamin C deficiency → defective collagen → scurvy.' },
+      { id:'bc27', subject:'biochemistry', difficulty:'hard', q:'Fatty acid synthesis occurs in the cytoplasm and uses which activated building block?', opts:['Acetyl-CoA directly','Malonyl-CoA (formed by carboxylation of acetyl-CoA)','Palmityl-CoA','Succinyl-CoA'], correct:1, exp:'Fatty acid synthesis: acetyl-CoA → (acetyl-CoA carboxylase, biotin, rate-limiting) → malonyl-CoA. Each cycle adds 2 carbons (from malonyl-CoA, releasing CO₂) to growing chain, consuming 2 NADPH. Occurs in cytoplasm by fatty acid synthase (FAS). Product: palmitate (16C). Requires NADPH from PPP.' },
+      { id:'bc28', subject:'biochemistry', difficulty:'medium', q:'Which amino acid is the sole glucogenic and ketogenic at the same time?', opts:['Leucine (purely ketogenic)','Lysine (purely ketogenic)','Isoleucine','Both leucine and lysine'], correct:2, exp:'Only leucine and lysine are purely ketogenic (→ acetyl-CoA/acetoacetate only). Isoleucine is BOTH glucogenic AND ketogenic (produces succinyl-CoA for gluconeogenesis AND acetyl-CoA for ketogenesis). Other glucogenic+ketogenic: phenylalanine, tyrosine, tryptophan, threonine.' },
+      { id:'bc29', subject:'biochemistry', difficulty:'hard', q:'Wilson\'s disease (hepatolenticular degeneration) is caused by:', opts:['Iron overload (HFE mutation)','Defective copper transport and excretion (ATP7B mutation)','Zinc accumulation','Manganese toxicity'], correct:1, exp:'Wilson\'s: ATP7B (copper-transporting ATPase in liver) mutation → impaired biliary copper excretion → copper accumulates in liver, brain (basal ganglia — neuropsychiatric), eyes (Kayser-Fleischer rings), kidneys. ↓ceruloplasmin + ↑24h urine copper. Treat: D-penicillamine (chelation), trientine, or zinc (reduces absorption).' },
+      { id:'bc30', subject:'biochemistry', difficulty:'medium', q:'The Cori cycle (glucose-lactate cycle) involves transfer of lactate from muscle to liver. In the liver, lactate is converted to:', opts:['Ketone bodies','Glucose (via gluconeogenesis — Cori cycle)','Fatty acids','CO₂ + H₂O (complete oxidation)'], correct:1, exp:'Cori cycle: exercising muscle → anaerobic glycolysis → lactate → released into blood → liver → lactate dehydrogenase → pyruvate → gluconeogenesis → glucose → back to muscle. This cycle effectively transfers the energy cost of gluconeogenesis from muscle to liver. Net: 2 ATP consumed per cycle in liver.' },
     ],
     medicine: [
-      { q:'The most common cause of community-acquired pneumonia (CAP) in adults is:', opts:['Staphylococcus aureus','Haemophilus influenzae','Streptococcus pneumoniae','Klebsiella pneumoniae'], ans:2, exp:'Streptococcus pneumoniae is the most common cause of CAP in adults worldwide (~30–40%). Other common causes: H. influenzae, Mycoplasma pneumoniae (atypical), Legionella (Pontiac fever), RSV (elderly). Staphylococcus is seen post-influenza and in IV drug users.' },
-      { q:'First-line treatment for uncomplicated urinary tract infection (UTI) in women:', opts:['Ciprofloxacin 500 mg BD × 3 days','Trimethoprim 200 mg BD × 7 days or Nitrofurantoin 100 mg BD × 5 days','Amoxicillin 500 mg TDS × 7 days','Cephalexin 500 mg QID × 7 days'], ans:1, exp:'First-line for uncomplicated lower UTI in women: Trimethoprim (7 days) or Nitrofurantoin (5 days, avoid if GFR <30). Ciprofloxacin is reserved for complicated UTI or pyelonephritis (guidelines discourage routine use for uncomplicated UTI to limit resistance).' },
-      { q:'Which ECG finding is characteristic of hyperkalaemia?', opts:['Prolonged QTc interval','Tall peaked T waves','Delta waves','ST depression'], ans:1, exp:'Hyperkalaemia ECG changes progress: peaked T waves → wide QRS → PR prolongation → flat P waves → sine wave → VF/asystole. Peaked T waves are the earliest sign. Treatment: calcium gluconate (cardiac membrane stabilisation), insulin/dextrose, bicarbonate, salbutamol, Kayexalate, dialysis.' },
-      { q:'A patient with blood pressure 160/100 mmHg should be classified as:', opts:['Elevated BP (pre-hypertension)','Stage 1 Hypertension','Stage 2 Hypertension','Hypertensive urgency'], ans:2, exp:'ACC/AHA 2017: Stage 2 Hypertension = SBP ≥140 or DBP ≥90 mmHg (or both). The patient\'s 160/100 meets Stage 2. Hypertensive urgency = >180/120 without end-organ damage; emergency = >180/120 with end-organ damage (HMOD).' },
-      { q:'Troponin I and troponin T are preferred biomarkers for myocardial infarction because:', opts:['They rise within 30 minutes of MI','They are specific to cardiac muscle and highly sensitive','They remain elevated for only 2–4 hours','They are the only markers that rise in MI'], ans:1, exp:'Cardiac troponin I (cTnI) and troponin T (cTnT) are highly specific to cardiac muscle (negligible expression elsewhere) and highly sensitive. They rise within 3–4 hours of MI, peak at 12–24 hours, and remain elevated for 7–10 days. High-sensitivity troponin (hs-cTn) detects MI earlier.' },
-      { q:'The most common cause of peptic ulcer disease (PUD) worldwide is:', opts:['NSAIDs','Helicobacter pylori','Zollinger-Ellison syndrome (gastrinoma)','Alcohol'], ans:1, exp:'H. pylori infection causes ~70–75% of duodenal ulcers and ~50–60% of gastric ulcers worldwide. It produces urease (hydrolyses urea → ammonia → mucosal damage), disrupts mucosal defence. Eradication with triple therapy (PPI + amoxicillin + clarithromycin) is curative.' },
-      { q:'Chvostek\'s sign and Trousseau\'s sign are clinical signs of:', opts:['Hyperkalaemia','Hypocalcaemia','Hypermagnesaemia','Hyponatraemia'], ans:1, exp:'Both signs indicate hypocalcaemia (tetany): Chvostek\'s = facial muscle twitch when tapping over facial nerve (CN VII) at the cheek. Trousseau\'s = carpal spasm when BP cuff inflated above systolic pressure for 3 min (occlusion → ↓Ca²⁺ → nerve hyperexcitability).' },
-      { q:'A patient with chronic alcoholism presents with confusion, ataxia, and nystagmus. The immediate treatment is:', opts:['IV glucose alone','IV thiamine (B1) before or with glucose','Oral folate 5 mg','IV haloperidol'], ans:1, exp:'This is Wernicke\'s encephalopathy (thiamine deficiency). Critical: IV thiamine MUST be given before or with glucose (glucose alone can precipitate or worsen Wernicke\'s by consuming remaining thiamine stores). Then give IV glucose for hypoglycaemia. IV thiamine 500 mg TDS for 3 days.' },
-      { q:'Which of the following is NOT a criterion for Systemic Inflammatory Response Syndrome (SIRS)?', opts:['Temperature >38°C or <36°C','Heart rate >90 bpm','Respiratory rate >20 or PaCO₂ <32 mmHg','Blood pressure <90/60 mmHg'], ans:3, exp:'SIRS criteria (2 or more required): (1) Temp >38°C or <36°C, (2) HR >90 bpm, (3) RR >20 or PaCO₂ <32 mmHg, (4) WBC >12,000 or <4,000 or >10% bands. Hypotension is a feature of SEPTIC SHOCK, not part of SIRS criteria.' },
-      { q:'The anti-inflammatory mechanism of glucocorticoids involves:', opts:['Blocking histamine receptors','Inhibiting phospholipase A₂ → ↓arachidonic acid release','COX-2 selective inhibition','Blocking TNF-α receptors directly'], ans:1, exp:'Glucocorticoids (e.g. prednisolone, dexamethasone) induce synthesis of annexin-1 (lipocortin-1) → inhibits phospholipase A₂ → ↓arachidonic acid release → ↓prostaglandins, leukotrienes, and thromboxanes. Also ↓NF-κB → ↓cytokine transcription (IL-1, IL-6, TNF-α).' },
+      { id:'cm1', subject:'medicine', difficulty:'easy', q:'Most common cause of community-acquired pneumonia (CAP) in adults is:', opts:['Staphylococcus aureus','Haemophilus influenzae','Streptococcus pneumoniae','Klebsiella pneumoniae'], correct:2, exp:'Streptococcus pneumoniae causes ~30–40% of CAP. Atypical organisms (Mycoplasma, Legionella, Chlamydophila) account for another 20–30%. Staphylococcus is seen post-influenza. Klebsiella in alcoholics/diabetics. CAP severity assessed by CURB-65 (Confusion, Urea >7, RR≥30, BP <90/60, Age≥65).' },
+      { id:'cm2', subject:'medicine', difficulty:'easy', q:'Earliest ECG finding in hyperkalaemia is:', opts:['Flat P waves','Wide QRS complex','Tall peaked T waves','Sine wave pattern'], correct:2, exp:'Hyperkalaemia ECG progression: peaked T waves (earliest) → PR prolongation → flat P waves → wide QRS → sine wave → VF/asystole. Treatment: calcium gluconate (membrane stabilisation — immediate), insulin+dextrose (shifts K⁺ intracellularly), salbutamol, sodium bicarbonate, calcium resonium, dialysis.' },
+      { id:'cm3', subject:'medicine', difficulty:'easy', q:'Chvostek\'s and Trousseau\'s signs indicate:', opts:['Hyperkalaemia','Hypocalcaemia (neuromuscular excitability)','Hyponatraemia','Hypomagnesaemia (similar but less reliable)'], correct:1, exp:'Chvostek\'s: tap over facial nerve at cheek → ipsilateral facial muscle twitching. Trousseau\'s: inflate BP cuff above systolic for 3 min → carpal spasm (thumb adduction). Both indicate hypocalcaemia → nerve hyperexcitability. Also seen in hypomagnesaemia. Treat underlying cause + IV calcium gluconate.' },
+      { id:'cm4', subject:'medicine', difficulty:'medium', q:'Most common cause of peptic ulcer disease worldwide is:', opts:['NSAIDs','Helicobacter pylori','Zollinger-Ellison syndrome','Alcohol'], correct:1, exp:'H. pylori causes ~80–90% of duodenal ulcers and ~60–70% of gastric ulcers. Produces urease → ammonia → mucosal damage + disrupts mucus layer. Diagnosis: urea breath test, stool antigen, endoscopy + CLO test. Eradication: PPI + amoxicillin + clarithromycin × 7–14 days.' },
+      { id:'cm5', subject:'medicine', difficulty:'medium', q:'Which feature differentiates STEMI from NSTEMI on ECG?', opts:['Presence of T-wave inversion','ST elevation + subsequent Q wave formation vs NO ST elevation (troponin positive)','Prolonged QT interval','Bundle branch block only in STEMI'], correct:1, exp:'STEMI: complete coronary occlusion → ST elevation ≥1 mm in ≥2 contiguous leads (or LBBB) → evolves to Q waves. NSTEMI: partial occlusion → no persistent ST elevation, but troponin rise. Both: ↑troponin. STEMI → urgent reperfusion (primary PCI <120 min or thrombolysis). NSTEMI → risk-stratify and PCI within 72h.' },
+      { id:'cm6', subject:'medicine', difficulty:'medium', q:'A chronic alcoholic presents with confusion, ataxia, and ophthalmoplegia. Immediate treatment is:', opts:['IV glucose only','IV thiamine 500 mg BEFORE or with glucose','Oral B12','IV haloperidol'], correct:1, exp:'Wernicke\'s encephalopathy triad: confusion, ataxia, ophthalmoplegia. CRITICAL: IV thiamine MUST precede or accompany glucose (glucose consumption depletes remaining thiamine → precipitates/worsens Wernicke\'s). Give IV thiamine 500 mg TDS × 3 days (Pabrinex). Without treatment → Korsakoff\'s psychosis (irreversible).' },
+      { id:'cm7', subject:'medicine', difficulty:'medium', q:'SIRS criteria include all EXCEPT:', opts:['Temperature >38°C or <36°C','HR >90 bpm','RR >20 or PaCO₂ <32 mmHg','BP <90/60 mmHg'], correct:3, exp:'SIRS (2+ criteria needed): Temp >38 or <36°C; HR >90; RR >20 or PaCO₂ <32; WBC >12,000 or <4,000 or >10% bands. Hypotension (BP <90/60) is a feature of SEPTIC SHOCK (SIRS + proven/suspected infection + organ dysfunction + vasopressor requirement), NOT a SIRS criterion.' },
+      { id:'cm8', subject:'medicine', difficulty:'medium', q:'Dengue fever is endemic in Pakistan. The pathognomonic finding in dengue is:', opts:['Leukocytosis with left shift','Thrombocytopenia + positive tourniquet test (Rumpel-Leede)','Eosinophilia','High ESR'], correct:1, exp:'Dengue (Aedes aegypti mosquito): rapid onset high fever, retro-orbital pain, myalgia/arthralgia ("breakbone fever"), maculopapular rash. Thrombocytopenia (dengue IgM/NS1 antigen +ve) + positive tourniquet test (capillary fragility). Dengue haemorrhagic fever: plasma leakage, bleeding. No specific antiviral — supportive care.' },
+      { id:'cm9', subject:'medicine', difficulty:'hard', q:'Which drug is first-line for typhoid fever (Salmonella typhi) in Pakistan considering resistance patterns?', opts:['Chloramphenicol','Ciprofloxacin','Azithromycin (for uncomplicated) or Ceftriaxone (for severe)','Ampicillin'], correct:2, exp:'Extensively drug-resistant (XDR) typhoid has emerged in Pakistan (Sindh, 2016 onwards) — resistant to all first-line agents (chloramphenicol, ampicillin, trimethoprim) AND quinolones + cephalosporins. Current recommendation: azithromycin for uncomplicated cases; carbapenems (meropenem) for XDR severe typhoid. Vaccination (typhoid Vi) recommended.' },
+      { id:'cm10', subject:'medicine', difficulty:'hard', q:'In a patient with acute kidney injury (AKI), which finding suggests pre-renal cause?', opts:['Urine Na >40 mEq/L','Fractional excretion of sodium (FeNa) <1% + urine osmolality >500 mOsm/kg','FeNa >2% + granular casts on urine microscopy','Urine eosinophils (interstitial nephritis)'], correct:1, exp:'Pre-renal AKI: ↓renal perfusion → kidney conserves Na and water → FeNa <1% (tubular function intact), urine Na <20, urine osmolality >500. Intrinsic renal (ATN): FeNa >2%, urine Na >40, muddy brown granular casts. FeNa formula: (Urine Na × Plasma Cr) / (Plasma Na × Urine Cr) × 100.' },
+      { id:'cm11', subject:'medicine', difficulty:'easy', q:'Blood pressure 160/100 mmHg in a clinic setting is classified as:', opts:['Normal','Stage 1 Hypertension (140–159/90–99)','Stage 2 Hypertension (≥160/≥100)','Hypertensive emergency'], correct:2, exp:'JNC 8/NICE: Stage 2 HTN = SBP ≥160 or DBP ≥100 mmHg. This patient (160/100) meets Stage 2 criteria. Hypertensive urgency = >180/120 without target organ damage; emergency = >180/120 WITH end-organ damage (stroke, MI, encephalopathy, AKI, aortic dissection).' },
+      { id:'cm12', subject:'medicine', difficulty:'hard', q:'The CURB-65 score for CAP includes all EXCEPT:', opts:['Confusion','Blood urea nitrogen >7 mmol/L','Respiratory rate ≥30','Age ≥70 (not 65)'], correct:3, exp:'CURB-65: Confusion (new), Urea >7 mmol/L, Respiratory rate ≥30, Blood pressure <90 systolic or ≤60 diastolic, Age ≥65. Score: 0–1 = home treatment, 2 = consider admission, 3–5 = hospital ± ICU. Note: the age criterion is specifically ≥65 years (not 70).' },
+      { id:'cm13', subject:'medicine', difficulty:'medium', q:'Troponin I rises in how many hours after STEMI onset?', opts:['Within 30 minutes','3–4 hours (peaks 12–24h, remains elevated 7–10 days)','24–48 hours','Only after 72 hours'], correct:1, exp:'Cardiac troponins (cTnI and cTnT): rise within 3–4h, peak at 12–24h, remain elevated 7–10 days. High-sensitivity troponin (hs-cTn) can detect MI within 1–2h of symptom onset. CK-MB peaks at 12–24h, normalises in 48–72h (useful for detecting reinfarction). Myoglobin rises earliest (1–3h) but non-specific.' },
+      { id:'cm14', subject:'medicine', difficulty:'medium', q:'In Pakistan, the most common cause of chronic liver disease is:', opts:['Alcohol','Hepatitis B + Hepatitis C viral infection','Non-alcoholic fatty liver disease','Drug-induced liver disease'], correct:1, exp:'Pakistan has one of the world\'s highest HCV burdens (~5–7% prevalence) and significant HBV (3–4%). Together, viral hepatitis causes majority of cirrhosis, liver failure, and hepatocellular carcinoma in Pakistan. Treatment: direct-acting antivirals (DAAs) for HCV (sofosbuvir + daclatasvir — generic available in Pakistan); tenofovir/entecavir for HBV.' },
+      { id:'cm15', subject:'medicine', difficulty:'hard', q:'The anti-inflammatory mechanism of glucocorticoids is primarily via:', opts:['Blocking histamine H1 receptors','Inducing annexin-1 → inhibiting phospholipase A₂ → ↓arachidonic acid + ↓NF-κB','COX-2 selective inhibition (like NSAIDs)','Blocking TNF-α receptors directly'], correct:1, exp:'Glucocorticoids (prednisolone, dexamethasone) → bind cytosolic glucocorticoid receptor → nuclear translocation → (1) Induce annexin-1 (lipocortin) → inhibits phospholipase A₂ → ↓arachidonic acid → ↓PGs/LTs; (2) Transrepress NF-κB → ↓IL-1β, IL-6, TNF-α, COX-2 transcription. Multiple downstream anti-inflammatory effects.' },
+      { id:'cm16', subject:'medicine', difficulty:'medium', q:'First-line management of hypertensive emergency (BP >180/120 + end-organ damage) is:', opts:['Oral nifedipine (rapid-release) sublingually','IV labetalol or IV sodium nitroprusside in ICU — target 25% BP reduction in first hour','Immediate oral antihypertensives × 3 drugs','Aggressive hydration only'], correct:1, exp:'Hypertensive emergency: immediate ICU admission, IV antihypertensives (labetalol, nicardipine, sodium nitroprusside, hydralazine depending on presentation). Target: reduce MAP by 25% in first hour, then normalise over 24–48h. Rapid BP reduction → cerebral hypoperfusion/ischaemia. Never use rapid-release nifedipine SL.' },
+      { id:'cm17', subject:'medicine', difficulty:'easy', q:'A 60-year-old presents with painless obstructive jaundice + palpable gallbladder (Courvoisier\'s sign). Most likely diagnosis:', opts:['Gallstones','Carcinoma of head of pancreas','Cholecystitis','Viral hepatitis'], correct:1, exp:'Courvoisier\'s law: palpable, non-tender gallbladder with obstructive jaundice is UNLIKELY to be gallstones (chronic cholelithiasis causes gallbladder fibrosis → not distensible). More likely malignant obstruction of CBD (carcinoma of head of pancreas, cholangiocarcinoma, periampullary carcinoma). Investigate: CT/MRCP/endoscopic USS.' },
+      { id:'cm18', subject:'medicine', difficulty:'hard', q:'Kussmaul breathing (deep, regular, rapid) is a respiratory pattern seen in:', opts:['Uraemic encephalopathy','Metabolic acidosis with respiratory compensation (especially DKA)','Pontine (tegmental) lesions','Hepatic failure only'], correct:1, exp:'Kussmaul breathing: deep, laboured, regular, "air hungry" breathing — the respiratory compensation for severe metabolic acidosis (especially DKA, uraemic acidosis). ↓HCO₃⁻ → ↓pH → peripheral chemoreceptors stimulated → hyperventilation → ↓PaCO₂ → partially restores pH. The depth distinguishes it from other hyperventilation patterns.' },
+      { id:'cm19', subject:'medicine', difficulty:'medium', q:'Virchow\'s triad predisposes to thrombosis. In a post-operative patient, which element is most relevant?', opts:['Endothelial injury','Venous stasis due to immobility (most significant post-operatively)','Hypercoagulability from pre-existing thrombophilia','All three equally'], correct:1, exp:'Post-surgical DVT risk: venous stasis (immobility, prolonged surgery) is the dominant factor. Also: endothelial injury (surgical trauma) + hypercoagulability (release of tissue factor, inflammatory response). DVT prophylaxis: LMWH (enoxaparin) + TED stockings + early mobilisation. Highest risk: orthopaedic hip/knee surgery.' },
+      { id:'cm20', subject:'medicine', difficulty:'hard', q:'Dengue fever management in Pakistan when platelet count drops to 50,000/μL without bleeding:', opts:['Emergency platelet transfusion immediately','Supportive care — IV fluid hydration; platelet transfusion only for active significant bleeding or platelet <10,000–20,000','Immediate IV corticosteroids','Prophylactic antiviral treatment'], correct:1, exp:'WHO dengue guidelines: platelet transfusion is NOT recommended solely based on platelet count. Transfuse only for: active significant bleeding OR platelets <10,000–20,000/μL. Management: IV crystalloid fluids, strict fluid balance, daily FBC monitoring, watch for signs of plasma leakage, bleeding, and organ involvement. Platelet count may drop rapidly but recovers with resolution of viraemia.' },
     ]
   };
 
+  // Build flat "all" bank from all subjects
+  QUESTION_BANK.all = Object.values(QUESTION_BANK).flat();
+
   let selectedTopic = null;
+  let selectedDifficulty = 'all';
   let quizQuestions = [];
   let currentQIdx = 0;
   let quizScore = 0;
   let quizAnswered = false;
+  // Per-subject tracking for mixed mode
+  let subjectScores = {};
+
+  function selectDifficulty(diff, btn) {
+    document.querySelectorAll('.quiz-diff-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedDifficulty = diff;
+    updateAvailableCount();
+  }
 
   function selectTopic(topic, btn) {
     document.querySelectorAll('.quiz-topic-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     selectedTopic = topic;
     document.getElementById('startQuizBtn').disabled = false;
+    updateAvailableCount();
+  }
+
+  function updateAvailableCount() {
+    const el = document.getElementById('quizAvailableCount');
+    if (!selectedTopic || !el) return;
+    let pool = getQuestionPool();
+    el.textContent = `${pool.length} questions available for selection`;
+  }
+
+  function getQuestionPool() {
+    const bank = selectedTopic === 'all' ? QUESTION_BANK.all : (QUESTION_BANK[selectedTopic] || []);
+    if (selectedDifficulty === 'all') return bank;
+    return bank.filter(q => q.difficulty === selectedDifficulty);
   }
 
   function startQuiz() {
     if (!selectedTopic) return;
-    const bank = QUESTION_BANK[selectedTopic];
-    // Shuffle and take 10
-    quizQuestions = [...bank].sort(() => Math.random() - 0.5).slice(0, 10);
-    currentQIdx = 0; quizScore = 0;
+    const pool = getQuestionPool();
+    if (pool.length === 0) {
+      showToast('No questions match the selected filters. Try a different difficulty.', 'error');
+      return;
+    }
+    quizQuestions = [...pool].sort(() => Math.random() - 0.5).slice(0, Math.min(10, pool.length));
+    currentQIdx = 0; quizScore = 0; subjectScores = {};
     document.getElementById('quizSetup').style.display = 'none';
     document.getElementById('quizActive').classList.add('show');
     document.getElementById('quizSummary').classList.remove('show');
+    // Show difficulty badge
+    const badge = document.getElementById('quizDiffBadge');
+    const diffLabels = { all:'All Difficulties', easy:'🟢 Easy', medium:'🟡 Medium', hard:'🔴 Hard' };
+    badge.innerHTML = `<span class="quiz-score-badge">${diffLabels[selectedDifficulty] || 'All'}</span> <span style="font-size:0.78rem;color:var(--text-secondary);margin-left:6px;">${selectedTopic === 'all' ? 'Mixed Subjects' : selectedTopic.charAt(0).toUpperCase()+selectedTopic.slice(1)}</span>`;
+    badge.style.display = 'block';
     showQuestion();
   }
 
@@ -1953,12 +2266,13 @@
     document.getElementById('quizQNum').textContent = `Question ${currentQIdx+1} of ${quizQuestions.length}`;
     document.getElementById('quizScoreBadge').textContent = `Score: ${quizScore}`;
     document.getElementById('quizProgressFill').style.width = ((currentQIdx+1)/quizQuestions.length*100) + '%';
-    document.getElementById('quizQuestion').textContent = q.q;
+    document.getElementById('quizQuestion').textContent = q.question || q.q;
     document.getElementById('quizExplanation').classList.remove('show');
     document.getElementById('quizNextBtn').style.display = 'none';
 
     const optsCont = document.getElementById('quizOptions');
-    optsCont.innerHTML = q.opts.map((opt, i) =>
+    const options = q.options || q.opts;
+    optsCont.innerHTML = options.map((opt, i) =>
       `<button class="quiz-option" onclick="answerQuestion(${i})">${String.fromCharCode(65+i)}. ${escHtml(opt)}</button>`
     ).join('');
   }
@@ -1967,13 +2281,21 @@
     if (quizAnswered) return;
     quizAnswered = true;
     const q = quizQuestions[currentQIdx];
+    const correctIdx = q.correct !== undefined ? q.correct : q.ans;
     const buttons = document.querySelectorAll('.quiz-option');
     buttons.forEach(b => b.disabled = true);
-    buttons[selectedIdx].classList.add(selectedIdx === q.ans ? 'correct' : 'wrong');
-    buttons[q.ans].classList.add('correct');
-    if (selectedIdx === q.ans) quizScore++;
+    buttons[selectedIdx].classList.add(selectedIdx === correctIdx ? 'correct' : 'wrong');
+    buttons[correctIdx].classList.add('correct');
+    const isCorrect = selectedIdx === correctIdx;
+    if (isCorrect) quizScore++;
+    // Track per-subject
+    const subj = q.subject || selectedTopic;
+    if (!subjectScores[subj]) subjectScores[subj] = { correct: 0, total: 0 };
+    subjectScores[subj].total++;
+    if (isCorrect) subjectScores[subj].correct++;
+
     const expl = document.getElementById('quizExplanation');
-    expl.textContent = '💡 ' + q.exp;
+    expl.textContent = '💡 ' + (q.explanation || q.exp);
     expl.classList.add('show');
     document.getElementById('quizNextBtn').style.display = 'inline-flex';
     document.getElementById('quizScoreBadge').textContent = `Score: ${quizScore}`;
@@ -1987,13 +2309,14 @@
 
   function showSummary() {
     document.getElementById('quizActive').classList.remove('show');
+    document.getElementById('quizDiffBadge').style.display = 'none';
     const sum = document.getElementById('quizSummary');
     sum.classList.add('show');
     document.getElementById('quizFinalScore').textContent = `${quizScore}/${quizQuestions.length}`;
     const pct = Math.round(quizScore/quizQuestions.length*100);
-    let msg = pct >= 80 ? '🌟 Excellent work! You have a strong grasp of this topic.' :
-              pct >= 60 ? '👍 Good effort! Review the questions you missed and try again.' :
-              '📚 Keep studying! Focus on the explanations for the questions you missed.';
+    let msg = pct >= 80 ? '🌟 Excellent! Strong grasp of the material.' :
+              pct >= 60 ? '👍 Good effort! Review the questions you missed.' :
+              '📚 Keep studying! Focus on the explanations for missed questions.';
     document.getElementById('quizFinalMsg').textContent = msg;
 
     const breakdown = document.getElementById('quizBreakdown');
@@ -2003,24 +2326,46 @@
       <div class="quiz-breakdown-item"><div class="quiz-breakdown-label">Score %</div><div class="quiz-breakdown-val">${pct}%</div></div>
       <div class="quiz-breakdown-item"><div class="quiz-breakdown-label">Topic</div><div class="quiz-breakdown-val" style="text-transform:capitalize;">${selectedTopic}</div></div>
     `;
+
+    // Per-subject breakdown (always show)
+    const subjSection = document.getElementById('subjectBreakdownSection');
+    const subjGrid = document.getElementById('subjectBreakdownGrid');
+    const subjects = Object.keys(subjectScores);
+    if (subjects.length > 0) {
+      subjSection.style.display = 'block';
+      const subjectLabels = { anatomy:'🦴 Anatomy', physiology:'❤️ Physiology', pharmacology:'💊 Pharmacology', pathology:'🔬 Pathology', biochemistry:'🧪 Biochemistry', medicine:'🩺 Medicine' };
+      subjGrid.innerHTML = subjects.map(s => {
+        const sc = subjectScores[s];
+        const spct = Math.round(sc.correct/sc.total*100);
+        const color = spct >= 80 ? '#16a34a' : spct >= 60 ? '#d97706' : '#dc2626';
+        return `<div class="quiz-subj-pill" title="${spct}%" style="border-color:${color};color:${color};background:${color}18">${subjectLabels[s]||s}: <strong>${sc.correct}/${sc.total}</strong></div>`;
+      }).join('');
+    } else {
+      subjSection.style.display = 'none';
+    }
   }
 
   function restartQuiz() {
-    const bank = QUESTION_BANK[selectedTopic];
-    quizQuestions = [...bank].sort(() => Math.random() - 0.5).slice(0, 10);
-    currentQIdx = 0; quizScore = 0;
+    const pool = getQuestionPool();
+    quizQuestions = [...pool].sort(() => Math.random() - 0.5).slice(0, Math.min(10, pool.length));
+    currentQIdx = 0; quizScore = 0; subjectScores = {};
     document.getElementById('quizSummary').classList.remove('show');
     document.getElementById('quizActive').classList.add('show');
+    document.getElementById('quizDiffBadge').style.display = 'block';
+    document.getElementById('subjectBreakdownSection').style.display = 'none';
     showQuestion();
   }
 
   function showQuizSetup() {
     document.getElementById('quizSummary').classList.remove('show');
     document.getElementById('quizActive').classList.remove('show');
+    document.getElementById('quizDiffBadge').style.display = 'none';
+    document.getElementById('subjectBreakdownSection').style.display = 'none';
     document.getElementById('quizSetup').style.display = '';
     document.querySelectorAll('.quiz-topic-btn').forEach(b => b.classList.remove('selected'));
     selectedTopic = null;
     document.getElementById('startQuizBtn').disabled = true;
+    document.getElementById('quizAvailableCount').textContent = '';
   }
 
   /* ══════════════════════════════════════════════
@@ -2204,6 +2549,214 @@
   if (navSearchBtn) navSearchBtn.addEventListener('click', () => searchOverlay.classList.add('open'));
   if (searchClose)  searchClose.addEventListener('click', () => searchOverlay.classList.remove('open'));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') searchOverlay && searchOverlay.classList.remove('open'); });
+
+  /* ══════════════════════════════════════════════
+     TAB 8 — SHAPE-MAKER / MORPHOGENETIC FIELD GAME
+  ══════════════════════════════════════════════ */
+  (function() {
+    const canvas   = document.getElementById('morphoCanvas');
+    if (!canvas) return;
+    const ctx      = canvas.getContext('2d');
+    const addBtn   = document.getElementById('morphoAddBtn');
+    const shapeEl  = document.getElementById('morphoShape');
+    const actBtn   = document.getElementById('morphoActivateBtn');
+    const resetBtn = document.getElementById('morphoResetBtn');
+    const countEl  = document.getElementById('morphoCellCount');
+    const statusEl = document.getElementById('morphoStatus');
+
+    const CELL_R   = 3;
+    const CELL_COLORS = ['#FFECB3','#FFE0B2','#FFCCBC','#B2EBF2','#C8E6C9','#E1BEE7'];
+
+    let cells          = [];
+    let targetPoints   = [];
+    let fieldActive    = false;
+    let rafId          = null;
+
+    // ── Shape generators ──────────────────────────────────────
+    function getHeartPoints(n) {
+      const pts=[], cx=canvas.width/2, cy=canvas.height/2+canvas.height*.05;
+      const sx=canvas.width*.25, sy=canvas.height*.30;
+      for(let i=0;i<n;i++){
+        const t=(i/n)*Math.PI*2;
+        pts.push({
+          x: cx + 16*Math.sin(t)*Math.sin(t)*Math.sin(t)*(sx/16),
+          y: cy - (13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))*(sy/13)
+        });
+      }
+      return pts;
+    }
+    function getStarPoints(n) {
+      const pts=[], spikes=5, cx=canvas.width/2, cy=canvas.height/2;
+      const ro=Math.min(canvas.width,canvas.height)*.35, ri=ro*.4;
+      for(let i=0;i<n;i++){
+        const a=Math.PI/spikes*2*i, r=(i%2===0)?ro:ri;
+        pts.push({ x:cx+Math.cos(a-Math.PI/2)*r, y:cy+Math.sin(a-Math.PI/2)*r });
+      }
+      return pts;
+    }
+    function getCirclePoints(n) {
+      const pts=[], r=Math.min(canvas.width,canvas.height)*.38;
+      const cx=canvas.width/2, cy=canvas.height/2;
+      for(let i=0;i<n;i++){
+        const a=(i/n)*Math.PI*2;
+        pts.push({ x:cx+r*Math.cos(a), y:cy+r*Math.sin(a) });
+      }
+      return pts;
+    }
+    function getTrianglePoints(n) {
+      const pts=[], side=Math.min(canvas.width,canvas.height)*.6;
+      const h=side*(Math.sqrt(3)/2), cx=canvas.width/2, cy=canvas.height/2;
+      const p1={x:cx,y:cy-h/2}, p2={x:cx-side/2,y:cy+h/2}, p3={x:cx+side/2,y:cy+h/2};
+      const seg=n/3;
+      for(let i=0;i<n;i++){
+        if(i<seg){const t=i/seg;pts.push({x:p1.x*(1-t)+p2.x*t,y:p1.y*(1-t)+p2.y*t});}
+        else if(i<seg*2){const t=(i-seg)/seg;pts.push({x:p2.x*(1-t)+p3.x*t,y:p2.y*(1-t)+p3.y*t});}
+        else{const t=(i-seg*2)/seg;pts.push({x:p3.x*(1-t)+p1.x*t,y:p3.y*(1-t)+p1.y*t});}
+      }
+      return pts;
+    }
+    function getDNAPoints(n) {
+      const pts=[], cx=canvas.width/2, w=canvas.width*.20;
+      const top=canvas.height*.08, bot=canvas.height*.92;
+      for(let i=0;i<n;i++){
+        const t=i/n, y=top+(bot-top)*t;
+        const side=(i%2===0)?1:-1;
+        const phase=t*Math.PI*5;
+        pts.push({ x:cx+side*w*Math.sin(phase), y });
+      }
+      return pts;
+    }
+    function getHexagonPoints(n) {
+      const pts=[], cx=canvas.width/2, cy=canvas.height/2;
+      const r=Math.min(canvas.width,canvas.height)*.38;
+      const perSide=Math.floor(n/6);
+      for(let s=0;s<6;s++){
+        const a1=s/6*Math.PI*2-Math.PI/6, a2=(s+1)/6*Math.PI*2-Math.PI/6;
+        const x1=cx+r*Math.cos(a1), y1=cy+r*Math.sin(a1);
+        const x2=cx+r*Math.cos(a2), y2=cy+r*Math.sin(a2);
+        for(let j=0;j<perSide;j++){const t=j/perSide;pts.push({x:x1*(1-t)+x2*t,y:y1*(1-t)+y2*t});}
+      }
+      return pts;
+    }
+
+    function buildTargetPoints(shape) {
+      switch(shape) {
+        case 'heart':    return getHeartPoints(100);
+        case 'star':     return getStarPoints(100);
+        case 'circle':   return getCirclePoints(100);
+        case 'triangle': return getTrianglePoints(99);
+        case 'dna':      return getDNAPoints(100);
+        case 'hexagon':  return getHexagonPoints(96);
+        default:         return getHeartPoints(100);
+      }
+    }
+
+    // ── Cell class ────────────────────────────────────────────
+    class Cell {
+      constructor(x,y,color) {
+        this.x=x; this.y=y;
+        this.vx=(Math.random()-.5)*2;
+        this.vy=(Math.random()-.5)*2;
+        this.color=color;
+        this.target=null;
+      }
+      update() {
+        if(fieldActive && this.target) {
+          const dx=this.target.x-this.x, dy=this.target.y-this.y;
+          const dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist>1) {
+            const spd=2, steer=0.06;
+            const tvx=dx/dist*spd, tvy=dy/dist*spd;
+            this.vx+=(tvx-this.vx)*steer;
+            this.vy+=(tvy-this.vy)*steer;
+            const cs=Math.sqrt(this.vx*this.vx+this.vy*this.vy);
+            if(cs>spd){this.vx=this.vx/cs*spd; this.vy=this.vy/cs*spd;}
+          } else {
+            this.x=this.target.x; this.y=this.target.y;
+            this.vx=0; this.vy=0;
+          }
+        }
+        this.x+=this.vx; this.y+=this.vy;
+        if(!fieldActive){
+          if(this.x-CELL_R<0||this.x+CELL_R>canvas.width) this.vx*=-1;
+          if(this.y-CELL_R<0||this.y+CELL_R>canvas.height) this.vy*=-1;
+          this.x=Math.max(CELL_R,Math.min(canvas.width-CELL_R,this.x));
+          this.y=Math.max(CELL_R,Math.min(canvas.height-CELL_R,this.y));
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,CELL_R,0,Math.PI*2);
+        ctx.fillStyle=this.color;
+        ctx.fill();
+        ctx.strokeStyle='rgba(0,0,0,.15)';
+        ctx.lineWidth=.5;
+        ctx.stroke();
+      }
+    }
+
+    // ── Animation loop ────────────────────────────────────────
+    function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if(fieldActive && targetPoints.length) {
+        // Draw ghost outline
+        ctx.beginPath();
+        ctx.moveTo(targetPoints[0].x,targetPoints[0].y);
+        for(let i=1;i<targetPoints.length;i++) ctx.lineTo(targetPoints[i].x,targetPoints[i].y);
+        ctx.closePath();
+        ctx.strokeStyle='rgba(99,102,241,.25)';
+        ctx.lineWidth=1.5;
+        ctx.stroke();
+      }
+      cells.forEach(c=>{c.update();c.draw();});
+      countEl.textContent=cells.length;
+      rafId=requestAnimationFrame(animate);
+    }
+
+    // ── Button handlers ───────────────────────────────────────
+    addBtn.addEventListener('click',()=>{
+      for(let i=0;i<50;i++){
+        const x=CELL_R+Math.random()*(canvas.width-CELL_R*2);
+        const y=CELL_R+Math.random()*(canvas.height-CELL_R*2);
+        const col=CELL_COLORS[Math.floor(Math.random()*CELL_COLORS.length)];
+        cells.push(new Cell(x,y,col));
+      }
+      statusEl.textContent='Cells added — choose shape &amp; activate!';
+    });
+
+    actBtn.addEventListener('click',()=>{
+      if(!cells.length){statusEl.textContent='⚠️ Add cells first!';return;}
+      fieldActive=true;
+      targetPoints=buildTargetPoints(shapeEl.value);
+      cells.forEach((c,i)=>{ c.target=targetPoints[i%targetPoints.length]; });
+      statusEl.textContent='⚡ Field active — watch morphogenesis!';
+    });
+
+    shapeEl.addEventListener('change',()=>{
+      if(fieldActive) {
+        targetPoints=buildTargetPoints(shapeEl.value);
+        cells.forEach((c,i)=>{ c.target=targetPoints[i%targetPoints.length]; });
+        statusEl.textContent='🔄 Shape changed — cells repositioning…';
+      }
+    });
+
+    resetBtn.addEventListener('click',()=>{
+      cancelAnimationFrame(rafId);
+      cells=[]; fieldActive=false;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      statusEl.textContent='Idle — Add cells to begin';
+      animate();
+    });
+
+    // Initial cells + start loop
+    for(let i=0;i<50;i++){
+      const x=CELL_R+Math.random()*(canvas.width-CELL_R*2);
+      const y=CELL_R+Math.random()*(canvas.height-CELL_R*2);
+      cells.push(new Cell(x,y,CELL_COLORS[Math.floor(Math.random()*CELL_COLORS.length)]));
+    }
+    statusEl.textContent='50 cells ready — choose shape &amp; activate!';
+    animate();
+  })();
 
   </script>
 </body>

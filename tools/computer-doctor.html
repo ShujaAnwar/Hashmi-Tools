@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="light" data-accent="purple">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+<link rel="shortcut icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
+<script>
+  (function(){
+    var t=localStorage.getItem('ht-theme')||'light';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-mode',t);
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Doctor — Free PC Problem Diagnosis &amp; Fix Guide | HashmiTools</title>
+<meta name="description" content="Free computer doctor tool. Select your device and symptom to get a detailed step-by-step fix guide. Covers Windows, Mac, Android and iPhone problems.">
+<meta name="keywords" content="computer doctor, pc fix, windows slow, blue screen fix, computer not starting, mac not booting, android problems, iphone issues, computer diagnosis">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hashmitools.com/tools/computer-doctor.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/tools.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<script src="../assets/js/theme.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Computer Doctor","description":"Free computer problem diagnosis and fix guide for Windows, Mac, Android and iPhone.","url":"https://hashmitools.com/tools/computer-doctor.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I fix a slow Windows PC?","acceptedAnswer":{"@type":"Answer","text":"Common fixes: disable startup programs via Task Manager, run Disk Cleanup, check for malware, update drivers, and consider adding RAM or SSD if hardware is old."}},{"@type":"Question","name":"What causes a blue screen of death (BSOD)?","acceptedAnswer":{"@type":"Answer","text":"BSOD is caused by driver conflicts, failing RAM, overheating, corrupt system files, or hardware failure. Run Windows Memory Diagnostic and check Event Viewer for error codes."}},{"@type":"Question","name":"Why won't my Mac turn on?","acceptedAnswer":{"@type":"Answer","text":"Try an SMC reset, PRAM/NVRAM reset, safe mode boot, and check battery charge. If none work, the logic board may need professional repair."}},{"@type":"Question","name":"How do I fix an Android phone that won't charge?","acceptedAnswer":{"@type":"Answer","text":"Clean the charging port with a dry toothbrush, try a different cable and adapter, check for software issues by restarting, and test in safe mode to rule out third-party app interference."}},{"@type":"Question","name":"My iPhone storage is full — what should I do?","acceptedAnswer":{"@type":"Answer","text":"Offload unused apps, delete photos/videos to iCloud or computer, clear Safari cache, remove downloaded music/podcasts, and check what is using the most space in Settings > General > iPhone Storage."}}]}
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary,#fff);color:var(--text-primary,#1a1a2e);}
+
+.cd-wrap{max-width:860px;margin:0 auto;padding:24px 16px 60px;}
+
+/* DEVICE BUTTONS */
+.cd-section-label{font-size:.82rem;font-weight:700;color:var(--text-secondary,#777);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+.device-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;}
+.device-pill{display:flex;align-items:center;gap:8px;padding:10px 20px;border:2px solid var(--border-color,#e5e7eb);border-radius:50px;cursor:pointer;font-size:.95rem;font-weight:600;transition:all .2s;background:var(--bg-card,#fff);}
+.device-pill:hover{border-color:#6366f1;background:rgba(99,102,241,.04);}
+.device-pill.selected{border-color:#6366f1;background:rgba(99,102,241,.08);color:#6366f1;}
+.device-pill span.dp-icon{font-size:1.3rem;}
+
+/* SYMPTOM GRID */
+.symptom-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:28px;}
+.sym-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px;border:2px solid var(--border-color,#e5e7eb);border-radius:14px;cursor:pointer;font-size:.82rem;font-weight:600;text-align:center;transition:all .2s;background:var(--bg-card,#fff);line-height:1.3;}
+.sym-btn span.sb-icon{font-size:1.6rem;}
+.sym-btn:hover{border-color:#6366f1;background:rgba(99,102,241,.04);}
+.sym-btn.selected{border-color:#6366f1;background:rgba(99,102,241,.1);color:#6366f1;}
+
+/* DIAGNOSE BUTTON */
+.diagnose-btn{display:block;width:100%;max-width:320px;margin:0 auto 32px;padding:14px 28px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.diagnose-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.3);}
+.diagnose-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+/* RESULTS */
+.diag-results{display:none;}
+.diag-header{display:flex;align-items:center;gap:14px;padding:20px;background:linear-gradient(135deg,rgba(99,102,241,.07),rgba(6,182,212,.05));border-radius:16px;border:1px solid rgba(99,102,241,.15);margin-bottom:20px;}
+.dh-icon{font-size:2.4rem;}
+.dh-title{font-size:1.15rem;font-weight:800;}
+.dh-sub{font-size:.83rem;color:var(--text-secondary,#777);margin-top:2px;}
+.causes-label{font-size:.82rem;font-weight:700;color:var(--text-secondary,#777);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+.cause-card{border:1px solid var(--border-color,#e5e7eb);border-radius:14px;margin-bottom:12px;overflow:hidden;background:var(--bg-card,#fff);}
+.cause-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;}
+.cause-header:hover{background:rgba(99,102,241,.03);}
+.ch-likelihood{padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;}
+.lh-vcommon{background:rgba(239,68,68,.1);color:#ef4444;}
+.lh-common{background:rgba(245,158,11,.1);color:#d97706;}
+.lh-possible{background:rgba(59,130,246,.1);color:#3b82f6;}
+.ch-name{flex:1;font-weight:700;font-size:.93rem;}
+.ch-badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.ch-diff{padding:3px 8px;border-radius:6px;font-size:.7rem;font-weight:600;background:var(--bg-primary,#f8f9fa);border:1px solid var(--border-color,#e5e7eb);}
+.ch-time{font-size:.72rem;color:var(--text-secondary,#777);}
+.ch-toggle{font-size:.8rem;color:var(--text-secondary,#aaa);transition:transform .2s;}
+.ch-toggle.open{transform:rotate(180deg);}
+.cause-body{display:none;padding:0 18px 16px;}
+.cause-body.open{display:block;}
+.steps-list{counter-reset:step-cnt;list-style:none;margin-bottom:12px;}
+.steps-list li{position:relative;padding:8px 0 8px 36px;border-bottom:1px solid var(--border-color,#e5e7eb);font-size:.87rem;line-height:1.5;}
+.steps-list li:last-child{border-bottom:none;}
+.steps-list li::before{counter-increment:step-cnt;content:counter(step-cnt);position:absolute;left:0;top:7px;width:22px;height:22px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;}
+.cause-warning{padding:10px 14px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:8px;font-size:.82rem;color:#92400e;margin-top:10px;}
+.cause-warning::before{content:'⚠️ ';}
+
+/* NO SOLUTION */
+.no-solution{padding:20px;text-align:center;background:var(--bg-card,#f8f9fa);border-radius:14px;border:1px solid var(--border-color,#e5e7eb);}
+.ns-icon{font-size:2.5rem;margin-bottom:12px;}
+.ns-title{font-weight:700;margin-bottom:8px;}
+.ns-sub{font-size:.85rem;color:var(--text-secondary,#777);}
+.retry-btn{margin-top:16px;padding:10px 24px;background:var(--bg-primary,#fff);border:2px solid #6366f1;color:#6366f1;border-radius:10px;font-weight:700;cursor:pointer;font-size:.9rem;}
+</style>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../index.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="tool-page-header">
+  <div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><span>Computer Doctor</span></nav>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:3rem;">🩺</div>
+      <div>
+        <h1 class="tool-title">Computer Doctor</h1>
+        <p class="tool-subtitle">Select your device &amp; symptom — get a step-by-step fix guide instantly</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main style="padding:24px 0;">
+<div class="cd-wrap">
+
+  <!-- Step 1: Device -->
+  <div class="cd-section-label">Step 1 — Select Your Device</div>
+  <div class="device-pills">
+    <div class="device-pill" onclick="selectDevice('windows',this)"><span class="dp-icon">💻</span> Windows PC</div>
+    <div class="device-pill" onclick="selectDevice('mac',this)"><span class="dp-icon">🍎</span> Mac</div>
+    <div class="device-pill" onclick="selectDevice('android',this)"><span class="dp-icon">📱</span> Android</div>
+    <div class="device-pill" onclick="selectDevice('iphone',this)"><span class="dp-icon">🍏</span> iPhone</div>
+  </div>
+
+  <!-- Step 2: Symptom -->
+  <div class="cd-section-label">Step 2 — Select Main Symptom</div>
+  <div class="symptom-grid" id="symptomGrid">
+    <div class="sym-btn" onclick="selectSymptom('slow',this)"><span class="sb-icon">🐌</span>Very Slow</div>
+    <div class="sym-btn" onclick="selectSymptom('not-starting',this)"><span class="sb-icon">❌</span>Won't Start</div>
+    <div class="sym-btn" onclick="selectSymptom('overheating',this)"><span class="sb-icon">🔥</span>Overheating</div>
+    <div class="sym-btn" onclick="selectSymptom('no-internet',this)"><span class="sb-icon">📶</span>No Internet</div>
+    <div class="sym-btn" onclick="selectSymptom('blue-screen',this)"><span class="sb-icon">💙</span>Blue Screen</div>
+    <div class="sym-btn" onclick="selectSymptom('no-sound',this)"><span class="sb-icon">🔊</span>No Sound</div>
+    <div class="sym-btn" onclick="selectSymptom('display',this)"><span class="sb-icon">🖥️</span>Display Issue</div>
+    <div class="sym-btn" onclick="selectSymptom('keyboard',this)"><span class="sb-icon">⌨️</span>Keyboard/Mouse</div>
+    <div class="sym-btn" onclick="selectSymptom('battery',this)"><span class="sb-icon">🔋</span>Battery/Charging</div>
+    <div class="sym-btn" onclick="selectSymptom('storage',this)"><span class="sb-icon">💾</span>Storage Full</div>
+    <div class="sym-btn" onclick="selectSymptom('printer',this)"><span class="sb-icon">🖨️</span>Printer</div>
+    <div class="sym-btn" onclick="selectSymptom('password',this)"><span class="sb-icon">🔒</span>Forgot Password</div>
+  </div>
+
+  <button class="diagnose-btn" id="diagnoseBtn" onclick="diagnose()" disabled>🔍 Diagnose Now</button>
+
+  <!-- Results -->
+  <div class="diag-results" id="diagResults"></div>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 HashmiTools.com — Free Online Tools. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ==================== DIAGNOSIS DATABASE ====================
+const DB = {
+
+'windows-slow':{
+  title:'Windows PC Running Very Slow',
+  icon:'🐌',
+  possibleCauses:[
+    {cause:'Too many startup programs',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Press Ctrl+Shift+Esc to open Task Manager','Click the "Startup" tab','Right-click any non-essential program and select "Disable"','Pay attention to high-impact items','Restart your PC and test speed'],
+     warning:null},
+    {cause:'Low disk space (under 10% free)',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Press Win+E and check drive C free space','Type "Disk Cleanup" in Start and run it','Check "Temporary files", "Recycle Bin", and "Thumbnails"','Click OK and then "Delete Files"','Consider moving documents/photos to an external drive'],
+     warning:'Do not delete files you do not recognize in Disk Cleanup system options.'},
+    {cause:'Malware or virus infection',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Open Windows Security (search in Start menu)','Click "Virus & threat protection"','Run a Full Scan','If threats found, select "Remove" for all items','Install Malwarebytes free edition and run additional scan'],
+     warning:null},
+    {cause:'Insufficient RAM',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'30 minutes',
+     steps:['Press Ctrl+Shift+Esc → Performance tab — check RAM usage','If over 80% at idle, RAM upgrade is needed','Check your motherboard manual for compatible RAM specs','Buy matching DDR3/DDR4 RAM sticks','Install RAM with PC powered off and seated firmly'],
+     warning:'Discharge static electricity before touching RAM. Touch a metal surface first.'},
+    {cause:'Old or fragmented HDD',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'30 minutes',
+     steps:['Open "Defragment and Optimize Drives" from Start','Select your C: drive','Click "Optimize" (for HDD) — skip if it is an SSD','Let it complete','Consider upgrading to an SSD for major speed boost'],
+     warning:'Do NOT defragment SSDs — it shortens their lifespan.'}
+  ]
+},
+
+'windows-not-starting':{
+  title:'Windows PC Won\'t Start',
+  icon:'❌',
+  possibleCauses:[
+    {cause:'Corrupted Windows Boot files',likelihood:'Very Common',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Insert Windows installation USB or DVD','Boot from USB (press F2/F12 during startup for boot menu)','Click "Repair your computer" — do not install','Go to Troubleshoot > Advanced Options > Startup Repair','Follow on-screen instructions to repair boot'],
+     warning:'Startup Repair may run multiple times automatically — let it complete.'},
+    {cause:'Recently installed update or driver causing boot loop',likelihood:'Very Common',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['During startup, hold Shift and click Restart','Or force restart 3 times to enter Automatic Repair mode','Go to Troubleshoot > Advanced Options > Uninstall Updates','Select the latest quality update and uninstall','Restart and check if Windows boots normally'],
+     warning:null},
+    {cause:'BIOS/CMOS battery dead',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Listen for any beep codes during startup','If PC powers on but shows date/time error, CMOS battery is likely dead','Purchase a CR2032 coin battery (costs ~$1–2)','Open PC case, locate round silver battery on motherboard','Replace it and reset BIOS to defaults'],
+     warning:'Unplug all power before opening PC case.'},
+    {cause:'Hard drive failure',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'60+ minutes',
+     steps:['Listen for clicking or grinding sounds from PC','Boot from USB, open Command Prompt in repair mode','Type: chkdsk C: /f /r and press Enter','Let it scan (takes time) and note errors','If drive has bad sectors, back up data immediately and replace drive'],
+     warning:'Clicking sounds mean imminent drive failure — back up data urgently.'},
+    {cause:'Corrupted system files',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'25 minutes',
+     steps:['Boot from Windows USB into repair environment','Open Command Prompt','Type: sfc /scannow and press Enter','Also run: DISM /Online /Cleanup-Image /RestoreHealth','Restart after completion'],
+     warning:null}
+  ]
+},
+
+'windows-blue-screen':{
+  title:'Windows Blue Screen of Death (BSOD)',
+  icon:'💙',
+  possibleCauses:[
+    {cause:'Faulty or outdated driver',likelihood:'Very Common',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['Note the error code on the blue screen (e.g., DRIVER_IRQL_NOT_LESS_OR_EQUAL)','Search the error code on Google for specific driver','Open Device Manager (Win+X → Device Manager)','Look for devices with yellow warning icons','Right-click → Update driver, or roll back if recently updated'],
+     warning:null},
+    {cause:'Faulty RAM',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'30 minutes',
+     steps:['Search "Windows Memory Diagnostic" in Start menu','Select "Restart now and check for problems"','PC restarts and tests RAM automatically','Review results after reboot in Event Viewer','If errors found, remove one RAM stick at a time to isolate the bad one'],
+     warning:'If you have two RAM sticks, test each slot individually.'},
+    {cause:'Overheating CPU or GPU',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Download HWMonitor to check temperatures','CPU should stay below 80°C under load; GPU below 85°C','If overheating: open PC and clean dust from fans and heatsinks','Reapply thermal paste to CPU if not done in 3+ years','Check all case fans are working'],
+     warning:'Let PC cool down completely before cleaning or opening case.'},
+    {cause:'Corrupt system files',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Boot Windows normally if possible','Open Command Prompt as Administrator','Run: sfc /scannow','Also run: DISM /Online /Cleanup-Image /ScanHealth','Restart and monitor for BSODs'],
+     warning:null},
+    {cause:'Hardware failure (HDD/SSD, motherboard)',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'60+ minutes',
+     steps:['Check Event Viewer for error logs (search in Start menu)','Note the timestamp of BSODs','Download BlueScreenView to read minidump files','Check if all internal cables are firmly connected','If BSODs persist, consider professional hardware diagnosis'],
+     warning:'Persistent random BSODs may indicate failing hardware needing replacement.'}
+  ]
+},
+
+'windows-no-internet':{
+  title:'Windows PC — No Internet Connection',
+  icon:'📶',
+  possibleCauses:[
+    {cause:'Network adapter issue or disabled',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Press Win+I → System → Troubleshoot → Other troubleshooters','Run "Internet Connections" troubleshooter','Also check if Wi-Fi is turned on (look for airplane mode)','Right-click network icon in taskbar → Troubleshoot problems','Restart router/modem if available'],
+     warning:null},
+    {cause:'Incorrect TCP/IP configuration',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'10 minutes',
+     steps:['Open Command Prompt as Administrator','Type: netsh int ip reset and press Enter','Also type: netsh winsock reset','Then: ipconfig /flushdns','Restart your PC and try connecting again'],
+     warning:null},
+    {cause:'Corrupted or outdated network driver',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['Open Device Manager (Win+X)','Expand "Network Adapters"','Right-click your Wi-Fi/Ethernet adapter','Select "Update driver" → Search automatically','If no update found, go to device manufacturer website to download latest driver'],
+     warning:null},
+    {cause:'DNS server not responding',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Open Network Settings → Change adapter options','Right-click your connection → Properties','Select IPv4 → Properties','Set DNS to: 8.8.8.8 (Primary) and 8.8.4.4 (Secondary)','Click OK and try browsing again'],
+     warning:null},
+    {cause:'ISP outage or router problem',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Check if other devices (phone, tablet) connect to same Wi-Fi','If no device connects: restart router by unplugging for 30 seconds','Check your ISP\'s status page or call their helpline','If only your PC has the issue: the problem is PC-side, not router'],
+     warning:null}
+  ]
+},
+
+'windows-overheating':{
+  title:'Windows PC Overheating',
+  icon:'🔥',
+  possibleCauses:[
+    {cause:'Dust build-up blocking fans and vents',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'15 minutes',
+     steps:['Power off and unplug your PC completely','Use compressed air can to blow out dust from all vents','Open PC case and clean CPU fan, GPU fan, and case fans','Clean heatsinks — they collect the most dust','Ensure all fan blades spin freely'],
+     warning:'Do not use a vacuum cleaner directly on components — static can damage them.'},
+    {cause:'Thermal paste dried out on CPU',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'30 minutes',
+     steps:['Download HWMonitor — if CPU idles above 60°C, paste likely needs replacement','Remove CPU cooler (unscrew carefully)','Clean old paste with isopropyl alcohol 99%','Apply a pea-sized amount of new thermal paste (e.g., Arctic MX-4)','Reattach cooler firmly and evenly'],
+     warning:'Do not spread thermal paste manually — let the cooler pressure spread it.'},
+    {cause:'Fans not spinning or running slowly',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Open PC case and visually check if all fans spin','Download SpeedFan to monitor fan RPM','In BIOS/UEFI check fan control settings','Set fans to "Performance" or manual high RPM','Replace any non-working fans (CPU fan failure is critical)'],
+     warning:'PC will shut down automatically to prevent damage if CPU fan fails — this is normal protection.'},
+    {cause:'PC placed in poor ventilation area',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Ensure at least 15cm clearance on all sides of desktop PC','Never place PC in a closed cabinet without ventilation','Avoid carpet placement — it blocks bottom vents','Ensure room ambient temperature is reasonable','For laptops, use on hard flat surface — never on pillows/blankets'],
+     warning:null},
+    {cause:'GPU overheating due to gaming/rendering',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Download MSI Afterburner to monitor GPU temperature','GPU should stay under 85°C under load','Clean GPU fan and heatsink with compressed air','Reduce in-game graphics settings temporarily','Consider undervolting GPU using MSI Afterburner for lower heat'],
+     warning:null}
+  ]
+},
+
+'windows-no-sound':{
+  title:'Windows PC — No Sound',
+  icon:'🔊',
+  possibleCauses:[
+    {cause:'Volume muted or wrong output device',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Click the speaker icon in taskbar — check volume is not at 0 or muted','Right-click speaker icon → Open Sound settings','Under "Output", check the correct device is selected (speakers vs headphones)','Test each output device','Also check physical volume knob on speakers if using external ones'],
+     warning:null},
+    {cause:'Audio driver corrupted or outdated',likelihood:'Very Common',difficulty:'⭐⭐ Medium',estimatedTime:'10 minutes',
+     steps:['Open Device Manager (Win+X)','Expand "Sound, video and game controllers"','Right-click your audio device → Update driver','If issue persists: right-click → Uninstall device → check "Delete driver"','Restart PC — Windows will reinstall the driver automatically'],
+     warning:null},
+    {cause:'Windows Audio service stopped',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Press Win+R, type services.msc and press Enter','Find "Windows Audio" in the list','Check its status — if Stopped, right-click → Start','Also check "Windows Audio Endpoint Builder"','Set both to Automatic startup type'],
+     warning:null},
+    {cause:'Hardware connection issue (external speakers)',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Check all speaker cables are firmly plugged in','Ensure speakers are plugged into the correct green 3.5mm jack','Try a different audio cable','Test with headphones directly in PC jack','Check if speakers have separate power switch/indicator light'],
+     warning:null},
+    {cause:'HDMI audio not configured',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Right-click speaker icon → Sounds → Playback tab','Look for your monitor/TV as an audio device','Right-click it → Enable and Set as Default','If using HDMI to external display check display speaker settings','Switch HDMI ports if available'],
+     warning:null}
+  ]
+},
+
+'windows-display':{
+  title:'Windows PC — Display Issues',
+  icon:'🖥️',
+  possibleCauses:[
+    {cause:'Loose or damaged display cable',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Power off and check the cable between PC and monitor (HDMI/DisplayPort/VGA)','Unplug and firmly reconnect both ends','Try a different cable if available','Test with a different port on the PC (if you have multiple)','Test the monitor with another device'],
+     warning:null},
+    {cause:'Outdated or corrupt graphics driver',likelihood:'Very Common',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['Open Device Manager → Display adapters','Note your GPU name (e.g., NVIDIA GTX 1060, AMD RX 570)','Go to manufacturer\'s website (nvidia.com or amd.com)','Download and install the latest driver','For NVIDIA: also use "Display Driver Uninstaller" for clean install if issues persist'],
+     warning:null},
+    {cause:'Wrong display resolution or refresh rate',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Right-click desktop → Display settings','Scroll to "Resolution" — set to Recommended','Click "Advanced display settings" → set correct refresh rate','If screen is blurry or too small, adjust scale','Disconnect and reconnect monitor to force resolution re-detect'],
+     warning:null},
+    {cause:'Monitor hardware fault (backlight, panel)',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'Varies',
+     steps:['Test the monitor with a different PC or laptop','If problem follows the monitor: monitor is faulty','For dark patches or flickering: backlight may be failing','For lines on screen: panel damage (usually from physical impact)','Contact manufacturer for warranty repair or professional service'],
+     warning:'Dead pixels or panel damage typically requires professional repair or replacement.'},
+    {cause:'GPU hardware failure',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'30 minutes',
+     steps:['Reseat the GPU — remove and firmly re-insert into PCIe slot','Check GPU power connectors are plugged in (6-pin or 8-pin)','Test with integrated graphics if available (remove dedicated GPU)','Download GPU-Z to check GPU temperatures and health','If artifacts/corruption appears: GPU may be overheating or failing'],
+     warning:null}
+  ]
+},
+
+'windows-keyboard':{
+  title:'Windows PC — Keyboard or Mouse Not Working',
+  icon:'⌨️',
+  possibleCauses:[
+    {cause:'USB connection issue',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Unplug the keyboard/mouse USB and plug into a different USB port','Try a USB 2.0 port (blue ones) if using USB 3.0 (often blue/green port)','Check if the cable is damaged or bent','Test the device on another computer to rule out hardware fault','Try restarting PC with device plugged in'],
+     warning:null},
+    {cause:'Driver issue',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Open Device Manager → Keyboards (or Mice and other pointing devices)','Right-click your device → Uninstall device','Unplug device, restart PC','Plug device back in — Windows reinstalls driver automatically','For gaming peripherals: reinstall manufacturer software'],
+     warning:null},
+    {cause:'Bluetooth pairing issue (wireless devices)',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Check device batteries — low battery is most common cause','Turn device off and on again','In Windows Settings → Bluetooth → Remove the device','Re-pair by pressing the pairing button on device','Ensure Bluetooth is enabled on PC'],
+     warning:null},
+    {cause:'Filter Keys / Sticky Keys enabled',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Open Settings → Accessibility → Keyboard','Check "Sticky Keys", "Filter Keys", "Toggle Keys" are all OFF','Also check "Mouse Keys" is off under Mouse settings','Press Shift 5 times — if prompted about Sticky Keys, click No','Restart keyboard driver from Device Manager'],
+     warning:null},
+    {cause:'Hardware failure',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Test device on another computer — if still not working, device is faulty','For keyboards: specific dead keys may be caused by liquid damage','Look inside keyboard for corrosion or debris under keys','Clean with isopropyl alcohol and compressed air','Consider replacement if under-key PCB is damaged'],
+     warning:null}
+  ]
+},
+
+'windows-storage':{
+  title:'Windows PC — Storage Full',
+  icon:'💾',
+  possibleCauses:[
+    {cause:'Windows Update cache and temp files',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Search "Disk Cleanup" in Start → Run as Administrator','Check "Windows Update Cleanup" (can be GBs)','Check Temporary files, Recycle Bin, Delivery Optimization Files','Select all and click OK','Also run: cleanmgr /sageset:1 then cleanmgr /sagerun:1 for more options'],
+     warning:null},
+    {cause:'Large files and downloads',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Open Settings → System → Storage → See what is taking space','Check Downloads folder and delete unneeded files','Use WinDirStat (free) to visualize largest files','Move large video/music/photo files to external drive or cloud','Check Desktop, Documents, and Videos folders'],
+     warning:null},
+    {cause:'Hibernation file taking space',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'5 minutes',
+     steps:['Open Command Prompt as Administrator','Type: powercfg /hibernate off and press Enter','This removes hiberfil.sys (can be 4–16GB)','Restart PC','To re-enable later: powercfg /hibernate on'],
+     warning:'Disabling hibernation means you cannot use the hibernate power option.'},
+    {cause:'System Restore taking too much space',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Search "Create a restore point" in Start','Click "Configure" on your main drive','Adjust Max Usage slider to 5–10% of drive','Click "Delete" to remove all restore points','Click Apply and OK'],
+     warning:'Deleting restore points removes ability to roll back to those points.'},
+    {cause:'Applications and game data',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'15 minutes',
+     steps:['Open Settings → Apps → Installed apps','Sort by Size — uninstall games and apps you don\'t use','Check C:/Program Files for forgotten large installs','Clear browser cache (Settings → Privacy → Clear cache)','Check %AppData% folder for old application data'],
+     warning:null}
+  ]
+},
+
+'windows-battery':{
+  title:'Windows Laptop — Battery Issues',
+  icon:'🔋',
+  possibleCauses:[
+    {cause:'Battery calibration needed',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'3 hours',
+     steps:['Charge laptop to 100%','Unplug and use until battery dies completely','Let laptop rest for 5 minutes','Charge to 100% without interruption','Check if battery percentage now reads correctly'],
+     warning:null},
+    {cause:'Battery health degraded (old battery)',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'5 minutes',
+     steps:['Open Command Prompt as Admin','Type: powercfg /batteryreport','Open the HTML report in Documents folder','Check "Design Capacity" vs "Full Charge Capacity"','If Full Charge is below 80% of Design Capacity, battery needs replacement'],
+     warning:null},
+    {cause:'Power-hungry background apps',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Open Task Manager → App History tab','Check CPU time used by each app','Disable unnecessary startup apps','In Settings → Battery → Battery usage by app — restrict background activity','Use Windows Battery Saver mode (Settings → System → Power)'],
+     warning:null},
+    {cause:'Power plan set to High Performance',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Open Control Panel → Power Options','Select "Balanced" or "Power Saver" plan','In advanced settings: reduce screen brightness, lower processor max power state','Set sleep timeout to 5-10 minutes','Reduce screen brightness using keyboard shortcut'],
+     warning:null},
+    {cause:'Faulty charger or charging port',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'10 minutes',
+     steps:['Try a different original charger if available','Check charging port for bent pins or debris','Gently clean port with dry toothbrush','Test voltage output with multimeter if available','Contact manufacturer for port repair if physical damage visible'],
+     warning:'Using third-party chargers not rated for your laptop can damage battery.'}
+  ]
+},
+
+'windows-printer':{
+  title:'Windows PC — Printer Not Working',
+  icon:'🖨️',
+  possibleCauses:[
+    {cause:'Printer offline or paused',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Open Control Panel → Devices and Printers','Right-click your printer → See what\'s printing','Click Printer menu → uncheck "Pause Printing" and "Use Printer Offline"','Cancel stuck print jobs','Try printing a test page'],
+     warning:null},
+    {cause:'Outdated or corrupt printer driver',likelihood:'Very Common',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['Open Device Manager → Printers','Right-click printer → Uninstall device','Download fresh driver from manufacturer\'s website (HP, Canon, Epson, etc.)','Run installer and follow setup wizard','Ensure printer is connected during driver installation'],
+     warning:null},
+    {cause:'Print spooler service crashed',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Press Win+R, type services.msc','Find "Print Spooler" service','Right-click → Stop','Navigate to C:/Windows/System32/spool/PRINTERS and delete all files inside','Go back to services.msc → Right-click Print Spooler → Start','Try printing again'],
+     warning:null},
+    {cause:'Network printer not discovered',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'10 minutes',
+     steps:['Ensure printer and PC are on the same Wi-Fi network','Open Settings → Bluetooth & devices → Add a printer','Select "The printer I want isn\'t listed"','Choose "Add a printer using TCP/IP address"','Enter printer\'s IP address (find on printer settings or router admin)'],
+     warning:null},
+    {cause:'Paper jam or ink/toner issue',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Check printer display for any error message','Open all access panels and carefully remove any jammed paper (do not tear)','Check ink or toner levels from printer software','For inkjet: run head cleaning cycle from printer preferences','Restart printer and try again'],
+     warning:'Never force paper out — this can damage the printer rollers.'}
+  ]
+},
+
+'windows-password':{
+  title:'Windows PC — Forgot Password',
+  icon:'🔒',
+  possibleCauses:[
+    {cause:'Microsoft account password reset (online account)',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['On another device, go to account.microsoft.com','Click "Sign in" then "Forgot password"','Verify your identity via email or phone','Create a new password','Back on locked PC, internet connection will sync the new password'],
+     warning:'You need access to your backup email or phone number.'},
+    {cause:'Local account reset using another admin account',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'10 minutes',
+     steps:['Login with a different Administrator account if one exists','Open Settings → Accounts → Other users','Find the locked account → click it','Select "Change account type" or reset password option','Set a new password and save'],
+     warning:null},
+    {cause:'Windows 10/11 reset via recovery options',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['On login screen, click the Power button','Hold Shift and click Restart','Go to Troubleshoot → Reset this PC','Choose "Keep my files" option to preserve data','Follow prompts — Windows resets and creates new user setup'],
+     warning:'Even with "Keep my files", some installed applications may be removed.'},
+    {cause:'Windows 10 local account recovery question',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['On the login screen, click "I forgot my PIN" or wrong password','If security questions were set during account creation, answer them','Create a new PIN or password','If questions aren\'t available, use other methods'],
+     warning:null},
+    {cause:'Use bootable USB password reset tool',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'30 minutes',
+     steps:['On another PC, create a bootable USB with "Offline NT Password & Registry Editor"','Boot target PC from USB (F12 boot menu)','Follow text-based prompts to find and reset the Windows account','This clears the password entirely (no new password set)','After reboot, login with blank password and immediately set a new one'],
+     warning:'Only use on your own PC. This bypasses security which is a feature, not for unauthorized use.'}
+  ]
+},
+
+// ---- MAC ----
+'mac-slow':{
+  title:'Mac Running Very Slow',
+  icon:'🐌',
+  possibleCauses:[
+    {cause:'Too many apps open consuming RAM',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Open Activity Monitor (Spotlight → Activity Monitor)','Click "Memory" tab to sort by memory usage','Quit apps using excessive RAM by selecting them → click X button','Also check CPU tab for apps with high CPU%','Empty Trash and restart Mac'],
+     warning:null},
+    {cause:'Startup items and login items',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Go to System Settings → General → Login Items','Review all items listed under "Open at Login"','Remove items you don\'t need at startup by selecting them and clicking minus (−)','Also check Background items section','Restart Mac and test performance'],
+     warning:null},
+    {cause:'macOS needs updating',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'30 minutes',
+     steps:['Go to System Settings → General → Software Update','Install any available macOS updates','Updates often include performance improvements','Restart after update','Re-check performance after full restart and settling period'],
+     warning:null},
+    {cause:'Low storage space',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'15 minutes',
+     steps:['Go to System Settings → General → Storage','Click "Store in iCloud" for documents and photos','Delete apps you don\'t use','Empty the Trash','Use "Optimize Storage" options to auto-remove watched movies/TV shows'],
+     warning:null},
+    {cause:'Spotlight re-indexing (after update)',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'Wait 1 hour',
+     steps:['Open Activity Monitor — check if "mds_stores" or "mdworker" is using high CPU','This is Spotlight re-indexing — it stops automatically after completion','Do not force quit these processes','If it continues for days: System Settings → Siri & Spotlight → Spotlight Privacy','Add your main disk, wait, then remove to force re-index'],
+     warning:'Re-indexing is temporary — Mac will slow down for 1–2 hours after major updates.'}
+  ]
+},
+
+'mac-not-starting':{
+  title:'Mac Won\'t Start or Turn On',
+  icon:'❌',
+  possibleCauses:[
+    {cause:'SMC reset needed',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['For MacBook (non-Apple Silicon): shutdown → hold Left Shift+Control+Option+Power for 10 seconds','For Apple Silicon Macs: press and hold power button for 10 seconds until startup options appear','For desktop Mac (M1/M2): unplug power cord for 15 seconds then reconnect','Press power button to start','This resets System Management Controller which controls power, fans, and hardware'],
+     warning:null},
+    {cause:'NVRAM/PRAM reset',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Shutdown Mac completely','Press Power button then immediately hold: Option+Command+P+R','Hold for about 20 seconds (older Macs chime twice)','Release keys and let Mac start normally','For Apple Silicon: NVRAM resets automatically on startup if needed'],
+     warning:'NVRAM reset clears display settings, startup disk preference, time zone.'},
+    {cause:'macOS Recovery repair',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['For Intel Mac: hold Command+R during startup to enter Recovery','For Apple Silicon: hold Power button until startup options appear → Options','Select Disk Utility → select your startup disk → click First Aid','If First Aid passes: try Reinstall macOS (preserves data)','Follow on-screen instructions'],
+     warning:null},
+    {cause:'Dead battery (MacBook)',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'1 hour',
+     steps:['Connect MagSafe/USB-C charger — check for charging light or battery indicator','Leave plugged in for 15+ minutes before trying to turn on','If no charging indicator: try different charger or cable','Test with another charger if available','If no response with multiple chargers, battery may need replacement'],
+     warning:null},
+    {cause:'Kernel panic / crashed startup disk',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'Varies',
+     steps:['Boot to Recovery (Command+R or hold Power on M1/M2)','Run Disk Utility → First Aid on startup disk','If errors reported and cannot repair: data may need professional recovery','Try Safe Mode: hold Shift during startup (Intel) or from startup options (M1/M2)','If Safe Mode works: one of your startup extensions is causing the issue'],
+     warning:'If disk shows unmountable errors in Disk Utility, back up data immediately if possible.'}
+  ]
+},
+
+'mac-no-internet':{
+  title:'Mac — No Internet Connection',
+  icon:'📶',
+  possibleCauses:[
+    {cause:'Wi-Fi turned off or connected to wrong network',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Click Wi-Fi icon in menu bar — ensure it is On','Check which network you are connected to','Forget and rejoin network: Wi-Fi preferences → select network → click (i) → Forget → reconnect','Enter password carefully — macOS is case-sensitive','Turn Wi-Fi off and on again from menu bar'],
+     warning:null},
+    {cause:'DNS configuration issue',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Go to System Settings → Wi-Fi → Details (next to connected network)','Click DNS tab','Remove existing entries and add: 8.8.8.8 and 8.8.4.4','Click OK → Apply','Open Terminal and type: sudo dscacheutil -flushcache'],
+     warning:null},
+    {cause:'Proxy settings misconfigured',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['System Settings → Wi-Fi → Details → Proxies tab','Ensure all proxy options are unchecked unless required','Click OK','Also check System Settings → General → VPN — disable any VPN temporarily','Test connection again'],
+     warning:null},
+    {cause:'macOS firewall blocking connections',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Go to System Settings → Network → Firewall','Temporarily turn off Firewall to test','If internet works with firewall off, add exceptions for your browser','Turn Firewall back on','Check which app is being blocked'],
+     warning:null},
+    {cause:'Network adapter reset needed',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'10 minutes',
+     steps:['Open Terminal','Type: sudo ifconfig en0 down and press Enter (enter password when prompted)','Type: sudo ifconfig en0 up','Try reconnecting to Wi-Fi','If no improvement: delete network preferences files in /Library/Preferences/SystemConfiguration/'],
+     warning:null}
+  ]
+},
+
+'mac-overheating':{
+  title:'Mac Overheating / Fans Running Loud',
+  icon:'🔥',
+  possibleCauses:[
+    {cause:'CPU-intensive background process',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Open Activity Monitor → CPU tab','Sort by % CPU and check for high-usage processes','Look for unexpected items like kernel_task, photoanalysisd, or mds_stores','Quit any non-essential high-CPU apps','Restart Mac to clear any runaway processes'],
+     warning:null},
+    {cause:'Blocked ventilation',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Ensure MacBook is on a flat hard surface — never on pillows, blankets, or laps','Ensure all vents (usually at back hinge) are not blocked','Consider using a laptop stand with airflow','For desktop Mac: ensure ventilation areas around the base are clear','Mac Pro tower: ensure all internal fans are accessible and unobstructed'],
+     warning:null},
+    {cause:'Dust build-up in vents',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Use compressed air to blow out vents from the outside','For MacBook Air: the vents are around the hinge area','For Mac Mini: vents are on the bottom','Do not open Mac to clean internally unless experienced (voids warranty on newer models)','Use a soft-bristled brush on keyboard area for dust'],
+     warning:'Opening newer MacBooks for internal cleaning voids warranty and can damage flex cables.'},
+    {cause:'SMC firmware issue affecting fan control',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Perform SMC reset (see Mac Won\'t Start steps above)','After reset, fans should be controlled correctly again','Download Macs Fan Control app to monitor temperatures','Check if all fans are running at expected RPM','If fans are silent when they should be running: SMC issue or fan failure'],
+     warning:null},
+    {cause:'Ambient temperature too high',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Mac is designed to operate in 10°C–35°C (50°F–95°F)','If room is very hot: move to cooler environment','Avoid using Mac in direct sunlight','Let Mac cool down before resuming intensive tasks','For consistent performance in hot climates, consider laptop cooling pad'],
+     warning:null}
+  ]
+},
+
+'mac-no-sound':{
+  title:'Mac — No Sound',
+  icon:'🔊',
+  possibleCauses:[
+    {cause:'Volume muted or wrong output selected',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Check Sound menu bar icon — click to see volume and output device','Or go to System Settings → Sound → Output','Select correct output (Internal Speakers, headphones, HDMI)','Ensure "Mute" checkbox is not checked','Press F12 key to increase volume'],
+     warning:null},
+    {cause:'Core Audio reset needed',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Open Terminal','Type: sudo kill -9 $(ps ax|grep \'coreaudiod\'|grep -v grep|awk \'{print $1}\') and press Enter','Enter your admin password','Core Audio service restarts automatically','Test sound again'],
+     warning:null},
+    {cause:'Headphone jack stuck detecting phantom plug',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Plug headphones into the 3.5mm jack and unplug several times','Sometimes debris in port tricks Mac into thinking headphones are plugged in','Blow compressed air into the headphone port','Check Sound settings — if headphones show as output despite none plugged in, this is the issue','Restart Mac'],
+     warning:null},
+    {cause:'Bluetooth audio device selected but not connected',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Click Sound icon in menu bar','Check if a Bluetooth speaker/headphone is selected but disconnected','Switch to Internal Speakers','If Bluetooth device is needed, turn it on and wait for connection','Remove the device from Bluetooth if not used'],
+     warning:null},
+    {cause:'Corrupted audio settings / PRAM issue',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Perform NVRAM/PRAM reset (Option+Command+P+R during startup)','This resets sound settings to default','After restart, go to System Settings → Sound and reconfigure','Test with different applications (YouTube, Music app)','If built-in speakers show in System Info but no sound: hardware may need service'],
+     warning:null}
+  ]
+},
+
+'mac-battery':{
+  title:'MacBook — Battery Draining Fast',
+  icon:'🔋',
+  possibleCauses:[
+    {cause:'Background apps consuming power',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Click Battery icon in menu bar — "Using Significant Energy" apps listed','Open Activity Monitor → Energy tab','Quit any apps not needed but using high energy','Disable Location Services for apps that don\'t need it','Reduce notification frequency for social media apps'],
+     warning:null},
+    {cause:'Screen brightness too high',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'1 minute',
+     steps:['Reduce screen brightness using keyboard F1 key or System Settings → Displays','Auto-brightness is usually efficient — ensure it is enabled','Reduce keyboard backlight when not needed','Set display to sleep after 2–3 minutes in System Settings → Lock Screen','Every 10% brightness reduction improves battery life significantly'],
+     warning:null},
+    {cause:'Battery health degraded',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Click Battery icon in menu bar → Battery Settings → Battery Health','Check Maximum Capacity — below 80% means battery needs service','Apple offers battery replacement at official service centers','Go to System Settings → Battery — enable "Optimized Battery Charging"','Check cycle count in System Information → Power'],
+     warning:'MacBooks with battery at 80% or below qualify for Apple Battery Service.'},
+    {cause:'Wi-Fi and Bluetooth constantly searching',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Turn off Wi-Fi when not needed (menu bar Wi-Fi icon)','Turn off Bluetooth when not using wireless devices','Disable AirDrop when not sharing files','These wireless radios constantly scan and drain battery','Enable Low Power Mode in System Settings → Battery'],
+     warning:null},
+    {cause:'Time Machine backup running in background',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Check Activity Monitor for backupd process with high CPU','Go to System Settings → General → Time Machine','Uncheck "Back up automatically" while on battery','Set Time Machine to only back up when plugged in','Alternatively pause backup by clicking Time Machine menu → Pause Backup'],
+     warning:null}
+  ]
+},
+
+'mac-storage':{
+  title:'Mac — Storage Full',
+  icon:'💾',
+  possibleCauses:[
+    {cause:'iCloud not syncing/offloading files',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Go to System Settings → Apple ID → iCloud','Enable "Optimize Mac Storage"','Ensure Documents and Desktop sync with iCloud is on','Large files will move to iCloud, keeping small local copies','Check iCloud storage in System Settings → Apple ID'],
+     warning:'You need sufficient iCloud storage plan — free tier is only 5GB.'},
+    {cause:'Large unused apps',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Go to System Settings → General → Storage','Review app sizes','To delete app properly: drag to Trash OR right-click in Finder → Move to Trash','Also delete associated data: ~/Library/Application Support/[AppName]','Empty Trash after removing'],
+     warning:'Simply dragging app to Trash may leave behind preference files — use AppCleaner app for thorough removal.'},
+    {cause:'Trash not emptied and large email attachments',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Empty Trash (right-click Trash → Empty Trash)','In Mail app: Mailbox menu → Erase Deleted Items → All Accounts','Mailbox → Erase Junk Mail','Check Downloads folder for large files','Clear browser downloads and caches (Safari → Preferences → Advanced → Privacy)'],
+     warning:null},
+    {cause:'iOS backups stored on Mac',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Connect iPhone, open Finder, click your iPhone','Click "Manage Backups" to see old backups','Delete backups you no longer need','Old iTunes backups: ~/Library/Application Support/MobileSync/Backup/','Back up only the latest version and delete old ones'],
+     warning:null},
+    {cause:'System junk and duplicate files',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['Download CleanMyMac X or DiskSight (both have free tiers)','Scan for system junk, caches, language files','Remove large language packs for languages you don\'t use','Clear developer caches if you use Xcode','Check ~/Library/Caches folder for large items'],
+     warning:null}
+  ]
+},
+
+// ---- ANDROID ----
+'android-slow':{
+  title:'Android Phone Running Slow',
+  icon:'🐌',
+  possibleCauses:[
+    {cause:'Storage almost full',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Go to Settings → Storage — check used vs available space','Aim to keep at least 15–20% storage free','Delete unused apps: Settings → Apps → sort by size','Use Google Photos to back up and delete photos from device','Clear the Downloads folder regularly'],
+     warning:null},
+    {cause:'Too many background apps',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Tap the Recent Apps button (square or gesture)','Swipe away all open apps','Alternatively: Settings → Developer Options → Limit Background Processes','Restart the phone to clear RAM','Consider disabling auto-start for apps in Settings → Battery → App Launch'],
+     warning:null},
+    {cause:'Old Android OS / outdated apps',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'15 minutes',
+     steps:['Go to Settings → System → System Update — install latest update','Open Play Store → Profile → Manage apps → Update all','Updates often include performance improvements and bug fixes','If phone no longer gets OS updates (3+ years old), performance may be limited','Consider a factory reset as last resort'],
+     warning:null},
+    {cause:'Animated wallpapers or heavy launcher',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Change to a static wallpaper (no live wallpaper)','Switch to a lighter launcher like Nova Launcher or default launcher','Reduce animations: Settings → Developer Options → Window animation scale → 0.5x','Also reduce Transition animation scale','This makes the phone feel noticeably faster'],
+     warning:'Developer Options is hidden — enable by tapping "Build Number" 7 times in About Phone.'},
+    {cause:'Malware or adware installed',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['Install Malwarebytes or Bitdefender from Play Store','Run a full scan','Uninstall any suspicious or recently installed apps','Check Settings → Apps for apps you don\'t recognize','If problem persists, factory reset is the most reliable fix'],
+     warning:'Only install apps from the official Google Play Store to avoid malware.'}
+  ]
+},
+
+'android-not-charging':{
+  title:'Android Phone Not Charging',
+  icon:'🔋',
+  possibleCauses:[
+    {cause:'Dirty or damaged charging port',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Inspect charging port with torch/flashlight for debris','Gently clean with a dry wooden toothpick or non-metallic tool','Blow compressed air into the port','Try plugging cable from different angles','Do not use metal tools as they can short the port'],
+     warning:'Metal tools in the charging port can permanently damage or short-circuit it.'},
+    {cause:'Faulty cable or adapter',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Try a different USB cable — cables are the most common fault','Borrow a charger from a friend with the same phone','Test with both original and third-party cables','Check cable for visible damage, bent pins, or fraying','USB-C cables: check both ends for debris'],
+     warning:'Poor quality cables can charge slowly or not at all — always use quality cables.'},
+    {cause:'USB port on charger/powerbank loose',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Try a different wall socket or USB port','Test with a different power adapter','Check if wireless charging works if your phone supports it','Try charging from a computer USB port (slow but confirms cable/phone are OK)','If PC charges but adapter doesn\'t: adapter is faulty'],
+     warning:null},
+    {cause:'Battery completely drained (deep discharge)',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'30 minutes',
+     steps:['Connect to charger and wait 15–30 minutes before pressing power button','A deeply discharged battery shows nothing for the first few minutes','A low battery indicator may appear after 10–15 minutes','Do not disconnect — let it charge to at least 10% before turning on','If still no response after 1 hour: battery may need replacement'],
+     warning:null},
+    {cause:'Software glitch preventing charge detection',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Try a different cable while phone is off','Boot into safe mode: hold Power → hold Power Off until Safe Mode prompt','If charging works in safe mode, a third-party app is interfering','Uninstall recently installed apps','Factory reset as last resort if safe mode charge works but normal does not'],
+     warning:null}
+  ]
+},
+
+'android-no-internet':{
+  title:'Android — No Internet Connection',
+  icon:'📶',
+  possibleCauses:[
+    {cause:'Wi-Fi connected but no internet (captive portal or IP issue)',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Forget Wi-Fi network: Settings → Wi-Fi → long press network → Forget','Reconnect and enter password','Toggle Airplane mode on then off','Check if other devices connect to same Wi-Fi','Restart router by unplugging for 30 seconds'],
+     warning:null},
+    {cause:'Mobile data turned off or data limit reached',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Swipe down for Quick Settings → check Mobile Data is On','Go to Settings → SIM & Mobile Network → Mobile Data','Check if data limit has been reached (Settings → Data Usage)','Toggle Airplane mode off/on to re-register network','Try removing and reinserting SIM card'],
+     warning:null},
+    {cause:'APN (Access Point Name) misconfigured',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'10 minutes',
+     steps:['Go to Settings → SIM & Mobile Network → Access Point Names','If no APN or incorrect settings, contact your carrier for APN details','For Pakistani networks: Jazz: internet, Zong: internet.zong.com.pk, Telenor: isp.telenor.pk','Add new APN with carrier details and set as default','Restart phone after saving APN'],
+     warning:null},
+    {cause:'DNS issue',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Go to Settings → Wi-Fi → long press network → Modify','Change IP settings from DHCP to Static','Set DNS 1 to 8.8.8.8 and DNS 2 to 8.8.4.4','Save and reconnect','Or use Google\'s Private DNS: Settings → More Connections → Private DNS → dns.google'],
+     warning:null},
+    {cause:'VPN or proxy interfering',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Disable any VPN app from notification bar or Settings → VPN','Clear VPN app data if VPN keeps reconnecting','Disable proxy: Settings → Wi-Fi → network details → Proxy → None','If VPN is needed, try a different VPN server','Some VPN apps have bugs — reinstall the VPN app'],
+     warning:null}
+  ]
+},
+
+'android-storage':{
+  title:'Android — Storage Full',
+  icon:'💾',
+  possibleCauses:[
+    {cause:'Photos and videos filling storage',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Install Google Photos and enable Backup (free for compressed, or use Google One for originals)','After backup confirmed, use "Free up space" in Google Photos','Or transfer photos to PC via USB cable','Delete duplicate or blurry photos manually','Check WhatsApp media: Settings → Storage → manage WhatsApp'],
+     warning:'Confirm backup is 100% complete before deleting originals from phone.'},
+    {cause:'WhatsApp media and downloads',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Open WhatsApp → Settings → Storage and Data → Manage Storage','Delete large files shared in chats (videos are biggest)','Change Auto-download settings to only download on Wi-Fi for videos','In phone File Manager: delete /WhatsApp/Media/WhatsApp Video/ folder content','Clear WhatsApp cache: Settings → Apps → WhatsApp → Cache → Clear Cache'],
+     warning:null},
+    {cause:'App data and cache accumulated',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Go to Settings → Apps → see storage used per app','Clear cache for large-cache apps (YouTube, Chrome, Instagram)','Uninstall apps you rarely use','For pre-installed apps you can\'t uninstall: Disable them to free resources','Consider moving apps to SD card if supported'],
+     warning:null},
+    {cause:'Downloads folder',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Open Files app (or File Manager)','Go to Downloads folder','Delete PDFs, APKs, and files you no longer need','Check Telegram downloads folder as well','Also clear browser downloads list in Chrome: Settings → Privacy → Clear browsing data'],
+     warning:null},
+    {cause:'App bloat from pre-installed apps',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Go to Settings → Apps → All apps','Look for apps pre-installed by manufacturer (games, themes, stores)','Uninstall updates if cannot uninstall fully','Disable the app to prevent it from running','Consider using a custom launcher to hide (not delete) unwanted apps'],
+     warning:null}
+  ]
+},
+
+'android-overheating':{
+  title:'Android Phone Overheating',
+  icon:'🔥',
+  possibleCauses:[
+    {cause:'Gaming or streaming for extended time',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Take regular breaks every 30–45 minutes of gaming/streaming','Lower graphics settings in games','Reduce screen brightness while gaming','Enable "Game Booster" or "Performance Mode" with care (may heat more)','Enable "Thermal Throttle" mode if your phone has it in battery settings'],
+     warning:'Sustained high temperatures above 45°C can permanently reduce battery capacity.'},
+    {cause:'Background apps and sync processes',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Close all recent apps','Disable auto-sync temporarily: Settings → Accounts → Auto-sync data','Turn off GPS when not navigating','Reduce screen brightness','Restart phone to clear all background processes'],
+     warning:null},
+    {cause:'Charging while using phone',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'1 minute',
+     steps:['Avoid using phone intensively while charging','This causes double heat generation (usage + charging)','If phone gets very hot while charging, remove cover/case','Use the official charger — third-party chargers generate more heat','Consider slow charging (5W) overnight instead of fast charging'],
+     warning:'Phone cases trap heat — remove case during charging in hot weather.'},
+    {cause:'Hot environment / direct sunlight',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Keep phone out of direct sunlight','Do not leave phone in car in summer — temperatures can reach 60°C+','If phone overheats: power off and let cool at room temperature (do not put in fridge)','Store phone in shade when outdoors','Optimal operating temperature: 0°C–35°C'],
+     warning:'Never put overheated phone in fridge/freezer — condensation can damage electronics.'},
+    {cause:'Failing battery or hardware issue',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'Varies',
+     steps:['Download CPU-Z or AIDA64 to check temperature sensors','Normal idle temperature: 25–35°C','If phone stays hot even at idle: hardware issue likely','A swollen battery causes heat — check if back cover bulges','Contact manufacturer service center for diagnosis'],
+     warning:'A swollen battery is a fire hazard — do not continue using phone; seek immediate service.'}
+  ]
+},
+
+'android-not-starting':{
+  title:'Android Phone Won\'t Start/Turn On',
+  icon:'❌',
+  possibleCauses:[
+    {cause:'Battery completely dead',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'30 minutes',
+     steps:['Connect to charger for at least 15–30 minutes before trying to power on','Look for a charging indicator (battery icon or LED)','Try holding Power button for 10–20 seconds','If a charging LED blinks but won\'t boot: hold Power+Volume Down for 10 seconds','Some phones show nothing for 5–10 minutes on dead battery — be patient'],
+     warning:null},
+    {cause:'Soft brick / software crash',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'15 minutes',
+     steps:['Force restart: hold Power+Volume Down for 10–15 seconds','If vibrates or restarts: good sign','If shows boot logo but goes back to black: hold Power+Volume Down during boot','Some Android phones: hold Power+Volume Up for Recovery Mode','In Recovery: choose "Wipe Cache Partition" → reboot'],
+     warning:null},
+    {cause:'Stuck in boot loop',likelihood:'Common',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Boot into Recovery Mode: Power off → hold Power+Volume Down (or Up, varies by brand)','Samsung: Power+Volume Up+Home (if applicable)','From Recovery: "Wipe Cache Partition"','If boot loop continues: "Factory Reset/Wipe Data" (erases all data)','Back up data via ADB if important before factory reset'],
+     warning:'Factory reset erases all data, photos, and apps on the device.'},
+    {cause:'Physical damage to power button or board',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'Varies',
+     steps:['If power button is physically broken or stuck, press volume buttons to wake','Some Android phones wake on double-tap or lift-to-wake','Try charging — if charging indicator shows, hardware is partially working','Check for water damage indicator inside SIM slot (usually white sticker turns red)','Seek professional repair for physical damage'],
+     warning:null},
+    {cause:'Software update failed',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['If phone was updating when it died/stopped: connect to charger immediately','Some phones resume failed updates when plugged in at 0%','Boot to Fastboot mode: Power+Volume Down (varies by brand)','Use ADB commands to flash recovery or factory image if experienced','Otherwise visit manufacturer service center with warranty'],
+     warning:null}
+  ]
+},
+
+// ---- iPHONE ----
+'iphone-slow':{
+  title:'iPhone Running Slow',
+  icon:'🐌',
+  possibleCauses:[
+    {cause:'Too many background app refreshes',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Go to Settings → General → Background App Refresh','Turn off for apps that don\'t need real-time updates','Or set to "Wi-Fi Only" to save battery and processing','Check Settings → General → iPhone Storage → Offload Unused Apps','Restart iPhone: press Power+Volume → slide to power off'],
+     warning:null},
+    {cause:'Low iPhone storage',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Go to Settings → General → iPhone Storage','Enable "Offload Unused Apps" automatically','Review large apps and delete unused ones','Enable iCloud Photos to move photos off device','Clear Safari website data: Settings → Safari → Clear History and Website Data'],
+     warning:null},
+    {cause:'Performance management (throttled CPU)',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Go to Settings → Battery → Battery Health & Charging','If Maximum Capacity is below 80%, Apple throttles performance to prevent shutdowns','This is by design — replace battery to restore full speed','Battery replacement is offered by Apple service centers','After replacement, disable "Peak Performance Capability" notifications'],
+     warning:'iPhone battery replacement costs $69–$99 at Apple service centers.'},
+    {cause:'Outdated iOS',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'30 minutes',
+     steps:['Go to Settings → General → Software Update','Install latest iOS — often includes performance improvements','Ensure you have enough storage for the update','Connect to Wi-Fi before updating','After update: restart iPhone and allow a few minutes for re-indexing'],
+     warning:null},
+    {cause:'Widget and notification overload',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Reduce Home Screen widgets (especially live activity widgets)','Disable unnecessary notifications: Settings → Notifications','Turn off Live Activities if not needed','Reduce motion: Settings → Accessibility → Motion → Reduce Motion (ON)','This makes transitions faster and uses less GPU'],
+     warning:null}
+  ]
+},
+
+'iphone-not-charging':{
+  title:'iPhone Not Charging',
+  icon:'🔋',
+  possibleCauses:[
+    {cause:'Dirty or lint-filled Lightning/USB-C port',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Look inside charging port with torch — lint is very common in pockets','Use a wooden or plastic toothpick to gently remove lint/debris','Blow compressed air into port','Do NOT use metal tools or wet items','After cleaning, try charging again'],
+     warning:'Metal tools can bend the charging pins inside the port — always use non-metallic tools.'},
+    {cause:'Damaged Lightning/USB-C cable',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Try a different Apple-certified (MFi) cable','Test with original Apple cable from new iPhone box if available','Check cable for fraying near connectors','Avoid cables that bend sharply near connectors','Counterfeit cables often stop working quickly'],
+     warning:'Non-MFi certified cables can cause "Accessory Not Supported" error and may damage iPhone.'},
+    {cause:'Charging adapter not providing enough power',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Try a different Apple-certified power adapter (5W, 20W, or 30W)','Ensure adapter is plugged into a working wall socket','Avoid USB ports from PCs/laptops for fast charging','Test with a known-good adapter','MagSafe charging requires an MFi-certified cable + adapter'],
+     warning:null},
+    {cause:'iPhone battery needs replacement',likelihood:'Common',difficulty:'⭐⭐⭐ Hard',estimatedTime:'Varies',
+     steps:['Go to Settings → Battery → Battery Health','If Maximum Capacity is very low (below 80%), battery may refuse to charge','Apple service centers can replace the battery','Book appointment via Apple Support app or apple.com/support','Third-party repairs are cheaper but may show "Unknown Part" in Battery Health'],
+     warning:'Non-original batteries may not show full health information in Settings.'},
+    {cause:'iOS bug causing charge detection failure',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Force restart iPhone X and later: Volume Up quickly, Volume Down quickly, hold Side button until Apple logo','For iPhone 6/7/8: hold Home+Side button until Apple logo','Check for iOS update: Settings → General → Software Update','If you have wireless charging: test if wireless charges while wired does not','Try connecting to a Mac/PC iTunes to see if iPhone is recognized'],
+     warning:null}
+  ]
+},
+
+'iphone-no-internet':{
+  title:'iPhone — No Internet Connection',
+  icon:'📶',
+  possibleCauses:[
+    {cause:'Wi-Fi issues',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Toggle Airplane mode on then off (swipe Control Center → airplane icon)','Forget and rejoin Wi-Fi: Settings → Wi-Fi → (i) next to network → Forget → reconnect','Restart router if other devices also affected','Try Settings → General → Transfer or Reset iPhone → Reset → Reset Network Settings','This resets all Wi-Fi passwords — you\'ll need to re-enter them'],
+     warning:'Resetting Network Settings removes all saved Wi-Fi passwords.'},
+    {cause:'Cellular data off or low signal',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Check if Cellular Data is enabled: Settings → Cellular → Cellular Data ON','Check if data limit reached: Settings → Cellular → scroll to Current Period','Toggle Cellular Data off and on','Remove and reinsert SIM card','Try a manual carrier search: Settings → Cellular → Network Selection → Manual'],
+     warning:null},
+    {cause:'VPN or Screen Time restrictions',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Go to Settings — look for VPN indicator in menu','Settings → VPN — disconnect active VPN','Check Screen Time: Settings → Screen Time → Content & Privacy Restrictions','Ensure no website restrictions are blocking browsers','Disable content filters temporarily to test'],
+     warning:null},
+    {cause:'DNS configuration',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'5 minutes',
+     steps:['Go to Settings → Wi-Fi → (i) next to your network → Configure DNS','Change to Manual','Add 8.8.8.8 and 8.8.4.4 as DNS servers','Or use Settings → General → VPN & Device Management → DNS to set system-wide DNS','Alternatively use Cloudflare\'s 1.1.1.1 app for Private DNS'],
+     warning:null},
+    {cause:'Carrier settings update needed',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Connect to Wi-Fi first','Go to Settings → General → About','If carrier update is available, a prompt appears — tap Update','This updates network configuration files from your carrier','Restart iPhone after update'],
+     warning:null}
+  ]
+},
+
+'iphone-storage':{
+  title:'iPhone Storage Full',
+  icon:'💾',
+  possibleCauses:[
+    {cause:'Photos and videos',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Go to Settings → Photos → enable iCloud Photos','Set to "Optimize iPhone Storage" — originals go to iCloud, small copies stay on device','Back up to Mac/PC via Finder/iTunes first','Delete duplicate and blurry photos using Photos app','Consider Google Photos as additional backup'],
+     warning:'Deleting from iPhone when using iCloud Photos also deletes from iCloud — use Recently Deleted to recover.'},
+    {cause:'Large apps and games',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'10 minutes',
+     steps:['Settings → General → iPhone Storage — apps sorted by size','Delete games you no longer play','Use "Offload App" to remove app but keep documents and data','Re-download the app later when needed — all progress/data restored','Check Netflix/Spotify/Apple TV for downloaded content'],
+     warning:null},
+    {cause:'Messages with media',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['In Settings → General → iPhone Storage → scroll to Messages','Review and delete conversations with lots of photos/videos','In Messages: Settings → Messages → Keep Messages → change from Forever to 1 Year','Tap "Review Large Attachments" to see biggest media files','This auto-deletes old messages to free space'],
+     warning:null},
+    {cause:'Streaming app downloads (Netflix, Spotify, Apple Music)',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Open Netflix → Downloads → delete all downloaded videos','Spotify: Settings → Storage → Delete Cache, also remove offline playlists','Apple Music: Settings → Music → Downloaded Music → Edit → delete albums','Podcasts app: remove downloaded episodes','Redownload only what you need offline'],
+     warning:null},
+    {cause:'iOS System Data taking too much space',likelihood:'Possible',difficulty:'⭐⭐ Medium',estimatedTime:'20 minutes',
+     steps:['Settings → General → iPhone Storage → check "System Data" size','Large System Data usually means: cached app data, Siri voices, or offline maps','Offload unused apps to trigger cache clearing','Reset Safari: Settings → Safari → Clear History and Website Data','If System Data is over 10GB: connect to Mac/PC and do a backup+restore via Finder'],
+     warning:'Backup+restore is time-consuming but is the most effective way to clear System Data.'}
+  ]
+},
+
+'iphone-not-starting':{
+  title:'iPhone Won\'t Turn On or Boot',
+  icon:'❌',
+  possibleCauses:[
+    {cause:'Battery completely dead',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'30 minutes',
+     steps:['Connect to charger using original or MFi-certified cable','Wait at least 15–30 minutes before pressing any button','Look for a charging screen to appear','After 30 minutes, try force restart: quickly press Volume Up, quickly press Volume Down, then hold Side button','Leave plugged in for 1 hour before giving up'],
+     warning:null},
+    {cause:'Force restart needed (frozen/stuck)',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'1 minute',
+     steps:['iPhone 8 and later (including all Face ID models): quickly press Volume Up, quickly press Volume Down, then hold Side button until Apple logo appears','iPhone 7/7 Plus: hold Volume Down + Power simultaneously','iPhone 6s and earlier: hold Home + Power simultaneously','Hold until Apple logo appears (about 10 seconds)','If logo appears: phone was frozen, not truly off'],
+     warning:null},
+    {cause:'DFU restore needed via iTunes/Finder',likelihood:'Common',difficulty:'⭐⭐⭐ Hard',estimatedTime:'30 minutes',
+     steps:['Connect iPhone to Mac (Finder) or Windows PC (iTunes)','Enter DFU mode: quickly Volume Up, quickly Volume Down, hold Side button 3 sec, then hold Side+Volume Down 10 sec, release Side button, continue Volume Down 5 sec','iTunes/Finder should detect iPhone in DFU mode','Select "Restore iPhone" (not Update)','This completely wipes and reinstalls iOS — data will be lost unless backed up'],
+     warning:'DFU restore erases all data. Only proceed if you have a recent backup.'},
+    {cause:'Physical damage or water',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'Varies',
+     steps:['If iPhone was exposed to water: do NOT charge immediately','Place in dry environment for 24–48 hours','Do not put in rice — silica gel packets are more effective','If iPhone fell: check for cracked screen or bent frame','Physical damage repair requires Apple or certified repair shop'],
+     warning:'Charging a water-damaged iPhone before it dries can cause short circuit damage.'},
+    {cause:'Battery health critically low or dead battery',likelihood:'Possible',difficulty:'⭐⭐⭐ Hard',estimatedTime:'Varies',
+     steps:['If battery health was already at 1–5%, battery may have failed completely','Try different charger, different cable, different wall outlet','If a charging screen never appears after 60 minutes: battery dead or logic board issue','Apple battery replacement is available at Apple Stores and authorized service centers','Book via apple.com/support'],
+     warning:null}
+  ]
+},
+
+'iphone-battery':{
+  title:'iPhone Battery Draining Fast',
+  icon:'🔋',
+  possibleCauses:[
+    {cause:'Screen brightness too high / always-on display',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['Swipe down Control Center → reduce brightness slider','Settings → Display & Brightness → set Auto-Brightness ON','Reduce Auto-Lock time: Settings → Display & Brightness → Auto-Lock → 30 seconds','For iPhone 14 Pro/15 Pro: Settings → Display → Always On Display → consider turning off','Dark Mode uses less battery on OLED screens (iPhone X and later)'],
+     warning:null},
+    {cause:'Background App Refresh and Location',likelihood:'Very Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Settings → General → Background App Refresh → Off (or Wi-Fi only)','Settings → Privacy & Security → Location Services — set most apps to "While Using"','Review battery usage: Settings → Battery → show last 10 days','Disable "Always On" location for apps like social media','Turn off Significant Locations: Settings → Privacy → Location Services → System Services'],
+     warning:null},
+    {cause:'Push email and notifications',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'5 minutes',
+     steps:['Settings → Mail → Accounts → Fetch New Data → change Push to Fetch (manually or every 30 min)','Reduce notification sounds/badges for social media apps','Turn off email notifications for unimportant accounts','Settings → Notifications → review each app and disable sound/badges where possible','Focus modes help limit interruptions and battery drain'],
+     warning:null},
+    {cause:'Battery health degraded',likelihood:'Common',difficulty:'⭐ Easy',estimatedTime:'3 minutes',
+     steps:['Settings → Battery → Battery Health & Charging','If Maximum Capacity is below 80%, battery needs replacement','Enable "Optimized Battery Charging" to slow battery aging','Avoid charging to 100% regularly — charge to 80% for daily use is healthiest','Apple offers battery replacement at authorized centers'],
+     warning:'Battery replacement at unauthorized shops may void warranty and show "Unknown Part" warnings.'},
+    {cause:'5G constantly searching for signal',likelihood:'Possible',difficulty:'⭐ Easy',estimatedTime:'2 minutes',
+     steps:['If you have an iPhone 12 or later with 5G: Settings → Cellular → Voice & Data','Change from 5G Auto to LTE if 5G signal is weak in your area','Searching for weak 5G signal drains battery fast','In 5G areas: "5G Auto" intelligently switches and saves battery','Also disable Wi-Fi Calling if cellular signal is good: Settings → Cellular → Wi-Fi Calling'],
+     warning:null}
+  ]
+}
+
+};
+
+// ==================== STATE ====================
+let selectedDevice = null;
+let selectedSymptom = null;
+
+function selectDevice(device, el){
+  selectedDevice = device;
+  document.querySelectorAll('.device-pill').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  updateDiagnoseBtn();
+}
+
+function selectSymptom(symptom, el){
+  selectedSymptom = symptom;
+  document.querySelectorAll('.sym-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  updateDiagnoseBtn();
+}
+
+function updateDiagnoseBtn(){
+  const btn = document.getElementById('diagnoseBtn');
+  btn.disabled = !(selectedDevice && selectedSymptom);
+}
+
+function diagnose(){
+  if(!selectedDevice || !selectedSymptom) return;
+  const key = selectedDevice + '-' + selectedSymptom;
+  const data = DB[key];
+  const resultsEl = document.getElementById('diagResults');
+
+  if(!data){
+    resultsEl.innerHTML = `
+      <div class="no-solution">
+        <div class="ns-icon">🔍</div>
+        <div class="ns-title">No specific guide found</div>
+        <div class="ns-sub">This combination (${selectedDevice} + ${selectedSymptom}) may not apply to your device, or is a rare issue. Try a different symptom, or seek professional support.</div>
+        <button class="retry-btn" onclick="retry()">🔄 Try Again</button>
+      </div>`;
+    resultsEl.style.display = 'block';
+    resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+
+  const causesHTML = data.possibleCauses.map((c,i)=>{
+    const lhClass = c.likelihood==='Very Common'?'lh-vcommon':c.likelihood==='Common'?'lh-common':'lh-possible';
+    return `
+    <div class="cause-card">
+      <div class="cause-header" onclick="toggleCause(this)">
+        <span class="ch-likelihood ${lhClass}">${c.likelihood}</span>
+        <span class="ch-name">${c.cause}</span>
+        <div class="ch-badges">
+          <span class="ch-diff">${c.difficulty}</span>
+          <span class="ch-time">⏱ ${c.estimatedTime}</span>
+          <i class="fas fa-chevron-down ch-toggle ${i===0?'open':''}"></i>
+        </div>
+      </div>
+      <div class="cause-body ${i===0?'open':''}">
+        <ol class="steps-list">${c.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+        ${c.warning?`<div class="cause-warning">${c.warning}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+
+  resultsEl.innerHTML = `
+    <div class="diag-header">
+      <div class="dh-icon">${data.icon}</div>
+      <div>
+        <div class="dh-title">${data.title}</div>
+        <div class="dh-sub">${data.possibleCauses.length} possible causes — most likely first</div>
+      </div>
+    </div>
+    <div class="causes-label">Possible Causes &amp; Fix Steps</div>
+    ${causesHTML}
+    <div class="no-solution" style="margin-top:24px;">
+      <div class="ns-icon">🛠️</div>
+      <div class="ns-title">Problem not solved?</div>
+      <div class="ns-sub">If none of the above steps resolved your issue, the problem may be hardware-related and requires professional diagnosis. Consider visiting an authorized service center.</div>
+      <button class="retry-btn" onclick="retry()">🔄 Try a Different Symptom</button>
+    </div>`;
+
+  resultsEl.style.display = 'block';
+  resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function toggleCause(header){
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.ch-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+function retry(){
+  document.getElementById('diagResults').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+<script>
+(function(){
+  var ads = document.querySelectorAll('.adsbygoogle');
+  for(var i=0;i<ads.length;i++){ try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){} }
+})();
+</script>
+</body>
+</html>

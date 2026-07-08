@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="light" data-accent="purple">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon.png" />
+<link rel="shortcut icon" href="../favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon.png" />
+<script>
+  (function(){
+    var t=localStorage.getItem('ht-theme')||'light';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-mode',t);
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Your Umrah Package — Free Umrah Query Builder | HashmiTools</title>
+<meta name="description" content="Free Umrah package query builder. Fill in 10 easy steps and generate a detailed WhatsApp message to send to your travel agent. Covers dates, hotels, transport, ziyarat, food and more.">
+<meta name="keywords" content="umrah package, umrah planning, umrah query builder, umrah 2025, umrah pakistan, makkah hotel, madinah hotel, umrah ziyarat">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hashmitools.com/tools/plan-umrah.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/tools.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<script src="../assets/js/theme.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Plan Your Umrah Package","description":"Free Umrah package query builder with 10 steps. Generate a detailed WhatsApp message for your travel agent.","url":"https://hashmitools.com/tools/plan-umrah.html","applicationCategory":"TravelApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"PKR"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does this Umrah query builder do?","acceptedAnswer":{"@type":"Answer","text":"It helps you fill in all your Umrah requirements across 10 steps (dates, group size, hotels, rooms, transport, ziyarat, food, extra services, budget) and generates a formatted WhatsApp message to send to your travel agent."}},
+{"@type":"Question","name":"Is this tool connected to a travel agency?","acceptedAnswer":{"@type":"Answer","text":"No. This is an independent tool. The WhatsApp message goes to the phone number you or the travel agent provides. HashmiTools does not book Umrah packages."}},
+{"@type":"Question","name":"How many nights is a typical Umrah package?","acceptedAnswer":{"@type":"Answer","text":"Economy Umrah packages from Pakistan typically cover 10–15 nights. Standard packages are 15–21 nights. Premium packages can be 21–28 nights or longer."}},
+{"@type":"Question","name":"What is the difference between Makkah Only and Makkah+Madinah Umrah?","acceptedAnswer":{"@type":"Answer","text":"Makkah Only packages focus solely on Umrah rites. Makkah+Madinah packages include a visit to Madinah to pray at Masjid an-Nabawi. Most pilgrims prefer combined packages."}},
+{"@type":"Question","name":"Can I customize every detail of my Umrah package?","acceptedAnswer":{"@type":"Answer","text":"Yes! This tool covers hotel distance from Haram, star rating, room type, transport preferences, ziyarat sites in both cities, food type, meal plan, and special services like wheelchair, Alim guide, or Zamzam allowance."}},
+{"@type":"Question","name":"What is Muhram in the context of Umrah?","acceptedAnswer":{"@type":"Answer","text":"A Muhram is a male guardian (husband, father, brother, or son) required to accompany adult Muslim women on Umrah. If a Muhram is not available, some travel agents can arrange group travel with a collective Muhram arrangement."}},
+{"@type":"Question","name":"Is there a WhatsApp fee for sending the query?","acceptedAnswer":{"@type":"Answer","text":"No. The query is sent as a regular WhatsApp message at no cost. Standard WhatsApp data usage applies."}},
+{"@type":"Question","name":"Can I modify the generated message before sending?","acceptedAnswer":{"@type":"Answer","text":"Yes! After the query is generated, you can click Edit to go back and change any step, or you can copy the message and edit it manually before sending."}
+}]}
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary,#fff);color:var(--text-primary,#1a1a2e);}
+.umrah-wrap{max-width:820px;margin:0 auto;padding:24px 16px 60px;}
+
+/* PROGRESS BAR */
+.progress-wrap{margin-bottom:28px;}
+.progress-label{display:flex;justify-content:space-between;font-size:.8rem;font-weight:600;color:var(--text-secondary,#777);margin-bottom:8px;}
+.progress-bar{height:8px;background:var(--border-color,#e5e7eb);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#6366f1,#06b6d4);border-radius:4px;transition:width .4s;}
+.step-dots{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--border-color,#e5e7eb);transition:all .2s;}
+.step-dot.done{background:#6366f1;}
+.step-dot.active{background:linear-gradient(135deg,#6366f1,#06b6d4);transform:scale(1.3);}
+
+/* STEP CARD */
+.step-card{background:var(--bg-card,#f8f9fa);border:1px solid var(--border-color,#e5e7eb);border-radius:18px;padding:24px;margin-bottom:4px;}
+.step-title{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.st-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.st-text{font-size:1.1rem;font-weight:700;}
+
+/* FORM ELEMENTS */
+label{display:block;font-size:.83rem;font-weight:600;margin-bottom:5px;color:var(--text-secondary,#555);}
+input[type="text"],input[type="email"],input[type="tel"],input[type="date"],input[type="number"],select,textarea{
+  width:100%;padding:10px 14px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:10px;
+  font-family:inherit;font-size:.92rem;background:var(--bg-primary,#fff);color:var(--text-primary,#1a1a2e);
+  transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:580px){.form-grid{grid-template-columns:1fr;}}
+.form-field{margin-bottom:14px;}
+
+/* TOGGLE PILLS */
+.toggle-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.tpill{padding:8px 16px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s;background:var(--bg-primary,#fff);}
+.tpill:hover{border-color:#6366f1;}
+.tpill.selected{border-color:#6366f1;background:rgba(99,102,241,.1);color:#6366f1;}
+
+/* CHECKBOXES */
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:6px;}
+.check-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s;background:var(--bg-primary,#fff);}
+.check-item:hover{border-color:#6366f1;}
+.check-item.checked{border-color:#6366f1;background:rgba(99,102,241,.08);color:#6366f1;}
+.check-item input[type="checkbox"]{display:none;}
+
+/* QTY INPUT NEXT TO ROOM TYPES */
+.room-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:10px;background:var(--bg-primary,#fff);transition:border-color .2s;}
+.room-row.checked{border-color:#6366f1;background:rgba(99,102,241,.08);}
+.rr-label{flex:1;font-size:.83rem;font-weight:600;}
+.rr-qty{width:60px;padding:4px 8px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:6px;font-size:.82rem;text-align:center;}
+
+/* STAR SELECTOR */
+.star-select{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.star-opt{padding:7px 14px;border:1.5px solid var(--border-color,#e5e7eb);border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s;background:var(--bg-primary,#fff);}
+.star-opt.selected{border-color:#f59e0b;background:rgba(245,158,11,.1);color:#d97706;}
+
+/* NIGHTS BADGE */
+.nights-badge{display:inline-block;padding:6px 16px;background:rgba(99,102,241,.1);color:#6366f1;border-radius:20px;font-size:.85rem;font-weight:700;margin-top:8px;}
+
+/* NAV BUTTONS */
+.step-nav{display:flex;gap:12px;margin-top:24px;}
+.btn-prev{flex:1;padding:13px;border:2px solid #6366f1;color:#6366f1;background:transparent;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+.btn-next{flex:2;padding:13px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.3);}
+
+/* PREVIEW SECTION */
+.preview-section{display:none;}
+.preview-box{background:var(--bg-card,#f8f9fa);border:1px solid var(--border-color,#e5e7eb);border-radius:14px;padding:20px;font-family:monospace;font-size:.82rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:500px;overflow-y:auto;color:var(--text-primary,#1a1a2e);margin-bottom:20px;}
+.preview-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-wa{padding:13px 24px;background:#25d366;color:#fff;border:none;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.btn-copy{padding:13px 24px;background:transparent;border:2px solid #6366f1;color:#6366f1;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+.btn-edit-plan{padding:13px 24px;background:transparent;border:2px solid var(--border-color,#ccc);color:var(--text-secondary,#777);border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+.copied-toast{display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:10px 24px;border-radius:20px;font-size:.85rem;font-weight:600;z-index:9999;}
+
+/* Subsection headers */
+.sub-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-secondary,#777);margin:14px 0 8px;}
+</style>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="islamic.html" class="nav-link active">Islamic Tools</a>
+      <a href="../blog.html" class="nav-link">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="tool-page-header">
+  <div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="islamic.html">Islamic Tools</a><i class="fas fa-chevron-right"></i><span>Plan Umrah</span></nav>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:3rem;">🕋</div>
+      <div>
+        <h1 class="tool-title">Plan Your Umrah Package</h1>
+        <p class="tool-subtitle">Fill 10 quick steps — get a complete WhatsApp query for your travel agent</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main style="padding:24px 0;">
+<div class="umrah-wrap">
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-label">
+      <span id="stepLabel">Step 1 of 10</span>
+      <span id="stepPct">10%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%"></div></div>
+    <div class="step-dots" id="stepDots"></div>
+  </div>
+
+  <!-- STEPS CONTAINER -->
+  <div id="stepsContainer"></div>
+
+  <!-- PREVIEW -->
+  <div class="preview-section" id="previewSection">
+    <div class="step-card">
+      <div class="step-title">
+        <div class="st-num">✅</div>
+        <div class="st-text">Your Umrah Query is Ready!</div>
+      </div>
+      <p style="font-size:.88rem;color:var(--text-secondary,#777);margin-bottom:16px;">Review the message below, then send it to your travel agent via WhatsApp, or copy it.</p>
+      <div class="preview-box" id="previewBox"></div>
+      <div class="preview-actions">
+        <button class="btn-wa" onclick="sendWhatsApp()"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+        <button class="btn-copy" onclick="copyQuery()"><i class="fas fa-copy"></i> Copy Query</button>
+        <button class="btn-edit-plan" onclick="editQuery()"><i class="fas fa-edit"></i> Edit</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<div class="copied-toast" id="copiedToast">✅ Copied to clipboard!</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 HashmiTools.com — Free Online Tools. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ==================== AGENT NUMBER ====================
+// Replace this with the travel agent's WhatsApp number (with country code, no +)
+// Example: '923001234567' for Pakistan +92 300 1234567
+const AGENT_NUMBER = '923132710182'; // <-- REPLACE WITH ACTUAL AGENT NUMBER
+
+// ==================== FORM DATA ====================
+const formData = {
+  // Step 1
+  name:'', whatsapp:'', email:'', city:'',
+  // Step 2
+  checkin:'', checkout:'', nights:0, umrahType:'',
+  // Step 3
+  totalHajis:'', adults:'', children:'', infants:'', muhram:'',
+  // Step 4
+  makkahDist:'', makkahStars:'', madinahDist:'', madinahStars:'',
+  // Step 5
+  rooms:{}, specialRooms:[],
+  // Step 6
+  airport:'', transportType:'', transportExtras:[],
+  // Step 7
+  makkahZiyarat:[], madinahZiyarat:[],
+  // Step 8
+  mealPlan:'', foodType:'', foodLocation:'',
+  // Step 9
+  extraServices:[],
+  // Step 10
+  budget:'', notes:'', source:''
+};
+
+const TOTAL_STEPS = 10;
+let currentStep = 1;
+
+// Build dots
+function buildDots(){
+  const dots = document.getElementById('stepDots');
+  dots.innerHTML = '';
+  for(let i=1;i<=TOTAL_STEPS;i++){
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i===1?' active':'');
+    d.id = 'dot-'+i;
+    dots.appendChild(d);
+  }
+}
+
+function updateProgress(step){
+  document.getElementById('stepLabel').textContent = `Step ${step} of ${TOTAL_STEPS}`;
+  const pct = Math.round(step/TOTAL_STEPS*100);
+  document.getElementById('stepPct').textContent = pct+'%';
+  document.getElementById('progressFill').style.width = pct+'%';
+  for(let i=1;i<=TOTAL_STEPS;i++){
+    const d = document.getElementById('dot-'+i);
+    if(i < step) d.className='step-dot done';
+    else if(i===step) d.className='step-dot active';
+    else d.className='step-dot';
+  }
+}
+
+// ==================== STEP RENDERERS ====================
+const stepRenderers = {
+  1: ()=>`
+    <div class="step-card">
+      <div class="step-title"><div class="st-num">1</div><div class="st-text">Haji Information</div></div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Full Name *</label>
+          <input type="text" id="s1name" placeholder="e.g. Muhammad Ahmed" value="${escHtml(formData.name)}">
+        </div>
+        <div class="form-field">
+          <label>WhatsApp Number *</label>
+          <input type="tel" id="s1wa" placeholder="+92 300 1234567" value="${escHtml(formData.whatsapp)}">
+        </div>
+        <div class="form-field">
+          <label>Email (optional)</label>
+          <input type="email" id="s1email" placeholder="your@email.com" value="${escHtml(formData.email)}">
+        </div>
+        <div class="form-field">
+          <label>City / Country *</label>
+          <input type="text" id="s1city" placeholder="e.g. Karachi, Pakistan" value="${escHtml(formData.city)}">
+        </div>
+      </div>
+    </div>`,
+
+  2: ()=>`
+    <div class="step-card">
+      <div class="step-title"><div class="st-num">2</div><div class="st-text">Travel Dates &amp; Umrah Type</div></div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Check-in Date (Makkah arrival) *</label>
+          <input type="date" id="s2ci" value="${formData.checkin}" onchange="calcNights()">
+        </div>
+        <div class="form-field">
+          <label>Check-out Date *</label>
+          <input type="date" id="s2co" value="${formData.checkout}" onchange="calcNights()">
+        </div>
+      </div>
+      <div id="nightsBadgeWrap">${formData.nights?`<div class="nights-badge">🌙 ${formData.nights} Nights</div>`:''}</div>
+      <div class="form-field" style="margin-top:14px;">
+        <label>Umrah Type *</label>
+        <div class="toggle-pills">
+          ${['Makkah Only','Makkah + Madinah','Madinah First, then Makkah'].map(t=>`
+            <div class="tpill${formData.umrahType===t?' selected':''}" onclick="selectToggle('umrahType','${t}',this)">${t}</div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+
+  3: ()=>`
+    <div class="step-card">
+      <div class="step-title"><div class="st-num">3</div><div class="st-text">Group Size</div></div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Total Hajis *</label>
+          <input type="number" id="s3total" min="1" max="100" placeholder="e.g. 4" value="${formData.totalHajis}">
+        </div>
+        <div class="form-field">
+          <label>Adults (18+)</label>
+          <input type="number" id="s3adults" min="1" placeholder="e.g. 2" value="${formData.adults}">
+        </div>
+        <div class="form-field">
+          <label>Children (2–17 years)</label>
+          <input type="number" id="s3children" min="0" placeholder="0" value="${formData.children}">
+        </div>
+        <div class="form-field">
+          <label>Infants (under 2 years)</label>
+          <input type="number" id="s3infants" min="0" placeholder="0" value="${formData.infants}">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Muhram</label>
+        <div class="toggle-pills">
+          ${['Available','Need assistance'].map(t=>`
+            <div class="tpill${formData.muhram===t?' selected':''}" onclick="selectToggle('muhram','${t}',this)">${t}</div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+
+  4: ()=>`
+    <div class="step-card">
+      <div class="step-title"><div class="st-num">4</div><div class="st-text">Hotel Preferences</div></div>
+      <div class="sub-label">🕋 Makkah Hotel</div>
+      <div class="form-field">
+        <label>Distance from Masjid al-Haram</label>
+        <div class="toggle-pills">
+          ${['0–50m','50–200m','200–500m','500m–1km','1km+'].map(d=>`
+            <div class="tpill${formData.makkahDist===d?' selected':''}" onclick="selectToggle('makkahDist','${d}',this)">${d}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Hotel Star Rating</label>
+        <div class="star-select">
+          ${['3★','4★','5★'].map(s=>`
+            <div class="star-opt${formData.makkahStars===s?' selected':''}" onclick="selectStar('makkahStars','${s}',this)">${s}</div>`).join('')}
+        </div>
+      </div>
+      <div class="sub-label">🕌 Madinah Hotel</div>
+      <div class="form-field">
+        <label>Distance from Masjid an-Nabawi</label>
+        <div class="toggle-pills">
+          ${['0–50m','50–200m','200–500m','500m–1km','1km+'].map(d=>`
+            <div class="tpill${formData.madinahDist===d?' selected':''}" onclick="selectToggle('madinahDist','${d}',this)">${d}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Hotel Star Rating</label>
+        <div class="star-select">
+          ${['3★','4★','5★'].map(s=>`
+            <div class="star-opt${formData.madinahStars===s?' selected':''}" onclick="selectStar('madinahStars','${s}',this)">${s}</div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+
+  5: ()=>{
+    const roomTypes = ['Single','Double','Triple','Quad','Quint','Suite'];
+    const special = ['Haram view','Non-smoking','Ground floor','Connecting rooms','Baby cot'];
+    return `<div class="step-card">
+      <div class="step-title"><div class="st-num">5</div><div class="st-text">Room Requirements</div></div>
+      <div class="sub-label">Room Types (enter quantity)</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:16px;">
+        ${roomTypes.map(rt=>{
+          const qty = formData.rooms[rt]||0;
+          return `<div class="room-row${qty>0?' checked':''}" id="rr-${rt}">
+            <span class="rr-label">${rt}</span>
+            <input class="rr-qty" type="number" min="0" max="20" value="${qty}" placeholder="0"
+              oninput="updateRoomQty('${rt}',this)">
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="sub-label">Special Requests</div>
+      <div class="check-grid">
+        ${special.map(s=>`
+          <div class="check-item${formData.specialRooms.includes(s)?' checked':''}" onclick="toggleCheck(this,'specialRooms','${s}')">
+            <input type="checkbox"${formData.specialRooms.includes(s)?' checked':''}>
+            ${s}
+          </div>`).join('')}
+      </div>
+    </div>`;
+  },
+
+  6: ()=>`
+    <div class="step-card">
+      <div class="step-title"><div class="st-num">6</div><div class="st-text">Transport</div></div>
+      <div class="form-field">
+        <label>Arrival Airport</label>
+        <div class="toggle-pills">
+          ${['Jeddah (JED)','Madinah (MED)','Both (one each way)'].map(a=>`
+            <div class="tpill${formData.airport===a?' selected':''}" onclick="selectToggle('airport','${a}',this)">${a}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Transport Type</label>
+        <div class="toggle-pills">
+          ${['Private car','Shared van','AC bus','Al-Haramain Train','Mix (bus + train)'].map(t=>`
+            <div class="tpill${formData.transportType===t?' selected':''}" onclick="selectToggle('transportType','${t}',this)">${t}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Additional Transport Needs</label>
+        <div class="check-grid">
+          ${['Mina/Arafat transport','Ziyarat transport','Daily Haram drop/pick'].map(e=>`
+            <div class="check-item${formData.transportExtras.includes(e)?' checked':''}" onclick="toggleCheck(this,'transportExtras','${e}')">
+              <input type="checkbox"${formData.transportExtras.includes(e)?' checked':''}>${e}
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+
+  7: ()=>{
+    const makkahZ = ['Jabal Nour (Cave Hira)','Jabal Thawr','Mina &amp; Arafat','Hudaibiyah','Masjid Aisha (Tan\'eem)','Jannat al-Mualla','Full Makkah Package'];
+    const madinahZ = ['Masjid Quba','Masjid Qiblatayn','Jannat al-Baqi','Mount Uhud','Seven Mosques','Dates Market','Full Madinah Package'];
+    return `<div class="step-card">
+      <div class="step-title"><div class="st-num">7</div><div class="st-text">Ziyarat (Holy Site Visits)</div></div>
+      <div class="sub-label">🕋 Makkah Ziyarat</div>
+      <div class="check-grid">
+        ${makkahZ.map(z=>{
+          const zClean = z.replace(/&amp;/g,'&');
+          return `<div class="check-item${formData.makkahZiyarat.includes(zClean)?' checked':''}" onclick="toggleCheck(this,'makkahZiyarat','${zClean.replace(/'/g,"\\'")}')">
+            <input type="checkbox"${formData.makkahZiyarat.includes(zClean)?' checked':''}>${z}
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="sub-label">🕌 Madinah Ziyarat</div>
+      <div class="check-grid">
+        ${madinahZ.map(z=>`
+          <div class="check-item${formData.madinahZiyarat.includes(z)?' checked':''}" onclick="toggleCheck(this,'madinahZiyarat','${z.replace(/'/g,"\\'")}')">
+            <input type="checkbox"${formData.madinahZiyarat.includes(z)?' checked':''}>${z}
+          </div>`).join('')}
+      </div>
+    </div>`;
+  },
+
+  8: ()=>`
+    <div class="step-card">
+      <div class="step-title"><div class="st-num">8</div><div class="st-text">Food &amp; Meals</div></div>
+      <div class="form-field">
+        <label>Meal Plan</label>
+        <div class="toggle-pills">
+          ${['No meals (room only)','Breakfast only','Breakfast + Dinner','All meals (3x/day)','Full board'].map(m=>`
+            <div class="tpill${formData.mealPlan===m?' selected':''}" onclick="selectToggle('mealPlan','${m}',this)">${m}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Food Preference</label>
+        <div class="toggle-pills">
+          ${['Pakistani/Indian','Arabic','International','Vegetarian','Diabetic-friendly','No spicy food'].map(f=>`
+            <div class="tpill${formData.foodType===f?' selected':''}" onclick="selectToggle('foodType','${f}',this)">${f}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Dining Location</label>
+        <div class="toggle-pills">
+          ${['Hotel restaurant','Restaurant allowance (cash)','No preference'].map(l=>`
+            <div class="tpill${formData.foodLocation===l?' selected':''}" onclick="selectToggle('foodLocation','${l}',this)">${l}</div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+
+  9: ()=>{
+    const services = {
+      'Health Services':['Wheelchair required','Medical/nurse support','Elderly care','Baby stroller'],
+      'Documentation':['Visa assistance','Passport guidance','Vaccination help'],
+      'Religious':['Alim guide','Quran classes','Ladies-only guide'],
+      'Extras':['Travel insurance','Saudi SIM card','Prayer mat + Ihram set','Zamzam water allowance','Shopping time included','Gift packages','Group type: Family','Group type: Ladies only','Group type: Senior citizens','Group type: First-timers','Group type: Corporate']
+    };
+    return `<div class="step-card">
+      <div class="step-title"><div class="st-num">9</div><div class="st-text">Extra Services</div></div>
+      ${Object.entries(services).map(([cat,items])=>`
+        <div class="sub-label">${cat}</div>
+        <div class="check-grid" style="margin-bottom:12px;">
+          ${items.map(s=>`
+            <div class="check-item${formData.extraServices.includes(s)?' checked':''}" onclick="toggleCheck(this,'extraServices','${s.replace(/'/g,"\\'")}')">
+              <input type="checkbox"${formData.extraServices.includes(s)?' checked':''}>${s}
+            </div>`).join('')}
+        </div>`).join('')}
+    </div>`;
+  },
+
+  10: ()=>`
+    <div class="step-card">
+      <div class="step-title"><div class="st-num">10</div><div class="st-text">Budget &amp; Notes</div></div>
+      <div class="form-field">
+        <label>Budget Per Person *</label>
+        <div class="toggle-pills">
+          ${['Economy (under $1,500)','Standard ($1,500–$3,000)','Premium ($3,000–$5,000)','VIP ($5,000+)','Flexible'].map(b=>`
+            <div class="tpill${formData.budget===b?' selected':''}" onclick="selectToggle('budget','${b}',this)">${b}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field" style="margin-top:14px;">
+        <label>Special Notes or Requests</label>
+        <textarea id="s10notes" rows="4" placeholder="Any special requirements, health conditions, preferences...">${escHtml(formData.notes)}</textarea>
+      </div>
+      <div class="form-field">
+        <label>How did you hear about us?</label>
+        <select id="s10source">
+          <option value="">-- Select --</option>
+          ${['Google Search','Facebook','WhatsApp referral','Friend/Family','Instagram','YouTube','HashmiTools website','Other'].map(s=>`<option value="${s}"${formData.source===s?' selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+    </div>`
+};
+
+// ==================== NAVIGATION ====================
+function renderStep(step){
+  document.getElementById('stepsContainer').innerHTML = stepRenderers[step]();
+  const nav = document.createElement('div');
+  nav.className = 'step-nav';
+  if(step > 1){
+    const prev = document.createElement('button');
+    prev.className = 'btn-prev';
+    prev.textContent = '← Back';
+    prev.onclick = ()=>goStep(step-1,'prev');
+    nav.appendChild(prev);
+  }
+  const next = document.createElement('button');
+  next.className = 'btn-next';
+  next.textContent = step < TOTAL_STEPS ? 'Next Step →' : '🕋 Generate Query';
+  next.onclick = ()=>goStep(step+1,'next');
+  nav.appendChild(next);
+  document.getElementById('stepsContainer').appendChild(nav);
+  updateProgress(step);
+}
+
+function saveCurrentStep(step){
+  if(step===1){
+    formData.name = v('s1name');
+    formData.whatsapp = v('s1wa');
+    formData.email = v('s1email');
+    formData.city = v('s1city');
+  } else if(step===2){
+    formData.checkin = v('s2ci');
+    formData.checkout = v('s2co');
+    calcNights();
+  } else if(step===3){
+    formData.totalHajis = v('s3total');
+    formData.adults = v('s3adults');
+    formData.children = v('s3children');
+    formData.infants = v('s3infants');
+  } else if(step===10){
+    formData.notes = v('s10notes');
+    formData.source = document.getElementById('s10source')?.value||'';
+  }
+}
+
+function goStep(target, dir){
+  saveCurrentStep(currentStep);
+  if(dir==='next'){
+    if(!validateStep(currentStep)) return;
+  }
+  if(target > TOTAL_STEPS){
+    saveCurrentStep(TOTAL_STEPS);
+    if(!validateStep(TOTAL_STEPS)) return;
+    showPreview();
+    return;
+  }
+  currentStep = target;
+  renderStep(currentStep);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateStep(step){
+  if(step===1){
+    if(!formData.name && !v('s1name')){ alert('Please enter your full name.'); return false; }
+    if(!formData.whatsapp && !v('s1wa')){ alert('Please enter your WhatsApp number.'); return false; }
+    if(!formData.city && !v('s1city')){ alert('Please enter your city.'); return false; }
+  }
+  if(step===2){
+    if(!formData.checkin){ alert('Please select check-in date.'); return false; }
+    if(!formData.checkout){ alert('Please select check-out date.'); return false; }
+    if(!formData.umrahType){ alert('Please select Umrah type.'); return false; }
+  }
+  if(step===3){
+    if(!formData.totalHajis && !v('s3total')){ alert('Please enter total number of hajis.'); return false; }
+  }
+  if(step===10 && !formData.budget){ alert('Please select a budget range.'); return false; }
+  return true;
+}
+
+function v(id){ return document.getElementById(id)?.value?.trim()||''; }
+
+// ==================== INTERACTIVE HELPERS ====================
+function selectToggle(field, value, el){
+  formData[field] = value;
+  el.closest('.toggle-pills,.star-select').querySelectorAll('.tpill,.star-opt').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function selectStar(field, value, el){
+  formData[field] = value;
+  el.closest('.star-select').querySelectorAll('.star-opt').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggleCheck(el, arrayField, value){
+  el.classList.toggle('checked');
+  const arr = formData[arrayField];
+  const idx = arr.indexOf(value);
+  if(idx===-1) arr.push(value); else arr.splice(idx,1);
+}
+function updateRoomQty(room, input){
+  const qty = parseInt(input.value)||0;
+  formData.rooms[room] = qty;
+  input.closest('.room-row').classList.toggle('checked', qty>0);
+}
+function calcNights(){
+  const ci = document.getElementById('s2ci')?.value;
+  const co = document.getElementById('s2co')?.value;
+  formData.checkin = ci||formData.checkin;
+  formData.checkout = co||formData.checkout;
+  if(formData.checkin && formData.checkout){
+    const diff = (new Date(formData.checkout) - new Date(formData.checkin)) / 86400000;
+    formData.nights = diff > 0 ? Math.round(diff) : 0;
+    const wrap = document.getElementById('nightsBadgeWrap');
+    if(wrap) wrap.innerHTML = formData.nights ? `<div class="nights-badge">🌙 ${formData.nights} Nights</div>` : '';
+  }
+}
+
+// ==================== QUERY GENERATOR ====================
+function generateQuery(){
+  const d = formData;
+  const rooms = Object.entries(d.rooms).filter(([,q])=>q>0).map(([t,q])=>`${t} × ${q}`).join(', ') || 'Not specified';
+  const specialRooms = d.specialRooms.length ? d.specialRooms.join(', ') : 'None';
+  const makkahZ = d.makkahZiyarat.length ? d.makkahZiyarat.join(', ') : 'None selected';
+  const madinahZ = d.madinahZiyarat.length ? d.madinahZiyarat.join(', ') : 'None selected';
+  const extras = d.extraServices.length ? d.extraServices.join(', ') : 'None';
+  const transExtras = d.transportExtras.length ? d.transportExtras.join(', ') : 'None';
+
+  const msg =
+`🕋 *UMRAH PACKAGE INQUIRY*
+━━━━━━━━━━━━━━━━━━━━━━
+_Sent via HashmiTools Umrah Planner_
+_hashmitools.vercel.app_
+
+👤 *HAJI INFORMATION*
+▸ Name: ${d.name||'—'}
+▸ WhatsApp: ${d.whatsapp||'—'}
+▸ Email: ${d.email||'—'}
+▸ City: ${d.city||'—'}
+
+📅 *TRAVEL DATES*
+▸ Check-in: ${d.checkin||'—'}
+▸ Check-out: ${d.checkout||'—'}
+▸ Duration: *${d.nights} Nights*
+▸ Umrah Type: ${d.umrahType||'—'}
+
+👥 *GROUP SIZE*
+▸ Total Hajis: ${d.totalHajis||'—'}
+▸ Adults (18+): ${d.adults||'—'}
+▸ Children (2–17): ${d.children||'0'}
+▸ Infants (under 2): ${d.infants||'0'}
+▸ Muhram: ${d.muhram||'—'}
+
+🏨 *HOTEL PREFERENCES*
+🕋 Makkah Hotel:
+  ▸ Distance from Haram: ${d.makkahDist||'—'}
+  ▸ Star Rating: ${d.makkahStars||'—'}
+🕌 Madinah Hotel:
+  ▸ Distance from Nabawi: ${d.madinahDist||'—'}
+  ▸ Star Rating: ${d.madinahStars||'—'}
+
+🛏️ *ROOM REQUIREMENTS*
+▸ Room Types: ${rooms}
+▸ Special Requests: ${specialRooms}
+
+✈️ *TRANSPORT*
+▸ Airport: ${d.airport||'—'}
+▸ Transport Type: ${d.transportType||'—'}
+▸ Additional Transport: ${transExtras}
+
+🌟 *ZIYARAT*
+Makkah: ${makkahZ}
+Madinah: ${madinahZ}
+
+🍽️ *FOOD & MEALS*
+▸ Meal Plan: ${d.mealPlan||'—'}
+▸ Food Type: ${d.foodType||'—'}
+▸ Dining Location: ${d.foodLocation||'—'}
+
+🎁 *EXTRA SERVICES*
+${extras}
+
+💰 *BUDGET*
+▸ Per Person: ${d.budget||'—'}
+
+📝 *NOTES*
+${d.notes||'No special notes.'}
+
+📣 *How they heard about us:* ${d.source||'—'}
+
+━━━━━━━━━━━━━━━━━━━━━━
+Sent via HashmiTools Umrah Planner
+https://hashmitools.vercel.app/tools/plan-umrah.html`;
+
+  return msg;
+}
+
+function showPreview(){
+  document.getElementById('stepsContainer').style.display='none';
+  document.getElementById('progressWrap').style.display='none';
+  const preview = document.getElementById('previewSection');
+  preview.style.display='block';
+  document.getElementById('previewBox').textContent = generateQuery();
+  preview.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function sendWhatsApp(){
+  const msg = generateQuery();
+  const url = `https://wa.me/${AGENT_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
+}
+
+function copyQuery(){
+  const text = document.getElementById('previewBox').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const toast = document.getElementById('copiedToast');
+    toast.style.display = 'block';
+    setTimeout(()=>toast.style.display='none', 2500);
+  }).catch(()=>{
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+function editQuery(){
+  document.getElementById('previewSection').style.display='none';
+  document.getElementById('stepsContainer').style.display='block';
+  document.getElementById('progressWrap').style.display='block';
+  currentStep = 10;
+  renderStep(currentStep);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function escHtml(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ==================== INIT ====================
+buildDots();
+renderStep(1);
+</script>
+
+<script>
+(function(){
+  var ads = document.querySelectorAll('.adsbygoogle');
+  for(var i=0;i<ads.length;i++){ try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){} }
+})();
+</script>
+</body>
+</html>

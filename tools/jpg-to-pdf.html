@@ -235,6 +235,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
   .action-row { flex-direction: column; }
   .convert-btn { min-width: unset; }
 }
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
 <!-- ══ GEO/SEO: Primary Meta ══════════════════════════════════════════════ -->
 <meta name="description" content="Convert JPG, PNG, and other images to PDF online for free. Add multiple images, set page size, adjust margins. No signup. Instant PDF download.">
@@ -588,7 +590,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
       <!-- Preview of first image -->
       <div id="previewSection" style="margin-top:20px;display:none;">
         <div style="font-size:0.8rem;font-weight:600;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em;">Preview (First Image)</div>
-        <img id="previewImg" style="max-height:200px;max-width:100%;border-radius:var(--radius);border:1px solid var(--border);object-fit:contain;" alt="Preview" />
+        <img loading="lazy" id="previewImg" style="max-height:200px;max-width:100%;border-radius:var(--radius);border:1px solid var(--border);object-fit:contain;" alt="Preview" />
       </div>
     </div>
   </div>

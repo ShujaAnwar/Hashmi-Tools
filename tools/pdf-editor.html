@@ -393,6 +393,8 @@ a{color:var(--accent);text-decoration:none}
   #mobilePropsBtn{display:flex}
   .tb-btn{width:42px;height:44px}
 }
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
 <!-- ══ GEO/SEO: Primary Meta ══════════════════════════════════════════════ -->
 <meta name="description" content="Edit PDF files online for free. Add text, images, signatures, highlights and shapes to any PDF. No signup needed. Files stay private on your device.">
@@ -2048,7 +2050,7 @@ document.getElementById('sig-upload-input').onchange = (e)=>{
   reader.onload = (ev)=>{
     sigUploadData = ev.target.result;
     const prev = document.getElementById('sig-upload-preview');
-    if(prev) prev.innerHTML = `<img src="${ev.target.result}" style="max-height:80px;max-width:100%;border-radius:4px">`;
+    if(prev) prev.innerHTML = `<img loading="lazy" src="${ev.target.result}" style="max-height:80px;max-width:100%;border-radius:4px">`;
   };
   reader.readAsDataURL(f);
   e.target.value='';
@@ -2819,10 +2821,11 @@ console.log('%c HashmiTools PDF Editor Ready ✓', 'color:#6c63ff;font-weight:bo
   <p>© 2025 HashmiTools.com — All tools are free, no signup required. Files processed locally in your browser.</p>
   <nav aria-label="Footer navigation">
     <a href="../index.html">Home</a> |
-    <a href="../sitemap.xml">Sitemap</a> |
     <a href="../about.html">About</a> |
-    <a href="../privacy.html">Privacy Policy</a>
-  </nav>
+    <a href="../contact.html">Contact</a> |
+    <a href="../privacy.html">Privacy Policy</a> |
+    <a href="../terms.html">Terms of Use</a>
+    </nav>
   <time datetime="2025-06-16" itemprop="dateModified">Last updated: June 16, 2025</time>
 </footer>
 <script>

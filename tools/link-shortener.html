@@ -164,7 +164,9 @@
       .ls-shorten-btn { border-radius:0 0 12px 12px; }
       .ls-url-input { border-radius:12px 12px 0 0; border-bottom:1px solid #e2e8f0; }
     }
-  </style>
+  
+.adsbygoogle{min-height:90px;display:block;}
+</style>
   <script type="application/ld+json">
   [{"@context":"https://schema.org","@type":"WebApplication","name":"Link Shortener – Shorten URLs Like Bitly","description":"Shorten long URLs instantly for free. Create short links, generate QR codes, and track click counts — no signup needed. Free Bitly-alternative link shortener.","url":"https://hashmitools.com/tools/link-shortener.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
     ,{
@@ -374,16 +376,65 @@
     </section>
   </div>
 
+<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
+<article class="ht-content-article" style="max-width:860px;margin:2rem auto 60px;padding:0 20px;font-family:'Inter',sans-serif;color:#1e293b;line-height:1.75">
+<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">How the URL Shortener Works — and Why Link Length Matters</h2>
+<p>The HashmiTools URL Shortener converts any long web address into a compact, shareable short link using the TinyURL API. When you paste a long URL and click shorten, the API creates a redirect mapping — anyone who visits the short link is automatically forwarded to the original destination. This is useful because: long URLs look unprofessional in messages and social media posts; they break awkwardly across lines in emails; they can expose tracking parameters or internal campaign codes you may prefer to keep private; and they're far easier to type or remember.</p>
+<p>A typical use case: a product link on Daraz or Amazon contains 200+ characters of tracking parameters. Sharing that raw URL in a WhatsApp group looks spammy and takes up space. The shortened version — a clean 20-character link — shares identically, looks professional, and reduces the cognitive friction for recipients to click.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Who Should Use This Tool</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Social media managers</strong> who need clean links for Instagram bio, Twitter/X posts (character limits), and Facebook captions.</li>
+  <li style="margin-bottom:.5rem"><strong>WhatsApp broadcast users</strong> running businesses or community groups who share product links, event registrations, or news articles regularly.</li>
+  <li style="margin-bottom:.5rem"><strong>Content creators</strong> on YouTube and TikTok who reference URLs in videos where audiences must manually type the link.</li>
+  <li style="margin-bottom:.5rem"><strong>Students and professionals</strong> sharing Google Drive, Docs, or Sheets links that are unwieldy in their raw form.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Tips for Safe Link Sharing</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Verify the destination before sharing shortened links from unknown sources.</strong> Shortened links can disguise phishing sites. Always hover over (or use a link preview service) for shortened links you receive from unfamiliar senders.</li>
+  <li style="margin-bottom:.5rem"><strong>Don't shorten already-shortened links.</strong> Double-shortening creates a redirect chain that slows page load and can trigger spam filters on some platforms.</li>
+  <li style="margin-bottom:.5rem"><strong>Use descriptive anchor text when possible.</strong> In emails and documents, hyperlink the short URL to descriptive text ("View the product here") rather than displaying the raw short link — this is better UX and improves click-through rates.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How long do shortened links last?</h3>
+<p style="margin:0">Links created through this tool use the TinyURL service, which has been operating since 2002 and maintains links indefinitely for free. Unlike some URL shorteners that expire free links after 30–90 days, TinyURL short links do not have an expiry date. However, no online service guarantees permanent availability — if TinyURL's service changes or terminates, the links would cease to work. For business-critical long-term links, consider using a custom domain shortener service that you control, which gives you full ownership of the redirect.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does this URL shortener track clicks?</h3>
+<p style="margin:0">This HashmiTools shortener tool itself does not track any analytics — it simply calls the TinyURL API and returns the shortened link. Whether TinyURL tracks clicks on its redirects is governed by TinyURL's own privacy policy. For click tracking, engagement analytics, and geographic data on who is clicking your links, you would need a dedicated link analytics service such as Bitly's paid plan, Rebrandly, or an enterprise URL management platform. For most personal and small business use cases, the basic shortening functionality here is sufficient.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can I shorten any URL, including local or intranet links?</h3>
+<p style="margin:0">The TinyURL API requires a publicly accessible URL — it cannot shorten links to local IP addresses (192.168.x.x), localhost, or private intranet URLs that require VPN access. It also cannot shorten certain URLs that are blocked by TinyURL's content moderation (typically links to known malicious or spam sites). For most standard web URLs — websites, YouTube videos, Google Docs, e-commerce product pages, news articles — the tool works reliably. If a URL fails to shorten, check that it is publicly accessible and well-formed (starts with http:// or https://).</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is there a rate limit on how many links I can shorten?</h3>
+<p style="margin:0">The free TinyURL API used by this tool has rate limits that prevent bulk automated shortening. For typical personal use — shortening a few dozen links per day — you will not encounter any limits. If you need to shorten large volumes of links programmatically (hundreds or thousands per day), you should use TinyURL's commercial API plan or an alternative bulk URL management service. HashmiTools does not impose its own separate rate limits beyond what the underlying API enforces.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Why is my shortened link blocked on WhatsApp or Facebook?</h3>
+<p style="margin:0">Meta platforms (WhatsApp, Facebook, Instagram) and some email spam filters block certain URL shortener domains that have been historically used to spread spam or phishing links. If your TinyURL link is blocked, it is not because of anything wrong with your specific link — it is because the domain (tinyurl.com) may be on the platform's blocked list. Solutions: (1) Share the original full URL instead; (2) Use a custom-domain short link service where your own domain is the shortener (e.g., yourbrand.pk/link); (3) Use Bitly, which has better relationships with platform spam filters due to their moderation systems. This blocking issue affects all free URL shortener services to varying degrees.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can I use this tool to shorten affiliate or referral links?</h3>
+<p style="margin:0">Yes, technically you can shorten affiliate links. However, be aware that many affiliate programmes and marketplace platforms (Daraz, Amazon, ShareASale) prohibit or restrict cloaking affiliate links with URL shorteners in their terms of service — particularly for links shared in ads or on social media. The reason is that platforms want clear disclosure to users when a link generates a commission. Violating these terms can result in your affiliate account being suspended. Always check the terms of your specific affiliate programme before shortening links for promotional use, and consider appending a disclosure to your content instead.</p>
+</div>
+</article>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-bottom">
       <div class="container">
         <div class="footer-bottom-content">
-          <p>© 2025 <strong>HashmiTools.com</strong></p>
+          <p>© 2026 <strong>HashmiTools.com</strong></p>
           <div class="footer-bottom-links">
+            <a href="../about.html">About</a>
+            <a href="../contact.html">Contact</a>
             <a href="../privacy.html">Privacy</a>
             <a href="../terms.html">Terms</a>
-            <a href="../contact.html">Contact</a>
           </div>
         </div>
       </div>

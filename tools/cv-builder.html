@@ -1246,5 +1246,65 @@ if (!localStorage.getItem('cv_anthropic_key') && !localStorage.getItem('cv_modal
   }, 1500);
 }
 </script>
+<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
+<article class="ht-content-article" style="max-width:860px;margin:0 auto 60px;padding:0 20px;font-family:'Inter',sans-serif;color:#1e293b;line-height:1.75">
+<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">How the AI CV Builder Works — From Blank Form to Professional Resume</h2>
+<p>The HashmiTools AI CV Builder combines a structured data-entry form with the Claude AI language model to produce polished, professional CV content automatically. You fill in your factual details — work history, education, skills, contact information — and the AI rewrites your raw bullet points into action-verb-led, impact-quantified professional statements. For example, "handled customer complaints" becomes "Resolved an average of 35 daily customer inquiries with a 94% satisfaction rating, reducing escalations by 28%." This transformation — turning mundane job descriptions into compelling achievements — is precisely what recruiters and ATS (Applicant Tracking Systems) evaluate.</p>
+<p>The builder supports multiple CV styles (modern, classic, minimal) with real-time preview. You can download the final CV as a formatted PDF ready to email or upload to job portals. Your draft is auto-saved to your browser's localStorage so you never lose work in progress.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Who Should Use This CV Builder</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Fresh graduates</strong> applying for their first job who struggle to present limited experience compellingly — the AI knows how to frame internships, university projects, and volunteer work as genuine professional strengths.</li>
+  <li style="margin-bottom:.5rem"><strong>Mid-career professionals</strong> updating a CV they haven't touched in 5+ years and who need it modernised quickly for a sudden opportunity.</li>
+  <li style="margin-bottom:.5rem"><strong>Job seekers applying to international roles</strong> — Gulf, UK, Canada — who need their CV formatted and phrased according to international professional standards rather than local conventions.</li>
+  <li style="margin-bottom:.5rem"><strong>Anyone applying to multiple roles</strong> who wants to tailor their CV's professional summary and skills section for different job descriptions without rewriting from scratch each time.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Worked Example: Before and After AI Enhancement</h2>
+<p><strong>Raw input (what you type):</strong><br>Job title: Marketing Executive | Company: ABC Foods | Duties: Social media, content, ads, increased sales</p>
+<p><strong>AI-enhanced output:</strong><br>"Managed all social media channels (Instagram 45K, Facebook 120K) and developed weekly content calendars aligned with brand strategy. Launched three paid digital campaigns on Meta Ads that drove a 34% increase in online sales over six months and reduced cost-per-acquisition by PKR 120."</p>
+<p>The difference is not fabrication — it is structured articulation of the same experience, using specific metrics, action verbs (managed, developed, launched, drove), and cause-effect framing that modern recruiters expect. The AI asks you clarifying questions where it needs more detail before generating enhanced descriptions.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Tips for an ATS-Optimised CV in Pakistan</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Mirror the job description's exact keywords.</strong> ATS systems at major Pakistani employers (Unilever, HBL, Mobilink, government portals) filter CVs by keyword match before a human ever reads them. If the job description says "project management" and your CV says "project coordination," you may be filtered out.</li>
+  <li style="margin-bottom:.5rem"><strong>One page for under 5 years' experience; two pages maximum.</strong> Pakistani hiring managers and Gulf recruiters consistently report that CVs beyond two pages are rarely read in full. Ruthlessly prioritise relevance over completeness.</li>
+  <li style="margin-bottom:.5rem"><strong>Include a professional summary, not an "Objective Statement."</strong> "Seeking a challenging position to utilise my skills" tells a recruiter nothing. A professional summary — 3 sentences, your title, years of experience, and top two achievements — is the first thing read and the last thing remembered.</li>
+  <li style="margin-bottom:.5rem"><strong>Quantify everything possible.</strong> Team size, revenue managed, users served, percentage improvements, time saved. Numbers make claims credible and memorable.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is the CV Builder completely free?</h3>
+<p style="margin:0">The CV form, templates, real-time preview, and PDF download are all completely free with no account required. The AI-enhancement feature requires a Claude API key from Anthropic, which has a generous free tier sufficient for generating multiple CVs. Once you have a free API key, enter it once and the tool stores it locally in your browser — you never need to re-enter it unless you clear your browser data.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Will my CV look different on different devices or in email?</h3>
+<p style="margin:0">The PDF download produces a consistent, fixed-layout document that looks identical regardless of the device used to view it. This is critical for professional use — a CV shared as a Word document may reformat when opened on a different version of Microsoft Word or on a Mac. Always share your HashmiTools CV as a PDF. The preview you see in the builder is a faithful representation of the final PDF output.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does HashmiTools store my CV data?</h3>
+<p style="margin:0">No. All CV data is stored exclusively in your browser's localStorage on your own device. It is never transmitted to HashmiTools servers. When you use the AI enhancement feature, your CV content is sent directly from your browser to Anthropic's API using your own API key — it does not pass through HashmiTools infrastructure. If you clear your browser data or switch devices, your draft will not be available; download your PDF before closing the session.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How do I tailor my CV for different jobs?</h3>
+<p style="margin:0">Professional advice: maintain one "master CV" with all your experience in detail, then create tailored versions for specific applications by adjusting the professional summary, reordering skills to match the job description, and emphasising the most relevant experience. The AI builder helps with this — you can generate different professional summaries for the same CV by changing the "Target Role" prompt. Having three or four tailored CVs is far more effective than sending one generic CV to 50 applications.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What makes a good CV for Gulf (UAE/Saudi/Qatar) job applications?</h3>
+<p style="margin:0">Gulf employers have specific expectations that differ from South Asian conventions. Include a professional photo (this is standard and expected, unlike in the UK/US where it's discouraged). Include your nationality prominently. Ensure your contact information includes WhatsApp number, LinkedIn URL, and a professional email (not a nickname). Highlight any Arabic language skills, even basic conversational. Use the reverse-chronological format. Gulf HR managers from Pakistani and Indian backgrounds report that CVs with clear formatting, quantified achievements, and no spelling errors stand out significantly in a market where many applicants submit rushed, unformatted documents.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can I use this CV builder for creative jobs (design, media, content)?</h3>
+<p style="margin:0">Yes, though for creative roles in design, advertising, and media, a portfolio link is more important than any CV format. The HashmiTools CV builder produces clean, professional CVs in multiple styles — the minimal template works particularly well for creative professionals who prefer a clean aesthetic over a corporate look. Include your portfolio URL prominently in the contact section. For highly visual roles, consider the CV as a door-opener that gets you to the portfolio review stage, not the final arbiter of your creative ability.</p>
+</div>
+</article>
+<footer style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:24px;text-align:center;font-size:0.83rem;color:#64748b;margin-top:60px">
+  <p>© 2026 <a href="../index.html" style="color:#6366f1;text-decoration:none">HashmiTools.com</a> — Free Online Tools. All rights reserved. |
+  <a href="../about.html" style="color:#6366f1;text-decoration:none">About</a> |
+  <a href="../contact.html" style="color:#6366f1;text-decoration:none">Contact</a> |
+  <a href="../privacy.html" style="color:#6366f1;text-decoration:none">Privacy Policy</a> |
+  <a href="../terms.html" style="color:#6366f1;text-decoration:none">Terms of Use</a></p>
+</footer>
 </body>
 </html>

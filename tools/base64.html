@@ -71,6 +71,8 @@ textarea:focus{border-color:var(--accent-purple)}
 .file-zone{border:2px dashed var(--border-glass);border-radius:8px;padding:1.5rem;text-align:center;cursor:pointer;margin-bottom:1rem;transition:var(--transition)}
 .file-zone:hover{border-color:var(--accent-purple)}
 .file-zone input{display:none}
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
   <link rel="stylesheet" href="../assets/css/global.css">
   <script src="../assets/js/theme.js"></script>
@@ -182,7 +184,7 @@ textarea:focus{border-color:var(--accent-purple)}
         <textarea id="imgInput" placeholder="data:image/png;base64,iVBORw0KGgo... or just the base64 string" oninput="previewImage()"></textarea>
         <div class="error-msg" id="imgError">Not a valid Base64 image</div>
         <div class="output-header" style="margin-top:.75rem"><span class="output-label">Image Preview</span></div>
-        <img id="imgPreview" class="img-preview" alt="Preview">
+        <img loading="lazy" id="imgPreview" class="img-preview" alt="Preview">
         <div id="imgStats" style="font-size:.78rem;color:var(--text-muted);margin-top:.4rem"></div>
         <button class="btn btn-green" onclick="downloadImage()" id="imgDlBtn" style="display:none;margin-top:.75rem"><i class="fas fa-download"></i> Download Image</button>
       </div>

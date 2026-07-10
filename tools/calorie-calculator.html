@@ -215,6 +215,8 @@ select.field-input { cursor: pointer; }
 .toast.show { transform: translateY(0); opacity: 1; }
 .section-divider { border: none; border-top: 1.5px solid var(--border-color); margin: 1.5rem 0; }
 .hidden { display: none !important; }
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
   <link rel="stylesheet" href="../assets/css/global.css">
   <script src="../assets/js/theme.js"></script>
@@ -1086,5 +1088,81 @@ calculate();
     }
   })();
   </script>
+
+<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
+<article class="ht-content-article" style="max-width:860px;margin:0 auto 60px;padding:0 20px;font-family:'Inter',sans-serif;color:#1e293b;line-height:1.75">
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">How the Calorie Calculator Works — The Science Behind the Numbers</h2>
+<p>The Calorie Calculator uses two established scientific formulas to estimate your daily energy needs: the <strong>Mifflin-St Jeor equation</strong> for calculating Basal Metabolic Rate (BMR), and the <strong>Harris-Benedict Activity Multiplier</strong> to adjust for your lifestyle. BMR is the number of calories your body burns at complete rest just to maintain vital functions — breathing, circulation, cell repair. It depends on your weight, height, age, and biological sex. The Mifflin-St Jeor formula, published in 1990 and validated across multiple population studies, is currently considered the most accurate BMR predictor for most adults:</p>
+<p style="background:#f1f5f9;padding:12px 16px;border-radius:8px;font-family:monospace;font-size:.9rem"><strong>Men:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) + 5<br><strong>Women:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) − 161</p>
+<p>Your BMR is then multiplied by an activity factor: 1.2 for sedentary (desk job, minimal exercise), 1.375 for light activity (exercise 1–3 days/week), 1.55 for moderate activity (exercise 3–5 days/week), 1.725 for very active (hard exercise 6–7 days/week), and 1.9 for extra active (physically demanding job plus daily training). The result is your Total Daily Energy Expenditure (TDEE) — the number of calories you need to maintain your current weight. To lose weight, you create a deficit below this number. To gain, you eat above it.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Who Should Use This Calculator</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Adults managing weight</strong> — whether targeting fat loss, muscle gain, or maintenance, knowing your precise TDEE is the non-negotiable starting point. Guessing your caloric needs is the single most common reason diets fail.</li>
+  <li style="margin-bottom:.5rem"><strong>People with desk jobs in Pakistan's cities</strong> — sedentary work combined with calorie-dense traditional food (biryani, parathas, chai with sugar) creates an energy surplus that accumulates gradually. This calculator helps quantify that gap.</li>
+  <li style="margin-bottom:.5rem"><strong>Athletes and gym-goers</strong> who want to ensure they're eating enough to fuel performance and recovery, not just enough to avoid hunger.</li>
+  <li style="margin-bottom:.5rem"><strong>Healthcare and nutrition students</strong> learning to apply TDEE calculations in clinical or coaching contexts.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Worked Example</h2>
+<p><strong>Scenario:</strong> Fatima, 30 years old, female, 65 kg, 162 cm tall, works as a teacher (light activity — standing, walking, but no gym).</p>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li><strong>BMR:</strong> (10 × 65) + (6.25 × 162) − (5 × 30) − 161 = 650 + 1,012.5 − 150 − 161 = <strong>1,351.5 kcal/day</strong></li>
+  <li><strong>Activity multiplier</strong> (light): 1,351.5 × 1.375 = <strong>1,858 kcal/day TDEE</strong></li>
+  <li><strong>To lose 0.5 kg/week:</strong> Create a deficit of ~500 kcal/day → target <strong>1,358 kcal/day</strong></li>
+  <li><strong>To gain 0.25 kg/week:</strong> Add ~250 kcal/day → target <strong>2,108 kcal/day</strong></li>
+</ul>
+<p>These numbers are Fatima's starting point for any dietary plan — not a rigid limit, but a calibrated target to adjust based on real-world results over 2–4 weeks.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Tips and Common Mistakes</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Most people overestimate activity level.</strong> "Moderately active" requires genuine exercise 3–5 times per week, not just walking to the car. When in doubt, choose the lower activity multiplier and adjust upward based on actual results.</li>
+  <li style="margin-bottom:.5rem"><strong>Calories are a target range, not an exact daily ceiling.</strong> Aiming to hit 1,400 kcal every day to the calorie is unnecessarily stressful and unsustainable. A weekly average within 100–150 kcal of your target is perfectly effective.</li>
+  <li style="margin-bottom:.5rem"><strong>Recalculate every 5–8 kg of weight change.</strong> As your body weight changes, your BMR changes — a smaller body needs fewer calories. Failing to recalculate is why people hit weight loss plateaus.</li>
+  <li style="margin-bottom:.5rem"><strong>Protein matters as much as total calories.</strong> Research consistently shows that higher protein intake (1.6–2.2g per kg of body weight) during a caloric deficit preserves muscle mass and reduces hunger. A calorie calculator is the first tool; a macronutrient calculator is the second.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
+
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Why does this calculator give a different number than other calorie calculators?</h3>
+<p style="margin:0">Different calorie calculators may use different BMR formulas. The most common alternatives are the original Harris-Benedict equation (1919, slightly less accurate for modern populations), the Katch-McArdle formula (which requires body fat percentage input and is most accurate for lean individuals), and the Mifflin-St Jeor equation used here. Variations of ±5–10% between calculators are normal and expected. None of them are perfectly accurate for any specific individual — they are population-average estimates. Your actual TDEE can only be determined precisely by tracking your food intake and weight over 3–4 weeks and observing how your weight responds.</p>
+</div>
+
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How many calories should I eat to lose weight safely?</h3>
+<p style="margin:0">A safe, sustainable rate of fat loss is 0.5–1 kg per week, which requires a daily caloric deficit of approximately 500–1,000 kcal below your TDEE. Larger deficits are possible short-term but become counterproductive — severe restriction triggers metabolic adaptation (the body reduces energy expenditure in response), muscle loss accelerates, hunger hormones (ghrelin) spike, and adherence collapses. For most adults, eating no fewer than 1,200 kcal/day (women) or 1,500 kcal/day (men) is a practical minimum below which nutritional adequacy becomes difficult. If your calculated deficit would push you below these thresholds, focus on increasing activity rather than further reducing intake.</p>
+</div>
+
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does this calculator account for Pakistani dietary patterns?</h3>
+<p style="margin:0">The TDEE calculation is universal — it is based on physiology, not cuisine. What varies by dietary pattern is how easy or difficult it is to hit your calorie target within your preferred food culture. Traditional Pakistani food tends to be higher in refined carbohydrates (white rice, naan, paratha) and cooking oil than Western dietary patterns. This doesn't make it incompatible with any calorie target — it means portion awareness matters more than ingredient selection. A half-plate of biryani is approximately 400–500 kcal; two parathas with butter are approximately 500–600 kcal. Knowing your TDEE from this calculator and cross-referencing with approximate calorie counts for common Pakistani dishes is a practical starting point.</p>
+</div>
+
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Should I consult a doctor before starting a calorie-restricted diet?</h3>
+<p style="margin:0">Yes — particularly if you have any existing medical conditions (diabetes, thyroid disorders, kidney disease, a history of eating disorders) or if you are planning a significant caloric restriction of more than 500 kcal/day below your TDEE. This calculator provides an estimate based on averages and does not account for individual medical history. Pregnant and breastfeeding women have substantially different energy requirements and should not use general population TDEE estimates for dietary planning without medical guidance. HashmiTools does not provide medical or nutritional advice — this tool is for general informational and educational use only.</p>
+</div>
+
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">I've been eating at my calculated deficit for 3 weeks and not losing weight. Why?</h3>
+<p style="margin:0">This is extremely common and has several likely explanations. The most frequent: underestimating caloric intake — research consistently shows people underestimate portions by 20–50%, particularly for oils, sauces, and liquid calories. The second most likely: overestimating activity — a "moderately active" person who did not exercise this week should have used the sedentary multiplier. The third: metabolic adaptation — if you've been in a severe deficit for a long time, your metabolic rate has partially downregulated. Solutions: track food precisely using a digital scale for 1–2 weeks (not eyeballing), recalculate your TDEE with your current weight, consider a 1–2 week "diet break" at maintenance calories to reset metabolic adaptation, and then return to the deficit.</p>
+</div>
+
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What is the difference between BMR, TDEE, and maintenance calories?</h3>
+<p style="margin:0">BMR (Basal Metabolic Rate) is the calories you burn at absolute rest — if you lay in bed all day doing nothing. TDEE (Total Daily Energy Expenditure) adds the calories burned through all physical activity — walking, exercise, and even digesting food (thermic effect of food accounts for roughly 10% of TDEE). Maintenance calories and TDEE are essentially the same thing — the number of calories at which your weight neither increases nor decreases. Weight loss happens at below-maintenance intake; weight gain at above-maintenance intake. This calculator gives you your TDEE directly — it is the most actionable number for any dietary goal.</p>
+</div>
+
+</article>
+
+<footer style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:24px;text-align:center;font-size:0.83rem;color:#64748b;margin-top:60px">
+  <p>© 2026 <a href="../index.html" style="color:#6366f1;text-decoration:none">HashmiTools.com</a> — Free Online Tools. All rights reserved. |
+  <a href="../about.html" style="color:#6366f1;text-decoration:none">About</a> |
+  <a href="../contact.html" style="color:#6366f1;text-decoration:none">Contact</a> |
+  <a href="../privacy.html" style="color:#6366f1;text-decoration:none">Privacy Policy</a> |
+  <a href="../terms.html" style="color:#6366f1;text-decoration:none">Terms of Use</a></p>
+</footer>
 </body>
 </html>

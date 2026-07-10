@@ -145,6 +145,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
 /* ERROR */
 .error-box{padding:16px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:12px;margin-bottom:20px;display:none;}
 .error-box p{font-size:.88rem;color:#991b1b;}
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
 </head>
 <body>
@@ -345,10 +347,82 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
 </div>
 </main>
 
+<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
+<article class="ht-content-article" style="max-width:860px;margin:0 auto 60px;padding:0 20px;font-family:var(--font-body,'Inter',sans-serif);color:var(--text-primary,#1e293b);line-height:1.75">
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:var(--text-heading,#0f172a)">How the AI Career Roadmap Generator Works</h2>
+<p>Plan Your Future uses the Claude AI model (claude-opus-4-5) to generate a personalised, actionable career roadmap based on the specific information you provide across twelve form fields: your name, age, education level, current field, city, career goal, dream job, biggest challenge, preferred timeline, budget availability, work preference, and current skills. Each of these inputs shapes the AI's response meaningfully — a 19-year-old matriculation student in Sialkot asking about freelancing receives a fundamentally different plan from a 32-year-old MBA graduate in Karachi asking about corporate leadership.</p>
+<p>The AI system prompt instructs Claude to respond exclusively with a structured JSON object containing seven sections: a personal message addressed to you by name, an overall strategy paragraph, a phased roadmap (typically 3–5 phases with milestones and timelines), key skills to learn with free resources, income opportunities relevant to the Pakistani and South Asian context (including platforms like Upwork, Fiverr, Digiskills.pk, and Rozee.pk), warning flags based on your specific situation, and one concrete next action you should take today. This structure is then rendered as a readable, professional roadmap document that you can download as a PDF.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Who This Tool Is Built For</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Recent graduates</strong> (B.Sc., MBA, MBBS, Engineering) who feel overwhelmed by career options and want a clear, step-by-step path forward rather than generic advice.</li>
+  <li style="margin-bottom:.5rem"><strong>Mid-career professionals</strong> considering a career pivot — for example, a teacher wanting to move into EdTech, or an accountant wanting to transition into financial analysis or freelance bookkeeping.</li>
+  <li style="margin-bottom:.5rem"><strong>Students still in university</strong> who want to use their remaining semesters strategically — building the right skills, portfolio, and network for their target role before graduation.</li>
+  <li style="margin-bottom:.5rem"><strong>Freelancers and entrepreneurs</strong> in Pakistan looking for a structured growth path rather than taking ad-hoc projects with no long-term direction.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Worked Example: A Real Roadmap Output</h2>
+<p>Consider <strong>Ahmed, 24, BSc Computer Science graduate, Lahore, wants to become a Data Scientist within 18 months, budget: PKR 5,000/month for courses</strong>.</p>
+<p>The AI roadmap the tool generates might look like this:</p>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Phase 1 (Months 1–3):</strong> Master Python for data analysis — free resources: CS50P (Harvard, free), Kaggle Learn Python micro-courses. Build 2 small data projects using public Pakistani datasets (population census, PSX stock data).</li>
+  <li style="margin-bottom:.5rem"><strong>Phase 2 (Months 4–8):</strong> Learn pandas, NumPy, matplotlib, scikit-learn. Complete one end-to-end ML project posted on GitHub. Begin contributing to Kaggle competitions. Enroll in a local bootcamp or Andrew Ng's ML Specialization on Coursera (audit free).</li>
+  <li style="margin-bottom:.5rem"><strong>Phase 3 (Months 9–14):</strong> Apply for junior data analyst/scientist roles on Rozee.pk and LinkedIn. Simultaneously build freelance profile on Upwork for data analysis gigs.</li>
+  <li style="margin-bottom:.5rem"><strong>Phase 4 (Months 15–18):</strong> Target mid-level data scientist positions. Expand into specialised skills (NLP, computer vision) based on employer demand in your first role.</li>
+  <li style="margin-bottom:.5rem"><strong>Warning flag:</strong> "Ahmed, your 18-month timeline is achievable but ambitious. Don't delay Phase 1 — the most common failure point is spending too long 'getting ready to learn' without producing tangible project work. GitHub activity is your most visible credential in the first 18 months."</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Getting the Best Results: Tips for Using Plan Your Future</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Be specific in every field.</strong> "I want to do something in computers" gives a vague roadmap. "I want to become a senior iOS developer at a product startup" gives a precise, actionable one. The more specific your inputs, the more targeted the output.</li>
+  <li style="margin-bottom:.5rem"><strong>Be honest about your challenges.</strong> The tool's warning flags section is specifically driven by what you write in the "Biggest Challenge" field. If you write "lack of discipline," the AI will address time management and accountability strategies. If you write "no money for courses," it will prioritise free resources. Don't write what sounds good — write what's true.</li>
+  <li style="margin-bottom:.5rem"><strong>Download your PDF immediately.</strong> The roadmap is generated fresh each time; it isn't saved on any server. Once you close the browser tab, the output is gone. Use the PDF download button to keep your roadmap and refer to it regularly.</li>
+  <li style="margin-bottom:.5rem"><strong>Re-run the tool every 6 months.</strong> Career plans should evolve. Re-entering your updated situation every 6 months — with new skills added, new goals, and a revised challenge — gives you a fresh roadmap that reflects where you actually are, not where you were when you started.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Frequently Asked Questions</h2>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Do I need to pay for a Claude API key to use this tool?</h3>
+<p style="margin:0">Yes — this tool requires a Claude API key from Anthropic to function. Anthropic offers a free tier that includes a generous monthly credit allowance, which is more than sufficient for generating multiple career roadmaps. To get a key: create a free account at console.anthropic.com, navigate to API Keys, generate a new key, and paste it into the API key field on this page. The key is stored only in your browser's localStorage — it is never sent to HashmiTools' servers. Each roadmap generation uses approximately 1,500–2,000 tokens (well under $0.01 at current Anthropic pricing), making this effectively free for personal use within the free tier limits.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is the career advice relevant to Pakistan specifically?</h3>
+<p style="margin:0">Yes, deliberately so. The AI system prompt instructs Claude to frame all advice within the South Asian and Pakistani context — recommending Pakistani job platforms (Rozee.pk, Mustakbil.com), government-supported upskilling programmes (Digiskills.pk, PSDF), local freelancing ecosystems (Fiverr is widely used in Pakistan; Upwork requires workarounds due to payment gateway limitations), and salary benchmarks in PKR. It also acknowledges structural realities like the importance of references (sifarish culture) in certain industries, the relative scarcity of formal internships in some sectors, and the opportunities created by Pakistan's rapidly growing remote-work economy. The advice is not blindly copied from US-centric career guides.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How accurate and reliable is the AI-generated roadmap?</h3>
+<p style="margin:0">The roadmap is as good as the information you provide and the AI's training data. Claude claude-opus-4-5 has strong knowledge of career paths, skill requirements, and the global job market. Its knowledge of the Pakistani market is good for tech, finance, and professional fields — areas with significant online presence and verifiable data. For highly specialised, niche, or rapidly evolving fields, treat the roadmap as a starting framework and validate specific claims (salary ranges, specific platform recommendations) against current sources. The "Warning Flags" section is particularly useful for identifying assumptions the AI is making about your situation that you may want to question.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can I use this for someone else's career — a student, child, or employee?</h3>
+<p style="margin:0">Absolutely. Career counsellors, teachers, and parents use this tool to generate structured guidance for students and young professionals. When filling in the form on behalf of someone else, enter their details (age, education, goals, challenges) as accurately as possible. The more honest and specific the inputs — even if the challenges sound unflattering — the more useful the output. School and university counsellors in Pakistan have found this tool particularly effective for students from backgrounds where formal career counselling is unavailable, as it provides structured, professional-quality guidance that is otherwise inaccessible.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What if my field isn't covered or the advice doesn't apply to me?</h3>
+<p style="margin:0">The AI handles virtually any career field — from conventional professional paths (medicine, law, engineering, finance) to creative and emerging fields (content creation, game development, UX design, Islamic finance, agricultural technology). If you're in a niche area, be more detailed in the "Current Field" and "Dream Job" fields to give the AI enough context. You can also include specific context in the "Biggest Challenge" field — for example, "I'm in a conservative family that doesn't support certain career choices" or "I live in a small city with no tech employers" — and the AI will factor these constraints explicitly into the roadmap.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is my personal information shared or stored anywhere?</h3>
+<p style="margin:0">Your form data is sent directly from your browser to the Anthropic Claude API using your own API key — it does not pass through HashmiTools' servers at any point. Anthropic's privacy policy governs how they handle API requests (they do not use API inputs to train models by default). HashmiTools does not store, log, or have access to anything you type in this form. Your API key is saved only in your browser's localStorage and is visible only to you. We strongly recommend not entering sensitive personal information (such as your full national ID number or detailed financial situation) in any online form, including this one.</p>
+</div>
+
+</article>
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-bottom">
-      <p>© 2025 HashmiTools.com — Free Online Tools. All rights reserved.</p>
+      <p>© 2026 <a href="../index.html">HashmiTools.com</a> — Free Online Tools. All rights reserved. |
+      <a href="../about.html">About</a> |
+      <a href="../contact.html">Contact</a> |
+      <a href="../privacy.html">Privacy Policy</a> |
+      <a href="../terms.html">Terms of Use</a></p>
     </div>
   </div>
 </footer>

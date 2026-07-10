@@ -120,6 +120,8 @@ input:checked+.heir-slider::before{transform:translateX(18px);background:#fff}
 .progress-bar-wrap{background:var(--bg-secondary);border-radius:4px;height:8px;overflow:hidden;margin-top:0.5rem}
 .progress-bar{height:100%;border-radius:4px;transition:width 0.5s ease}
 @media(max-width:768px){.heirs-grid{grid-template-columns:1fr}}
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
   <link rel="stylesheet" href="../assets/css/global.css">
   <script src="../assets/js/theme.js"></script>
@@ -1112,5 +1114,71 @@ document.addEventListener('DOMContentLoaded',()=>{
   </div>
 </section>
 
+<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
+<article class="ht-content-article" style="max-width:860px;margin:0 auto 60px;padding:0 20px;font-family:'Inter',sans-serif;color:#1e293b;line-height:1.75">
+<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">Islamic Inheritance (Mirath): How the Calculator Works</h2>
+<p>The Islamic Inheritance Calculator implements the rules of Fara'idh (فرائض) — the Quranic science of estate distribution — as codified in Surah An-Nisa (4:11-12, 4:176) and elaborated by centuries of Islamic jurisprudence. When a Muslim dies, their estate is distributed to eligible heirs in fixed fractional shares determined by their relationship to the deceased, their gender, and the presence or absence of other heirs. The calculator takes your inputs — estate value, surviving heirs — and computes each heir's entitlement according to these rules, including the Asabah (residuaries) calculation that distributes any remaining estate after fixed shares are assigned.</p>
+<p>The calculation covers the four main fixed-share heirs (Ashab al-Furudh): the spouse (1/4 or 1/8 depending on children), daughters (1/2 sole, 2/3 if multiple), mother (1/6 or 1/3), father (1/6 or Asabah), and handles the Hajb (حجب — blocking) rules that determine when certain heirs are excluded by the presence of closer relatives.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Who Should Use This Tool</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Families managing an estate</strong> after the passing of a family member who want to understand the Islamic distribution before consulting a lawyer or Islamic scholar.</li>
+  <li style="margin-bottom:.5rem"><strong>Islamic studies students</strong> learning Fara'idh who want to verify their manual calculations or work through practice scenarios.</li>
+  <li style="margin-bottom:.5rem"><strong>Muslims planning ahead</strong> (wasiyyah) who want to understand how their estate would be distributed under Islamic law so they can make informed decisions about any permissible discretionary bequests (wasiyyah, limited to 1/3 of estate to non-heirs).</li>
+  <li style="margin-bottom:.5rem"><strong>Legal professionals and Islamic finance practitioners</strong> in Pakistan, where the Muslim Family Laws Ordinance 1961 governs succession for Muslims, and where inheritance disputes are common in both family courts and Islamic arbitration.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Worked Example: A Real Inheritance Calculation</h2>
+<p><strong>Scenario:</strong> A Muslim man passes away in Pakistan. His estate totals PKR 12,000,000 (1.2 crore). He is survived by: his wife, one son, and two daughters. His parents predeceased him.</p>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li><strong>Wife's share:</strong> 1/8 (because there are children) = PKR 1,500,000</li>
+  <li><strong>Remaining estate:</strong> PKR 10,500,000 — distributed among children as Asabah</li>
+  <li><strong>Distribution ratio:</strong> Son receives 2 parts, each daughter receives 1 part (2:1:1 ratio per Quranic rule "for the male, the equivalent of the share of two females")</li>
+  <li><strong>Total parts:</strong> 4 (son:2, daughter:1, daughter:1). Each part = PKR 10,500,000 ÷ 4 = PKR 2,625,000</li>
+  <li><strong>Son:</strong> PKR 5,250,000 | <strong>Each daughter:</strong> PKR 2,625,000 | <strong>Wife:</strong> PKR 1,500,000</li>
+  <li><strong>Verification:</strong> 5,250,000 + 2,625,000 + 2,625,000 + 1,500,000 = PKR 12,000,000 ✓</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Important Notes and Common Misconceptions</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Debts and funeral expenses come first.</strong> Before any inheritance distribution, all debts of the deceased (including any unpaid zakat, kaffarah, or hajj obligation) and reasonable funeral expenses must be settled from the estate. The calculator works on the net distributable estate after these deductions.</li>
+  <li style="margin-bottom:.5rem"><strong>A wasiyyah (bequest) is capped at 1/3.</strong> A Muslim can leave up to 1/3 of their estate to non-heirs (e.g., a charity, a non-Muslim relative) through a will. Bequests to legal heirs are not valid without the consent of all other heirs.</li>
+  <li style="margin-bottom:.5rem"><strong>Non-Muslim heirs do not inherit under Islamic law.</strong> A non-Muslim son, daughter, or spouse does not receive an Islamic inheritance share. However, Pakistani civil law may treat this differently — always consult a lawyer for estates involving mixed-religion families.</li>
+  <li style="margin-bottom:.5rem"><strong>This calculator is for guidance only.</strong> Complex scenarios — grandchildren when children are present, half-siblings, adopted children, disputes between heirs — require consultation with a qualified Islamic scholar (Mufti) and/or a lawyer specialising in Muslim personal law.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Why do sons receive double the share of daughters in Islamic inheritance?</h3>
+<p style="margin:0">This ruling (Quran 4:11) is frequently misunderstood without its economic context. In Islamic family law, financial obligations fall asymmetrically on men: a son is obligated to support his wife, children, and sometimes parents from his inheritance. A daughter's inheritance is entirely her own — her husband bears her financial support. When the full system of Islamic financial obligations is considered together (mahr, nafaqah, custody), women's total financial entitlement over a lifetime is often greater than or equal to men's, despite the 2:1 inheritance ratio. Many Islamic scholars and jurists have elaborated on this comprehensively — it reflects a system-level financial architecture, not a statement of lesser worth.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What happens if there are no male heirs — only daughters?</h3>
+<p style="margin:0">If a man dies leaving only daughters (no sons), the daughters collectively receive 2/3 of the estate (if two or more daughters) or 1/2 (if only one daughter). The remaining 1/3 or 1/2 then passes to the next eligible Asabah — typically the father's brothers (paternal uncles) or their descendants. If no Asabah exists, the matter of Radd (returning the residue to the fixed-share heirs proportionally) applies in some madhabs (Hanafi, which is the predominant school in Pakistan). This is one of the more complex scenarios in Fara'idh and benefits from scholarly consultation.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is Islamic inheritance law legally enforceable in Pakistan?</h3>
+<p style="margin:0">Yes. Pakistan's Muslim Personal Law (Shariat) Application Act 1962 mandates that Muslim inheritance is governed by Islamic law. The Muslim Family Laws Ordinance 1961 contains additional provisions, including the controversial share of orphaned grandchildren. In practice, many Pakistani families distribute inheritance informally without court involvement, often leading to disputes later. Formally recording a distribution — even informally — with signed agreements between heirs is advisable. For significant estates, engaging a lawyer to draft a legal distribution deed prevents future disputes.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What is the share of an orphaned grandchild under Pakistani law?</h3>
+<p style="margin:0">Under the Muslim Family Laws Ordinance 1961, if a son predeceases the grandfather, the orphaned grandchildren (children of the predeceased son) inherit their father's share — up to a maximum of the share their father would have received. This is a statutory provision that differs from classical Hanafi Fara'idh, in which grandchildren are excluded by surviving sons. This specific scenario is one where Pakistani law explicitly modifies classical Islamic inheritance rules to protect orphaned grandchildren. The calculator accounts for this provision for Pakistani users.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can heirs agree to a different distribution than the Islamic calculation?</h3>
+<p style="margin:0">Yes, with important conditions. Once the Islamic shares are calculated and formally established, adult heirs of full legal capacity may voluntarily gift or waive portions of their share to other heirs or to non-heirs. This is permissible and common in Pakistani families — for example, brothers choosing to give their full share to their sisters who need it more, or heirs agreeing to keep family property undivided. What is not permissible is the deceased dictating a non-Islamic distribution in their will — the will only has authority over the 1/3 wasiyyah portion. The remaining 2/3+ must follow Islamic law, and heirs can only voluntarily deviate after the shares have been formally determined.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does this calculator handle all madhab differences?</h3>
+<p style="margin:0">The calculator primarily implements Hanafi Fara'idh rules, which are followed by the majority of Pakistani, Indian, Bangladeshi, Turkish, and Central Asian Muslims. It notes key differences where the Maliki, Shafi'i, and Hanbali schools diverge significantly — particularly on the Radd (return) and Umariyyatain (the two Umar scenarios for spouse and mother shares) issues. For Shia Muslims, inheritance rules differ substantially from Sunni schools — particularly in the role of paternal and maternal relatives — and the calculator is not designed for Shia inheritance calculations. Consulting a scholar of your specific tradition for complex scenarios is always recommended.</p>
+</div>
+</article>
+<footer style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:24px;text-align:center;font-size:0.83rem;color:#64748b;margin-top:60px">
+  <p>© 2026 <a href="../index.html" style="color:#6366f1;text-decoration:none">HashmiTools.com</a> — Free Online Tools. All rights reserved. |
+  <a href="../about.html" style="color:#6366f1;text-decoration:none">About</a> |
+  <a href="../contact.html" style="color:#6366f1;text-decoration:none">Contact</a> |
+  <a href="../privacy.html" style="color:#6366f1;text-decoration:none">Privacy Policy</a> |
+  <a href="../terms.html" style="color:#6366f1;text-decoration:none">Terms of Use</a></p>
+</footer>
 </body>
 </html>

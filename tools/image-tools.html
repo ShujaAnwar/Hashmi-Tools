@@ -131,7 +131,9 @@
       .tools-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
-  </style>
+  
+.adsbygoogle{min-height:90px;display:block;}
+</style>
   <link rel="stylesheet" href="../assets/css/global.css">
   <script src="../assets/js/theme.js"></script>
 
@@ -328,11 +330,34 @@
 
 </main>
 
+<!-- ═══ CONTENT ARTICLE ═══ -->
+<article style="max-width:860px;margin:2rem auto 60px;padding:0 20px;font-family:'Inter',sans-serif;color:#1e293b;line-height:1.75">
+<h2 style="font-size:1.45rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">How HashmiTools Image Tools Work — Browser-Based, No Upload Required</h2>
+<p>The HashmiTools Image section provides a suite of browser-based image processing tools that run entirely on your device using modern JavaScript APIs. Your images are never uploaded to external servers — all processing happens locally in your browser using the HTML5 Canvas API and, for AI-powered tasks, WebAssembly models downloaded once and cached. This means full privacy, no file size limits imposed by server restrictions, and faster processing because files don't travel over the internet.</p>
+<p>The collection includes: <strong>Image Compressor</strong> — reduce JPEG/PNG file size by 40–90% while preserving visual quality for faster website loading; <strong>Image Editor</strong> — crop, resize, rotate, adjust brightness/contrast, and add filters with a canvas-based editor; <strong>Background Remover</strong> — AI-powered background removal using the RMBG-1.4 model from BRIA AI, running entirely in-browser with no API key required; <strong>JPG to PDF</strong> — batch convert multiple images into a single PDF document; and <strong>Image Tools hub</strong> for accessing all image utilities in one place.</p>
+<p><strong>Ideal users:</strong> bloggers and website owners reducing image sizes for page speed; e-commerce sellers needing clean product photos without backgrounds; students submitting image assignments with file size limits; social media managers batch-resizing images for different platforms; and anyone who needs quick image adjustments without installing Photoshop or GIMP.</p>
+<h2 style="font-size:1.45rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How does the Background Remover work without an API key?</h3>
+<p style="margin:0">The Background Remover uses BRIA AI's RMBG-1.4 model implemented in ONNX format, loaded directly in your browser using the @huggingface/transformers.js library. On first use, the model (~170MB) is downloaded from Hugging Face's CDN and cached in your browser's IndexedDB. Subsequent uses are near-instant. The model runs on your CPU (or GPU if WebGL acceleration is available). No image data leaves your device — everything is processed locally. This approach makes background removal genuinely free, private, and unlimited, unlike API-based services that charge per image or require registration.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What image formats are supported?</h3>
+<p style="margin:0">Most tools support JPEG, PNG, and WebP for input. The Image Compressor outputs JPEG (best compression) or PNG (lossless). Background Remover outputs PNG (to preserve the transparent background). Image Editor supports JPEG, PNG, and WebP both as input and output. For PDF conversion (JPG to PDF), JPEG and PNG images are both supported. HEIC/HEIF format (used by iPhones) is not directly supported by browser Canvas APIs — convert HEIC to JPEG on your device first using the native Files app before using these tools.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is there a maximum file size for image processing?</h3>
+<p style="margin:0">Since processing is client-side, the effective limit is your device's available RAM rather than a server-imposed restriction. Practically: images up to 20MB process reliably on most modern phones and laptops. Very large RAW photography files (50MB+) may cause the browser to slow or crash on devices with less than 4GB RAM — use photo editing software for those. For the Background Remover specifically, the AI model processes images more slowly on larger files; images above 2000×2000 pixels are automatically downscaled before processing and the result is upscaled back, which maintains quality while keeping processing time under 30 seconds on most devices.</p>
+</div>
+</article>
+
   <!-- FOOTER -->
   <footer class="footer">
-    <p>© 2025 <a href="../index.html">HashmiTools.com</a> — Free Online Tools | 
-       <a href="../privacy.html">Privacy</a> | 
+    <p>© 2026 <a href="../index.html">HashmiTools.com</a> — Free Online Tools | 
        <a href="../about.html">About</a> | 
+       <a href="../contact.html">Contact</a> | 
+       <a href="../privacy.html">Privacy</a> | 
+       <a href="../terms.html">Terms</a> | 
        <a href="../sitemap.html">Sitemap</a></p>
   </footer>
 

@@ -96,6 +96,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary,#fff);color:var(
 .ns-title{font-weight:700;margin-bottom:8px;}
 .ns-sub{font-size:.85rem;color:var(--text-secondary,#777);}
 .retry-btn{margin-top:16px;padding:10px 24px;background:var(--bg-primary,#fff);border:2px solid #6366f1;color:#6366f1;border-radius:10px;font-weight:700;cursor:pointer;font-size:.9rem;}
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
 </head>
 <body>
@@ -165,10 +167,84 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary,#fff);color:var(
 </div>
 </main>
 
+<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
+<article class="ht-content-article" style="max-width:860px;margin:0 auto 60px;padding:0 20px;font-family:var(--font-body,'Inter',sans-serif);color:var(--text-primary,#1e293b);line-height:1.75">
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:var(--text-heading,#0f172a)">What Is Computer Doctor and How Does It Work?</h2>
+<p>Computer Doctor is a browser-based diagnostic tool that walks you through a structured decision tree to identify the most likely cause of a problem with your Windows PC, Mac, Android phone, or iPhone. Instead of spending hours searching forums or watching generic YouTube videos, you describe your device and symptom in two clicks — the tool then returns ranked possible causes, each with a step-by-step repair guide and a difficulty rating so you know exactly what you're getting into before you start.</p>
+<p>Under the hood, Computer Doctor uses a curated knowledge base of real-world repair scenarios. Each entry in the database maps a device–symptom pair (for example, "Windows PC — Running Slow") to a prioritised list of root causes, ordered from the most statistically common to the least. Each cause card includes the likelihood of that issue being the culprit, a plain-English explanation of why it happens, step-by-step repair instructions you can follow without technical training, an estimated time to fix, and a warning flag if the repair requires opening hardware or voiding a warranty. No data you enter is ever sent to a server — everything runs locally in your browser.</p>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Who Should Use This Tool</h2>
+<p>Computer Doctor is built for anyone who encounters a device problem and wants clear, actionable guidance without a computer science degree:</p>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Home users</strong> frustrated by a suddenly sluggish laptop or a phone that won't charge — the tool surfaces the three or four most likely causes immediately, so you're not chasing phantom fixes.</li>
+  <li style="margin-bottom:.5rem"><strong>Students and remote workers</strong> who can't afford downtime and need to resolve a Wi-Fi or display issue fast, without waiting for an IT helpdesk ticket.</li>
+  <li style="margin-bottom:.5rem"><strong>Small business owners</strong> who manage their own devices and want a second opinion before calling a paid technician — Computer Doctor helps you determine whether the fix is DIY-friendly or genuinely requires professional help.</li>
+  <li style="margin-bottom:.5rem"><strong>Tech-savvy users</strong> who want a structured checklist rather than trusting memory when they're under pressure.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Worked Example: Windows PC Running Slow</h2>
+<p>Here is a realistic scenario illustrating exactly how Computer Doctor guides you to a solution:</p>
+<p><strong>Situation:</strong> Your Windows 11 laptop has been noticeably slower over the past two weeks. Web pages take several seconds to load, apps freeze momentarily on launch, and the fan runs almost continuously.</p>
+<ol style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem">Select <strong>Windows / PC</strong> as your device type.</li>
+  <li style="margin-bottom:.5rem">Select <strong>Running Slow / Freezing</strong> as your symptom.</li>
+  <li style="margin-bottom:.5rem">Click <strong>Diagnose Now</strong>. The tool returns five possible causes in order of likelihood: (1) Too many startup programmes consuming RAM, (2) Full or fragmented storage drive, (3) Malware or adware running in the background, (4) Overheating causing CPU throttling, (5) Outdated or corrupted device drivers.</li>
+  <li style="margin-bottom:.5rem">You open Cause 1 — "Startup programmes." The guide tells you to open Task Manager (Ctrl + Shift + Esc), click the Startup tab, and disable any non-essential programmes. You find six items enabled, including a cloud-backup app you haven't used in months. You disable all but Windows Security. Estimated time: 5 minutes.</li>
+  <li style="margin-bottom:.5rem">You reboot. Performance improves noticeably — pages load faster, fan noise drops. Issue resolved without spending a rupee or booking a technician.</li>
+</ol>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Tips and Common Mistakes When Diagnosing Device Problems</h2>
+<ul style="margin:.5rem 0 1rem 1.5rem">
+  <li style="margin-bottom:.5rem"><strong>Don't skip the restart.</strong> An enormous proportion of device issues — particularly on Windows and Android — are fully resolved by a simple reboot. Always try this first before running any diagnosis.</li>
+  <li style="margin-bottom:.5rem"><strong>Note when the problem started.</strong> If you can correlate a slowdown or crash to a specific date, check whether a Windows Update, new app installation, or iOS update happened around that time. This narrows the diagnosis significantly.</li>
+  <li style="margin-bottom:.5rem"><strong>Check storage space before anything else.</strong> Both Windows and macOS begin to degrade noticeably when the boot drive is more than 85–90% full. On Android, a storage shortage can cause app crashes, camera failures, and apparent slowdowns that mimic malware symptoms.</li>
+  <li style="margin-bottom:.5rem"><strong>Overheating is underdiagnosed.</strong> A hot device that throttles its CPU can appear to have a software problem when the real fix is simply cleaning dust from the vents or replacing dried thermal paste. If your device is warm to the touch and runs slowly, always check the cooling system before reinstalling the OS.</li>
+  <li style="margin-bottom:.5rem"><strong>Back up before any deep repair.</strong> Before you run a factory reset, reinstall Windows, or open a device, back up your data. This is the single most common mistake people make — assuming the repair will go smoothly and losing files when it doesn't.</li>
+</ul>
+
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Frequently Asked Questions</h2>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is Computer Doctor accurate? Can it really diagnose my device remotely?</h3>
+<p style="margin:0">Computer Doctor does not access your device hardware or run any diagnostic commands — it works purely on the information you provide (device type and symptom). Think of it as a structured first-principles checklist built from common real-world repair knowledge. It is accurate in the sense that the causes it surfaces are the statistically most likely explanations for the symptom you describe. However, edge cases exist, and if the top three causes don't resolve your issue, it's worth working through the full list. For hardware failures that require physical inspection — a cracked logic board, a failed hard drive head — a professional repair shop is still necessary. Computer Doctor is best used as your first step before spending money on a technician.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does this tool work for iPhones and Android phones, not just computers?</h3>
+<p style="margin:0">Yes. Computer Doctor covers four device categories: Windows PC/Laptop, Mac, Android smartphone, and iPhone. For each device it includes 10–12 distinct symptoms ranging from battery drain and charging failures to connectivity issues, storage problems, and boot failures. The diagnostic database is device-specific — the causes and fixes shown for "iPhone not charging" are entirely different from those shown for "Android not charging," because the hardware architecture, software stack, and common failure points differ significantly between iOS and Android devices.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">My issue isn't in the symptom list. What should I do?</h3>
+<p style="margin:0">Computer Doctor covers the 10–12 most common symptoms per device — the issues that account for the vast majority of everyday device problems. If your specific symptom isn't listed, look for the closest match; many underlying causes overlap. For example, "apps crashing" on Android often has the same root causes as "running slow" — low storage, RAM issues, or corrupted app data. You can also use the tool's output as a starting framework and search for your specific symptom alongside the causes it surfaces. We regularly expand the symptom library based on user feedback — use the Contact page to suggest additions.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What does the difficulty rating mean?</h3>
+<p style="margin:0">Each cause card includes a difficulty rating: Easy, Medium, or Hard. Easy fixes require no technical knowledge and take under 10 minutes — restarting a service, clearing a cache, or adjusting a setting. Medium fixes involve multi-step procedures like updating drivers, running a disk check, or resetting network settings; they take 15–45 minutes and carry minimal risk. Hard fixes may require opening the device, replacing a component, or reinstalling the operating system; these carry a risk of data loss or warranty voiding. Computer Doctor always shows the Easy and Medium fixes first — most users resolve their issue without ever needing to attempt a Hard fix.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does the tool store my device information or diagnostic results?</h3>
+<p style="margin:0">No. Computer Doctor runs entirely in your browser using local JavaScript. Nothing you select or enter is transmitted to any server. When you close or refresh the page, all selections are cleared. There are no accounts, no tracking of your specific device issues, and no personal data collected. This is a deliberate design choice — device problems can reveal sensitive information about software, security settings, and hardware configurations, and we believe that information should never leave your device.</p>
+</div>
+
+<div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">When should I stop DIY-ing and take my device to a professional?</h3>
+<p style="margin:0">Stop and seek professional help when: (1) the device won't turn on at all despite trying all basic fixes (dead battery, hard reset, etc.); (2) you see physical damage — a cracked screen, liquid ingress indicator triggered, bent chassis; (3) the fix requires opening the device and you're not comfortable with the tools and risk involved; (4) you've attempted all the steps in the diagnosis and the problem persists. In Pakistan, reputable repair shops in Hafeez Centre (Lahore), Computer Market Saddar (Karachi), and Melody Market (Islamabad) offer professional diagnostics. A good technician will charge PKR 200–500 just for diagnosis before quoting a repair cost — that fee is usually worth it rather than replacing the device.</p>
+</div>
+
+</article>
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-bottom">
-      <p>© 2025 HashmiTools.com — Free Online Tools. All rights reserved.</p>
+      <p>© 2026 <a href="../index.html">HashmiTools.com</a> — Free Online Tools. All rights reserved. |
+      <a href="../about.html">About</a> |
+      <a href="../contact.html">Contact</a> |
+      <a href="../privacy.html">Privacy Policy</a> |
+      <a href="../terms.html">Terms of Use</a></p>
     </div>
   </div>
 </footer>

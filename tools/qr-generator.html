@@ -248,6 +248,8 @@
 .breadcrumb-geo{display:flex;align-items:center;gap:.35rem;font-size:.8rem;color:var(--text-muted,#94a3b8);padding:.5rem 0 1rem;flex-wrap:wrap}
 .breadcrumb-geo a{color:var(--text-muted,#94a3b8);text-decoration:none}.breadcrumb-geo a:hover{color:#6366f1}
 .breadcrumb-geo .sep{color:var(--text-muted,#94a3b8)}
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
   <link rel="stylesheet" href="../assets/css/global.css">
   <script src="../assets/js/theme.js"></script>
@@ -432,7 +434,7 @@
                   <button onclick="removeLogo()" id="removeLogoBtn" style="display:none;padding:8px 14px;background:transparent;border:1.5px solid var(--border-glass);border-radius:8px;color:var(--text-secondary);font-size:0.82rem;font-weight:600;cursor:pointer;"><i class="fas fa-times"></i> Remove</button>
                 </div>
                 <div id="logoPreviewWrap" style="display:none;margin-top:10px;display:none;align-items:center;gap:10px;padding:8px;background:var(--bg-glass);border-radius:8px;border:1px solid var(--border-glass);">
-                  <img id="logoThumb" style="width:40px;height:40px;object-fit:contain;border-radius:4px;border:1px solid var(--border-glass);"/>
+                  <img loading="lazy" id="logoThumb" style="width:40px;height:40px;object-fit:contain;border-radius:4px;border:1px solid var(--border-glass);"/>
                   <div style="font-size:0.78rem;color:var(--text-muted);">
                     <div id="logoFileName">logo.png</div>
                     <div style="margin-top:3px;">Logo size: <select id="logoSize" onchange="generateQR()" style="padding:2px 6px;border-radius:4px;border:1px solid var(--border-glass);background:var(--input-bg,#fff);color:var(--text-primary);font-size:0.75rem;">
@@ -991,10 +993,11 @@
   <p>© 2025 HashmiTools.com — All tools are free, no signup required. Files processed locally in your browser.</p>
   <nav aria-label="Footer navigation">
     <a href="../index.html">Home</a> |
-    <a href="../sitemap.xml">Sitemap</a> |
     <a href="../about.html">About</a> |
-    <a href="../privacy.html">Privacy Policy</a>
-  </nav>
+    <a href="../contact.html">Contact</a> |
+    <a href="../privacy.html">Privacy Policy</a> |
+    <a href="../terms.html">Terms of Use</a>
+    </nav>
   <time datetime="2025-06-16" itemprop="dateModified">Last updated: June 16, 2025</time>
 </footer>
 <script>

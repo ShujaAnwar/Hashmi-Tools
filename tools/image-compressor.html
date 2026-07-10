@@ -106,6 +106,8 @@ select.form-input{cursor:pointer}
 .format-tabs{display:flex;gap:.5rem;margin-bottom:1rem}
 .format-tab{padding:.35rem .9rem;border-radius:20px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;font-size:.82rem;transition:var(--transition)}
 .format-tab.active{background:var(--gradient-main);color:#fff;border-color:transparent}
+
+.adsbygoogle{min-height:90px;display:block;}
 </style>
 <!-- ══ GEO/SEO: Primary Meta ══════════════════════════════════════════════ -->
 <meta name="description" content="Compress JPG, PNG and WebP images online for free. Reduce image size by up to 90% with quality control slider. Batch compress. No signup, instant download.">
@@ -421,11 +423,11 @@ select.form-input{cursor:pointer}
       <div class="stats-bar" id="compStatsBar"></div>
       <div style="position:relative" id="comparisonContainer">
         <div class="comparison-wrap" id="compWrap">
-          <div class="comparison-before"><img id="beforeImg" src="" alt="Original"></div>
+          <div class="comparison-before"><img loading="lazy" id="beforeImg" src="" alt="Original"></div>
           <span class="comp-label comp-label-before">ORIGINAL</span>
           <span class="comp-label comp-label-after">COMPRESSED</span>
           <div class="comparison-after" id="afterWrap" style="width:50%">
-            <img id="afterImg" src="" alt="Compressed">
+            <img loading="lazy" id="afterImg" src="" alt="Compressed">
           </div>
           <div class="comparison-divider" id="divider" style="left:50%"></div>
         </div>
@@ -483,7 +485,7 @@ function renderFileItem(item){
   div.className='file-item';
   div.id=`file_${item.idx}`;
   div.innerHTML=`
-    <img class="file-thumb" src="${item.origUrl}" alt="${item.name}" id="thumb_${item.idx}">
+    <img loading="lazy" class="file-thumb" src="${item.origUrl}" alt="${item.name}" id="thumb_${item.idx}">
     <div class="file-info">
       <h4 title="${item.name}">${item.name}</h4>
       <div class="file-meta" id="meta_${item.idx}">
@@ -976,10 +978,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   <p>© 2025 HashmiTools.com — All tools are free, no signup required. Files processed locally in your browser.</p>
   <nav aria-label="Footer navigation">
     <a href="../index.html">Home</a> |
-    <a href="../sitemap.xml">Sitemap</a> |
     <a href="../about.html">About</a> |
-    <a href="../privacy.html">Privacy Policy</a>
-  </nav>
+    <a href="../contact.html">Contact</a> |
+    <a href="../privacy.html">Privacy Policy</a> |
+    <a href="../terms.html">Terms of Use</a>
+    </nav>
   <time datetime="2025-06-16" itemprop="dateModified">Last updated: June 16, 2025</time>
 </footer>
 <script>

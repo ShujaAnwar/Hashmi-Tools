@@ -131,7 +131,9 @@
       .tools-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
-  </style>
+  
+.adsbygoogle{min-height:90px;display:block;}
+</style>
   <link rel="stylesheet" href="../assets/css/global.css">
   <script src="../assets/js/theme.js"></script>
 
@@ -364,9 +366,36 @@
 </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2025 <a href="../index.html">HashmiTools.com</a> — Free Online Tools | 
-       <a href="../privacy.html">Privacy</a> | 
+  
+<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
+<article class="ht-content-article" style="max-width:860px;margin:2rem auto 60px;padding:0 20px;font-family:'Inter',sans-serif;color:#1e293b;line-height:1.75">
+<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">How This Works — Developer Tools That Work Entirely in Your Browser</h2>
+<p>HashmiTools Developer Tools is a curated collection of utilities for web developers, software engineers, and technical users who need reliable, fast tools without installing software or pasting sensitive code into unfamiliar services. Every tool in this section runs entirely client-side in your browser — your code, JSON, Base64 strings, and URL parameters never leave your device.</p>
+<p>The collection includes: a JSON Formatter and Validator that instantly prettifies and validates JSON with syntax highlighting and error reporting; a Base64 Encoder/Decoder for encoding binary data and debugging API payloads; a URL Encoder/Decoder for encoding query strings and decoding percent-encoded URLs; an HEX/RGB Color Converter for designers working between design tools and CSS; a Password Generator with configurable length, character sets, and strength scoring; an SEO Audit tool that analyses any URL for on-page SEO issues; a QR Code Generator that creates scannable QR codes for URLs, text, and contact information; and a YouTube SEO Optimizer for video creators.
+
+<strong>How to use Developer Tools:</strong> Each tool is accessible via its own tab in this hub or directly from the tool cards above. All tools load instantly, work offline after the initial page load, and produce results you can copy to clipboard with a single click. No account, no API key, and no file uploads required for any tool in this section.</p>
+<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
+
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Are these developer tools safe to use with sensitive code or credentials?</h3>
+<p style="margin:0">All tools in the Developer section process data locally in your browser. Your JSON, Base64 strings, passwords, and URLs are never transmitted to HashmiTools servers or any third party. The Password Generator, in particular, uses the browser's cryptographically secure random number generator (window.crypto.getRandomValues) rather than Math.random(), making generated passwords genuinely secure. That said, as a general security practice, avoid pasting production database credentials, API secrets, or private keys into any web-based tool — use local command-line tools for handling the most sensitive materials.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How is the JSON Formatter different from JSONLint or other validators?</h3>
+<p style="margin:0">The HashmiTools JSON Formatter combines validation, prettification, and minification in a single interface with no ads interrupting your workflow. It highlights the exact location of syntax errors, supports nested object collapsing for large JSON structures, and formats output with configurable indentation (2-space or 4-space). It handles very large JSON payloads (multi-megabyte API responses) more gracefully than some online alternatives because processing is entirely client-side with no upload timeout. For developers debugging API responses in a hurry, the instant feedback on validation errors saves significant time.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can I use the QR Generator for business cards or print materials?</h3>
+<p style="margin:0">Yes. The QR Generator produces SVG and high-resolution PNG QR codes suitable for print. For business card use, generate the QR code at the highest available resolution setting, download as PNG, and use at a minimum print size of 2cm × 2cm. QR codes smaller than 2cm × 2cm may fail to scan reliably on some smartphone cameras. Always test-scan your generated QR code before sending files to print. The tool supports URL, plain text, email, phone number, and SMS QR code types.</p>
+</div>
+<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">What is Base64 encoding and when do I need it as a developer?</h3>
+<p style="margin:0">Base64 is an encoding scheme that converts binary data (images, files, binary API payloads) into a string of printable ASCII characters. Developers need it when: embedding small images directly in HTML or CSS as data URIs (avoiding an extra HTTP request); handling API authentication headers (Basic Auth sends credentials as Base64-encoded "username:password"); debugging JWT tokens (which are Base64-encoded JSON); and processing binary file uploads in web applications. The HashmiTools Base64 Encoder/Decoder supports both encoding any text to Base64 and decoding Base64 strings back to their original form, with URL-safe Base64 variant support.</p>
+</div>
+</article>
+<footer class="footer">
+    <p>© 2026 <a href="../index.html">HashmiTools.com</a> — Free Online Tools | 
+       <a href="../about.html">About</a><a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a> | 
        <a href="../about.html">About</a> | 
        <a href="../sitemap.html">Sitemap</a></p>
   </footer>

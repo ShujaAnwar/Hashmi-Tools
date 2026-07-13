@@ -182,12 +182,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
 <main style="padding:24px 0;">
 <div class="pyf-wrap">
 
-  <!-- API KEY -->
-  <div class="api-section">
-    <div class="api-title">🔑 Claude AI API Key (required)</div>
-    <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-..." autocomplete="off">
-    <div class="api-note">
-      Your key is saved only in your browser. Get a free key at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (free tier available). Never shared with our servers.
+  <!-- FREE AI NOTICE -->
+  <div class="api-section" style="background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(168,85,247,.08));border-color:rgba(99,102,241,.3);">
+    <div class="api-title">🤖 AI-Powered — Free &amp; No API Key Required</div>
+    <div class="api-note" style="color:var(--text-secondary);">
+      This tool uses <strong>Pollinations AI</strong> — completely free with no account or API key needed. Your data is sent directly to the AI to generate your personalised roadmap.
     </div>
   </div>
 
@@ -351,7 +350,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
 <article class="ht-content-article" style="max-width:860px;margin:0 auto 60px;padding:0 20px;font-family:var(--font-body,'Inter',sans-serif);color:var(--text-primary,#1e293b);line-height:1.75">
 
 <h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:var(--text-heading,#0f172a)">How the AI Career Roadmap Generator Works</h2>
-<p>Plan Your Future uses the Claude AI model (claude-opus-4-5) to generate a personalised, actionable career roadmap based on the specific information you provide across twelve form fields: your name, age, education level, current field, city, career goal, dream job, biggest challenge, preferred timeline, budget availability, work preference, and current skills. Each of these inputs shapes the AI's response meaningfully — a 19-year-old matriculation student in Sialkot asking about freelancing receives a fundamentally different plan from a 32-year-old MBA graduate in Karachi asking about corporate leadership.</p>
+<p>Plan Your Future uses <strong>Pollinations AI</strong> (powered by OpenAI models) to generate a personalised, actionable career roadmap based on the specific information you provide across twelve form fields: your name, age, education level, current field, city, career goal, dream job, biggest challenge, preferred timeline, budget availability, work preference, and current skills. Each of these inputs shapes the AI's response meaningfully — a 19-year-old matriculation student in Sialkot asking about freelancing receives a fundamentally different plan from a 32-year-old MBA graduate in Karachi asking about corporate leadership.</p>
 <p>The AI system prompt instructs Claude to respond exclusively with a structured JSON object containing seven sections: a personal message addressed to you by name, an overall strategy paragraph, a phased roadmap (typically 3–5 phases with milestones and timelines), key skills to learn with free resources, income opportunities relevant to the Pakistani and South Asian context (including platforms like Upwork, Fiverr, Digiskills.pk, and Rozee.pk), warning flags based on your specific situation, and one concrete next action you should take today. This structure is then rendered as a readable, professional roadmap document that you can download as a PDF.</p>
 
 <h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Who This Tool Is Built For</h2>
@@ -384,8 +383,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
 <h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-heading,#0f172a)">Frequently Asked Questions</h2>
 
 <div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
-<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Do I need to pay for a Claude API key to use this tool?</h3>
-<p style="margin:0">Yes — this tool requires a Claude API key from Anthropic to function. Anthropic offers a free tier that includes a generous monthly credit allowance, which is more than sufficient for generating multiple career roadmaps. To get a key: create a free account at console.anthropic.com, navigate to API Keys, generate a new key, and paste it into the API key field on this page. The key is stored only in your browser's localStorage — it is never sent to HashmiTools' servers. Each roadmap generation uses approximately 1,500–2,000 tokens (well under $0.01 at current Anthropic pricing), making this effectively free for personal use within the free tier limits.</p>
+<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Do I need to pay or sign up to use this tool?</h3>
+<p style="margin:0">No — Plan Your Future is completely free and requires no account, no API key, and no sign-up. It uses Pollinations AI, a free AI service, to generate your career roadmap directly in your browser.</p>
 </div>
 
 <div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
@@ -395,7 +394,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#6366f1;}
 
 <div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
 <h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How accurate and reliable is the AI-generated roadmap?</h3>
-<p style="margin:0">The roadmap is as good as the information you provide and the AI's training data. Claude claude-opus-4-5 has strong knowledge of career paths, skill requirements, and the global job market. Its knowledge of the Pakistani market is good for tech, finance, and professional fields — areas with significant online presence and verifiable data. For highly specialised, niche, or rapidly evolving fields, treat the roadmap as a starting framework and validate specific claims (salary ranges, specific platform recommendations) against current sources. The "Warning Flags" section is particularly useful for identifying assumptions the AI is making about your situation that you may want to question.</p>
+<p style="margin:0">The roadmap is as good as the information you provide and the AI's training data. Pollinations AI (powered by OpenAI models) has strong knowledge of career paths, skill requirements, and the global job market. Its knowledge of the Pakistani market is good for tech, finance, and professional fields. For highly specialised or rapidly evolving fields, treat the roadmap as a starting framework and validate specific claims against current sources.</p>
 </div>
 
 <div style="border:1px solid var(--border-color,#e2e8f0);border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
@@ -439,7 +438,7 @@ function selectRadio(groupId, labelEl){
 function toggleChip(el){ el.classList.toggle('selected'); }
 
 function getFormData(){
-  const apiKey = document.getElementById('apiKeyInput').value.trim();
+  const apiKey = ''; // No longer needed — using free Pollinations AI
   const name = document.getElementById('fname').value.trim();
   const age = document.getElementById('fage').value.trim();
   const education = document.getElementById('feducation').value;
@@ -452,7 +451,7 @@ function getFormData(){
   const budget = document.querySelector('#rBudget .radio-item.selected input')?.value || '';
   const working = document.querySelector('#rWorking .radio-item.selected input')?.value || '';
   const skills = Array.from(document.querySelectorAll('#skillsChips .chip.selected')).map(c=>c.textContent.trim()).join(', ') || 'None mentioned';
-  return {apiKey,name,age,education,field,city,goal,dream,challenge,timeline,budget,working,skills};
+  return {name,age,education,field,city,goal,dream,challenge,timeline,budget,working,skills};
 }
 
 function showError(msg){ const b=document.getElementById('errorBox'); b.style.display='block'; document.getElementById('errorMsg').textContent=msg; }
@@ -463,7 +462,6 @@ async function generateRoadmap(){
   const d = getFormData();
   savedFormData = d;
 
-  if(!d.apiKey){ showError('Please enter your Claude API key at the top.'); return; }
   if(!d.name){ showError('Please enter your full name.'); return; }
   if(!d.age || isNaN(d.age)){ showError('Please enter a valid age.'); return; }
   if(!d.education){ showError('Please select your education level.'); return; }
@@ -472,9 +470,6 @@ async function generateRoadmap(){
   if(!d.dream){ showError('Please enter your dream career.'); return; }
   if(!d.timeline){ showError('Please select a timeline.'); return; }
   if(!d.budget){ showError('Please select a monthly budget.'); return; }
-
-  // Save API key
-  localStorage.setItem('ht-claude-key', d.apiKey);
 
   document.getElementById('formSection').style.display='none';
   document.getElementById('loadingState').style.display='block';
@@ -520,41 +515,41 @@ Return ONLY valid JSON with no extra text, no markdown code fences:
 }`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    // Use Pollinations AI — free, no API key needed
+    const response = await fetch('https://text.pollinations.ai/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': d.apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-opus-4-5',
-        max_tokens: 2000,
-        messages: [{ role: 'user', content: prompt }]
+        model: 'openai',
+        messages: [
+          { role: 'system', content: 'You are a compassionate career advisor specializing in South Asian contexts, especially Pakistan. Always respond with valid JSON only — no markdown, no code fences, no extra text.' },
+          { role: 'user', content: prompt }
+        ],
+        seed: Math.floor(Math.random()*9999)
       })
     });
 
-    if(!response.ok){
-      const err = await response.json().catch(()=>({}));
-      throw new Error(err.error?.message || `API error ${response.status}`);
-    }
+    if(!response.ok) throw new Error(`AI service error ${response.status}. Please try again.`);
 
-    const result = await response.json();
-    const text = result.content[0].text;
+    let text = await response.text();
 
     // Extract JSON from the response
     let jsonText = text.trim();
     if(jsonText.includes('```')){
       jsonText = jsonText.replace(/```json?\n?/g,'').replace(/```/g,'').trim();
     }
+    // Find JSON object boundaries
+    const startIdx = jsonText.indexOf('{');
+    const endIdx = jsonText.lastIndexOf('}');
+    if(startIdx !== -1 && endIdx !== -1) jsonText = jsonText.slice(startIdx, endIdx + 1);
+
     const data = JSON.parse(jsonText);
     lastRoadmapData = data;
     renderRoadmap(data);
   } catch(e){
     document.getElementById('loadingState').style.display='none';
     document.getElementById('formSection').style.display='block';
-    showError('Error: ' + e.message + '. Check your API key and try again.');
+    showError('Error: ' + e.message + '. Please try again in a moment.');
   }
 }
 
@@ -671,8 +666,7 @@ function escHtml(str){
 
 // Restore saved API key
 window.addEventListener('DOMContentLoaded', ()=>{
-  const saved = localStorage.getItem('ht-claude-key');
-  if(saved) document.getElementById('apiKeyInput').value = saved;
+  // Tool ready — no API key needed
 });
 </script>
 

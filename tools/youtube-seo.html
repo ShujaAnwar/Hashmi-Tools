@@ -1237,51 +1237,88 @@ ${social ? `📱 HAMARE SAATH JUDEIN:\n${social}\n` : ''}
 
     const btn = document.getElementById('allGenBtn');
     btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating your complete SEO pack…';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> AI is generating your complete SEO pack…';
 
     const niche = document.getElementById('allNiche').value;
     const lang = document.getElementById('allLang').value;
     const channel = document.getElementById('allChannel').value.trim();
     const bulletsRaw = document.getElementById('allBullets').value.trim();
     const bullets = bulletsRaw ? bulletsRaw.split('\n').filter(Boolean) : ['Introduction','Main content','Tips and tricks','Conclusion'];
-    const style = document.getElementById('allTitleStyle').value;
     const year = new Date().getFullYear();
+    const langNote = lang === 'urdu' ? 'in Urdu/Roman Urdu' : lang === 'mixed' ? 'in a mix of English and Roman Urdu' : 'in English';
 
-    await new Promise(r => setTimeout(r, 1200)); // simulate processing
+    try {
+      // Use Pollinations AI for real AI-generated SEO content
+      const prompt = `You are a YouTube SEO expert. Generate a complete YouTube SEO pack for a video about: "${topic}"
+Niche: ${niche}, Language: ${langNote}, Channel: ${channel || 'General'}, Year: ${year}
+Key points to cover: ${bullets.join(', ')}
 
-    // Generate titles
-    let templates = TITLE_TEMPLATES[style] || TITLE_TEMPLATES.howto;
-    if (lang === 'urdu') templates = URDU_TITLE_TEMPLATES;
-    else if (lang === 'mixed') templates = MIXED_TITLE_TEMPLATES;
-    const capTopic = topic.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
-    const allTitles = templates.map(t => t.replace(/\[TOPIC\]/g, capTopic).replace(/\[YEAR\]/g, year).replace(/\[ALT\]/g,'Alternative').replace(/\[NUMBER\]/g,'10'));
+Return ONLY valid JSON (no markdown, no code fences):
+{
+  "titles": ["title1 (50-70 chars)", "title2", "title3", "title4", "title5"],
+  "description": "Full YouTube description with emojis, timestamps (00:00 format), hashtags, and call to action. 400-600 words.",
+  "tags": ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "tag8", "tag9", "tag10", "tag11", "tag12", "tag13", "tag14", "tag15", "tag16", "tag17", "tag18", "tag19", "tag20"]
+}`;
 
-    // Best title
-    document.getElementById('allBestTitle').textContent = allTitles[0];
-    document.getElementById('allTitlesList').innerHTML = allTitles.slice(1,4).map((t,i)=>
-      `<div style="padding:8px 12px;background:var(--bg-secondary);border-radius:8px;font-size:0.85rem;margin-bottom:6px;cursor:pointer;color:var(--text-secondary);" onclick="copyText('${t.replace(/'/g,"\\'")}')">Option ${i+2}: ${t}</div>`
-    ).join('');
+      const res = await fetch('https://text.pollinations.ai/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'openai',
+          messages: [
+            { role: 'system', content: 'You are a YouTube SEO expert. Always respond with valid JSON only.' },
+            { role: 'user', content: prompt }
+          ],
+          seed: Math.floor(Math.random() * 9999)
+        })
+      });
 
-    // Description
-    const descFn = lang==='urdu' ? DESC_TEMPLATES.urdu : DESC_TEMPLATES.english;
-    const desc = descFn(topic, bullets, channel, '', year);
-    let colored = desc.replace(/(\d{2}:\d{2}.*)/g,'<span class="ts">$1</span>').replace(/(#\w+)/g,'<span class="hashtag">$1</span>');
-    document.getElementById('allDescOutput').innerHTML = colored;
-    document.getElementById('allDescOutput').dataset.raw = desc;
+      if (!res.ok) throw new Error('AI service error');
+      const text = await res.text();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      const data = JSON.parse(jsonMatch?.[0] || '{}');
 
-    // Tags
-    const nicheTags = TAG_BANK[niche] || TAG_BANK.general;
-    const allTagsList = [topic, topic+' '+year, ...topic.split(' ').filter(w=>w.length>3), ...nicheTags.slice(0,10), 'HashmiTools'].slice(0,30);
-    document.getElementById('allTagsOutput').innerHTML = '<div class="yt-tags-wrap">' +
-      allTagsList.map(tag=>`<div class="yt-tag" onclick="copyTagSingle(this,'${tag.replace(/'/g,"\\'")}')"><span style="font-size:0.65rem;padding:1px 4px;border-radius:6px;background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);">tag</span> ${tag}</div>`).join('') + '</div>';
-    document.getElementById('allTagsOutput').dataset.tags = allTagsList.join(', ');
+      const allTitles = data.titles || [topic + ' | Complete Guide ' + year];
+      const desc = data.description || `Complete guide about ${topic}.`;
+      const allTagsList = data.tags || [topic, topic + ' ' + year];
+
+      // Render
+      document.getElementById('allBestTitle').textContent = allTitles[0];
+      document.getElementById('allTitlesList').innerHTML = allTitles.slice(1,4).map((t,i)=>
+        `<div style="padding:8px 12px;background:var(--bg-secondary);border-radius:8px;font-size:0.85rem;margin-bottom:6px;cursor:pointer;color:var(--text-secondary);" onclick="copyText('${t.replace(/'/g,"\\'")}')">Option ${i+2}: ${t}</div>`
+      ).join('');
+
+      let colored = desc.replace(/(\d{2}:\d{2}[^\n]*)/g,'<span class="ts">$1</span>').replace(/(#\w+)/g,'<span class="hashtag">$1</span>');
+      document.getElementById('allDescOutput').innerHTML = colored.replace(/\n/g,'<br>');
+      document.getElementById('allDescOutput').dataset.raw = desc;
+
+      document.getElementById('allTagsOutput').innerHTML = '<div class="yt-tags-wrap">' +
+        allTagsList.map(tag=>`<div class="yt-tag" onclick="copyTagSingle(this,'${String(tag).replace(/'/g,"\\'")}')"><span style="font-size:0.65rem;padding:1px 4px;border-radius:6px;background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);">AI</span> ${tag}</div>`).join('') + '</div>';
+      document.getElementById('allTagsOutput').dataset.tags = allTagsList.join(', ');
+
+    } catch(e) {
+      // Fallback to template-based generation
+      const capTopic = topic.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+      const allTitles = (TITLE_TEMPLATES.howto || []).map(t => t.replace(/\[TOPIC\]/g, capTopic).replace(/\[YEAR\]/g, year).replace(/\[ALT\]/g,'Alternative').replace(/\[NUMBER\]/g,'10'));
+      document.getElementById('allBestTitle').textContent = allTitles[0] || topic;
+      document.getElementById('allTitlesList').innerHTML = '';
+      const descFn = lang==='urdu' ? DESC_TEMPLATES.urdu : DESC_TEMPLATES.english;
+      const desc = descFn(topic, bullets, channel, '', year);
+      document.getElementById('allDescOutput').innerHTML = desc.replace(/\n/g,'<br>');
+      document.getElementById('allDescOutput').dataset.raw = desc;
+      const nicheTags = TAG_BANK[niche] || TAG_BANK.general;
+      const allTagsList = [topic, topic+' '+year, ...nicheTags.slice(0,10)];
+      document.getElementById('allTagsOutput').innerHTML = '<div class="yt-tags-wrap">' +
+        allTagsList.map(tag=>`<div class="yt-tag" onclick="copyTagSingle(this,'${tag.replace(/'/g,"\\'")}')"><span style="font-size:0.65rem;padding:1px 4px;border-radius:6px;background:rgba(99,102,241,0.1);">tag</span> ${tag}</div>`).join('') + '</div>';
+      document.getElementById('allTagsOutput').dataset.tags = allTagsList.join(', ');
+      toast('Used template fallback — AI temporarily busy. Try again!', 'warning');
+    }
 
     document.getElementById('allResults').style.display = 'block';
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-check"></i> SEO Pack Generated! Scroll Down ↓';
     setTimeout(()=>{ btn.innerHTML='<i class="fas fa-rocket"></i> Generate Complete YouTube SEO Pack'; btn.disabled=false; }, 3000);
-
-    toast('Complete SEO pack ready!','success');
+    toast('Complete AI SEO pack ready!','success');
     document.getElementById('allResults').scrollIntoView({ behavior:'smooth', block:'start' });
   }
 

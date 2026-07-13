@@ -131,6 +131,7 @@
                 <div class="result-label">Converted Amount</div>
                 <div class="result-value" id="resultAmount" style="font-size:2.5rem;">—</div>
                 <div style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;" id="rateInfo">Enter amount to convert</div>
+                <div style="font-size:0.75rem;margin-top:4px;" id="rateStatus"><span style="color:#f59e0b;">● Loading live rates…</span></div>
               </div>
 
             </div>
@@ -288,20 +289,24 @@
 </div><!-- /.ht-page-layout -->
 
 
-  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p></div></div></div></footer>
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2026 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="../about.html">About</a><a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></div></footer>
   <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
 
   <script src="../js/main.js"></script>
   <script>
-  // Approximate exchange rates (based on USD as base)
-  const RATES = {
-    USD: 1, EUR: 0.92, GBP: 0.79, PKR: 280, INR: 83.2, SAR: 3.75,
+  // Live exchange rates — fetched from open.er-api.com (free, no API key required)
+  // Fallback static rates used if fetch fails
+  const FALLBACK_RATES = {
+    USD: 1, EUR: 0.92, GBP: 0.79, PKR: 278, INR: 83.2, SAR: 3.75,
     AED: 3.67, CAD: 1.37, AUD: 1.53, JPY: 149.5, CNY: 7.24, CHF: 0.89,
     SGD: 1.34, MYR: 4.72, BDT: 110, LKR: 305, AFN: 72, NPR: 133,
     TRY: 32.5, EGP: 48.7, NGN: 1580, KES: 132, ZAR: 18.7,
     QAR: 3.64, KWD: 0.307, BHD: 0.377, OMR: 0.384, JOD: 0.709,
     MXN: 17.2, BRL: 4.97, RUB: 91.5, SEK: 10.5, NOK: 10.7, DKK: 6.89,
   };
+  let RATES = { ...FALLBACK_RATES };
+  let ratesLoaded = false;
+  let ratesUpdateTime = '';
 
   const CURRENCY_NAMES = {
     USD:'🇺🇸 US Dollar', EUR:'🇪🇺 Euro', GBP:'🇬🇧 British Pound', PKR:'🇵🇰 Pakistani Rupee',
@@ -316,6 +321,29 @@
     RUB:'🇷🇺 Russian Ruble', SEK:'🇸🇪 Swedish Krona', NOK:'🇳🇴 Norwegian Krone',
     DKK:'🇩🇰 Danish Krone',
   };
+
+  // ── Fetch live rates from ExchangeRate-API (free, no key) ─────────────
+  async function fetchLiveRates() {
+    const rateStatusEl = document.getElementById('rateStatus');
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (data.result !== 'success') throw new Error('API error');
+      // Merge fetched rates with our known currencies
+      Object.keys(CURRENCY_NAMES).forEach(code => {
+        if (data.rates[code]) RATES[code] = data.rates[code];
+      });
+      ratesLoaded = true;
+      const upd = data.time_last_update_utc || '';
+      ratesUpdateTime = upd ? 'Updated: ' + new Date(upd).toLocaleDateString('en-PK', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+      if (rateStatusEl) rateStatusEl.innerHTML = `<span style="color:#22c55e;">● Live rates</span> <span style="color:#888;font-size:.75rem;">${ratesUpdateTime}</span>`;
+      convertCurrency();
+      buildPKRTable();
+    } catch(e) {
+      if (rateStatusEl) rateStatusEl.innerHTML = `<span style="color:#f59e0b;">● Offline rates (fallback)</span>`;
+    }
+  }
 
   function initSelects() {
     const from = document.getElementById('fromCurrency');
@@ -341,6 +369,7 @@
 
     convertCurrency();
     buildPKRTable();
+    fetchLiveRates(); // fetch live rates in background
   }
 
   function convertCurrency() {
@@ -366,8 +395,6 @@
   function buildPKRTable() {
     const major = ['USD','EUR','GBP','SAR','AED','CAD','AUD','INR','SGD','QAR','KWD','BDT'];
     document.getElementById('pkrRates').innerHTML = major.map(c => {
-      const pkrPer1 = RATES[c] / RATES['PKR'];
-      const unitInPKR = RATES['PKR'] / RATES[c];
       return `<tr>
         <td>${CURRENCY_NAMES[c] || c}</td>
         <td style="font-weight:700;color:var(--accent-cyan);">${(1/RATES[c]*RATES['PKR']).toFixed(4)}</td>

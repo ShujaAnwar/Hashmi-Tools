@@ -239,6 +239,10 @@ select.form-input{padding-left:0.9rem}
         <span class="currency-prefix" id="gpPrefix">₨</span>
         <input type="number" class="form-input" id="goldPrice" value="18000" min="1" onchange="recalcNisab()">
       </div>
+      <button onclick="fetchLiveGoldPrice()" id="goldFetchBtn" style="margin-top:6px;padding:5px 12px;font-size:.78rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;border-radius:6px;cursor:pointer;">
+        <i class="fas fa-sync"></i> Fetch Live Price
+      </button>
+      <div id="goldPriceStatus" style="font-size:.72rem;margin-top:3px;color:#888;"></div>
     </div>
     <div style="flex:1;min-width:160px">
       <label class="form-label">Silver Price (per gram)</label>
@@ -928,6 +932,51 @@ function showToast(msg,type='info',duration=3000){
   setTimeout(()=>toast.remove(),duration);
 }
 
+// ── Live Gold Price Fetch (gold-api.com — free, no API key) ──────────────
+async function fetchLiveGoldPrice() {
+  const btn = document.getElementById('goldFetchBtn');
+  const statusEl = document.getElementById('goldPriceStatus');
+  const gpPrefix = document.getElementById('gpPrefix');
+  const currentCurrency = document.querySelector('.nisab-btn.active')?.dataset?.currency || 'PKR';
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fetching…';
+  statusEl.textContent = '';
+
+  try {
+    // Fetch gold price in USD per troy oz
+    const res = await fetch('https://api.gold-api.com/price/XAU');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const goldUSD = parseFloat(data.price); // USD per troy oz
+    if (!goldUSD || isNaN(goldUSD)) throw new Error('Invalid data');
+
+    // Fetch USD/PKR rate
+    const fxRes = await fetch('https://open.er-api.com/v6/latest/USD');
+    const fxData = await fxRes.json();
+    const pkrRate = fxData.rates?.PKR || 278;
+
+    // Convert: troy oz → grams (1 troy oz = 31.1035g)
+    const goldPKRperGram = (goldUSD * pkrRate) / 31.1035;
+    const goldUSDperGram = goldUSD / 31.1035;
+
+    // Update gold price input based on current currency
+    const CURRENCY_RATES = {PKR:1, USD:1/pkrRate, GBP:fxData.rates?.GBP/pkrRate||0.00284, SAR:fxData.rates?.SAR/pkrRate||0.01339, AED:fxData.rates?.AED/pkrRate||0.01311, EUR:fxData.rates?.EUR/pkrRate||0.0033};
+    const factor = CURRENCY_RATES[currentCurrency] || 1;
+    const priceInCurrentCurrency = goldPKRperGram * (1 / (CURRENCY_RATES['PKR'] || 1)) * factor;
+
+    // Always show in PKR (tool's base currency)
+    document.getElementById('goldPrice').value = Math.round(goldPKRperGram);
+    statusEl.innerHTML = `<span style="color:#22c55e;">● Live: $${goldUSD.toFixed(0)}/oz · ₨${Math.round(goldPKRperGram).toLocaleString()}/g</span>`;
+    recalcNisab();
+  } catch(e) {
+    statusEl.innerHTML = `<span style="color:#ef4444;">Could not fetch. Check connection.</span>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sync"></i> Fetch Live Price';
+  }
+}
+
 // Init
 document.addEventListener('DOMContentLoaded',()=>{
   const saved = localStorage.getItem('theme')||'dark';
@@ -935,6 +984,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('themeIcon').className = saved==='dark'?'fas fa-moon':'fas fa-sun';
   recalcNisab();
   renderHistory();
+  fetchLiveGoldPrice(); // auto-fetch on load
 });
 </script>
 <style>@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}</style>

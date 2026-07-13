@@ -312,14 +312,11 @@
 <!-- API Key Modal -->
 <div class="cv-modal-overlay" id="apiModal">
   <div class="cv-modal">
-    <h3>🤖 Claude API Key (Optional)</h3>
-    <p>AI suggestions (improve bullets, suggest skills, score ATS) use the Claude API. Enter your Anthropic API key to enable these features. It's stored only in your browser — never on our servers.</p>
-    <input type="password" id="apiKeyInput" placeholder="sk-ant-..." />
+    <h3>🤖 AI Features — Free &amp; No Key Needed</h3>
+    <p>AI suggestions (improve bullets, suggest skills, score ATS) use <strong>Pollinations AI</strong> — completely free with no API key or account required.</p>
     <div class="cv-modal-btns">
-      <button class="cv-modal-save" onclick="saveApiKey()">Save &amp; Continue</button>
-      <button class="cv-modal-skip" onclick="closeModal()">Skip (no AI)</button>
+      <button class="cv-modal-save" onclick="closeModal()">Got it, let's go!</button>
     </div>
-    <p style="margin-top:10px;font-size:.72rem;color:var(--text-muted);">Get a free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></p>
   </div>
 </div>
 
@@ -998,7 +995,7 @@ async function runAtsScore() {
   const area = document.getElementById('atsResultArea');
   area.innerHTML = `<div class="cv-ats-card" style="text-align:center;padding:40px;"><div style="font-size:2rem;margin-bottom:12px;">⏳</div><div>Analyzing your resume with AI...</div></div>`;
 
-  const apiKey = localStorage.getItem('cv_anthropic_key');
+  const apiKey = true; // Pollinations AI — always available, no key needed
   let score, strengths=[], warnings=[], critical=[], missing=[], weakBullets=[];
 
   if (!apiKey) {
@@ -1025,13 +1022,12 @@ async function runAtsScore() {
   } else {
     try {
       const prompt = `You are an ATS resume expert. Analyze this resume for ATS compatibility.\nTarget job: "${data.jobtitle}"\nResume: ${JSON.stringify(data,null,1).slice(0,3000)}\n\nReturn ONLY valid JSON:\n{"ats_score":75,"strengths":["..."],"warnings":[{"issue":"...","fix":"..."}],"critical_issues":[{"issue":"...","fix":"..."}],"missing_keywords":["..."],"weak_bullets":[{"original":"...","improved":"..."}]}`;
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://text.pollinations.ai/', {
         method:'POST',
-        headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
-        body: JSON.stringify({model:'claude-opus-4-5',max_tokens:800,messages:[{role:'user',content:prompt}]})
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({model:'openai',messages:[{role:'system',content:'ATS resume expert. JSON only.'},{role:'user',content:prompt}],seed:42})
       });
-      const d = await res.json();
-      const text = d.content?.[0]?.text || '{}';
+      const text = await res.text();
       const j = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] || '{}');
       score = j.ats_score || 72;
       strengths = j.strengths || [];
@@ -1070,16 +1066,18 @@ async function runAtsScore() {
 
 // ── AI helpers ─────────────────────────────────────────────────────────────
 async function callClaude(prompt) {
-  const key = localStorage.getItem('cv_anthropic_key');
-  if (!key) { openModal(); return null; }
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  // Pollinations AI — free, no API key needed
+  const res = await fetch('https://text.pollinations.ai/', {
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
-    body: JSON.stringify({model:'claude-opus-4-5',max_tokens:600,messages:[{role:'user',content:prompt}]})
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      model:'openai',
+      messages:[{role:'system',content:'You are a professional resume writer and career expert. Respond concisely.'},{role:'user',content:prompt}],
+      seed: Math.floor(Math.random()*9999)
+    })
   });
-  if (!res.ok) throw new Error(`Claude API error: ${res.status}`);
-  const d = await res.json();
-  return d.content?.[0]?.text || '';
+  if (!res.ok) throw new Error(`AI error: ${res.status}`);
+  return await res.text();
 }
 
 async function aiImproveSummary(btn) {
@@ -1221,9 +1219,8 @@ function loadDraft() {
 // ── API key modal ──────────────────────────────────────────────────────────
 function openModal() { document.getElementById('apiModal').classList.add('open'); }
 function closeModal() { document.getElementById('apiModal').classList.remove('open'); }
-function saveApiKey() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (key) { localStorage.setItem('cv_anthropic_key', key); closeModal(); }
+function saveApiKey() { closeModal(); } // No longer needed — using free Pollinations AI
+function _unused_saveApiKey_backup() {
 }
 
 // ── Utility ────────────────────────────────────────────────────────────────
@@ -1237,7 +1234,7 @@ loadDraft();
 updatePreview();
 
 // Show API key modal if no key set and user hasn't dismissed
-if (!localStorage.getItem('cv_anthropic_key') && !localStorage.getItem('cv_modal_dismissed')) {
+if (false && !localStorage.getItem('cv_modal_dismissed')) { // No longer needed
   setTimeout(() => {
     openModal();
     document.querySelector('.cv-modal-skip').addEventListener('click', () => {

@@ -493,7 +493,7 @@
   }
 
   // ── Shorten ──────────────────────────────────────
-  function shortenUrl() {
+  async function shortenUrl() {
     const input = document.getElementById('longUrlInput');
     const btn = document.getElementById('shortenBtn');
     const url = (input.value || '').trim();
@@ -514,28 +514,67 @@
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Shortening…';
 
-    setTimeout(() => {
-      let code = genCode();
-      const links = getLinks();
-      // Ensure unique code
-      while (links.find(l => l.code === code)) code = genCode();
+    try {
+      // Use TinyURL free API (no key needed, CORS-friendly via proxy)
+      let shortUrl = null;
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(url))}`;
+      const res = await fetch(proxyUrl);
+      if (res.ok) {
+        const data = await res.json();
+        const contents = data.contents || '';
+        if (contents.startsWith('https://tinyurl.com/')) {
+          shortUrl = contents.trim();
+        }
+      }
 
+      // Fallback: use is.gd
+      if (!shortUrl) {
+        const res2 = await fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`);
+        const txt = await res2.text();
+        if (txt.startsWith('https://is.gd/')) shortUrl = txt.trim();
+      }
+
+      // Last fallback: local code
+      if (!shortUrl) {
+        let code = genCode();
+        const links = getLinks();
+        while (links.find(l => l.code === code)) code = genCode();
+        shortUrl = window.location.origin + '/s/' + code;
+      }
+
+      const code = shortUrl.split('/').pop();
       const newLink = {
-        code, long: url, short: buildShortUrl(code),
+        code, long: url, short: shortUrl,
         created: Date.now(), clicks: 0
       };
 
+      const links = getLinks();
       links.unshift(newLink);
       saveLinks(links);
 
       currentShortCode = code;
       showResult(newLink);
       renderHistory();
-
+      toast('Short link created!', 'success');
+    } catch(e) {
+      // Offline fallback — local only
+      let code = genCode();
+      const links = getLinks();
+      while (links.find(l => l.code === code)) code = genCode();
+      const newLink = {
+        code, long: url, short: window.location.origin + '/s/' + code,
+        created: Date.now(), clicks: 0
+      };
+      links.unshift(newLink);
+      saveLinks(links);
+      currentShortCode = code;
+      showResult(newLink);
+      renderHistory();
+      toast('Short link created (offline mode)!', 'warning');
+    } finally {
       btn.disabled = false;
       btn.innerHTML = '<i class="fas fa-magic"></i> Shorten';
-      toast('Short link created!', 'success');
-    }, 600);
+    }
   }
 
   function showResult(link) {

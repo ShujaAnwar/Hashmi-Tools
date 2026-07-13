@@ -362,23 +362,19 @@
 <main class="tool-main">
 <div class="tool-container">
 
-  <!-- API Key Setup -->
-  <div class="api-setup" id="apiSetupBox">
-    <div class="api-setup-icon">🔑</div>
+  <!-- Free AI Notice -->
+  <div class="api-setup" id="apiSetupBox" style="background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(168,85,247,.08));border-color:rgba(99,102,241,.3);">
+    <div class="api-setup-icon">🤖</div>
     <div class="api-setup-content">
-      <h4>Hugging Face API Key Required</h4>
-      <p>These tools use real AI models via Hugging Face Inference API. Get your <b>free</b> API token at <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700">huggingface.co/settings/tokens</a> (free tier: thousands of requests/day). Your key is saved only in your browser's localStorage.</p>
-      <div class="api-key-row">
-        <input type="password" id="apiKeyInput" placeholder="hf_xxxxxxxxxxxxxxxxxxxxxx" autocomplete="off"/>
-        <button onclick="saveApiKey()"><i class="fas fa-save"></i> Save Key</button>
-      </div>
-      <div class="api-status none" id="apiStatus">⚠ No API key saved — enter your key above</div>
+      <h4>Free AI — No API Key Required</h4>
+      <p>These tools use <b>Pollinations AI</b> (powered by OpenAI) — completely free with no account or API key needed. Just type and generate!</p>
+      <div class="api-status ok" id="apiStatus">✅ Ready to use — no setup needed</div>
     </div>
   </div>
 
   <!-- Usage note -->
   <div class="usage-note">
-    <b>How it works:</b> Each tool sends your text to a specialized Hugging Face model using your API key. Results are real AI-generated outputs — not templates. Processing takes 2–10 seconds. Models used: <b>mistralai/Mistral-7B-Instruct</b> for text generation tasks.
+    <b>How it works:</b> Each tool sends your text to Pollinations AI (powered by OpenAI models) — completely free with no API key. Results are real AI-generated outputs, not templates. Processing takes 3–8 seconds.
   </div>
 
   <!-- Tool Tabs -->
@@ -775,80 +771,31 @@ function showToast(msg,dur=3000){
 }
 
 // ════════════════════════════════════════════
-//  API KEY
+//  POLLINATIONS AI (Free, No Key Needed)
 // ════════════════════════════════════════════
-let HF_API_KEY = localStorage.getItem('hf_api_key')||'';
-
-function saveApiKey(){
-  const val=document.getElementById('apiKeyInput').value.trim();
-  if(!val){ showToast('⚠ Please enter your Hugging Face API key'); return; }
-  if(!val.startsWith('hf_')){ showToast('⚠ Key should start with "hf_"'); return; }
-  HF_API_KEY=val;
-  localStorage.setItem('hf_api_key',val);
-  document.getElementById('apiStatus').textContent='✅ API key saved!';
-  document.getElementById('apiStatus').className='api-status ok';
-  showToast('✅ API key saved to browser!');
-}
-
-function initApiKey(){
-  if(HF_API_KEY){
-    document.getElementById('apiKeyInput').value=HF_API_KEY;
-    document.getElementById('apiStatus').textContent='✅ API key loaded from storage';
-    document.getElementById('apiStatus').className='api-status ok';
-  }
-}
-initApiKey();
-
-// ════════════════════════════════════════════
-//  HUGGING FACE API CALL
-//  Model: mistralai/Mistral-7B-Instruct-v0.2
-// ════════════════════════════════════════════
-const HF_MODEL = 'mistralai/Mistral-7B-Instruct-v0.2';
-const HF_URL   = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
+function saveApiKey(){ /* No longer needed */ }
+function initApiKey(){ /* No longer needed */ }
 
 async function callHuggingFace(prompt, maxTokens=512) {
-  const key = HF_API_KEY || localStorage.getItem('hf_api_key')||'';
-  if(!key){
-    throw new Error('NO_KEY');
-  }
-  const response = await fetch(HF_URL, {
+  const response = await fetch('https://text.pollinations.ai/', {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${key}`,
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      inputs: prompt,
-      parameters: {
-        max_new_tokens: maxTokens,
-        temperature: 0.75,
-        top_p: 0.9,
-        do_sample: true,
-        return_full_text: false
-      }
+      model: 'openai',
+      messages: [
+        { role: 'system', content: 'You are a creative AI assistant. Be concise and follow formatting instructions exactly.' },
+        { role: 'user', content: prompt }
+      ],
+      seed: Math.floor(Math.random()*9999)
     })
   });
 
-  if(response.status===503){
-    // Model loading
-    throw new Error('MODEL_LOADING');
-  }
-  if(response.status===401){
-    throw new Error('INVALID_KEY');
-  }
   if(!response.ok){
-    const err = await response.json().catch(()=>({}));
-    throw new Error(err.error || `HTTP ${response.status}`);
+    throw new Error(`AI service error: HTTP ${response.status}`);
   }
 
-  const data = await response.json();
-  if(Array.isArray(data) && data[0]?.generated_text){
-    return data[0].generated_text.trim();
-  }
-  if(data.generated_text){
-    return data.generated_text.trim();
-  }
-  throw new Error('Unexpected API response format');
+  const text = await response.text();
+  return text.trim();
 }
 
 // ════════════════════════════════════════════
@@ -931,14 +878,13 @@ function regenerate(tool) {
 
 function handleApiError(outputId, err) {
   if(err.message==='NO_KEY'){
-    showError(outputId,'No API key found. Please enter your Hugging Face API key above.');
-    document.getElementById('apiSetupBox').scrollIntoView({behavior:'smooth'});
+    showError(outputId,'AI service unavailable. Please try again in a moment.');
   } else if(err.message==='INVALID_KEY'){
-    showError(outputId,'Invalid API key. Please check your Hugging Face token.');
+    showError(outputId,'AI service error. Please try again.');
   } else if(err.message==='MODEL_LOADING'){
-    showError(outputId,'Model is loading on Hugging Face servers (cold start). Please wait 30 seconds and try again.');
+    showError(outputId,'AI is loading. Please wait a moment and try again.');
   } else {
-    showError(outputId, `API Error: ${err.message}`);
+    showError(outputId, `Error: ${err.message}. Please try again.`);
   }
 }
 

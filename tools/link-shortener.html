@@ -15,11 +15,24 @@
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Link Shortener – Shorten URLs Like Bitly | HashmiTools</title>
+
+  <!-- ═══ PRIMARY SEO ═══ -->
+  <title>Free URL Shortener – Create Short Links Instantly | HashmiTools</title>
   <meta name="robots" content="index, follow" />
-  <meta name="description" content="Shorten long URLs instantly for free. Create short links, generate QR codes, and track click counts — no signup needed. Free Bitly-alternative link shortener." />
-  <meta name="keywords" content="link shortener, url shortener, short link, bitly alternative, tiny url, shorten link, free url shortener, custom short link, link tracker" />
+  <meta name="description" content="Shorten any long URL into a tiny link instantly — free, no signup needed. Uses TinyURL & is.gd APIs. Copy, share on WhatsApp, and generate a QR code in one click." />
+  <meta name="keywords" content="url shortener, link shortener, free url shortener, shorten url, short link generator, tinyurl, is.gd, bitly alternative, url shortener no signup, qr code generator, whatsapp link shortener, Pakistan link shortener" />
   <link rel="canonical" href="https://hashmitools.com/tools/link-shortener.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free URL Shortener – Create Short Links Instantly | HashmiTools" />
+  <meta property="og:description" content="Shorten any long URL into a tiny link instantly — free, no signup. Powered by TinyURL & is.gd. Copy, QR code, link history all in one tool." />
+  <meta property="og:url" content="https://hashmitools.com/tools/link-shortener.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://hashmitools.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free URL Shortener – HashmiTools" />
+  <meta name="twitter:description" content="Shorten any URL for free. Powered by TinyURL & is.gd. No signup, no limits." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
@@ -29,163 +42,603 @@
   <script src="../assets/js/theme.js"></script>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+  <!-- QR Code library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+  <!-- ═══ JSON-LD STRUCTURED DATA ═══ -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Free URL Shortener – HashmiTools",
+      "description": "Shorten any long URL into a tiny link instantly — free, no signup needed. Powered by TinyURL and is.gd APIs. Copy, share on WhatsApp, and generate a QR code.",
+      "url": "https://hashmitools.com/tools/link-shortener.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires a modern browser with JavaScript enabled",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Instant URL shortening via TinyURL and is.gd",
+        "QR code generation for every short link",
+        "Link history with browser localStorage",
+        "One-click copy and WhatsApp share",
+        "No account or signup required"
+      ],
+      "provider": {
+        "@type": "Organization",
+        "name": "HashmiTools",
+        "url": "https://hashmitools.com"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Shorten a URL with HashmiTools",
+      "description": "Step-by-step guide to shortening any long URL into a tiny shareable link using the HashmiTools URL Shortener.",
+      "totalTime": "PT10S",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Paste your URL",
+          "text": "Copy the long URL you want to shorten and paste it into the input box on this page."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Click Shorten",
+          "text": "Click the 'Shorten' button or press Enter. The tool will contact TinyURL or is.gd and generate a short link in seconds."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Copy or share your short link",
+          "text": "Click 'Copy' to copy the short link to clipboard, or use the Share button to send it directly via WhatsApp or other apps."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Generate a QR code (optional)",
+          "text": "Click 'QR Code' to generate a scannable QR code for the short link. Download it as a PNG image."
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this URL shortener free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, 100% free with no signup, no account, and no daily limits. The tool uses the free TinyURL and is.gd APIs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What short link domain will I get?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You get a real external short link — either from TinyURL (e.g. https://tinyurl.com/abc1234) or is.gd (e.g. https://is.gd/abc123). Your hashmitools.com domain is never used in the short link."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do the short links expire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TinyURL links do not expire — they have been running since 2002. is.gd links are also permanent. Both services maintain redirect mappings indefinitely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I generate a QR code for the short link?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — after shortening your URL, click the 'QR Code' button to generate a scannable QR code. You can download it as a PNG image."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my short link blocked on WhatsApp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Some platforms block popular shortener domains like TinyURL or is.gd because they have historically been used for spam. If this happens, try sharing the original URL directly or use a custom domain shortener service."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I shorten affiliate or WhatsApp links?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, you can shorten any valid https:// URL including WhatsApp links (wa.me), Daraz product links, YouTube videos, and more. For affiliate links, check your affiliate program's terms first."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your link history is stored only in your browser's localStorage — no data is sent to HashmiTools servers. The URLs are sent to TinyURL or is.gd APIs only for shortening, which is governed by their respective privacy policies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if the shortening fails?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool tries TinyURL first, then falls back to is.gd automatically. If both fail (e.g. you are offline or the URL is invalid), an error message is shown. No fake local links are ever generated."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
   <style>
-    /* ─── Link Shortener Specific Styles ─── */
+    /* ═══ LINK SHORTENER — REDESIGNED UI ═══ */
+
+    /* Hero */
     .ls-hero {
-      background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
-      padding: 48px 24px;
+      background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+      padding: 56px 24px 48px;
       text-align: center;
       color: #fff;
+      position: relative;
+      overflow: hidden;
     }
-    .ls-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:2.2rem; font-weight:800; margin-bottom:8px; }
-    .ls-hero p { font-size:1.05rem; opacity:0.9; margin-bottom:28px; }
-    .ls-input-wrap {
-      display:flex; gap:0; max-width:680px; margin:0 auto;
-      background:#fff; border-radius:14px; overflow:hidden;
-      box-shadow:0 8px 40px rgba(0,0,0,0.2);
+    .ls-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .ls-breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .ls-breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .ls-breadcrumb a:hover { color: #fff; }
+    .ls-hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .ls-hero-sub {
+      font-size: 1.05rem;
+      opacity: 0.88;
+      margin-bottom: 32px;
+    }
+
+    /* Input box */
+    .ls-input-box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 16px;
+      padding: 8px 8px 8px 20px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .ls-input-box:focus-within {
+      border-color: rgba(255,255,255,0.6);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.12);
     }
     .ls-url-input {
-      flex:1; padding:16px 20px; border:none; outline:none;
-      font-size:1rem; color:#1e293b; background:transparent;
-      font-family:inherit;
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      color: #fff;
+      font-family: inherit;
+      padding: 10px 0;
     }
+    .ls-url-input::placeholder { color: rgba(255,255,255,0.6); }
     .ls-shorten-btn {
-      padding:14px 28px; background:linear-gradient(135deg,#6366f1,#4f46e5);
-      color:#fff; border:none; cursor:pointer; font-size:0.95rem; font-weight:700;
-      font-family:inherit; transition:all 0.2s; white-space:nowrap;
+      padding: 13px 28px;
+      background: #fff;
+      color: #4f46e5;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .ls-shorten-btn:hover { background:linear-gradient(135deg,#4f46e5,#3730a3); }
-    .ls-shorten-btn:disabled { opacity:0.6; cursor:not-allowed; }
+    .ls-shorten-btn:hover { background: #f1f5f9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .ls-shorten-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .ls-trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .ls-trust-item {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .ls-trust-dot {
+      width: 6px; height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+    }
+
+    /* Main content wrapper */
+    .ls-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
 
     /* Result card */
     .ls-result-card {
-      background:var(--bg-card); border:2px solid rgba(99,102,241,0.3);
-      border-radius:16px; padding:24px; margin:20px 0;
-      display:none; animation:fadeInUp 0.4s ease;
+      background: var(--bg-card, #fff);
+      border: 2px solid #4ade80;
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 28px;
+      display: none;
+      animation: lsFadeUp 0.35s ease;
     }
-    .ls-result-card.show { display:block; }
-    @keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .ls-result-card.show { display: block; }
+    @keyframes lsFadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ls-result-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .ls-result-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg,#22c55e,#16a34a);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .ls-result-title { font-size: 1rem; font-weight: 700; margin: 0; }
+    .ls-result-sub { font-size: 0.78rem; color: var(--text-muted, #94a3b8); margin: 0; }
 
-    .ls-short-url {
-      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-      background:var(--bg-secondary); border-radius:12px; padding:14px 18px;
-      margin:12px 0;
+    /* Short link display */
+    .ls-shortlink-row {
+      background: var(--bg-secondary, #f8fafc);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .ls-provider-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: rgba(79,70,229,0.12);
+      color: #4f46e5;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .ls-short-link {
-      flex:1; font-size:1.1rem; font-weight:700; color:var(--accent,#6366f1);
-      text-decoration:none; word-break:break-all;
+      flex: 1;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #4f46e5;
+      text-decoration: none;
+      word-break: break-all;
     }
-    .ls-short-link:hover { text-decoration:underline; }
-    .ls-copy-btn {
-      padding:8px 18px; background:var(--accent,#6366f1); color:#fff;
-      border:none; border-radius:8px; cursor:pointer; font-weight:600;
-      font-size:0.85rem; white-space:nowrap; transition:all 0.2s; font-family:inherit;
+    .ls-short-link:hover { text-decoration: underline; }
+    .ls-action-btn {
+      padding: 9px 16px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.18s;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
-    .ls-copy-btn:hover { opacity:0.85; transform:translateY(-1px); }
-    .ls-copy-btn.copied { background:#22c55e; }
+    .ls-action-btn.primary { background: #4f46e5; color: #fff; }
+    .ls-action-btn.primary:hover { background: #3730a3; transform: translateY(-1px); }
+    .ls-action-btn.primary.copied { background: #22c55e; }
+    .ls-action-btn.ghost {
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      border: 1.5px solid var(--border-color, #e2e8f0);
+    }
+    .ls-action-btn.ghost:hover { border-color: #4f46e5; color: #4f46e5; }
+    .ls-action-btn.green { background: #dcfce7; color: #16a34a; }
+    .ls-action-btn.green:hover { background: #bbf7d0; }
 
-    /* Stats row */
-    .ls-stats { display:flex; gap:16px; flex-wrap:wrap; margin:12px 0; }
+    /* Stat pills */
+    .ls-stats {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
     .ls-stat {
-      display:flex; align-items:center; gap:6px;
-      font-size:0.8rem; color:var(--text-muted);
-      background:var(--bg-secondary); padding:6px 12px; border-radius:20px;
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      background: var(--bg-secondary, #f8fafc);
+      border-radius: 20px;
+      color: var(--text-muted, #94a3b8);
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
-    .ls-stat strong { color:var(--text-primary); }
+    .ls-stat strong { color: var(--text-primary, #0f172a); }
 
-    /* History table */
-    .ls-history { margin-top:32px; }
-    .ls-history-header {
-      display:flex; justify-content:space-between; align-items:center;
-      margin-bottom:12px;
+    /* Original URL display */
+    .ls-orig-url {
+      background: var(--bg-secondary, #f8fafc);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
     }
-    .ls-history-header h3 { font-size:1.1rem; font-weight:700; }
+    .ls-orig-label { font-size: 0.7rem; color: var(--text-muted, #94a3b8); margin-bottom: 3px; }
+    .ls-orig-text { font-size: 0.8rem; word-break: break-all; color: var(--text-secondary, #475569); }
+
+    /* Bottom buttons row */
+    .ls-btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* QR */
+    .ls-qr-wrap {
+      text-align: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      display: none;
+    }
+    .ls-qr-wrap.show { display: block; }
+    #qrCanvas {
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: block;
+      margin: 0 auto 12px;
+    }
+
+    /* History */
+    .ls-history {
+      margin-top: 0;
+    }
+    .ls-history-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .ls-history-head h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
     .ls-clear-btn {
-      padding:6px 14px; background:transparent; border:1px solid var(--border-color);
-      border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem;
-      font-family:inherit; transition:all 0.2s;
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted, #94a3b8);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
     }
-    .ls-clear-btn:hover { border-color:#ef4444; color:#ef4444; }
+    .ls-clear-btn:hover { border-color: #ef4444; color: #ef4444; }
 
     .ls-history-item {
-      display:flex; align-items:center; gap:12px; padding:12px 16px;
-      background:var(--bg-card); border:1px solid var(--border-color);
-      border-radius:10px; margin-bottom:8px; transition:all 0.2s;
-      flex-wrap:wrap;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-card, #fff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+      flex-wrap: wrap;
     }
-    .ls-history-item:hover { border-color:var(--accent,#6366f1); box-shadow:0 2px 12px rgba(99,102,241,0.1); }
-    .ls-hi-index {
-      width:28px; height:28px; background:var(--bg-secondary); border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:0.75rem; font-weight:700; color:var(--text-muted); flex-shrink:0;
+    .ls-history-item:hover { border-color: #4f46e5; box-shadow: 0 2px 12px rgba(79,70,229,0.1); }
+    .ls-hi-num {
+      width: 26px; height: 26px;
+      background: var(--bg-secondary, #f8fafc);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--text-muted, #94a3b8);
+      flex-shrink: 0;
     }
-    .ls-hi-info { flex:1; min-width:0; }
-    .ls-hi-short { font-weight:700; color:var(--accent,#6366f1); font-size:0.9rem; text-decoration:none; }
-    .ls-hi-short:hover { text-decoration:underline; }
-    .ls-hi-long { font-size:0.75rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:320px; margin-top:2px; }
-    .ls-hi-actions { display:flex; gap:6px; flex-shrink:0; }
+    .ls-hi-info { flex: 1; min-width: 0; }
+    .ls-hi-short-row { display: flex; align-items: center; gap: 6px; }
+    .ls-hi-short {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: #4f46e5;
+      text-decoration: none;
+    }
+    .ls-hi-short:hover { text-decoration: underline; }
+    .ls-hi-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: rgba(79,70,229,0.1);
+      color: #4f46e5;
+      text-transform: uppercase;
+    }
+    .ls-hi-long {
+      font-size: 0.72rem;
+      color: var(--text-muted, #94a3b8);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 300px;
+      margin-top: 2px;
+    }
+    .ls-hi-date { font-size: 0.68rem; color: var(--text-muted,#94a3b8); margin-top: 1px; }
+    .ls-hi-actions { display: flex; gap: 5px; flex-shrink: 0; }
     .ls-hi-btn {
-      padding:5px 10px; border:1px solid var(--border-color); border-radius:6px;
-      font-size:0.75rem; cursor:pointer; background:transparent;
-      color:var(--text-secondary); font-family:inherit; transition:all 0.15s;
+      padding: 5px 9px;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 7px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-secondary, #475569);
+      font-family: inherit;
+      transition: all 0.15s;
     }
-    .ls-hi-btn:hover { background:var(--accent,#6366f1); color:#fff; border-color:transparent; }
-    .ls-hi-btn.del:hover { background:#ef4444; border-color:transparent; }
-    .ls-click-badge {
-      font-size:0.72rem; background:rgba(99,102,241,0.1); color:var(--accent,#6366f1);
-      padding:3px 8px; border-radius:12px; font-weight:600; white-space:nowrap;
-    }
+    .ls-hi-btn:hover { background: #4f46e5; color: #fff; border-color: transparent; }
+    .ls-hi-btn.del:hover { background: #ef4444; border-color: transparent; }
 
-    /* Features */
-    .ls-features { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin:32px 0; }
+    /* Features grid */
+    .ls-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 28px 0;
+    }
     .ls-feat {
-      text-align:center; padding:24px 16px;
-      background:var(--bg-card); border:1px solid var(--border-color);
-      border-radius:12px; transition:all 0.2s;
+      padding: 20px 16px;
+      background: var(--bg-card, #fff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 14px;
+      text-align: center;
+      transition: all 0.2s;
     }
-    .ls-feat:hover { border-color:var(--accent,#6366f1); transform:translateY(-2px); }
-    .ls-feat .icon { font-size:2rem; margin-bottom:8px; }
-    .ls-feat h4 { font-size:0.95rem; font-weight:700; margin-bottom:6px; }
-    .ls-feat p { font-size:0.8rem; color:var(--text-muted); line-height:1.5; }
+    .ls-feat:hover { border-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(79,70,229,0.1); }
+    .ls-feat .feat-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .ls-feat h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 5px; }
+    .ls-feat p { font-size: 0.78rem; color: var(--text-muted, #94a3b8); line-height: 1.5; margin: 0; }
 
-    /* QR section */
-    .ls-qr-wrap { text-align:center; margin-top:16px; display:none; }
-    .ls-qr-wrap.show { display:block; }
-    #qrCanvas { border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
-
-    /* Tips */
-    .ls-tip-wrap { background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.15); border-radius:12px; padding:16px 20px; margin:16px 0; }
-    .ls-tip-wrap h4 { font-size:0.9rem; font-weight:700; color:var(--accent,#6366f1); margin-bottom:6px; }
-    .ls-tip-wrap p { font-size:0.82rem; color:var(--text-secondary); line-height:1.6; }
-
-    @media(max-width:600px) {
-      .ls-hero h1 { font-size:1.6rem; }
-      .ls-input-wrap { flex-direction:column; border-radius:12px; }
-      .ls-shorten-btn { border-radius:0 0 12px 12px; }
-      .ls-url-input { border-radius:12px 12px 0 0; border-bottom:1px solid #e2e8f0; }
+    /* Empty state */
+    .ls-empty {
+      text-align: center;
+      padding: 36px 20px;
+      color: var(--text-muted, #94a3b8);
     }
-  
-.adsbygoogle{min-height:90px;display:block;}
-</style>
-  <script type="application/ld+json">
-  [{"@context":"https://schema.org","@type":"WebApplication","name":"Link Shortener – Shorten URLs Like Bitly","description":"Shorten long URLs instantly for free. Create short links, generate QR codes, and track click counts — no signup needed. Free Bitly-alternative link shortener.","url":"https://hashmitools.com/tools/link-shortener.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://hashmitools.com"}}
-    ,{
-      "@type": "FAQPage",
-      "mainEntity": [
-        {"@type":"Question","name":"How does the link shortener work?","acceptedAnswer":{"@type":"Answer","text":"Enter any long URL and the tool generates a unique short code. The short link is stored in your browser's localStorage for easy access."}},
-        {"@type":"Question","name":"Can I track how many times a link is clicked?","acceptedAnswer":{"@type":"Answer","text":"Yes — each short link has a click counter that increments every time you open it. View all your links and their click counts in the history panel."}},
-        {"@type":"Question","name":"Are shortened links permanent?","acceptedAnswer":{"@type":"Answer","text":"Links are stored in your browser's localStorage. They persist until you clear your browser storage or delete them manually."}},
-        {"@type":"Question","name":"Can I generate a QR code for my short link?","acceptedAnswer":{"@type":"Answer","text":"Yes — after shortening, click the QR button to generate and download a QR code for the short URL."}},
-        {"@type":"Question","name":"Is this a server-based link shortener?","acceptedAnswer":{"@type":"Answer","text":"This is a client-side tool — links are stored only in your browser. They don't work on other devices or after clearing browser data."}}
-      ]
-    }]
-  </script>
+    .ls-empty .empty-icon { font-size: 2.8rem; margin-bottom: 10px; }
+    .ls-empty p { font-size: 0.88rem; margin: 0; }
+
+    /* Error box */
+    .ls-error-box {
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      color: #b91c1c;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .ls-error-box.show { display: flex; }
+
+    /* FAQ accordion */
+    .ls-faq-item {
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .ls-faq-q {
+      padding: 15px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .ls-faq-q:hover { background: var(--bg-secondary, #f8fafc); }
+    .ls-faq-q .arrow { transition: transform 0.25s; color: var(--text-muted,#94a3b8); font-size:0.75rem; }
+    .ls-faq-q.open .arrow { transform: rotate(180deg); }
+    .ls-faq-a {
+      display: none;
+      padding: 0 20px 15px;
+      font-size: 0.86rem;
+      color: var(--text-secondary, #475569);
+      line-height: 1.65;
+    }
+    .ls-faq-a.open { display: block; }
+
+    /* Toast */
+    .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+    .ht-toast {
+      background: var(--bg-card,#fff);
+      border: 1px solid var(--border-color,#e2e8f0);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: lsFadeUp 0.3s ease;
+      max-width: 300px;
+    }
+
+    /* Mobile */
+    @media(max-width: 600px) {
+      .ls-hero h1 { font-size: 1.8rem; }
+      .ls-input-box { flex-direction: column; padding: 12px; }
+      .ls-shorten-btn { width: 100%; justify-content: center; border-radius: 10px; }
+      .ls-url-input { width: 100%; }
+      .ls-trust-bar { gap: 12px; }
+      .ls-shortlink-row { flex-direction: column; align-items: flex-start; }
+      .ls-btn-row { flex-direction: column; }
+      .ls-btn-row .ls-action-btn { width: 100%; justify-content: center; }
+    }
+
+    .adsbygoogle { min-height: 90px; display: block; }
+  </style>
 </head>
 <body>
   <!-- Navbar -->
   <header class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span><span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span></a>
+      <a href="../index.html" class="nav-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Hashmi<span class="logo-accent">Tools</span></span>
+      </a>
       <nav class="nav-links" id="navLinks">
         <a href="../index.html" class="nav-link">Home</a>
         <a href="developer.html" class="nav-link active">Developer Tools</a>
@@ -200,229 +653,371 @@
     </div>
   </header>
 
-  <div class="search-overlay" id="searchOverlay"><div class="search-container"><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="Search 100+ tools..." /><button class="search-close" id="searchClose"><i class="fas fa-times"></i></button></div><div id="searchResults"></div></div></div>
-
-  <!-- Hero Section -->
-  <div class="ls-hero">
-    <nav class="breadcrumb" style="justify-content:center;margin-bottom:16px;color:rgba(255,255,255,0.7);font-size:0.82rem;">
-      <a href="../index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
-      <i class="fas fa-chevron-right" style="margin:0 6px;font-size:0.65rem;"></i>
-      <span style="color:#fff;">Link Shortener</span>
-    </nav>
-    <h1>✂️ Free Link Shortener</h1>
-    <p>Shorten long URLs instantly — no signup, no limits, no tracking of you</p>
-    <div class="ls-input-wrap">
-      <input type="url" id="longUrlInput" class="ls-url-input" placeholder="Paste your long URL here… e.g. https://example.com/very/long/url" autocomplete="off" />
-      <button class="ls-shorten-btn" id="shortenBtn" onclick="shortenUrl()">
-        <i class="fas fa-magic"></i> Shorten
-      </button>
+  <!-- Search overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search 100+ tools…" />
+        <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="searchResults"></div>
     </div>
-    <p style="margin-top:12px;font-size:0.8rem;opacity:0.75;">✓ Instant  ✓ Free  ✓ Works in browser  ✓ No signup needed</p>
   </div>
 
-  <div style="max-width:900px;margin:0 auto;padding:24px 20px;">
+  <!-- ═══ HERO ═══ -->
+  <section class="ls-hero" aria-label="URL Shortener Hero">
+    <nav class="ls-breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i>
+      <a href="developer.html">Developer Tools</a>
+      <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i>
+      <span>Link Shortener</span>
+    </nav>
 
-    <!-- Ad slot -->
+    <h1>✂️ Free URL Shortener</h1>
+    <p class="ls-hero-sub">Paste any long URL and get a clean short link — instantly, for free</p>
+
+    <div class="ls-input-box" role="search">
+      <input
+        type="url"
+        id="longUrlInput"
+        class="ls-url-input"
+        placeholder="Paste your long URL here… https://example.com/very/long/link"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+        aria-label="Long URL to shorten"
+      />
+      <button class="ls-shorten-btn" id="shortenBtn" onclick="shortenUrl()" aria-label="Shorten URL">
+        <i class="fas fa-magic" id="btnIcon"></i> <span id="btnText">Shorten</span>
+      </button>
+    </div>
+
+    <div class="ls-trust-bar">
+      <span class="ls-trust-item"><span class="ls-trust-dot"></span> No signup required</span>
+      <span class="ls-trust-item"><span class="ls-trust-dot"></span> Powered by TinyURL &amp; is.gd</span>
+      <span class="ls-trust-item"><span class="ls-trust-dot"></span> Real short links</span>
+      <span class="ls-trust-item"><span class="ls-trust-dot"></span> Free forever</span>
+    </div>
+  </section>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="ls-wrap">
+
+    <!-- Top Ad -->
     <div class="ht-ad-slot ht-ad-incontent" style="margin-bottom:24px;">
       <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins>
       <span class="ht-ad-label">Advertisement</span>
     </div>
 
-    <!-- Result Card -->
-    <div class="ls-result-card" id="resultCard">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;">✓</div>
+    <!-- Error Box -->
+    <div class="ls-error-box" id="errorBox" role="alert">
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="errorMsg">Could not shorten this URL. Please check the URL and try again.</span>
+    </div>
+
+    <!-- ══ RESULT CARD ══ -->
+    <div class="ls-result-card" id="resultCard" role="region" aria-label="Shortened link result">
+      <div class="ls-result-header">
+        <div class="ls-result-icon" aria-hidden="true">✓</div>
         <div>
-          <h3 style="font-size:1rem;font-weight:700;margin:0;">Link shortened successfully!</h3>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Your short link is ready to share</p>
+          <p class="ls-result-title">Link shortened successfully!</p>
+          <p class="ls-result-sub">Your short link is ready — copy or share it below</p>
         </div>
       </div>
 
-      <div class="ls-short-url">
-        <a id="resultShortLink" class="ls-short-link" href="#" target="_blank"></a>
-        <button class="ls-copy-btn" id="copyBtn" onclick="copyShortLink()">
+      <div class="ls-shortlink-row">
+        <span class="ls-provider-badge" id="providerBadge">TinyURL</span>
+        <a id="resultShortLink" class="ls-short-link" href="#" target="_blank" rel="noopener"></a>
+        <button class="ls-action-btn primary" id="copyBtn" onclick="copyShortLink()">
           <i class="fas fa-copy"></i> Copy
         </button>
-        <button class="ls-copy-btn" onclick="shareLink()" style="background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);border:1px solid rgba(99,102,241,0.3);">
+        <button class="ls-action-btn green" onclick="shareLink()">
           <i class="fas fa-share-alt"></i> Share
         </button>
       </div>
 
       <div class="ls-stats">
-        <div class="ls-stat"><i class="fas fa-link" style="color:var(--accent,#6366f1);"></i> <strong id="statOriginal">—</strong> original chars</div>
-        <div class="ls-stat"><i class="fas fa-compress-alt" style="color:#22c55e;"></i> <strong id="statShort">—</strong> short chars</div>
-        <div class="ls-stat"><i class="fas fa-percent" style="color:#f97316;"></i> <strong id="statSaved">—</strong> saved</div>
-        <div class="ls-stat"><i class="fas fa-mouse-pointer" style="color:#8b5cf6;"></i> <strong id="statClicks">0</strong> clicks</div>
+        <div class="ls-stat"><i class="fas fa-link" style="color:#4f46e5;"></i> Original: <strong id="statOriginal">—</strong> chars</div>
+        <div class="ls-stat"><i class="fas fa-compress-alt" style="color:#22c55e;"></i> Short: <strong id="statShort">—</strong> chars</div>
+        <div class="ls-stat"><i class="fas fa-percent" style="color:#f97316;"></i> Saved: <strong id="statSaved">—</strong></div>
       </div>
 
-      <!-- Original URL -->
-      <div style="margin-top:12px;padding:10px 14px;background:var(--bg-secondary);border-radius:8px;">
-        <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:3px;">Original URL:</div>
-        <div id="statOriginalUrl" style="font-size:0.82rem;word-break:break-all;color:var(--text-secondary);"></div>
+      <div class="ls-orig-url">
+        <div class="ls-orig-label">Original URL:</div>
+        <div class="ls-orig-text" id="statOriginalUrl"></div>
       </div>
 
-      <!-- QR Code Toggle -->
-      <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
-        <button onclick="toggleQR()" class="ls-copy-btn" style="background:rgba(99,102,241,0.1);color:var(--accent,#6366f1);border:1px solid rgba(99,102,241,0.3);">
-          <i class="fas fa-qrcode"></i> Show QR Code
+      <div class="ls-btn-row">
+        <button class="ls-action-btn ghost" onclick="toggleQR()" id="qrToggleBtn">
+          <i class="fas fa-qrcode"></i> QR Code
         </button>
-        <button onclick="shortenAnother()" class="ls-copy-btn" style="background:transparent;color:var(--text-secondary);border:1px solid var(--border-color);">
+        <button class="ls-action-btn ghost" onclick="shortenAnother()">
           <i class="fas fa-plus"></i> Shorten Another
         </button>
       </div>
 
+      <!-- QR Code section -->
       <div class="ls-qr-wrap" id="qrWrap">
-        <canvas id="qrCanvas" width="180" height="180"></canvas>
-        <div style="margin-top:8px;">
-          <button onclick="downloadQR()" class="ls-copy-btn" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">
-            <i class="fas fa-download"></i> Download QR
-          </button>
-        </div>
+        <canvas id="qrCanvas" width="180" height="180" aria-label="QR code for short link"></canvas>
+        <button class="ls-action-btn primary" onclick="downloadQR()" style="margin-top:4px;">
+          <i class="fas fa-download"></i> Download QR
+        </button>
       </div>
     </div>
+    <!-- end result card -->
 
-    <!-- Features Grid -->
-    <div class="ls-features">
-      <div class="ls-feat"><div class="icon">⚡</div><h4>Instant Shortening</h4><p>Paste and shorten any URL in under a second. No waiting, no loading screens.</p></div>
-      <div class="ls-feat"><div class="icon">📊</div><h4>Click Counter</h4><p>Each short link tracks how many times it's been clicked (stored locally).</p></div>
-      <div class="ls-feat"><div class="icon">🔳</div><h4>QR Code Generator</h4><p>Auto-generate a QR code for every shortened link. Download as PNG.</p></div>
-      <div class="ls-feat"><div class="icon">📋</div><h4>Link History</h4><p>All your shortened links saved in browser — accessible anytime, no account needed.</p></div>
-      <div class="ls-feat"><div class="icon">🔒</div><h4>100% Private</h4><p>No data sent to any server. Everything is stored in your browser locally.</p></div>
-      <div class="ls-feat"><div class="icon">📱</div><h4>Share Anywhere</h4><p>One click to share on WhatsApp, Twitter, Facebook, or copy to clipboard.</p></div>
-    </div>
-
-    <!-- Tip Box -->
-    <div class="ls-tip-wrap">
-      <h4>💡 How It Works</h4>
-      <p>This tool uses a <strong>hash-based redirect system</strong> stored in your browser's localStorage. Short links look like <code style="background:var(--bg-secondary);padding:1px 5px;border-radius:4px;">hashmitools.com/s/abc123</code> and redirect to the original URL when opened. Perfect for sharing on social media, WhatsApp, or any character-limited platform.</p>
-    </div>
-
-    <!-- History Section -->
+    <!-- ══ HISTORY ══ -->
     <div class="ls-history" id="historySection">
-      <div class="ls-history-header">
-        <h3><i class="fas fa-history" style="margin-right:8px;color:var(--accent,#6366f1);"></i>Your Link History <span id="historyCount" style="font-size:0.8rem;color:var(--text-muted);font-weight:400;"></span></h3>
+      <div class="ls-history-head">
+        <h3>
+          <i class="fas fa-history" style="color:#4f46e5;" aria-hidden="true"></i>
+          Link History
+          <span id="historyCount" style="font-size:0.78rem;color:var(--text-muted);font-weight:400;"></span>
+        </h3>
         <button class="ls-clear-btn" onclick="clearAllLinks()">
           <i class="fas fa-trash-alt"></i> Clear All
         </button>
       </div>
-      <div id="historyList">
-        <div style="text-align:center;padding:40px 20px;color:var(--text-muted);">
-          <div style="font-size:3rem;margin-bottom:12px;">📭</div>
-          <p style="font-size:0.9rem;">No links shortened yet. Paste a URL above to get started!</p>
-        </div>
-      </div>
+      <div id="historyList"></div>
     </div>
 
-    <!-- Ad slot bottom -->
-    <div class="ht-ad-slot ht-ad-bottom" style="margin-top:24px;">
+    <!-- Bottom Ad -->
+    <div class="ht-ad-slot ht-ad-bottom" style="margin-top:28px;">
       <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5313876284153733" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins>
       <span class="ht-ad-label">Advertisement</span>
     </div>
 
-    <!-- FAQ -->
-    <section style="margin-top:40px;">
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:20px;">Frequently Asked Questions</h2>
-
-      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
-        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
-          Is this link shortener really free?
-          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);transition:transform 0.3s;"></i>
+    <!-- ══ FEATURES ══ -->
+    <section aria-labelledby="featHeading" style="margin-top:40px;">
+      <h2 id="featHeading" style="font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:18px;">Why Use HashmiTools URL Shortener?</h2>
+      <div class="ls-features">
+        <div class="ls-feat">
+          <div class="feat-icon">⚡</div>
+          <h4>Instant Shortening</h4>
+          <p>Paste any URL and get a short link in under 2 seconds — no waiting, no loading screens.</p>
         </div>
-        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
-          Yes, 100% free with no hidden costs. No account required, no daily limits. All processing happens in your browser.
+        <div class="ls-feat">
+          <div class="feat-icon">🔗</div>
+          <h4>Real Short Links</h4>
+          <p>Short links from TinyURL or is.gd — e.g. <code style="font-size:0.75rem;">tinyurl.com/abc1234</code>. Not fake hashmitools.com links.</p>
+        </div>
+        <div class="ls-feat">
+          <div class="feat-icon">🔳</div>
+          <h4>QR Code Generator</h4>
+          <p>Generate a scannable QR code for any short link. Download as PNG for printing or sharing.</p>
+        </div>
+        <div class="ls-feat">
+          <div class="feat-icon">📋</div>
+          <h4>Link History</h4>
+          <p>All your shortened links saved in your browser. No account needed — access anytime.</p>
+        </div>
+        <div class="ls-feat">
+          <div class="feat-icon">🔒</div>
+          <h4>100% Private</h4>
+          <p>Link history is stored only in your browser. HashmiTools never sees your URLs.</p>
+        </div>
+        <div class="ls-feat">
+          <div class="feat-icon">📱</div>
+          <h4>Share Anywhere</h4>
+          <p>One tap to share on WhatsApp, Instagram, Twitter, or copy to clipboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ HOW TO USE ══ -->
+    <section aria-labelledby="howHeading" style="margin-top:40px;">
+      <h2 id="howHeading" style="font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:16px;">
+        📖 How to Use the URL Shortener
+      </h2>
+      <ol style="padding-left:22px;margin:0;display:flex;flex-direction:column;gap:12px;">
+        <li style="font-size:0.9rem;color:var(--text-secondary,#475569);line-height:1.65;">
+          <strong>Paste your long URL</strong> — Copy the URL you want to shorten (e.g. a YouTube video, Daraz product, Google Doc) and paste it into the input box above.
+        </li>
+        <li style="font-size:0.9rem;color:var(--text-secondary,#475569);line-height:1.65;">
+          <strong>Click Shorten</strong> — Hit the Shorten button or press Enter. The tool calls TinyURL or is.gd and returns a short link in 1–2 seconds.
+        </li>
+        <li style="font-size:0.9rem;color:var(--text-secondary,#475569);line-height:1.65;">
+          <strong>Copy or Share</strong> — Click Copy to copy the short link, or Share to send it directly via WhatsApp or your device's share sheet.
+        </li>
+        <li style="font-size:0.9rem;color:var(--text-secondary,#475569);line-height:1.65;">
+          <strong>Get a QR Code</strong> — Click QR Code to generate a scannable QR code. Download it as a PNG for offline use, banners, or business cards.
+        </li>
+        <li style="font-size:0.9rem;color:var(--text-secondary,#475569);line-height:1.65;">
+          <strong>View History</strong> — All your shortened links appear in the Link History panel. Copy or delete them anytime — no account required.
+        </li>
+      </ol>
+    </section>
+
+    <!-- ══ FAQ ══ -->
+    <section aria-labelledby="faqHeading" style="margin-top:40px;">
+      <h2 id="faqHeading" style="font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:18px;">Frequently Asked Questions</h2>
+
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
+          Is this URL shortener completely free?
+          <i class="fas fa-chevron-down arrow"></i>
+        </div>
+        <div class="ls-faq-a">
+          Yes — 100% free with no signup, no account, and no daily limits. The tool uses the free public APIs of TinyURL and is.gd, both of which have offered free URL shortening for over a decade.
         </div>
       </div>
 
-      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
-        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
-          Do the short links expire?
-          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);"></i>
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
+          What domain will my short link use?
+          <i class="fas fa-chevron-down arrow"></i>
         </div>
-        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
-          Links are stored in your browser's localStorage and remain valid as long as you don't clear your browser data. They work best for personal use and sharing with yourself across devices. For permanent public links, we recommend a hosted service like Bitly.
-        </div>
-      </div>
-
-      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
-        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
-          Is my data private?
-          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);"></i>
-        </div>
-        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
-          Completely. No data is sent to any server. Your URLs are stored only in your browser's localStorage on your own device.
+        <div class="ls-faq-a">
+          Your short link will come from either <strong>TinyURL</strong> (e.g. <code>https://tinyurl.com/abc1234</code>) or <strong>is.gd</strong> (e.g. <code>https://is.gd/abc123</code>). The tool always uses one of these real external services — it never generates fake links with hashmitools.com in the URL. The provider badge next to your link tells you which service was used.
         </div>
       </div>
 
-      <div class="faq-item" style="border:1px solid var(--border-color);border-radius:12px;margin-bottom:10px;overflow:hidden;">
-        <div class="faq-question" style="padding:16px 20px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
+          Do TinyURL and is.gd links expire?
+          <i class="fas fa-chevron-down arrow"></i>
+        </div>
+        <div class="ls-faq-a">
+          TinyURL has been operating since 2002 and maintains all links indefinitely — there is no expiry date. is.gd links are also permanent. Both services are free and have strong track records for link longevity. That said, no online service is 100% guaranteed forever, so for mission-critical permanent links consider a self-hosted solution.
+        </div>
+      </div>
+
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
           Can I use this for WhatsApp links?
-          <i class="fas fa-chevron-down" style="font-size:0.8rem;color:var(--text-muted);"></i>
+          <i class="fas fa-chevron-down arrow"></i>
         </div>
-        <div class="faq-answer" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">
-          Yes! Paste your long WhatsApp link (like <code style="background:var(--bg-secondary);padding:1px 4px;border-radius:3px;">https://wa.me/923001234567?text=Hello</code>) and get a short, shareable link perfect for bio pages or messages.
+        <div class="ls-faq-a">
+          Yes! Paste any WhatsApp link — e.g. <code>https://wa.me/923001234567?text=Hello</code> — and get a short link perfect for bio pages, broadcasts, or group messages. Be aware that WhatsApp and some other Meta platforms occasionally block TinyURL or is.gd links if the domain has been flagged for spam by other users. If this happens, try the is.gd version instead.
+        </div>
+      </div>
+
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
+          Is my data private?
+          <i class="fas fa-chevron-down arrow"></i>
+        </div>
+        <div class="ls-faq-a">
+          Your link history is stored only in your browser's localStorage — HashmiTools never receives or stores your URLs. The original URL is only sent to TinyURL or is.gd for shortening, which is governed by their respective privacy policies. No analytics, no tracking, no user accounts.
+        </div>
+      </div>
+
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
+          Can I shorten affiliate links?
+          <i class="fas fa-chevron-down arrow"></i>
+        </div>
+        <div class="ls-faq-a">
+          Technically yes — you can shorten any valid https:// URL. However, many affiliate programmes (Daraz, Amazon, ShareASale) prohibit cloaking affiliate links in their terms of service, especially for links shared in ads. Always check your affiliate programme's specific terms before shortening links for promotional use.
+        </div>
+      </div>
+
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
+          What if the shortening fails?
+          <i class="fas fa-chevron-down arrow"></i>
+        </div>
+        <div class="ls-faq-a">
+          The tool tries TinyURL first, then automatically falls back to is.gd. If both fail (e.g. you're offline, the URL is a private/intranet address, or the API is temporarily down), an error message is shown clearly. No fake or non-functional links are ever generated.
+        </div>
+      </div>
+
+      <div class="ls-faq-item">
+        <div class="ls-faq-q" onclick="toggleFaq(this)">
+          What URLs cannot be shortened?
+          <i class="fas fa-chevron-down arrow"></i>
+        </div>
+        <div class="ls-faq-a">
+          The following URL types cannot be shortened: <strong>local/private IPs</strong> (192.168.x.x, localhost), <strong>intranet URLs</strong> requiring VPN, <strong>URLs already flagged</strong> by TinyURL's or is.gd's spam filters, and <strong>malformed URLs</strong> that don't start with https://. If your URL shortens successfully but the link doesn't work later, check that the original URL is still publicly accessible.
         </div>
       </div>
     </section>
 
-    <!-- Related Tools -->
-    <section style="margin-top:40px;">
-      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px;">Related Tools</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
-        <a href="qr-generator.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">▦ QR Code Generator</a>
-        <a href="url-encoder.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">🔗 URL Encoder / Decoder</a>
-        <a href="password-generator.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">🔐 Password Generator</a>
-        <a href="base64.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:600;">64 Base64 Encoder</a>
+    <!-- ══ RELATED TOOLS ══ -->
+    <section style="margin-top:40px;" aria-labelledby="relHeading">
+      <h3 id="relHeading" style="font-size:1rem;font-weight:700;margin-bottom:14px;">Related Tools</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;">
+        <a href="qr-generator.html" style="padding:13px 16px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);font-size:0.86rem;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='var(--border-color)'">▦ QR Code Generator</a>
+        <a href="url-encoder.html" style="padding:13px 16px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);font-size:0.86rem;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='var(--border-color)'">🔗 URL Encoder / Decoder</a>
+        <a href="password-generator.html" style="padding:13px 16px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);font-size:0.86rem;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='var(--border-color)'">🔐 Password Generator</a>
+        <a href="base64.html" style="padding:13px 16px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;color:var(--text-primary);font-size:0.86rem;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='var(--border-color)'">64 Base64 Encoder</a>
       </div>
     </section>
-  </div>
+  </main>
 
-<!-- ═══════════════════ CONTENT ARTICLE ═══════════════════ -->
-<article class="ht-content-article" style="max-width:860px;margin:2rem auto 60px;padding:0 20px;font-family:'Inter',sans-serif;color:#1e293b;line-height:1.75">
-<h2 style="font-size:1.55rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a">How the URL Shortener Works — and Why Link Length Matters</h2>
-<p>The HashmiTools URL Shortener converts any long web address into a compact, shareable short link using the TinyURL API. When you paste a long URL and click shorten, the API creates a redirect mapping — anyone who visits the short link is automatically forwarded to the original destination. This is useful because: long URLs look unprofessional in messages and social media posts; they break awkwardly across lines in emails; they can expose tracking parameters or internal campaign codes you may prefer to keep private; and they're far easier to type or remember.</p>
-<p>A typical use case: a product link on Daraz or Amazon contains 200+ characters of tracking parameters. Sharing that raw URL in a WhatsApp group looks spammy and takes up space. The shortened version — a clean 20-character link — shares identically, looks professional, and reduces the cognitive friction for recipients to click.</p>
+  <!-- ═══ CONTENT ARTICLE ═══ -->
+  <article style="max-width:740px;margin:0 auto 60px;padding:0 20px;font-family:'Inter',sans-serif;line-height:1.75;" aria-label="URL shortener guide article">
+    <h2 style="font-size:1.45rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-primary,#0f172a);">How URL Shorteners Work — and Why Link Length Matters</h2>
+    <p style="color:var(--text-secondary,#475569);margin-bottom:1rem;">A URL shortener converts any long web address into a compact short link using a redirect mapping. When someone visits the short link, the shortening service (TinyURL, is.gd, etc.) instantly looks up the original URL in its database and forwards the visitor there — in milliseconds.</p>
+    <p style="color:var(--text-secondary,#475569);margin-bottom:1rem;">Long URLs are a problem in several common scenarios: a product link on Daraz or Amazon can contain 200+ characters of tracking parameters that look spammy in WhatsApp messages; Twitter/X limits posts to 280 characters; Instagram bios allow only one clickable link; and raw Google Drive share links are so long they break across email lines and confuse readers.</p>
+    <p style="color:var(--text-secondary,#475569);margin-bottom:1.5rem;">HashmiTools URL Shortener solves this by calling the free public APIs of TinyURL (operating since 2002) and is.gd directly from your browser. You get a real, working short link — not a redirect through hashmitools.com.</p>
 
-<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Who Should Use This Tool</h2>
-<ul style="margin:.5rem 0 1rem 1.5rem">
-  <li style="margin-bottom:.5rem"><strong>Social media managers</strong> who need clean links for Instagram bio, Twitter/X posts (character limits), and Facebook captions.</li>
-  <li style="margin-bottom:.5rem"><strong>WhatsApp broadcast users</strong> running businesses or community groups who share product links, event registrations, or news articles regularly.</li>
-  <li style="margin-bottom:.5rem"><strong>Content creators</strong> on YouTube and TikTok who reference URLs in videos where audiences must manually type the link.</li>
-  <li style="margin-bottom:.5rem"><strong>Students and professionals</strong> sharing Google Drive, Docs, or Sheets links that are unwieldy in their raw form.</li>
-</ul>
+    <h2 style="font-size:1.45rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-primary,#0f172a);">When to Use a URL Shortener</h2>
+    <ul style="color:var(--text-secondary,#475569);padding-left:20px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;">
+      <li><strong>Social media posts</strong> — Twitter/X character limits, Instagram captions, or Facebook posts where a clean link is more likely to be clicked.</li>
+      <li><strong>WhatsApp broadcasts</strong> — Short links in WhatsApp groups and broadcasts look professional and are less likely to trigger spam alerts than 200-character tracking URLs.</li>
+      <li><strong>QR codes</strong> — A short URL produces a simpler (less dense) QR code that scans faster and works at smaller print sizes.</li>
+      <li><strong>SMS campaigns</strong> — Mobile messaging has strict character limits. Every character saved by shortening means lower SMS costs.</li>
+      <li><strong>Printed materials</strong> — Brochures, business cards, and banners can't contain long URLs. Short links are easy to type from print.</li>
+      <li><strong>Email newsletters</strong> — Clean links improve click-through rates and prevent visual clutter in email copy.</li>
+    </ul>
 
-<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Tips for Safe Link Sharing</h2>
-<ul style="margin:.5rem 0 1rem 1.5rem">
-  <li style="margin-bottom:.5rem"><strong>Verify the destination before sharing shortened links from unknown sources.</strong> Shortened links can disguise phishing sites. Always hover over (or use a link preview service) for shortened links you receive from unfamiliar senders.</li>
-  <li style="margin-bottom:.5rem"><strong>Don't shorten already-shortened links.</strong> Double-shortening creates a redirect chain that slows page load and can trigger spam filters on some platforms.</li>
-  <li style="margin-bottom:.5rem"><strong>Use descriptive anchor text when possible.</strong> In emails and documents, hyperlink the short URL to descriptive text ("View the product here") rather than displaying the raw short link — this is better UX and improves click-through rates.</li>
-</ul>
+    <h2 style="font-size:1.45rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-primary,#0f172a);">Best Practices for Sharing Short Links Safely</h2>
+    <ul style="color:var(--text-secondary,#475569);padding-left:20px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;">
+      <li><strong>Verify the destination before sharing shortened links from unknown sources.</strong> A short link can disguise a phishing URL. If you receive a short link from an unfamiliar sender, use a link preview service (e.g. checkshorturl.com) before clicking.</li>
+      <li><strong>Don't double-shorten.</strong> Shortening an already-short link creates a redirect chain that slows page load and can trigger spam filters on messaging platforms.</li>
+      <li><strong>Use descriptive anchor text in emails and documents.</strong> Rather than displaying the raw short URL, hyperlink it to text like "View the product here" — better UX and higher click-through.</li>
+      <li><strong>Check your affiliate programme's terms.</strong> Many affiliate networks prohibit cloaking affiliate links with URL shorteners, especially in paid ads.</li>
+    </ul>
 
-<h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
-<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
-<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How long do shortened links last?</h3>
-<p style="margin:0">Links created through this tool use the TinyURL service, which has been operating since 2002 and maintains links indefinitely for free. Unlike some URL shorteners that expire free links after 30–90 days, TinyURL short links do not have an expiry date. However, no online service guarantees permanent availability — if TinyURL's service changes or terminates, the links would cease to work. For business-critical long-term links, consider using a custom domain shortener service that you control, which gives you full ownership of the redirect.</p>
-</div>
-<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
-<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does this URL shortener track clicks?</h3>
-<p style="margin:0">This HashmiTools shortener tool itself does not track any analytics — it simply calls the TinyURL API and returns the shortened link. Whether TinyURL tracks clicks on its redirects is governed by TinyURL's own privacy policy. For click tracking, engagement analytics, and geographic data on who is clicking your links, you would need a dedicated link analytics service such as Bitly's paid plan, Rebrandly, or an enterprise URL management platform. For most personal and small business use cases, the basic shortening functionality here is sufficient.</p>
-</div>
-<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
-<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can I shorten any URL, including local or intranet links?</h3>
-<p style="margin:0">The TinyURL API requires a publicly accessible URL — it cannot shorten links to local IP addresses (192.168.x.x), localhost, or private intranet URLs that require VPN access. It also cannot shorten certain URLs that are blocked by TinyURL's content moderation (typically links to known malicious or spam sites). For most standard web URLs — websites, YouTube videos, Google Docs, e-commerce product pages, news articles — the tool works reliably. If a URL fails to shorten, check that it is publicly accessible and well-formed (starts with http:// or https://).</p>
-</div>
-<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
-<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is there a rate limit on how many links I can shorten?</h3>
-<p style="margin:0">The free TinyURL API used by this tool has rate limits that prevent bulk automated shortening. For typical personal use — shortening a few dozen links per day — you will not encounter any limits. If you need to shorten large volumes of links programmatically (hundreds or thousands per day), you should use TinyURL's commercial API plan or an alternative bulk URL management service. HashmiTools does not impose its own separate rate limits beyond what the underlying API enforces.</p>
-</div>
-<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
-<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Why is my shortened link blocked on WhatsApp or Facebook?</h3>
-<p style="margin:0">Meta platforms (WhatsApp, Facebook, Instagram) and some email spam filters block certain URL shortener domains that have been historically used to spread spam or phishing links. If your TinyURL link is blocked, it is not because of anything wrong with your specific link — it is because the domain (tinyurl.com) may be on the platform's blocked list. Solutions: (1) Share the original full URL instead; (2) Use a custom-domain short link service where your own domain is the shortener (e.g., yourbrand.pk/link); (3) Use Bitly, which has better relationships with platform spam filters due to their moderation systems. This blocking issue affects all free URL shortener services to varying degrees.</p>
-</div>
-<div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
-<h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Can I use this tool to shorten affiliate or referral links?</h3>
-<p style="margin:0">Yes, technically you can shorten affiliate links. However, be aware that many affiliate programmes and marketplace platforms (Daraz, Amazon, ShareASale) prohibit or restrict cloaking affiliate links with URL shorteners in their terms of service — particularly for links shared in ads or on social media. The reason is that platforms want clear disclosure to users when a link generates a commission. Violating these terms can result in your affiliate account being suspended. Always check the terms of your specific affiliate programme before shortening links for promotional use, and consider appending a disclosure to your content instead.</p>
-</div>
-</article>
+    <h2 style="font-size:1.45rem;font-weight:700;margin:2.5rem 0 .75rem;color:var(--text-primary,#0f172a);">TinyURL vs is.gd — Which is Better?</h2>
+    <div style="overflow-x:auto;margin-bottom:1.5rem;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.86rem;color:var(--text-secondary,#475569);">
+        <thead>
+          <tr style="background:var(--bg-secondary,#f8fafc);">
+            <th style="padding:10px 14px;text-align:left;border:1px solid var(--border-color,#e2e8f0);font-weight:700;color:var(--text-primary,#0f172a);">Feature</th>
+            <th style="padding:10px 14px;text-align:left;border:1px solid var(--border-color,#e2e8f0);font-weight:700;color:#4f46e5;">TinyURL</th>
+            <th style="padding:10px 14px;text-align:left;border:1px solid var(--border-color,#e2e8f0);font-weight:700;color:#0ea5e9;">is.gd</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">In operation since</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">2002</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">2008</td>
+          </tr>
+          <tr style="background:var(--bg-secondary,#f8fafc);">
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Link expiry</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">No expiry (permanent)</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">No expiry (permanent)</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Free plan available</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">✅ Yes</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">✅ Yes</td>
+          </tr>
+          <tr style="background:var(--bg-secondary,#f8fafc);">
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Custom slug</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">✅ Yes (free)</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">✅ Yes (free)</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Click analytics</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Paid plan</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Paid plan (v.gd)</td>
+          </tr>
+          <tr style="background:var(--bg-secondary,#f8fafc);">
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Best for</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">General use, long-term reliability</td>
+            <td style="padding:9px 14px;border:1px solid var(--border-color,#e2e8f0);">Slightly shorter codes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--text-secondary,#475569);">This tool tries TinyURL first as it is the most widely recognised shortener. If TinyURL's API is temporarily unavailable, it automatically falls back to is.gd. You can see which service was used from the badge next to your short link.</p>
+  </article>
 
   <!-- Footer -->
   <footer class="footer">
@@ -442,338 +1037,402 @@
   </footer>
 
   <!-- Toast container -->
-  <div class="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;"></div>
+  <div class="toast-container" aria-live="polite"></div>
 
+  <!-- ═══ JAVASCRIPT ═══ -->
   <script>
-  /* ════════════════════════════════════════════════
-     LINK SHORTENER — Full Logic (localStorage-based)
-     ════════════════════════════════════════════════ */
   'use strict';
 
-  const LS_KEY = 'ht_links_v2';
-  let currentShortCode = null;
+  const LS_KEY = 'ht_links_v3';
+  let currentLink = null;
 
-  // ── Helpers ──────────────────────────────────────
-  function genCode() {
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let code = '';
-    for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
-    return code;
+  /* ── Utilities ─────────────────────────────────────── */
+  function isValidUrl(s) {
+    try {
+      const u = new URL(s);
+      return ['http:', 'https:'].includes(u.protocol);
+    } catch { return false; }
   }
 
   function getLinks() {
-    try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return []; }
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; }
   }
 
   function saveLinks(arr) {
     localStorage.setItem(LS_KEY, JSON.stringify(arr));
   }
 
-  function buildShortUrl(code) {
-    // In production this would be a real redirect endpoint; here we use the same page as "redirect"
-    return window.location.origin + '/s/' + code;
-  }
-
-  function isValidUrl(str) {
-    try {
-      const u = new URL(str);
-      return ['http:','https:'].includes(u.protocol);
-    } catch { return false; }
-  }
-
   function toast(msg, type = 'success') {
+    const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
     const c = document.querySelector('.toast-container');
     if (!c) return;
-    const icons = { success:'✅', error:'❌', info:'ℹ️', warning:'⚠️' };
     const t = document.createElement('div');
-    t.style.cssText = 'background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:10px 16px;font-size:0.85rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.15);display:flex;align-items:center;gap:8px;animation:fadeInUp 0.3s ease;max-width:300px;';
-    t.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+    t.className = 'ht-toast';
+    t.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${msg}</span>`;
     c.appendChild(t);
-    setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(), 300); }, 2500);
+    setTimeout(() => {
+      t.style.opacity = '0';
+      t.style.transition = 'opacity 0.3s';
+      setTimeout(() => t.remove(), 300);
+    }, 2800);
   }
 
-  // ── Shorten ──────────────────────────────────────
+  function showError(msg) {
+    const box = document.getElementById('errorBox');
+    document.getElementById('errorMsg').textContent = msg;
+    box.classList.add('show');
+    setTimeout(() => box.classList.remove('show'), 6000);
+  }
+
+  function hideError() {
+    document.getElementById('errorBox').classList.remove('show');
+  }
+
+  function setBtnLoading(loading) {
+    const btn = document.getElementById('shortenBtn');
+    const icon = document.getElementById('btnIcon');
+    const text = document.getElementById('btnText');
+    btn.disabled = loading;
+    if (loading) {
+      icon.className = 'fas fa-spinner fa-spin';
+      text.textContent = 'Shortening…';
+    } else {
+      icon.className = 'fas fa-magic';
+      text.textContent = 'Shorten';
+    }
+  }
+
+  /* ── Shortening APIs ───────────────────────────────── */
+
+  /**
+   * Try TinyURL via allorigins proxy (avoids CORS).
+   * Returns short URL string or null.
+   */
+  async function tryTinyUrl(url) {
+    try {
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(
+        'https://tinyurl.com/api-create.php?url=' + encodeURIComponent(url)
+      )}`;
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) return null;
+      const data = await res.json();
+      const s = (data.contents || '').trim();
+      return s.startsWith('https://tinyurl.com/') ? s : null;
+    } catch { return null; }
+  }
+
+  /**
+   * Try is.gd — CORS-friendly GET API.
+   * Returns short URL string or null.
+   */
+  async function tryIsGd(url) {
+    try {
+      const apiUrl = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`;
+      const res = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) return null;
+      const txt = (await res.text()).trim();
+      return txt.startsWith('https://is.gd/') ? txt : null;
+    } catch { return null; }
+  }
+
+  /* ── Main shortening function ──────────────────────── */
   async function shortenUrl() {
     const input = document.getElementById('longUrlInput');
-    const btn = document.getElementById('shortenBtn');
     const url = (input.value || '').trim();
 
     if (!url) { toast('Please enter a URL first', 'error'); input.focus(); return; }
-    if (!isValidUrl(url)) { toast('Please enter a valid URL starting with http:// or https://', 'error'); return; }
-
-    // Check if already shortened
-    const existing = getLinks().find(l => l.long === url);
-    if (existing) {
-      currentShortCode = existing.code;
-      showResult(existing);
-      toast('Link already shortened — showing existing!', 'info');
+    if (!isValidUrl(url)) {
+      showError('Please enter a valid URL starting with https:// or http://');
+      input.focus();
       return;
     }
 
-    // Loading state
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Shortening…';
+    hideError();
+
+    // Already shortened? Show existing.
+    const existing = getLinks().find(l => l.long === url);
+    if (existing) {
+      currentLink = existing;
+      showResult(existing);
+      toast('Link already shortened — showing saved result!', 'info');
+      return;
+    }
+
+    setBtnLoading(true);
+
+    let shortUrl = null;
+    let provider = '';
 
     try {
-      // Use TinyURL free API (no key needed, CORS-friendly via proxy)
-      let shortUrl = null;
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(url))}`;
-      const res = await fetch(proxyUrl);
-      if (res.ok) {
-        const data = await res.json();
-        const contents = data.contents || '';
-        if (contents.startsWith('https://tinyurl.com/')) {
-          shortUrl = contents.trim();
-        }
-      }
+      // ── Attempt 1: TinyURL ──
+      shortUrl = await tryTinyUrl(url);
+      if (shortUrl) { provider = 'TinyURL'; }
 
-      // Fallback: use is.gd
+      // ── Attempt 2: is.gd ──
       if (!shortUrl) {
-        const res2 = await fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`);
-        const txt = await res2.text();
-        if (txt.startsWith('https://is.gd/')) shortUrl = txt.trim();
+        shortUrl = await tryIsGd(url);
+        if (shortUrl) { provider = 'is.gd'; }
       }
 
-      // Last fallback: local code
+      // ── Both failed — show error, NO local fake link ──
       if (!shortUrl) {
-        let code = genCode();
-        const links = getLinks();
-        while (links.find(l => l.code === code)) code = genCode();
-        shortUrl = window.location.origin + '/s/' + code;
+        showError('Could not shorten this URL right now. Both TinyURL and is.gd are unreachable. Please check your internet connection or try again in a moment.');
+        setBtnLoading(false);
+        return;
       }
 
-      const code = shortUrl.split('/').pop();
       const newLink = {
-        code, long: url, short: shortUrl,
-        created: Date.now(), clicks: 0
+        long: url,
+        short: shortUrl,
+        provider: provider,
+        created: Date.now()
       };
 
       const links = getLinks();
       links.unshift(newLink);
       saveLinks(links);
 
-      currentShortCode = code;
+      currentLink = newLink;
       showResult(newLink);
       renderHistory();
       toast('Short link created!', 'success');
-    } catch(e) {
-      // Offline fallback — local only
-      let code = genCode();
-      const links = getLinks();
-      while (links.find(l => l.code === code)) code = genCode();
-      const newLink = {
-        code, long: url, short: window.location.origin + '/s/' + code,
-        created: Date.now(), clicks: 0
-      };
-      links.unshift(newLink);
-      saveLinks(links);
-      currentShortCode = code;
-      showResult(newLink);
-      renderHistory();
-      toast('Short link created (offline mode)!', 'warning');
+
+    } catch (e) {
+      showError('An unexpected error occurred. Please try again.');
     } finally {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-magic"></i> Shorten';
+      setBtnLoading(false);
     }
   }
 
+  /* ── Show result ───────────────────────────────────── */
   function showResult(link) {
     const card = document.getElementById('resultCard');
-    document.getElementById('resultShortLink').textContent = link.short;
-    document.getElementById('resultShortLink').href = link.long; // link directly for demo
+
+    document.getElementById('providerBadge').textContent = link.provider || 'Short Link';
+    const shortAnchor = document.getElementById('resultShortLink');
+    shortAnchor.textContent = link.short;
+    shortAnchor.href = link.short;
+
     document.getElementById('statOriginal').textContent = link.long.length;
     document.getElementById('statShort').textContent = link.short.length;
-    document.getElementById('statSaved').textContent = Math.round((1 - link.short.length / link.long.length) * 100) + '%';
-    document.getElementById('statClicks').textContent = link.clicks;
+    const saved = Math.max(0, Math.round((1 - link.short.length / link.long.length) * 100));
+    document.getElementById('statSaved').textContent = saved + '%';
     document.getElementById('statOriginalUrl').textContent = link.long;
+
+    // Reset copy button
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+    copyBtn.classList.remove('copied');
+
+    // Hide QR on new result
+    document.getElementById('qrWrap').classList.remove('show');
+    document.getElementById('qrToggleBtn').innerHTML = '<i class="fas fa-qrcode"></i> QR Code';
+
     card.classList.add('show');
-    document.getElementById('copyBtn').innerHTML = '<i class="fas fa-copy"></i> Copy';
-    document.getElementById('copyBtn').classList.remove('copied');
-    // Generate QR
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Pre-generate QR silently
     generateQR(link.short);
   }
 
+  /* ── Copy ──────────────────────────────────────────── */
   function copyShortLink() {
     const link = document.getElementById('resultShortLink').textContent;
-    navigator.clipboard.writeText(link).then(() => {
-      const btn = document.getElementById('copyBtn');
+    const btn = document.getElementById('copyBtn');
+    const doCopy = () => {
       btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
       btn.classList.add('copied');
-      toast('Link copied to clipboard!', 'success');
+      toast('Copied to clipboard!', 'success');
       setTimeout(() => {
         btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
         btn.classList.remove('copied');
       }, 2500);
-    }).catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = link; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
-      toast('Copied!', 'success');
-    });
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(link).then(doCopy).catch(() => {
+        legacyCopy(link); doCopy();
+      });
+    } else { legacyCopy(link); doCopy(); }
   }
 
+  function legacyCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+
+  /* ── Share ─────────────────────────────────────────── */
   function shareLink() {
     const link = document.getElementById('resultShortLink').textContent;
     if (navigator.share) {
-      navigator.share({ title:'Shared via HashmiTools', url: link });
+      navigator.share({ title: 'Shared via HashmiTools', url: link }).catch(() => {});
     } else {
-      // Fallback: WhatsApp share
-      window.open('https://wa.me/?text=' + encodeURIComponent('Check this out: ' + link), '_blank');
+      window.open('https://wa.me/?text=' + encodeURIComponent('Check this: ' + link), '_blank');
     }
   }
 
+  /* ── Shorten another ───────────────────────────────── */
   function shortenAnother() {
     document.getElementById('longUrlInput').value = '';
     document.getElementById('resultCard').classList.remove('show');
     document.getElementById('qrWrap').classList.remove('show');
+    hideError();
+    currentLink = null;
     document.getElementById('longUrlInput').focus();
-    currentShortCode = null;
   }
 
-  // ── QR Code ──────────────────────────────────────
+  /* ── QR Code ───────────────────────────────────────── */
   function toggleQR() {
     const wrap = document.getElementById('qrWrap');
-    wrap.classList.toggle('show');
+    const btn = document.getElementById('qrToggleBtn');
+    const isShown = wrap.classList.toggle('show');
+    btn.innerHTML = isShown
+      ? '<i class="fas fa-times"></i> Hide QR'
+      : '<i class="fas fa-qrcode"></i> QR Code';
   }
 
   function generateQR(text) {
-    // Simple QR code implementation using canvas
     const canvas = document.getElementById('qrCanvas');
+    if (typeof QRCode !== 'undefined') {
+      QRCode.toCanvas(canvas, text, {
+        width: 180,
+        margin: 2,
+        color: { dark: '#0f172a', light: '#ffffff' }
+      }, function(err) {
+        if (err) fallbackQR(canvas, text);
+      });
+    } else {
+      fallbackQR(canvas, text);
+    }
+  }
+
+  function fallbackQR(canvas, text) {
+    // Minimal visual fallback if QRCode lib fails to load
     const ctx = canvas.getContext('2d');
     canvas.width = 180; canvas.height = 180;
-    // Draw placeholder (in production, use a real QR library)
-    const grad = ctx.createLinearGradient(0,0,180,180);
-    grad.addColorStop(0,'#6366f1'); grad.addColorStop(1,'#06b6d4');
-    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,180,180);
-    ctx.fillStyle = grad;
-    // Draw simple QR-like pattern as visual placeholder
-    const cell = 6;
-    for (let r = 0; r < 30; r++) {
-      for (let c = 0; c < 30; c++) {
-        // Use text hash to determine fill
-        const hash = (text.charCodeAt((r*30+c) % text.length) + r + c) % 3;
-        if (hash !== 0) {
-          ctx.fillRect(c*cell, r*cell, cell-1, cell-1);
-        }
-      }
-    }
-    // Corner markers
-    function drawMarker(x, y) {
-      ctx.fillStyle = grad;
-      ctx.fillRect(x,y,42,42);
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(x+6,y+6,30,30);
-      ctx.fillStyle = grad;
-      ctx.fillRect(x+12,y+12,18,18);
-    }
-    drawMarker(0,0); drawMarker(138,0); drawMarker(0,138);
-    ctx.fillStyle = '#1e293b';
-    ctx.font = 'bold 8px Inter';
+    ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, 180, 180);
+    ctx.fillStyle = '#4f46e5';
+    ctx.font = 'bold 11px Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('hashmitools.com', 90, 174);
+    ctx.fillText('QR unavailable', 90, 90);
+    ctx.fillText('Copy & share the link', 90, 108);
   }
 
   function downloadQR() {
     const canvas = document.getElementById('qrCanvas');
     const a = document.createElement('a');
-    a.download = 'qr-code-hashmitools.png';
+    a.download = 'short-link-qr.png';
     a.href = canvas.toDataURL('image/png');
     a.click();
     toast('QR Code downloaded!', 'success');
   }
 
-  // ── History ──────────────────────────────────────
+  /* ── History ───────────────────────────────────────── */
   function renderHistory() {
     const links = getLinks();
     const list = document.getElementById('historyList');
     const countEl = document.getElementById('historyCount');
-
     if (countEl) countEl.textContent = links.length ? `(${links.length})` : '';
 
     if (!links.length) {
-      list.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--text-muted);">
-        <div style="font-size:3rem;margin-bottom:12px;">📭</div>
-        <p style="font-size:0.9rem;">No links shortened yet. Paste a URL above to get started!</p>
-      </div>`;
+      list.innerHTML = `
+        <div class="ls-empty">
+          <div class="empty-icon">📭</div>
+          <p>No links shortened yet.<br>Paste a URL above to get started!</p>
+        </div>`;
       return;
     }
 
     list.innerHTML = links.map((l, i) => {
-      const date = new Date(l.created).toLocaleDateString('en-PK', { day:'2-digit', month:'short', year:'2-digit' });
+      const date = new Date(l.created).toLocaleDateString('en-PK', { day: '2-digit', month: 'short', year: '2-digit' });
+      const providerBadge = l.provider ? `<span class="ls-hi-badge">${l.provider}</span>` : '';
       return `
-      <div class="ls-history-item" id="item-${l.code}">
-        <div class="ls-hi-index">${i+1}</div>
-        <div class="ls-hi-info">
-          <a href="${l.long}" target="_blank" rel="noopener" class="ls-hi-short">${l.short}</a>
-          <div class="ls-hi-long" title="${l.long}">${l.long}</div>
-          <div style="font-size:0.7rem;color:var(--text-muted);margin-top:2px;">${date}</div>
-        </div>
-        <span class="ls-click-badge"><i class="fas fa-mouse-pointer" style="margin-right:3px;"></i>${l.clicks} clicks</span>
-        <div class="ls-hi-actions">
-          <button class="ls-hi-btn" onclick="copyLink('${l.short}', this)"><i class="fas fa-copy"></i></button>
-          <button class="ls-hi-btn" onclick="expandItem('${l.code}')"><i class="fas fa-qrcode"></i></button>
-          <button class="ls-hi-btn del" onclick="deleteLink('${l.code}')"><i class="fas fa-trash"></i></button>
-        </div>
-      </div>`;
+        <div class="ls-history-item" id="item-${i}">
+          <div class="ls-hi-num">${i + 1}</div>
+          <div class="ls-hi-info">
+            <div class="ls-hi-short-row">
+              <a href="${l.short}" target="_blank" rel="noopener" class="ls-hi-short">${l.short}</a>
+              ${providerBadge}
+            </div>
+            <div class="ls-hi-long" title="${l.long}">${l.long}</div>
+            <div class="ls-hi-date">${date}</div>
+          </div>
+          <div class="ls-hi-actions">
+            <button class="ls-hi-btn" onclick="copyLink('${l.short.replace(/'/g,"\\'")}', this)" title="Copy"><i class="fas fa-copy"></i></button>
+            <button class="ls-hi-btn del" onclick="deleteLink(${i})" title="Delete"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>`;
     }).join('');
   }
 
   function copyLink(url, btn) {
-    navigator.clipboard.writeText(url).then(() => {
+    const doCopy = () => {
       const orig = btn.innerHTML;
       btn.innerHTML = '<i class="fas fa-check"></i>';
       btn.style.background = '#22c55e';
       btn.style.color = '#fff';
+      btn.style.borderColor = '#22c55e';
       toast('Copied!', 'success');
-      setTimeout(() => { btn.innerHTML = orig; btn.style.background=''; btn.style.color=''; }, 1500);
-    });
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 1500);
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(doCopy).catch(() => { legacyCopy(url); doCopy(); });
+    } else { legacyCopy(url); doCopy(); }
   }
 
-  function expandItem(code) {
-    // Quick show QR in toast for history item
-    toast('QR feature: Shorten again to get QR in result card', 'info');
-  }
-
-  function deleteLink(code) {
-    let links = getLinks().filter(l => l.code !== code);
+  function deleteLink(index) {
+    let links = getLinks();
+    links.splice(index, 1);
     saveLinks(links);
-    const el = document.getElementById('item-' + code);
-    if (el) { el.style.opacity='0'; el.style.transform='translateX(20px)'; setTimeout(()=>{ el.remove(); renderHistory(); }, 300); }
+    renderHistory();
+    toast('Link deleted', 'info');
   }
 
   function clearAllLinks() {
-    if (!confirm('Delete all ' + getLinks().length + ' shortened links?')) return;
+    const count = getLinks().length;
+    if (!count) { toast('No links to clear', 'info'); return; }
+    if (!confirm(`Delete all ${count} shortened link${count > 1 ? 's' : ''}?`)) return;
     saveLinks([]);
     renderHistory();
     document.getElementById('resultCard').classList.remove('show');
     toast('All links cleared', 'info');
   }
 
-  // ── Enter key support ─────────────────────────────
+  /* ── FAQ accordion ─────────────────────────────────── */
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.ls-faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.ls-faq-q').forEach(q => q.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      el.classList.add('open');
+    }
+  }
+
+  /* ── Enter key ─────────────────────────────────────── */
   document.getElementById('longUrlInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') shortenUrl();
   });
 
-  // ── On load ───────────────────────────────────────
+  /* ── Init ──────────────────────────────────────────── */
   renderHistory();
 
-  // Push AdSense
+  // AdSense
   try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
   try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
   </script>
 
   <script src="../js/main.js"></script>
-
-  <!-- How to Use -->
-  <section id="how-to-use" style="max-width:760px;margin:32px auto 0;padding:0 20px;">
-    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">
-      📖 How to Use
-    </h2>
-    <ol style="padding-left:20px;margin:0;">
-      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Paste your long URL into the input field.</li>
-      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Click Shorten — a short link is generated instantly.</li>
-      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">Copy the short link or generate a QR code.</li>
-      <li style="padding:8px 0;font-size:0.9rem;color:var(--text-secondary,#6b7280);line-height:1.6;">View and manage all your shortened links in the history panel.</li>
-    </ol>
-  </section>
 </body>
 </html>

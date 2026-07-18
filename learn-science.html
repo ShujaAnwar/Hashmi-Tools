@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn Science — Interactive Concepts | HashmiTools</title>
+<meta name="description" content="Explore science concepts through live interactive simulations — Murmuration (Boids), Morphogenesis (Reaction-Diffusion), and more. Learn by watching nature's algorithms.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#040d1a;
+  --bg2:#070f1f;
+  --card:#080f1e;
+  --border:rgba(255,255,255,0.07);
+  --gold:#c9a84c;
+  --gold-l:#f0d080;
+  --text:#cdd5e0;
+  --text-dim:#6a7385;
+  --accent:#3a8fbf;
+  --green:#4caf7d;
+  --purple:#8b6fbf;
+  --red:#bf5a4c;
+  --panel:rgba(4,13,26,0.92);
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* ── NAV ── */
+.top-nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:200;
+  background:rgba(4,13,26,0.9);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 28px;
+  height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'Space Mono',monospace;
+  font-size:0.82rem;
+  letter-spacing:0.18em;
+  color:var(--gold-l);
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:20px}
+.nav-links a{
+  font-size:0.78rem;
+  color:var(--text-dim);
+  text-decoration:none;
+  letter-spacing:0.06em;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:80px 24px 60px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(58,143,191,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,111,191,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 20% 70%, rgba(76,175,125,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero-tag{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;
+  letter-spacing:0.4em;
+  color:var(--text-dim);
+  margin-bottom:20px;
+  text-transform:uppercase;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,8vw,6.5rem);
+  font-weight:300;
+  letter-spacing:0.06em;
+  color:#fff;
+  line-height:1.05;
+  margin-bottom:16px;
+}
+.hero h1 em{
+  font-style:italic;
+  color:var(--gold-l);
+}
+.hero-sub{
+  font-size:clamp(0.9rem,2vw,1.1rem);
+  color:var(--text-dim);
+  max-width:560px;
+  line-height:1.8;
+  margin-bottom:48px;
+}
+.hero-stats{
+  display:flex;gap:40px;flex-wrap:wrap;justify-content:center;
+  margin-bottom:52px;
+}
+.hero-stat{
+  text-align:center;
+}
+.hero-stat .num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem;
+  font-weight:300;
+  color:var(--gold-l);
+  line-height:1;
+}
+.hero-stat .label{
+  font-size:0.7rem;
+  letter-spacing:0.2em;
+  color:var(--text-dim);
+  font-family:'Space Mono',monospace;
+  margin-top:4px;
+}
+.scroll-hint{
+  font-size:0.72rem;
+  color:var(--text-dim);
+  letter-spacing:0.2em;
+  display:flex;align-items:center;gap:8px;
+  animation:bounce 2s ease-in-out infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(6px)}
+}
+
+/* ── SECTION HEADER ── */
+.section-head{
+  text-align:center;
+  padding:0 24px 40px;
+  max-width:600px;
+  margin:0 auto;
+}
+.section-tag{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.35em;
+  color:var(--accent);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.section-head h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:300;
+  color:#fff;
+  margin-bottom:12px;
+  letter-spacing:0.04em;
+}
+.section-head p{
+  font-size:0.9rem;
+  color:var(--text-dim);
+  line-height:1.8;
+}
+
+/* ── SIMULATION CARD ── */
+.sim-section{
+  padding:80px 0;
+  border-top:1px solid var(--border);
+}
+.sim-section:first-child{border-top:none}
+
+.sim-layout{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:32px;
+  align-items:start;
+}
+.sim-layout.reverse{grid-template-columns:360px 1fr}
+.sim-layout.reverse .sim-canvas-wrap{order:2}
+.sim-layout.reverse .sim-info{order:1}
+
+@media(max-width:900px){
+  .sim-layout,.sim-layout.reverse{
+    grid-template-columns:1fr;
+  }
+  .sim-layout.reverse .sim-canvas-wrap{order:1}
+  .sim-layout.reverse .sim-info{order:2}
+}
+
+/* Canvas wrapper */
+.sim-canvas-wrap{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--border);
+  aspect-ratio:16/10;
+  cursor:crosshair;
+}
+.sim-canvas-wrap canvas{
+  display:block;
+  width:100%;
+  height:100%;
+}
+.sim-label{
+  position:absolute;
+  top:12px;left:14px;
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.15em;
+  color:rgba(255,255,255,0.35);
+  text-transform:uppercase;
+  pointer-events:none;
+}
+.sim-fps{
+  position:absolute;
+  top:12px;right:14px;
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  color:rgba(255,255,255,0.25);
+  pointer-events:none;
+}
+
+/* Info panel */
+.sim-info{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.sim-tag{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  padding:4px 12px;
+  border-radius:20px;
+  display:inline-block;
+  width:fit-content;
+}
+.tag-blue{background:rgba(58,143,191,0.15);color:var(--accent);border:1px solid rgba(58,143,191,0.3)}
+.tag-green{background:rgba(76,175,125,0.15);color:var(--green);border:1px solid rgba(76,175,125,0.3)}
+.tag-purple{background:rgba(139,111,191,0.15);color:var(--purple);border:1px solid rgba(139,111,191,0.3)}
+.tag-gold{background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.3)}
+.tag-red{background:rgba(191,90,76,0.15);color:var(--red);border:1px solid rgba(191,90,76,0.3)}
+
+.sim-info h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:300;
+  color:#fff;
+  letter-spacing:0.04em;
+  line-height:1.2;
+}
+.sim-info h3 em{color:var(--gold-l);font-style:italic}
+.sim-desc{
+  font-size:0.88rem;
+  color:var(--text-dim);
+  line-height:1.85;
+}
+.sim-desc strong{color:var(--text)}
+
+/* Rules list */
+.rules-list{
+  display:flex;flex-direction:column;gap:10px;
+}
+.rule-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 14px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);
+  font-size:0.82rem;
+  line-height:1.5;
+}
+.rule-icon{
+  width:28px;height:28px;
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;
+  flex-shrink:0;
+  margin-top:1px;
+}
+.rule-item b{color:var(--text);font-weight:600}
+.rule-item span{color:var(--text-dim);font-size:0.78rem}
+
+/* Controls */
+.sim-controls{
+  display:flex;flex-direction:column;gap:10px;
+}
+.ctrl-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.ctrl-btn{
+  padding:9px 14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text-dim);
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.1em;
+  cursor:pointer;
+  transition:all 0.18s;
+  text-align:center;
+}
+.ctrl-btn:hover{
+  background:rgba(255,255,255,0.07);
+  color:var(--text);
+  border-color:rgba(255,255,255,0.15);
+}
+.ctrl-btn.active{
+  background:rgba(58,143,191,0.15);
+  border-color:rgba(58,143,191,0.4);
+  color:var(--accent);
+}
+.ctrl-btn.active.repel-mode{
+  background:rgba(191,90,76,0.15);
+  border-color:rgba(191,90,76,0.4);
+  color:var(--red);
+}
+.ctrl-full{grid-column:1/-1}
+
+/* Slider */
+.mini-slider{display:flex;flex-direction:column;gap:6px}
+.mini-slider-row{display:flex;justify-content:space-between;align-items:center;font-size:0.75rem}
+.mini-slider-row .name{color:var(--text);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:0.85rem}
+.mini-slider-row .val{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent)}
+input[type=range]{
+  width:100%;-webkit-appearance:none;appearance:none;
+  height:2px;background:rgba(255,255,255,0.1);
+  border-radius:2px;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:var(--gold-l);
+  cursor:pointer;
+  box-shadow:0 0 6px rgba(240,208,128,0.5);
+}
+
+/* Fun fact box */
+.fact-box{
+  padding:14px 16px;
+  border-radius:10px;
+  border-left:3px solid var(--gold);
+  background:rgba(201,168,76,0.04);
+  font-size:0.82rem;
+  color:var(--text-dim);
+  line-height:1.7;
+}
+.fact-box strong{color:var(--gold);font-style:normal}
+
+/* ── FOOTER ── */
+.page-footer{
+  text-align:center;
+  padding:60px 24px 40px;
+  border-top:1px solid var(--border);
+  color:var(--text-dim);
+  font-size:0.78rem;
+}
+.page-footer a{color:var(--accent);text-decoration:none}
+.footer-more{
+  margin-top:24px;
+  display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
+}
+.footer-chip{
+  padding:8px 18px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  font-size:0.78rem;
+  color:var(--text-dim);
+  text-decoration:none;
+  transition:all 0.2s;
+  font-family:'Space Mono',monospace;
+  letter-spacing:0.08em;
+}
+.footer-chip:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── CONCEPT INDEX ── */
+.concept-grid{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 24px 80px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+}
+.concept-chip{
+  padding:16px 18px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  text-decoration:none;
+  transition:all 0.2s;
+  display:flex;flex-direction:column;gap:6px;
+}
+.concept-chip:hover{
+  border-color:rgba(255,255,255,0.15);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(0,0,0,0.3);
+}
+.concept-chip .chip-icon{font-size:1.4rem}
+.concept-chip .chip-name{font-size:0.85rem;font-weight:500;color:var(--text)}
+.concept-chip .chip-field{font-size:0.7rem;color:var(--text-dim);font-family:'Space Mono',monospace;letter-spacing:0.06em}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <a href="index.html" class="nav-logo">⚡ HASHMITOOLS</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="#simulations">Simulations</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">Interactive Science Laboratory</div>
+  <h1>Learn <em>Science</em><br>by Watching It</h1>
+  <p class="hero-sub">
+    Complex phenomena — murmuration, morphogenesis, chaos — ko live simulations se samjho.
+    Sirf dekhna nahi, khud control karo.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">2</div><div class="label">Live Sims</div></div>
+    <div class="hero-stat"><div class="num">∞</div><div class="label">Experiments</div></div>
+    <div class="hero-stat"><div class="num">0</div><div class="label">Signup Needed</div></div>
+  </div>
+  <div class="scroll-hint">↓ &nbsp; SCROLL TO EXPLORE</div>
+</section>
+
+<!-- CONCEPT INDEX -->
+<div style="max-width:1100px;margin:0 auto;padding:0 24px 40px;">
+  <div class="section-head" style="padding-bottom:28px">
+    <div class="section-tag">All Concepts</div>
+    <h2>Explore Any Topic</h2>
+    <p>Jump to any simulation below — ya aur add karte jaao.</p>
+  </div>
+</div>
+<div class="concept-grid">
+  <a href="#murmuration" class="concept-chip">
+    <div class="chip-icon">🐦</div>
+    <div class="chip-name">Murmuration</div>
+    <div class="chip-field">COLLECTIVE BEHAVIOR</div>
+  </a>
+  <a href="#morphogenesis" class="concept-chip">
+    <div class="chip-icon">🐆</div>
+    <div class="chip-name">Morphogenesis</div>
+    <div class="chip-field">REACTION-DIFFUSION</div>
+  </a>
+  <a href="#coming" class="concept-chip" style="opacity:0.4;pointer-events:none">
+    <div class="chip-icon">🌀</div>
+    <div class="chip-name">Coming Soon</div>
+    <div class="chip-field">YOUR CONCEPT</div>
+  </a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SIMULATION 1 — MURMURATION (BOIDS)
+═══════════════════════════════════════════════════════════ -->
+<section class="sim-section" id="murmuration" id="simulations">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px 36px">
+    <div class="section-tag" style="text-align:center;margin-bottom:8px">Simulation 01</div>
+    <div class="section-head" style="padding-bottom:0">
+      <h2>Murmuration</h2>
+      <p>Hazaron parinde bina kisi leader ke ek jism ki tarah kyun urte hain?</p>
+    </div>
+  </div>
+
+  <div class="sim-layout">
+    <!-- CANVAS -->
+    <div class="sim-canvas-wrap" id="boids-wrap">
+      <canvas id="boids-canvas"></canvas>
+      <div class="sim-label">BOIDS SIM</div>
+      <div class="sim-fps" id="boids-fps">-- fps</div>
+    </div>
+
+    <!-- INFO -->
+    <div class="sim-info">
+      <span class="sim-tag tag-blue">Collective Behavior · Emergence</span>
+      <h3>Sirf <em>Teen Rules</em> —<br>Lakhon Patterns</h3>
+      <p class="sim-desc">
+        Craig Reynolds ne 1986 mein daryaft kiya ke parindey kisi "master plan" ke bina urte hain.
+        Har parinda sirf apne <strong>7 qareeb padosi</strong> ko dekhta hai.
+        In teen simple rules se woh sab kuch hota hai jo tum screen par dekh rahe ho.
+      </p>
+
+      <div class="rules-list">
+        <div class="rule-item">
+          <div class="rule-icon" style="background:rgba(191,80,58,0.15)">↔️</div>
+          <div><b>Separation</b><br><span>Agar koi bohot qareeb aa jaye to dur hato — takrao mat</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon" style="background:rgba(58,143,191,0.15)">→</div>
+          <div><b>Alignment</b><br><span>Neighbours jis taraf ja rahe hain, usi taraf mudo</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon" style="background:rgba(76,175,125,0.15)">●</div>
+          <div><b>Cohesion</b><br><span>Group ke centre ki taraf kheencho — akela mat chod</span></div>
+        </div>
+      </div>
+
+      <div class="sim-controls">
+        <div class="mini-slider">
+          <div class="mini-slider-row">
+            <span class="name">Birds</span><span class="val" id="b-count-val">300</span>
+          </div>
+          <input type="range" id="b-count" min="50" max="700" value="300">
+        </div>
+        <div class="mini-slider">
+          <div class="mini-slider-row">
+            <span class="name">Speed</span><span class="val" id="b-speed-val">2.2</span>
+          </div>
+          <input type="range" id="b-speed" min="5" max="40" value="22">
+        </div>
+        <div class="mini-slider">
+          <div class="mini-slider-row">
+            <span class="name">Separation</span><span class="val" id="b-sep-val">1.5</span>
+          </div>
+          <input type="range" id="b-sep" min="1" max="40" value="15">
+        </div>
+        <div class="mini-slider">
+          <div class="mini-slider-row">
+            <span class="name">Alignment</span><span class="val" id="b-ali-val">1.0</span>
+          </div>
+          <input type="range" id="b-ali" min="1" max="40" value="10">
+        </div>
+        <div class="mini-slider">
+          <div class="mini-slider-row">
+            <span class="name">Cohesion</span><span class="val" id="b-coh-val">0.8</span>
+          </div>
+          <input type="range" id="b-coh" min="1" max="40" value="8">
+        </div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn" id="b-attract" onclick="toggleBoidMode('attract')">ATTRACT</button>
+          <button class="ctrl-btn" id="b-repel" onclick="toggleBoidMode('repel')">REPEL</button>
+          <button class="ctrl-btn" onclick="boidScatter()">SCATTER</button>
+          <button class="ctrl-btn" onclick="resetBoids()">RESET</button>
+        </div>
+        <p style="font-size:0.72rem;color:var(--text-dim);text-align:center">Mouse canvas par le jao to birds interact karenge</p>
+      </div>
+
+      <div class="fact-box">
+        <strong>Real Fact:</strong> Starlings ki murmurations mein 100,000 se zyada parinde hote hain.
+        Ye sab ek hawk se bachne ke liye ek saath react karte hain — sirf ek neighbor ke touch karne se pure flock mein signal 0.02 seconds mein phail jaata hai.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SIMULATION 2 — MORPHOGENESIS (REACTION-DIFFUSION)
+═══════════════════════════════════════════════════════════ -->
+<section class="sim-section" id="morphogenesis">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px 36px">
+    <div class="section-tag" style="text-align:center;margin-bottom:8px">Simulation 02</div>
+    <div class="section-head" style="padding-bottom:0">
+      <h2>Morphogenesis</h2>
+      <p>Cheetah ke dhabbe, zebra ki dhaariyan, samundar ki machhliyon ke patterns — yeh kaise bante hain?</p>
+    </div>
+  </div>
+
+  <div class="sim-layout reverse">
+    <!-- INFO -->
+    <div class="sim-info">
+      <span class="sim-tag tag-green">Reaction-Diffusion · Alan Turing</span>
+      <h3>Qudrat ka <em>Secret Code</em> —<br>Do Chemicals</h3>
+      <p class="sim-desc">
+        1952 mein <strong>Alan Turing</strong> — jo computer ka baba tha — ne ek ajeeb paper likha:
+        "Sirf do chemicals kaafi hain poori qudrat ke patterns banana ke liye."
+        Chemical <strong>A (Activator)</strong> khud ko aur B ko badhata hai.
+        Chemical <strong>B (Inhibitor)</strong> sirf A ko rokta hai — lekin zyada tezi se phailta hai.
+        Is maqablay se spots, stripes, spirals, sab kuch nikalte hain.
+      </p>
+
+      <div class="rules-list">
+        <div class="rule-item">
+          <div class="rule-icon" style="background:rgba(76,175,125,0.15)">🟢</div>
+          <div><b>Activator (A)</b><br><span>Slow diffusion — jahan hai wahan zyada hota hai (spot ka centre)</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon" style="background:rgba(191,90,76,0.15)">🔴</div>
+          <div><b>Inhibitor (B)</b><br><span>Fast diffusion — spread hokar A ko aas paas rokta hai (spot ka rim)</span></div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon" style="background:rgba(201,168,76,0.15)">⚡</div>
+          <div><b>Feed Rate (f)</b><br><span>Kitni nai A aayi? Kam = stripes, zyada = spots, bahut zyada = maze</span></div>
+        </div>
+      </div>
+
+      <div class="sim-controls">
+        <div class="mini-slider">
+          <div class="mini-slider-row">
+            <span class="name">Feed Rate (f)</span><span class="val" id="rd-f-val">0.055</span>
+          </div>
+          <input type="range" id="rd-f" min="10" max="80" value="55" step="1">
+        </div>
+        <div class="mini-slider">
+          <div class="mini-slider-row">
+            <span class="name">Kill Rate (k)</span><span class="val" id="rd-k-val">0.062</span>
+          </div>
+          <input type="range" id="rd-k" min="40" max="75" value="62" step="1">
+        </div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn" onclick="rdPreset('spots')">SPOTS</button>
+          <button class="ctrl-btn" onclick="rdPreset('stripes')">STRIPES</button>
+          <button class="ctrl-btn" onclick="rdPreset('maze')">MAZE</button>
+          <button class="ctrl-btn" onclick="rdPreset('waves')">WAVES</button>
+          <button class="ctrl-btn ctrl-full" onclick="rdReset()">RESET</button>
+        </div>
+        <p style="font-size:0.72rem;color:var(--text-dim);text-align:center">Canvas par click/drag karo — chemicals inject karo</p>
+      </div>
+
+      <div class="fact-box">
+        <strong>Real World:</strong> Cheetah ke cubs ke dhabbe —
+        asal mein embryo mein in do chemicals ka khel hota hai.
+        Turing ka model 1952 ka hai — lekin 2012 mein scientists ne actual mouse ke palate mein
+        exactly yahi pattern confirm kiya. 60 saal baad prove hua!
+      </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="sim-canvas-wrap" id="rd-wrap">
+      <canvas id="rd-canvas"></canvas>
+      <div class="sim-label">REACTION-DIFFUSION</div>
+      <div class="sim-fps" id="rd-fps">-- fps</div>
+    </div>
+  </div>
+</section>
+
+<!-- "Add more" teaser -->
+<section id="coming" style="padding:80px 24px;text-align:center;border-top:1px solid var(--border)">
+  <div class="section-tag">More Coming</div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:#fff;margin:12px 0">
+    Aur Concepts Add Hone Waale Hain
+  </h2>
+  <p style="color:var(--text-dim);font-size:0.9rem;max-width:480px;margin:0 auto 32px;line-height:1.8">
+    Double Pendulum (Chaos Theory), Conway's Game of Life, Wave Interference, Gravity Simulator —
+    jo concept chahiye batao, woh add karte hain.
+  </p>
+  <div class="footer-more">
+    <span class="footer-chip">🌀 Double Pendulum</span>
+    <span class="footer-chip">♟️ Game of Life</span>
+    <span class="footer-chip">🌊 Wave Interference</span>
+    <span class="footer-chip">🪐 Gravity Simulator</span>
+    <span class="footer-chip">🔥 Heat Diffusion</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <p>© 2026 <strong style="color:var(--text)">HashmiTools</strong> — Science is Beautiful</p>
+  <p style="margin-top:6px"><a href="index.html">← Back to All Tools</a></p>
+  <div class="footer-more">
+    <a href="tools/link-shortener.html" class="footer-chip">✂️ Link Shortener</a>
+    <a href="blog.html" class="footer-chip">📖 Blog</a>
+    <a href="contact.html" class="footer-chip">✉️ Contact</a>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT — BOTH SIMULATIONS
+═══════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════
+   UTILITY
+════════════════════════════════════════════════════════ */
+function rnd(a,b){ return a + Math.random()*(b-a); }
+
+/* ════════════════════════════════════════════════════════
+   SIMULATION 1 — BOIDS (MURMURATION)
+════════════════════════════════════════════════════════ */
+(function(){
+  const wrap   = document.getElementById('boids-wrap');
+  const canvas = document.getElementById('boids-canvas');
+  const ctx    = canvas.getContext('2d');
+  const fpsEl  = document.getElementById('boids-fps');
+
+  let W, H, boids=[], mouse={x:-9999,y:-9999}, boidMode='none', doScatter=false;
+  let lastT=0, rafId;
+
+  const CFG = { count:300, speed:2.2, sep:1.5, ali:1.0, coh:0.8, viewR:70, sepR:26 };
+
+  function resize(){
+    const r = wrap.getBoundingClientRect();
+    W = canvas.width  = r.width;
+    H = canvas.height = r.height;
+  }
+
+  class Boid {
+    constructor(){
+      this.x  = rnd(0,W||600);
+      this.y  = rnd(0,H||400);
+      const a = rnd(0, Math.PI*2);
+      this.vx = Math.cos(a)*CFG.speed;
+      this.vy = Math.sin(a)*CFG.speed;
+      this.trail = [];
+      this.hue   = 195 + rnd(0,30);
+      this.sz    = rnd(1.4,2.4);
+    }
+    update(neighbors){
+      let sx=0,sy=0,ax=0,ay=0,cx=0,cy=0,sc=0,ac=0,cc=0;
+      for(const b of neighbors){
+        const dx=this.x-b.x, dy=this.y-b.y;
+        const d=Math.hypot(dx,dy)||0.001;
+        if(d<CFG.sepR){ sx+=dx/d; sy+=dy/d; sc++; }
+        if(d<CFG.viewR){ ax+=b.vx; ay+=b.vy; cx+=b.x; cy+=b.y; ac++; cc++; }
+      }
+      let fx=0,fy=0;
+      if(sc>0){ fx+=(sx/sc)*CFG.sep; fy+=(sy/sc)*CFG.sep; }
+      if(ac>0){ fx+=(ax/ac-this.vx)*CFG.ali*0.1; fy+=(ay/ac-this.vy)*CFG.ali*0.1; }
+      if(cc>0){ fx+=(cx/cc-this.x)*CFG.coh*0.005; fy+=(cy/cc-this.y)*CFG.coh*0.005; }
+
+      const mdx=this.x-mouse.x, mdy=this.y-mouse.y, md=Math.hypot(mdx,mdy)||1;
+      if(boidMode==='attract'&&md<200){ fx-=mdx/md*0.9; fy-=mdy/md*0.9; }
+      if(boidMode==='repel'&&md<180){ fx+=mdx/md*1.4*(1-md/180); fy+=mdy/md*1.4*(1-md/180); }
+      if(doScatter){
+        const sdx=this.x-W/2, sdy=this.y-H/2, sd=Math.hypot(sdx,sdy)||1;
+        fx+=sdx/sd*5; fy+=sdy/sd*5;
+      }
+
+      this.vx+=fx; this.vy+=fy;
+      const spd=Math.hypot(this.vx,this.vy)||0.001;
+      const lo=CFG.speed*0.4, hi=CFG.speed;
+      if(spd>hi){ this.vx=this.vx/spd*hi; this.vy=this.vy/spd*hi; }
+      else if(spd<lo){ this.vx=this.vx/spd*lo; this.vy=this.vy/spd*lo; }
+
+      this.trail.push({x:this.x,y:this.y});
+      if(this.trail.length>10) this.trail.shift();
+
+      this.x+=this.vx; this.y+=this.vy;
+      if(this.x<-20)this.x=W+20; if(this.x>W+20)this.x=-20;
+      if(this.y<-20)this.y=H+20; if(this.y>H+20)this.y=-20;
+    }
+    draw(){
+      if(this.trail.length>2){
+        ctx.beginPath();
+        ctx.moveTo(this.trail[0].x,this.trail[0].y);
+        for(let i=1;i<this.trail.length;i++) ctx.lineTo(this.trail[i].x,this.trail[i].y);
+        ctx.strokeStyle=`hsla(${this.hue},65%,72%,0.07)`;
+        ctx.lineWidth=0.8; ctx.stroke();
+      }
+      const ang=Math.atan2(this.vy,this.vx);
+      const s=this.sz;
+      ctx.save();
+      ctx.translate(this.x,this.y); ctx.rotate(ang);
+      ctx.beginPath();
+      ctx.moveTo(s*3,0); ctx.lineTo(-s*2,-s*1.4); ctx.lineTo(-s,0); ctx.lineTo(-s*2,s*1.4);
+      ctx.closePath();
+      ctx.fillStyle=`hsla(${this.hue},60%,72%,0.82)`; ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  class Grid{
+    constructor(cs){ this.cs=cs; this.cells=new Map(); }
+    key(x,y){ return `${Math.floor(x/this.cs)},${Math.floor(y/this.cs)}`; }
+    insert(b){ const k=this.key(b.x,b.y); if(!this.cells.has(k))this.cells.set(k,[]); this.cells.get(k).push(b); }
+    query(b){
+      const cx=Math.floor(b.x/this.cs), cy=Math.floor(b.y/this.cs);
+      const r=[];
+      for(let dx=-1;dx<=1;dx++) for(let dy=-1;dy<=1;dy++){
+        const k=`${cx+dx},${cy+dy}`;
+        if(this.cells.has(k)) for(const nb of this.cells.get(k)) if(nb!==b) r.push(nb);
+      }
+      return r;
+    }
+  }
+
+  function init(){
+    boids=[];
+    for(let i=0;i<CFG.count;i++) boids.push(new Boid());
+  }
+
+  function loop(ts){
+    rafId=requestAnimationFrame(loop);
+    const dt=ts-lastT||16; lastT=ts;
+    fpsEl.textContent=Math.round(1000/dt)+' fps';
+
+    ctx.fillStyle='rgba(4,9,18,0.42)'; ctx.fillRect(0,0,W,H);
+
+    const grid=new Grid(CFG.viewR);
+    for(const b of boids) grid.insert(b);
+    for(const b of boids){ b.update(grid.query(b)); b.draw(); }
+
+    if(boidMode!=='none'){
+      const col=boidMode==='attract'?'58,143,191':'191,80,58';
+      const grd=ctx.createRadialGradient(mouse.x,mouse.y,0,mouse.x,mouse.y,110);
+      grd.addColorStop(0,`rgba(${col},0.13)`); grd.addColorStop(1,`rgba(${col},0)`);
+      ctx.fillStyle=grd; ctx.fillRect(0,0,W,H);
+    }
+  }
+
+  // Mouse
+  canvas.addEventListener('mousemove',e=>{
+    const r=canvas.getBoundingClientRect();
+    mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top;
+  });
+  canvas.addEventListener('mouseleave',()=>{ mouse.x=-9999; mouse.y=-9999; });
+  canvas.addEventListener('click',e=>{
+    const r=canvas.getBoundingClientRect();
+    const cx=e.clientX-r.left, cy=e.clientY-r.top;
+    for(let i=0;i<10;i++){
+      if(boids.length<700){
+        const b=new Boid(); b.x=cx+rnd(-20,20); b.y=cy+rnd(-20,20); boids.push(b);
+      }
+    }
+  });
+  canvas.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    const r=canvas.getBoundingClientRect();
+    mouse.x=e.touches[0].clientX-r.left; mouse.y=e.touches[0].clientY-r.top;
+  },{passive:false});
+
+  // Sliders
+  const sliders=[
+    ['b-count','b-count-val',v=>{ CFG.count=v; init(); },1],
+    ['b-speed','b-speed-val',v=>CFG.speed=v,10],
+    ['b-sep','b-sep-val',v=>CFG.sep=v,10],
+    ['b-ali','b-ali-val',v=>CFG.ali=v,10],
+    ['b-coh','b-coh-val',v=>CFG.coh=v,10],
+  ];
+  sliders.forEach(([id,vid,fn,d])=>{
+    const el=document.getElementById(id), vl=document.getElementById(vid);
+    el.addEventListener('input',()=>{
+      const v=el.value/d; vl.textContent=v.toFixed(d===1?0:1); fn(v);
+    });
+  });
+
+  // Global controls
+  window.toggleBoidMode=function(mode){
+    boidMode=boidMode===mode?'none':mode;
+    document.getElementById('b-attract').classList.toggle('active',boidMode==='attract');
+    document.getElementById('b-repel').classList.toggle('active',boidMode==='repel');
+    if(boidMode==='repel') document.getElementById('b-repel').classList.add('repel-mode');
+    else document.getElementById('b-repel').classList.remove('repel-mode');
+  };
+  window.boidScatter=function(){ doScatter=true; setTimeout(()=>doScatter=false,450); };
+  window.resetBoids=function(){ init(); };
+
+  // Observer — start when visible
+  const obs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      resize(); init();
+      // Draw initial bg
+      ctx.fillStyle='#040912'; ctx.fillRect(0,0,W,H);
+      requestAnimationFrame(loop);
+      obs.disconnect();
+    }
+  },{threshold:0.1});
+  obs.observe(wrap);
+
+  window.addEventListener('resize',()=>{ resize(); init(); });
+})();
+
+
+/* ════════════════════════════════════════════════════════
+   SIMULATION 2 — REACTION-DIFFUSION (TURING MORPHOGENESIS)
+   Gray-Scott model
+════════════════════════════════════════════════════════ */
+(function(){
+  const wrap   = document.getElementById('rd-wrap');
+  const canvas = document.getElementById('rd-canvas');
+  const ctx    = canvas.getContext('2d');
+  const fpsEl  = document.getElementById('rd-fps');
+
+  let W, H, rafId, lastT=0;
+  let A, B, nA, nB;   // Float32Arrays
+  let imgData;
+
+  // Gray-Scott params
+  let f = 0.055;
+  let k = 0.062;
+  const dA = 1.0;
+  const dB = 0.5;
+  const dt = 1.0;
+
+  // Palette: map [0..1] chemical concentration to colour
+  // Dark teal → cream spots
+  function colorMap(v){
+    // v = B concentration 0..1
+    const t=Math.max(0,Math.min(1,v));
+    // deep navy → teal → cream
+    let r,g,b;
+    if(t<0.4){
+      const s=t/0.4;
+      r=4+s*6;  g=14+s*40; b=26+s*50;
+    } else if(t<0.75){
+      const s=(t-0.4)/0.35;
+      r=10+s*180; g=54+s*160; b=76+s*130;
+    } else {
+      const s=(t-0.75)/0.25;
+      r=190+s*55; g=214+s*30; b=206+s*30;
+    }
+    return [r|0,g|0,b|0];
+  }
+
+  function initBuffers(){
+    A = new Float32Array(W*H).fill(1.0);
+    B = new Float32Array(W*H);
+    nA= new Float32Array(W*H);
+    nB= new Float32Array(W*H);
+    imgData = ctx.createImageData(W,H);
+
+    // Seed random patches
+    const seeds = 80;
+    for(let s=0;s<seeds;s++){
+      const cx=Math.floor(rnd(4,W-4)), cy=Math.floor(rnd(4,H-4));
+      const r=Math.floor(rnd(2,5));
+      for(let dy=-r;dy<=r;dy++) for(let dx=-r;dx<=r;dx++){
+        const x=(cx+dx+W)%W, y=(cy+dy+H)%H;
+        const idx=y*W+x;
+        A[idx]=0.5; B[idx]=0.25;
+      }
+    }
+  }
+
+  function step(){
+    const stepsPerFrame = W > 200 ? 4 : 6;
+    for(let s=0;s<stepsPerFrame;s++){
+      for(let y=0;y<H;y++){
+        const yn=(y+1)%H, yp=(y-1+H)%H;
+        for(let x=0;x<W;x++){
+          const idx=y*W+x;
+          const xn=(x+1)%W, xp=(x-1+W)%W;
+
+          const a=A[idx], b=B[idx];
+          // Laplacian (5-point stencil)
+          const lapA=A[yp*W+x]+A[yn*W+x]+A[y*W+xp]+A[y*W+xn]-4*a;
+          const lapB=B[yp*W+x]+B[yn*W+x]+B[y*W+xp]+B[y*W+xn]-4*b;
+
+          const react=a*b*b;
+          nA[idx]=Math.max(0,Math.min(1, a + dt*(dA*lapA - react + f*(1-a)) ));
+          nB[idx]=Math.max(0,Math.min(1, b + dt*(dB*lapB + react - (k+f)*b) ));
+        }
+      }
+      // Swap
+      const tmp=A; A=nA; nA=tmp;
+      const tmb=B; B=nB; nB=tmb;
+    }
+  }
+
+  function render(){
+    const d=imgData.data;
+    for(let i=0;i<W*H;i++){
+      const [r,g,b]=colorMap(B[i]);
+      const p=i*4;
+      d[p]=r; d[p+1]=g; d[p+2]=b; d[p+3]=255;
+    }
+    ctx.putImageData(imgData,0,0);
+  }
+
+  function loop(ts){
+    rafId=requestAnimationFrame(loop);
+    const dt2=ts-lastT||16; lastT=ts;
+    fpsEl.textContent=Math.round(1000/dt2)+' fps';
+    step(); render();
+  }
+
+  // Inject chemicals on click/drag
+  let painting=false;
+  function inject(e){
+    const r=canvas.getBoundingClientRect();
+    const scaleX=W/r.width, scaleY=H/r.height;
+    const cx=Math.round((e.clientX-r.left)*scaleX);
+    const cy=Math.round((e.clientY-r.top)*scaleY);
+    const rad=4;
+    for(let dy=-rad;dy<=rad;dy++) for(let dx=-rad;dx<=rad;dx++){
+      if(dx*dx+dy*dy>rad*rad) continue;
+      const x=(cx+dx+W)%W, y=(cy+dy+H)%H;
+      const idx=y*W+x;
+      A[idx]=0.5; B[idx]=0.25;
+    }
+  }
+  canvas.addEventListener('mousedown',e=>{ painting=true; inject(e); });
+  canvas.addEventListener('mousemove',e=>{ if(painting) inject(e); });
+  canvas.addEventListener('mouseup',()=>painting=false);
+  canvas.addEventListener('mouseleave',()=>painting=false);
+  canvas.addEventListener('touchstart',e=>{ e.preventDefault(); painting=true; inject(e.touches[0]); },{passive:false});
+  canvas.addEventListener('touchmove',e=>{ e.preventDefault(); if(painting) inject(e.touches[0]); },{passive:false});
+  canvas.addEventListener('touchend',()=>painting=false);
+
+  // Presets
+  window.rdPreset=function(name){
+    const presets={
+      spots:  {f:0.035, k:0.065},
+      stripes:{f:0.022, k:0.051},
+      maze:   {f:0.029, k:0.057},
+      waves:  {f:0.014, k:0.045},
+    };
+    const p=presets[name];
+    if(!p) return;
+    f=p.f; k=p.k;
+    document.getElementById('rd-f').value=Math.round(f*1000);
+    document.getElementById('rd-k').value=Math.round(k*1000);
+    document.getElementById('rd-f-val').textContent=f.toFixed(3);
+    document.getElementById('rd-k-val').textContent=k.toFixed(3);
+    rdReset();
+  };
+  window.rdReset=function(){
+    initBuffers();
+  };
+
+  // Sliders
+  document.getElementById('rd-f').addEventListener('input',function(){
+    f=this.value/1000;
+    document.getElementById('rd-f-val').textContent=f.toFixed(3);
+  });
+  document.getElementById('rd-k').addEventListener('input',function(){
+    k=this.value/1000;
+    document.getElementById('rd-k-val').textContent=k.toFixed(3);
+  });
+
+  // Resize & start
+  function resize(){
+    const r=wrap.getBoundingClientRect();
+    // Keep resolution reasonable for performance
+    const scale=Math.min(1, 300/Math.min(r.width,r.height));
+    W=Math.floor(r.width*scale);
+    H=Math.floor(r.height*scale);
+    canvas.width=W; canvas.height=H;
+  }
+
+  const obs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      resize(); initBuffers();
+      requestAnimationFrame(loop);
+      obs.disconnect();
+    }
+  },{threshold:0.1});
+  obs.observe(wrap);
+
+  window.addEventListener('resize',()=>{
+    cancelAnimationFrame(rafId);
+    resize(); initBuffers();
+    requestAnimationFrame(loop);
+  });
+})();
+</script>
+</body>
+</html>

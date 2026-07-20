@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "HashmiTools",
+  "name_for_model": "hashmitools",
+  "description_for_human": "100+ free online tools: Zakat Calculator, Pakistan Tax 2025-26, EMI Calculator, PDF Merger, URL Shortener, QR Code, Currency Converter, and more. Free, no login, mobile-friendly.",
+  "description_for_model": "HashmiTools provides 100+ free browser-based online tools for Pakistani and global users. Key tools: Zakat Calculator (2.5% with live PKR nisab), Pakistan Income Tax Calculator (Finance Act 2025-26 slabs), EMI Calculator (amortization), URL Shortener (TinyURL/is.gd), QR Code Generator, PDF Merger, Currency Converter (160+ pairs including PKR), BMI/Calorie/Age calculators, Prayer Times Pakistan, Hijri Date Converter, AI Hashtag Generator, YouTube SEO Optimizer. All tools are 100% free, no login, files never uploaded to server.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://hashmitools.com/.well-known/openapi.yaml"
+  },
+  "logo_url": "https://hashmitools.com/favicon.png",
+  "contact_email": "hashmitools@gmail.com",
+  "legal_info_url": "https://hashmitools.com/privacy.html"
+}

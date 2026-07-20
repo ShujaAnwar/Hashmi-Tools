@@ -78,3 +78,8 @@ Allow: /
 
 # ── Sitemaps ───────────────────────────────────────────────────────────────
 Sitemap: https://hashmitools.com/sitemap.xml
+Sitemap: https://hashmitools.com/sitemap-images.xml
+
+# ── AI Discovery ───────────────────────────────────────────────────────────
+# llms.txt: https://hashmitools.com/llms.txt
+# ai-plugin: https://hashmitools.com/.well-known/ai-plugin.json

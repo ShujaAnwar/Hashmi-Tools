@@ -1,21 +1,27 @@
 # HashmiTools.com — robots.txt
-# Last updated: 2025-06-16
+# Last updated: 2026-07-20
 
 # ── Default: allow all crawlers ────────────────────────────────────────────
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /private/
+Disallow: /backend/
 Crawl-delay: 1
 
 # ── Google ─────────────────────────────────────────────────────────────────
 User-agent: Googlebot
 Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /backend/
 Crawl-delay: 0
 
 User-agent: Googlebot-Image
+Allow: /
 Allow: /images/
 Allow: /tools/
+Allow: /blog/
 
 # Google AI (Bard / Gemini citations)
 User-agent: Google-Extended
@@ -71,6 +77,4 @@ User-agent: YandexBot
 Allow: /
 
 # ── Sitemaps ───────────────────────────────────────────────────────────────
-
-# Sitemaps
 Sitemap: https://hashmitools.com/sitemap.xml

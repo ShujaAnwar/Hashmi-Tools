@@ -6,16 +6,16 @@
 #
 # ───────────────────────────────────────────────────────────
 # GOOGLE ADSENSE
-# Replace ca-pub-XXXXXXXXXXXXXXXX with your actual Publisher ID from:
+# Replace ca-pub-5313876284153733 with your actual Publisher ID from:
 # https://www.google.com/adsense/new/u/0/pub-XXXXXXXX/home → Settings → Account → Publisher ID
 # ───────────────────────────────────────────────────────────
-google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-5313876284153733, DIRECT, f08c47fec0942fa0
 
 # ───────────────────────────────────────────────────────────
 # GOOGLE AD MANAGER (if you ever use GAM/DFP)
 # Uncomment and replace with your GAM Network Code
 # ───────────────────────────────────────────────────────────
-# google.com, pub-XXXXXXXXXXXXXXXX, RESELLER, f08c47fec0942fa0
+# google.com, pub-5313876284153733, RESELLER, f08c47fec0942fa0
 
 # ───────────────────────────────────────────────────────────
 # MEDIA.NET (alternative/backup ad network)
@@ -32,7 +32,7 @@ google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
 # HOW TO UPDATE THIS FILE:
 # 1. Get your AdSense publisher ID from Google AdSense dashboard
 #    (Settings → Account information → Publisher ID — starts with "pub-")
-# 2. Replace both instances of "pub-XXXXXXXXXXXXXXXX" with your real ID
+# 2. Replace both instances of "pub-5313876284153733" with your real ID
 # 3. Save and deploy — Google will verify this file at:
 #    https://hashmitools.com/ads.txt
 # 4. AdSense approval requires this file to be accessible at the root domain

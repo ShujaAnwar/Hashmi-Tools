@@ -691,13 +691,6 @@
         { "@type": "ListItem", "position": 2, "name": "Developer Tools", "item": "https://hashmitools.com/tools/developer.html" },
         { "@type": "ListItem", "position": 3, "name": "Free URL Shortener", "item": "https://hashmitools.com/tools/link-shortener.html" }
       ]
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "247",
-      "bestRating": "5",
-      "worstRating": "1"
     }
   }
   </script>
@@ -1176,33 +1169,77 @@
   /* ── Shortening APIs ───────────────────────────────── */
 
   /**
-   * Try TinyURL via allorigins proxy (avoids CORS).
+   * Try TinyURL — direct API call (TinyURL sends CORS headers).
    * Returns short URL string or null.
    */
   async function tryTinyUrl(url) {
     try {
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(
-        'https://tinyurl.com/api-create.php?url=' + encodeURIComponent(url)
-      )}`;
-      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+      const apiUrl = 'https://tinyurl.com/api-create.php?url=' + encodeURIComponent(url);
+      const res = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
       if (!res.ok) return null;
-      const data = await res.json();
-      const s = (data.contents || '').trim();
-      return s.startsWith('https://tinyurl.com/') ? s : null;
+      const s = (await res.text()).trim();
+      return /^https:\/\/tinyurl\.com\/\S+$/.test(s) ? s : null;
     } catch { return null; }
   }
 
   /**
-   * Try is.gd — CORS-friendly GET API.
+   * Try is.gd — via JSONP (is.gd does not send CORS headers,
+   * so a normal fetch is blocked by the browser; JSONP works).
    * Returns short URL string or null.
    */
-  async function tryIsGd(url) {
+  function tryIsGd(url) {
+    return new Promise((resolve) => {
+      const cbName = '__isgd_cb_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+      const script = document.createElement('script');
+      let done = false;
+
+      const cleanup = () => {
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      };
+
+      const timer = setTimeout(() => {
+        if (done) return;
+        done = true; cleanup(); resolve(null);
+      }, 8000);
+
+      window[cbName] = (data) => {
+        if (done) return;
+        done = true; clearTimeout(timer); cleanup();
+        const s = (data && data.shorturl || '').trim();
+        resolve(/^https:\/\/is\.gd\/\S+$/.test(s) ? s : null);
+      };
+
+      script.onerror = () => {
+        if (done) return;
+        done = true; clearTimeout(timer); cleanup(); resolve(null);
+      };
+
+      // If the script loads but the callback never fires (e.g. is.gd
+      // returned an error page instead of JSONP), fail fast.
+      script.onload = () => {
+        setTimeout(() => {
+          if (done) return;
+          done = true; clearTimeout(timer); cleanup(); resolve(null);
+        }, 100);
+      };
+
+      script.src = `https://is.gd/create.php?format=json&callback=${cbName}&url=${encodeURIComponent(url)}`;
+      document.head.appendChild(script);
+    });
+  }
+
+  /**
+   * Try clck.ru — CORS-friendly (Access-Control-Allow-Origin: *).
+   * Returns short URL string or null.
+   */
+  async function tryClckRu(url) {
     try {
-      const apiUrl = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`;
+      const apiUrl = 'https://clck.ru/--?url=' + encodeURIComponent(url);
       const res = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
       if (!res.ok) return null;
-      const txt = (await res.text()).trim();
-      return txt.startsWith('https://is.gd/') ? txt : null;
+      const s = (await res.text()).trim();
+      return /^https:\/\/clck\.ru\/\S+$/.test(s) ? s : null;
     } catch { return null; }
   }
 
@@ -1245,9 +1282,15 @@
         if (shortUrl) { provider = 'is.gd'; }
       }
 
-      // ── Both failed — show error, NO local fake link ──
+      // ── Attempt 3: clck.ru ──
       if (!shortUrl) {
-        showError('Could not shorten this URL right now. Both TinyURL and is.gd are unreachable. Please check your internet connection or try again in a moment.');
+        shortUrl = await tryClckRu(url);
+        if (shortUrl) { provider = 'clck.ru'; }
+      }
+
+      // ── All failed — show error, NO local fake link ──
+      if (!shortUrl) {
+        showError('Could not shorten this URL right now. All shortening services (TinyURL, is.gd, clck.ru) are unreachable. Please check your internet connection or try again in a moment.');
         setBtnLoading(false);
         return;
       }

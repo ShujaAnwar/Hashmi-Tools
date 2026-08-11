@@ -122,6 +122,7 @@ const toolsData = [
   { name: 'SIP Investment Calculator', url: 'tools/sip-calculator.html', cat: 'Finance', icon: '💹', tags: ['sip','mutual fund','investment','return','systematic','portfolio'] },
 
   // ── Health Tools ──────────────────────────────────────────────
+  { name: 'Weight Loss Planner', url: 'tools/weight-loss-planner.html', cat: 'Health', icon: '🥗', tags: ['weight loss','calorie deficit','diet plan','protein','fat loss','meal planner','nutrition','calories','food plan'] },
   { name: 'BMI Calculator', url: 'tools/bmi-calculator.html', cat: 'Health', icon: '❤️', tags: ['bmi','body mass index','weight','height','obesity','overweight','health'] },
   { name: 'Calorie Calculator', url: 'tools/calorie-calculator.html', cat: 'Health', icon: '🥗', tags: ['calorie','diet','nutrition','food','weight loss','tdee','bmr'] },
   { name: 'Water Intake Calculator', url: 'tools/water-calculator.html', cat: 'Health', icon: '💧', tags: ['water','intake','hydration','daily water','drink','health'] },

@@ -81,9 +81,9 @@ User-agent: YandexBot
 Allow: /
 
 # ── Sitemaps ───────────────────────────────────────────────────────────────
-Sitemap: https://hashmitools.com/sitemap.xml
-Sitemap: https://hashmitools.com/sitemap-images.xml
+Sitemap: https://www.hashmitools.com/sitemap.xml
+Sitemap: https://www.hashmitools.com/sitemap-images.xml
 
 # ── AI Discovery ───────────────────────────────────────────────────────────
-# llms.txt: https://hashmitools.com/llms.txt
-# ai-plugin: https://hashmitools.com/.well-known/ai-plugin.json
+# llms.txt: https://www.hashmitools.com/llms.txt
+# ai-plugin: https://www.hashmitools.com/.well-known/ai-plugin.json

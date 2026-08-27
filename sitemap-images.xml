@@ -4,14 +4,14 @@
 
   <!-- Homepage OG Image -->
   <url>
-    <loc>https://hashmitools.com/</loc>
+    <loc>https://www.hashmitools.com/</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>HashmiTools – 100+ Free Online Tools | Pakistan</image:title>
       <image:caption>HashmiTools offers 100+ free online tools including Zakat Calculator, EMI Calculator, Pakistan Tax 2025-26, PDF Merger, URL Shortener, QR Code Generator and more.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://hashmitools.com/favicon.png</image:loc>
+      <image:loc>https://www.hashmitools.com/favicon.png</image:loc>
       <image:title>HashmiTools Logo</image:title>
       <image:caption>HashmiTools official logo — free online tools platform for Pakistan</image:caption>
     </image:image>
@@ -19,9 +19,9 @@
 
   <!-- Zakat Calculator -->
   <url>
-    <loc>https://hashmitools.com/tools/zakat-calculator.html</loc>
+    <loc>https://www.hashmitools.com/tools/zakat-calculator.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>Free Zakat Calculator 2025 – HashmiTools</image:title>
       <image:caption>Calculate Zakat on gold, silver, cash and investments with live PKR nisab values</image:caption>
     </image:image>
@@ -29,9 +29,9 @@
 
   <!-- EMI Calculator -->
   <url>
-    <loc>https://hashmitools.com/tools/emi-calculator.html</loc>
+    <loc>https://www.hashmitools.com/tools/emi-calculator.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>EMI Calculator with Amortization – HashmiTools</image:title>
       <image:caption>Calculate monthly EMI and view full loan amortization schedule</image:caption>
     </image:image>
@@ -39,9 +39,9 @@
 
   <!-- Pakistan Tax Calculator -->
   <url>
-    <loc>https://hashmitools.com/tools/pakistan-tax.html</loc>
+    <loc>https://www.hashmitools.com/tools/pakistan-tax.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>Pakistan Income Tax Calculator 2025-26 – HashmiTools</image:title>
       <image:caption>Pakistan income tax calculator updated for Finance Act 2025-26 slabs</image:caption>
     </image:image>
@@ -49,9 +49,9 @@
 
   <!-- BMI Calculator -->
   <url>
-    <loc>https://hashmitools.com/tools/bmi-calculator.html</loc>
+    <loc>https://www.hashmitools.com/tools/bmi-calculator.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>BMI Calculator – HashmiTools</image:title>
       <image:caption>Free BMI calculator with metric and imperial units</image:caption>
     </image:image>
@@ -59,9 +59,9 @@
 
   <!-- Currency Converter -->
   <url>
-    <loc>https://hashmitools.com/tools/currency-converter.html</loc>
+    <loc>https://www.hashmitools.com/tools/currency-converter.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>Currency Converter PKR to USD – HashmiTools</image:title>
       <image:caption>Live currency converter with 160+ currencies including PKR, USD, EUR, GBP</image:caption>
     </image:image>
@@ -69,9 +69,9 @@
 
   <!-- URL Shortener -->
   <url>
-    <loc>https://hashmitools.com/tools/link-shortener.html</loc>
+    <loc>https://www.hashmitools.com/tools/link-shortener.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>Free URL Shortener – HashmiTools</image:title>
       <image:caption>Shorten long URLs instantly using TinyURL and is.gd APIs</image:caption>
     </image:image>
@@ -79,9 +79,9 @@
 
   <!-- Learn Science -->
   <url>
-    <loc>https://hashmitools.com/learn-science.html</loc>
+    <loc>https://www.hashmitools.com/learn-science.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>Interactive Science Simulations – HashmiTools</image:title>
       <image:caption>Live browser simulations of Boids murmuration and Gray-Scott reaction-diffusion morphogenesis</image:caption>
     </image:image>
@@ -89,9 +89,9 @@
 
   <!-- Blog -->
   <url>
-    <loc>https://hashmitools.com/blog.html</loc>
+    <loc>https://www.hashmitools.com/blog.html</loc>
     <image:image>
-      <image:loc>https://hashmitools.com/og-image.png</image:loc>
+      <image:loc>https://www.hashmitools.com/og-image.png</image:loc>
       <image:title>HashmiTools Blog – Islamic Finance, Pakistan Tax, AI Tools</image:title>
       <image:caption>Expert guides on Islamic Finance, Zakat, Pakistan Tax, AI Tools and Digital Productivity</image:caption>
     </image:image>

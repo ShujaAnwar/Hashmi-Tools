@@ -9,9 +9,9 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://hashmitools.com/.well-known/openapi.yaml"
+    "url": "https://www.hashmitools.com/.well-known/openapi.yaml"
   },
-  "logo_url": "https://hashmitools.com/favicon.png",
+  "logo_url": "https://www.hashmitools.com/favicon.png",
   "contact_email": "hashmitools@gmail.com",
-  "legal_info_url": "https://hashmitools.com/privacy.html"
+  "legal_info_url": "https://www.hashmitools.com/privacy.html"
 }

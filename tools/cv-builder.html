@@ -73,13 +73,13 @@
       "mainEntity": [
         {"@type": "Question","name": "What is ATS and why does it matter?","acceptedAnswer": {"@type": "Answer","text": "ATS (Applicant Tracking System) is software used by most companies to automatically screen resumes before a human sees them. An ATS-optimized resume uses standard section headers, relevant keywords, and clean formatting so the system can parse it correctly. Poor ATS compatibility can mean your resume never reaches a recruiter, even if you're qualified."}},
         {"@type": "Question","name": "Why does my ATS score matter?","acceptedAnswer": {"@type": "Answer","text": "Studies show 75% of resumes are rejected by ATS before a human reviews them. A score above 80/100 on our tool means your resume is likely to pass automated screening. The tool identifies missing keywords, vague bullets, and formatting issues that reduce your score."}},
-        {"@type": "Question","name": "Is this tool completely free?","acceptedAnswer": {"@type": "Answer","text": "Yes, 100% free. All features — templates, AI suggestions (requires your own Claude API key), ATS scoring, PDF export, and Word export — are free with no signup required."}},
+        {"@type": "Question","name": "Is this tool completely free?","acceptedAnswer": {"@type": "Answer","text": "Yes, 100% free. All features — templates, AI suggestions send selected resume text to Pollinations after your confirmation; provider availability and limits apply., ATS scoring, PDF export, and Word export — are free with no signup required."}},
         {"@type": "Question","name": "Can I edit my resume after downloading?","acceptedAnswer": {"@type": "Answer","text": "Yes. The Word (.docx) download gives you a fully editable document you can open in Microsoft Word, Google Docs, or LibreOffice. The PDF is a fixed-format document best for submitting to jobs."}},
         {"@type": "Question","name": "What file formats can I download?","acceptedAnswer": {"@type": "Answer","text": "You can download your resume as a PDF (pixel-perfect, using html2canvas + jsPDF) or as a Word document (.docx) for editing. Both formats are available for free."}},
-        {"@type": "Question","name": "Is my data private?","acceptedAnswer": {"@type": "Answer","text": "Yes. All your resume data is stored locally in your browser (localStorage) and never sent to any server — except when you click an AI button, which sends only the relevant text to the Claude API using your own API key. HashmiTools never stores your resume or personal information."}},
+        {"@type": "Question","name": "Is my data private?","acceptedAnswer": {"@type": "Answer","text": "Resume drafts are saved in browser localStorage. AI features send relevant resume text to Pollinations after confirmation. Local scoring and export do not need AI requests. Do not include sensitive information in AI prompts."}},
         {"@type": "Question","name": "Does it work on mobile?","acceptedAnswer": {"@type": "Answer","text": "Yes, the form and AI features work on mobile. However, for the best PDF preview and export experience, we recommend using a desktop browser (Chrome or Firefox) since PDF rendering works best on larger screens."}},
         {"@type": "Question","name": "Can I switch templates after filling in my information?","acceptedAnswer": {"@type": "Answer","text": "Yes. Your information is saved separately from the template choice. You can switch between any of the 6 templates at any time — including from Step 1 or from the preview panel — and the same data will be rendered in the new template style instantly."}},
-        {"@type": "Question","name": "What AI model is used for suggestions?","acceptedAnswer": {"@type": "Answer","text": "AI suggestions use the Claude API (claude-opus-4-5) via your own Anthropic API key. The tool asks for your API key on first use and stores it locally in your browser. No API key is needed for basic resume building, templates, ATS scoring, and PDF export."}}
+        {"@type": "Question","name": "What AI model is used for suggestions?","acceptedAnswer": {"@type": "Answer","text": "AI suggestions use the Pollinations endpoint, not an Anthropic API key. Provider availability and model selection may change. Basic resume building, local checklist scoring and export work without an AI request."}}
       ]
     }
   ]
@@ -342,8 +342,8 @@
   }
   </script>
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
-       crossorigin="anonymous"></script>
+  <!-- Ad delivery paused pending consent configuration. Ownership verification only. -->
+  <meta name="google-adsense-account" content="ca-pub-5313876284153733">
 </head>
 <body>
 
@@ -672,7 +672,7 @@
     </details>
     <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
       <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Is this tool completely free? <span>+</span></summary>
-      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Yes, 100% free. All templates, ATS scoring, PDF/Word export work without an API key. AI suggestions (improve bullets, suggest skills) need your own free Anthropic Claude API key — stored only in your browser, never on our servers.</div>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Yes, 100% free. All templates, ATS scoring, PDF/Word export work without an API key. AI suggestions send selected resume text to Pollinations after your confirmation; provider availability and limits apply.</div>
     </details>
     <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
       <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Can I edit my resume after downloading? <span>+</span></summary>
@@ -680,7 +680,7 @@
     </details>
     <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
       <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Is my data private? <span>+</span></summary>
-      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Yes. All your resume data stays in your browser (localStorage) and is never sent to HashmiTools servers. The only time data leaves your device is when you click an AI button — that sends only the relevant text to the Claude API using <em>your own</em> API key.</div>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Drafts are saved in browser localStorage. AI features send selected resume text to Pollinations only after confirmation. The local checklist and export do not require AI. Read our <a href="../privacy.html">Privacy Policy</a> and avoid sensitive information in prompts.</div>
     </details>
     <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
       <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Can I switch templates after filling in my information? <span>+</span></summary>
@@ -692,7 +692,7 @@
     </details>
     <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
       <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">What AI model is used? <span>+</span></summary>
-      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">AI suggestions use Claude (claude-opus-4-5) via the Anthropic API. You need a free API key from console.anthropic.com. All AI calls are made directly from your browser to Anthropic — no middleman.</div>
+      <div style="padding:0 18px 14px;font-size:.84rem;color:var(--text-secondary);line-height:1.7;">Suggestions use the Pollinations endpoint. No Anthropic key is used by this implementation. Model availability, speed and usage limits are controlled by the provider; responses are not guaranteed.</div>
     </details>
     <details style="border:1px solid var(--border-color);border-radius:10px;margin-bottom:10px;overflow:hidden;">
       <summary style="padding:14px 18px;cursor:pointer;font-weight:600;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Which template is best for getting past ATS? <span>+</span></summary>
@@ -777,7 +777,7 @@
 <footer style="background:var(--bg-secondary);border-top:1px solid var(--border-color);padding:24px;text-align:center;font-size:.8rem;color:var(--text-muted);margin-top:40px;">
   <a href="../index.html" style="color:var(--cv-blue);">← Back to HashmiTools</a> &nbsp;·&nbsp;
   Free AI tools for everyone · <a href="../privacy.html" style="color:var(--text-muted);">Privacy</a>
-</footer>
+<nav aria-label="Site information" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;padding:16px;"><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
 
 <script>
 'use strict';
@@ -1063,10 +1063,10 @@ async function runAtsScore() {
   const area = document.getElementById('atsResultArea');
   area.innerHTML = `<div class="cv-ats-card" style="text-align:center;padding:40px;"><div style="font-size:2rem;margin-bottom:12px;">⏳</div><div>Analyzing your resume with AI...</div></div>`;
 
-  const apiKey = true; // Pollinations AI — always available, no key needed
+  const useAI = window.confirm('Send resume content (excluding contact fields) to Pollinations for AI analysis? Cancel runs a local checklist instead. Avoid private details in experience text.');
   let score, strengths=[], warnings=[], critical=[], missing=[], weakBullets=[];
 
-  if (!apiKey) {
+  if (!useAI) {
     // Heuristic scoring without AI
     let s = 60;
     if (data.name) s+=5;
@@ -1086,27 +1086,38 @@ async function runAtsScore() {
     if (data.skills.length >= 5) strengths.push(`${data.skills.length} skills listed`);
     warnings = data.skills.length < 5 ? [{issue:'Few skills listed',fix:'Add 8-12 relevant technical and soft skills'}] : [];
     if (hasNumbers === 0) warnings.push({issue:'Bullet points lack quantifiable results',fix:'Add numbers: "Improved performance by 40%", "Managed team of 8 people"'});
-    missing = data.jobtitle ? [`${data.jobtitle} keywords (run with Claude API for specific suggestions)`] : [];
+    missing = data.jobtitle ? [`${data.jobtitle} keywords (compare with your target job description)`] : [];
   } else {
     try {
-      const prompt = `You are an ATS resume expert. Analyze this resume for ATS compatibility.\nTarget job: "${data.jobtitle}"\nResume: ${JSON.stringify(data,null,1).slice(0,3000)}\n\nReturn ONLY valid JSON:\n{"ats_score":75,"strengths":["..."],"warnings":[{"issue":"...","fix":"..."}],"critical_issues":[{"issue":"...","fix":"..."}],"missing_keywords":["..."],"weak_bullets":[{"original":"...","improved":"..."}]}`;
+      const prompt = `You are an ATS resume expert. Analyze this resume for ATS compatibility.\nTarget job: "${data.jobtitle}"\nResume: ${JSON.stringify({jobtitle:data.jobtitle, summary:data.summary, skills:data.skills, experience:data.experience, education:data.education},null,1).slice(0,3000)}\n\nReturn ONLY valid JSON:\n{"ats_score":75,"strengths":["..."],"warnings":[{"issue":"...","fix":"..."}],"critical_issues":[{"issue":"...","fix":"..."}],"missing_keywords":["..."],"weak_bullets":[{"original":"...","improved":"..."}]}`;
       const res = await fetch('https://text.pollinations.ai/', {
         method:'POST',
+        signal: AbortSignal.timeout(20000),
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({model:'openai',messages:[{role:'system',content:'ATS resume expert. JSON only.'},{role:'user',content:prompt}],seed:42})
       });
+      if (!res.ok) throw new Error('AI provider returned HTTP ' + res.status);
       const text = await res.text();
       const j = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] || '{}');
-      score = j.ats_score || 72;
+      if (!Number.isFinite(j.ats_score) || j.ats_score < 0 || j.ats_score > 100) throw new Error('AI provider returned an invalid score');
+      for (const key of ['strengths', 'warnings', 'critical_issues', 'missing_keywords', 'weak_bullets']) {
+        if (j[key] !== undefined && !Array.isArray(j[key])) throw new Error('Invalid AI response');
+      }
+      if ((j.strengths || []).some(item => typeof item !== 'string') ||
+          (j.missing_keywords || []).some(item => typeof item !== 'string') ||
+          ['warnings', 'critical_issues', 'weak_bullets'].some(key => (j[key] || []).some(item =>
+            !item || typeof item !== 'object' || Object.values(item).some(value => typeof value !== 'string')))) {
+        throw new Error('Invalid AI response fields');
+      }
+      score = j.ats_score;
       strengths = j.strengths || [];
       warnings = j.warnings || [];
       critical = j.critical_issues || [];
       missing = j.missing_keywords || [];
       weakBullets = j.weak_bullets || [];
     } catch(e) {
-      score = 72;
-      strengths = ['Resume structure detected'];
-      warnings = [{issue:'Could not complete AI analysis',fix:'Check your API key and internet connection'}];
+      area.innerHTML = '<div class="cv-ats-card" role="status"><strong>AI analysis unavailable</strong><p>No score was generated. Try again later, or run the check again and choose Cancel for a local checklist.</p></div>';
+      return;
     }
   }
 
@@ -1118,7 +1129,7 @@ async function runAtsScore() {
       <div class="cv-ats-score-row">
         <div class="cv-ats-score-circle ${scoreClass}">${score}</div>
         <div class="cv-ats-bar-wrap">
-          <div style="font-size:.85rem;font-weight:700;margin-bottom:6px;">ATS Compatibility Score: ${score}/100</div>
+          <div style="font-size:.85rem;font-weight:700;margin-bottom:6px;">${useAI ? 'AI estimate' : 'Local checklist estimate'}: ${score}/100</div>
           <div class="cv-ats-bar-bg"><div class="cv-ats-bar-fill" style="width:${score}%"></div></div>
           <div style="font-size:.78rem;color:var(--text-muted);margin-top:4px;">${scoreText}</div>
         </div>
@@ -1128,15 +1139,17 @@ async function runAtsScore() {
       ${critical.map(c=>`<div class="cv-ats-item"><span class="cv-ats-icon">❌</span><div class="cv-ats-item-body"><strong>${escHtml(c.issue||c)}</strong><p>${escHtml(c.fix||'')}</p></div></div>`).join('')}
       ${missing.length ? `<div class="cv-ats-item"><span class="cv-ats-icon">🔑</span><div class="cv-ats-item-body"><strong>Suggested Keywords for "${escHtml(data.jobtitle)}"</strong><p>${missing.map(k=>`<code style="background:var(--bg-secondary);padding:1px 5px;border-radius:4px;font-size:.78em;">${escHtml(k)}</code>`).join(' ')}</p></div></div>` : ''}
       ${weakBullets.length ? `<div class="cv-ats-item"><span class="cv-ats-icon">💡</span><div class="cv-ats-item-body"><strong>Bullet Improvements</strong>${weakBullets.map(b=>`<p><del>${escHtml(b.original)}</del><br/>→ <strong>${escHtml(b.improved)}</strong></p>`).join('')}</div></div>` : ''}
-      ${!apiKey ? `<div style="margin-top:12px;padding:12px;background:rgba(37,99,235,.06);border-radius:8px;font-size:.8rem;color:var(--text-muted);">💡 Add your Claude API key for a detailed AI analysis with job-specific keyword suggestions.</div>` : ''}
+      ${!useAI ? `<div style="margin-top:12px;padding:12px;background:rgba(37,99,235,.06);border-radius:8px;font-size:.8rem;color:var(--text-muted);">💡 Local checklist estimate only: not a real employer ATS test or a guarantee of selection.</div>` : ''}
     </div>`;
 }
 
 // ── AI helpers ─────────────────────────────────────────────────────────────
 async function callClaude(prompt) {
+  if (!window.confirm('Send this resume text to Pollinations for AI writing? Avoid sensitive information. Cancel to keep it local.')) throw new Error('Request cancelled; no text was sent.');
   // Pollinations AI — free, no API key needed
   const res = await fetch('https://text.pollinations.ai/', {
     method:'POST',
+        signal: AbortSignal.timeout(20000),
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({
       model:'openai',
@@ -1341,7 +1354,7 @@ if (false && !localStorage.getItem('cv_modal_dismissed')) { // No longer needed
 <h2 style="font-size:1.55rem;font-weight:700;margin:2.5rem 0 .75rem;color:#0f172a">Frequently Asked Questions</h2>
 <div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
 <h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Is the CV Builder completely free?</h3>
-<p style="margin:0">The CV form, templates, real-time preview, and PDF download are all completely free with no account required. The AI-enhancement feature requires a Claude API key from Anthropic, which has a generous free tier sufficient for generating multiple CVs. Once you have a free API key, enter it once and the tool stores it locally in your browser — you never need to re-enter it unless you clear your browser data.</p>
+<p style="margin:0">The CV form, templates, preview and export work without a HashmiTools account. Optional AI sends text to Pollinations after confirmation. Provider availability and usage limits may change.</p>
 </div>
 <div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
 <h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Will my CV look different on different devices or in email?</h3>
@@ -1349,7 +1362,7 @@ if (false && !localStorage.getItem('cv_modal_dismissed')) { // No longer needed
 </div>
 <div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
 <h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">Does HashmiTools store my CV data?</h3>
-<p style="margin:0">No. All CV data is stored exclusively in your browser's localStorage on your own device. It is never transmitted to HashmiTools servers. When you use the AI enhancement feature, your CV content is sent directly from your browser to Anthropic's API using your own API key — it does not pass through HashmiTools infrastructure. If you clear your browser data or switch devices, your draft will not be available; download your PDF before closing the session.</p>
+<p style="margin:0">Drafts are stored in browser localStorage. Optional AI sends selected content to Pollinations after confirmation, not Anthropic. Clear site data to remove local drafts, and avoid confidential information in prompts.</p>
 </div>
 <div style="border:1px solid #e2e8f0;border-radius:10px;margin-bottom:1rem;padding:1rem 1.25rem">
 <h3 style="font-size:1rem;font-weight:600;margin-bottom:.4rem">How do I tailor my CV for different jobs?</h3>

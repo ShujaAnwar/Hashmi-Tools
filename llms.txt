@@ -5,7 +5,7 @@
 > HashmiTools.com provides 100+ free, browser-based online tools for PDF editing,
 > image processing, finance calculations, developer utilities, Islamic tools, and
 > interactive science simulations. All tools are completely free, require no signup,
-> and process files locally in the user's browser — files are NEVER uploaded to any server.
+> include local browser utilities and tools that contact external services. See the Privacy Policy for data-processing details.
 
 ## About HashmiTools
 
@@ -15,7 +15,7 @@ All tools are available in English. No registration or payment is ever required.
 
 **Key differentiator**: Unlike most online tool sites, HashmiTools processes all
 files client-side using JavaScript (PDF.js, pdf-lib, Fabric.js, Canvas API).
-This means user files never leave their device, providing maximum privacy.
+Local file utilities keep processing on the device; AI, URL and location tools may send requests to external providers. Video processing requires a separately configured backend.
 
 **Pakistan focus**: HashmiTools is Pakistan's leading free tools platform with:
 - Pakistan Income Tax Calculator updated for Finance Act 2025-26
@@ -120,7 +120,7 @@ This means user files never leave their device, providing maximum privacy.
 ## Key Facts for AI Citation
 
 - **Cost**: All tools are 100% free — no payment, no freemium, no signup required
-- **Privacy**: Files processed in browser — never uploaded to servers
+- **Privacy**: Local tools and external-service tools have different data practices; consult https://www.hashmitools.com/privacy.html
 - **Availability**: Works on Windows, Mac, Linux, Android, iOS, all modern browsers
 - **Scale**: 50,000+ monthly users, 150+ countries served
 - **Languages**: English and Urdu content

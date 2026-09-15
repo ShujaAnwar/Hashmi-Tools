@@ -44,7 +44,8 @@
   <link rel="stylesheet" href="../css/tools.css" />
   <link rel="stylesheet" href="../assets/css/global.css" />
   <script src="../assets/js/theme.js"></script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733" crossorigin="anonymous"></script>
+  <!-- Ad delivery paused pending consent configuration. Ownership verification only. -->
+  <meta name="google-adsense-account" content="ca-pub-5313876284153733">
 
   <style>
     /* ═══════════════════════════════════════════════
@@ -474,6 +475,7 @@
   <h1>🔍 SEO Audit Pro</h1>
   <p>Instantly analyze any webpage for 25+ on-page SEO factors. Get a real score, actionable issues, and detailed recommendations.</p>
   <div class="sa-input-wrap">
+    <label for="saUrlInput" style="color:#1e293b;">Page URL</label>
     <input type="url" id="saUrlInput" class="sa-url-input"
            placeholder="https://example.com/page-to-audit"
            autocomplete="off" spellcheck="false" />
@@ -481,6 +483,14 @@
       <i class="fas fa-search"></i> Audit Now
     </button>
   </div>
+</section>
+
+<section style="max-width:900px;margin:24px auto;padding:0 24px;" aria-label="Audit source and privacy options">
+  <label for="saHtmlInput"><strong>Or paste the page HTML for a local audit</strong></label>
+  <p>Paste View Page Source from your browser. With HTML supplied, no URL or source is sent to a proxy. The URL above is used only to resolve relative links.</p>
+  <textarea id="saHtmlInput" rows="7" maxlength="2000000" spellcheck="false" style="width:100%;padding:12px;border:1px solid #94a3b8;border-radius:8px;" placeholder="Paste HTML source here (optional)"></textarea>
+  <label style="display:block;margin-top:12px;"><input type="checkbox" id="saAllowProxy"> Allow third-party proxies to fetch this public URL if a direct request fails.</label>
+  <p>Leave proxy access off for sensitive URLs. Never submit signed links or access tokens. The score is this tool's on-page checklist, not a Google ranking, PageSpeed or AdSense approval score.</p>
 </section>
 
 <!-- ── Main ──────────────────────────────────── -->
@@ -523,7 +533,7 @@
       </div>
       <div class="sa-faq-item">
         <div class="sa-faq-q" onclick="toggleFaq(this)">Why can't it fetch some URLs?<i class="fas fa-chevron-down"></i></div>
-        <div class="sa-faq-a"><p>Some websites block cross-origin requests (CORS). When a direct fetch fails, the tool falls back to a CORS proxy. If still blocked, the site has strict security headers. Try auditing the HTML source directly by pasting it in the textarea mode (coming soon).</p></div>
+        <div class="sa-faq-a"><p>Some websites block cross-origin requests (CORS). When a direct fetch fails, the tool falls back to a CORS proxy. If still blocked, the site has strict security headers. Paste the page HTML in the source box above for a local audit, or explicitly allow a proxy to fetch a public URL.</p></div>
       </div>
       <div class="sa-faq-item">
         <div class="sa-faq-q" onclick="toggleFaq(this)">How is the SEO score calculated?<i class="fas fa-chevron-down"></i></div>
@@ -751,7 +761,7 @@
   <div class="ht-footer-bottom">
     <p>© 2025 HashmiTools. All rights reserved.</p>
   </div>
-</footer>
+<nav aria-label="Site information" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;padding:16px;"><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
 
 <!-- ═══════════════════════════════════════════════
      JAVASCRIPT
@@ -790,8 +800,17 @@ function kv(key, val, cls='') {
 function badge(text, color='#6366f1') {
   return `<span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:700;background:${color}22;color:${color};">${text}</span>`;
 }
-function escHtml(s) {
-  return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : '';
+function escHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+function safeAuditLink(value, label, base) {
+  try {
+    const parsed = new URL(value, base);
+    if (!['https:', 'http:'].includes(parsed.protocol) || parsed.username || parsed.password) throw new Error('Unsafe URL');
+    return `<a href="${escHtml(parsed.href)}" target="_blank" rel="noopener noreferrer" style="color:#6366f1;word-break:break-all;">${escHtml(label)}</a>`;
+  } catch { return escHtml(label); }
 }
 function truncate(s, n) {
   return s && s.length > n ? s.slice(0, n) + '…' : (s || '');
@@ -799,26 +818,29 @@ function truncate(s, n) {
 
 // ── Fetch page HTML ────────────────────────────────
 async function fetchPage(url) {
-  // 1. Direct fetch (works for same-site or CORS-enabled)
   try {
-    const r = await fetch(url, { mode:'cors', cache:'no-store' });
-    if (r.ok) { return await r.text(); }
-  } catch(e) {}
-
-  // 2. Try proxies
+    const response = await fetch(url, { mode: 'cors', credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(10000) });
+    if (response.ok) return await response.text();
+  } catch { /* Offer local source mode when the target blocks browser requests. */ }
+  if (!$('saAllowProxy').checked) {
+    throw new Error('Direct access failed. Paste the page HTML for a local audit, or allow a third-party proxy for a public URL.');
+  }
   for (const proxy of PROXIES) {
     try {
-      const r = await fetch(proxy(url), { cache:'no-store' });
-      if (!r.ok) continue;
-      const data = await r.json().catch(() => null);
-      if (data && (data.contents || data.body)) {
-        return data.contents || data.body;
+      const response = await fetch(proxy(url), { credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(10000) });
+      if (!response.ok) continue;
+      const text = await response.text();
+      // Read the response body once: some proxies return JSON, others return HTML.
+      try {
+        const data = JSON.parse(text);
+        const html = data.contents || data.body;
+        if (typeof html === 'string' && html.trim()) return html;
+      } catch {
+        if (/<!doctype\s+html|<html[\s>]/i.test(text)) return text;
       }
-      const txt = await r.text().catch(() => null);
-      if (txt) return txt;
-    } catch(e) {}
+    } catch { /* Try the next explicitly permitted proxy. */ }
   }
-  throw new Error('Could not fetch the page. It may be blocking external requests.');
+  throw new Error('Could not fetch the page. Paste its HTML source to audit it locally.');
 }
 
 // ── Parse HTML into DOM ────────────────────────────
@@ -1181,14 +1203,14 @@ function renderResults(result, url) {
 
   // Meta card
   $('saMetaContent').innerHTML = `
-    ${kv('URL', `<a href="${escHtml(url)}" target="_blank" rel="noopener" style="color:#6366f1;word-break:break-all;">${truncate(url,60)}</a>`)}
+    ${kv('URL', safeAuditLink(url, truncate(url,60), url))}
     ${kv('Title', escHtml(truncate(result.title, 80)))}
     ${kv('Title Length', result.title ? `<span style="color:${result.titleLen>=30&&result.titleLen<=65?'#16a34a':'#d97706'}">${result.titleLen} chars</span>` : '—')}
     ${kv('Meta Desc', escHtml(truncate(result.metaDesc, 80)))}
     ${kv('Meta Desc Length', result.metaDesc ? `<span style="color:${result.metaDescLen>=50&&result.metaDescLen<=165?'#16a34a':'#d97706'}">${result.metaDescLen} chars</span>` : '—')}
-    ${kv('Canonical', result.canonical ? `<a href="${escHtml(result.canonical)}" target="_blank" rel="noopener" style="color:#6366f1;">${truncate(result.canonical,55)}</a>` : 'Not set')}
-    ${kv('Robots', result.robots || 'Not set')}
-    ${kv('Language', result.lang || 'Not set')}
+    ${kv('Canonical', result.canonical ? safeAuditLink(result.canonical, truncate(result.canonical,55), url) : 'Not set')}
+    ${kv('Robots', escHtml(result.robots) || 'Not set')}
+    ${kv('Language', escHtml(result.lang) || 'Not set')}
     ${kv('Word Count', `~${result.wordCount} words`)}
     ${kv('Images', `${result.imgCount} total${result.noAlt > 0 ? ` · <span style="color:#d97706">${result.noAlt} missing alt</span>` : ''}`)}
   `;
@@ -1217,9 +1239,9 @@ function renderResults(result, url) {
   $('saOGContent').innerHTML = `
     ${kv('og:title',       escHtml(truncate(result.ogTitle, 60)) || '—')}
     ${kv('og:description', escHtml(truncate(result.ogDesc,  80)) || '—')}
-    ${kv('og:image',       result.ogImg ? `<a href="${escHtml(result.ogImg)}" target="_blank" rel="noopener" style="color:#6366f1;">View Image</a>` : '—')}
-    ${kv('og:url',         result.ogUrl ? `<a href="${escHtml(result.ogUrl)}" target="_blank" rel="noopener" style="color:#6366f1;">${truncate(result.ogUrl,55)}</a>` : '—')}
-    ${kv('twitter:card',   result.twCard || '—')}
+    ${kv('og:image', result.ogImg ? safeAuditLink(result.ogImg, 'View Image', url) : 'Not set')}
+    ${kv('og:url', result.ogUrl ? safeAuditLink(result.ogUrl, truncate(result.ogUrl,55), url) : 'Not set')}
+    ${kv('twitter:card',   escHtml(result.twCard) || '—')}
   `;
   $('saCardOG').classList.add('show');
 
@@ -1233,13 +1255,17 @@ function renderResults(result, url) {
 
 // ── Main: Run Audit ────────────────────────────────
 async function runAudit() {
-  let url = $('saUrlInput').value.trim();
+  const source = $('saHtmlInput').value.trim();
+  let url = $('saUrlInput').value.trim() || (source ? window.location.origin : '');
   if (!url) { toast('Please enter a URL to audit','error'); return; }
 
   // Auto-add https://
   if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
 
-  try { new URL(url); } catch(e) {
+  try {
+    const parsed = new URL(url);
+    if (!['http:', 'https:'].includes(parsed.protocol) || parsed.username || parsed.password) throw new Error('Invalid URL');
+  } catch(e) {
     toast('Please enter a valid URL (e.g. https://example.com)','error'); return;
   }
 
@@ -1278,7 +1304,7 @@ async function runAudit() {
   setVisible('saLoading', true);
 
   try {
-    const html = await fetchPage(url);
+    const html = source || await fetchPage(url);
     const doc  = parseHtml(html);
     const result = auditDocument(doc, url, html);
 

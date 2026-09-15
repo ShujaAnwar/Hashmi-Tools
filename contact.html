@@ -17,8 +17,8 @@
   <link rel="stylesheet" href="css/tools.css" />
   
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
-       crossorigin="anonymous"></script>
+  <!-- Ad delivery paused pending consent configuration. Ownership verification only. -->
+  <meta name="google-adsense-account" content="ca-pub-5313876284153733">
   <script src="assets/js/theme.js"></script>
   <link rel="stylesheet" href="assets/css/global.css">
 </head>
@@ -119,22 +119,24 @@
 
         <!-- Contact Form -->
         <div class="tool-box">
-          <div class="tool-box-header"><i class="fas fa-paper-plane"></i> Send Us a Message</div>
+          <div class="tool-box-header"><i class="fas fa-paper-plane"></i> Write to HashmiTools</div>
           <div class="tool-box-body">
-            <form id="contactForm" onsubmit="submitContact(event)">
+            <p id="contactHelp" style="margin-bottom:16px;">This form prepares an email; it does not send or store your message. Open your email app and send the draft yourself, or email <a href="mailto:hello@hashmitools.com">hello@hashmitools.com</a>. Do not include passwords or sensitive documents.</p>
+            <noscript><p>JavaScript is off. Please use the email link above or the WhatsApp contact link.</p></noscript>
+            <form aria-describedby="contactHelp" id="contactForm" onsubmit="submitContact(event)">
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
                 <div class="form-group" style="margin:0;">
-                  <label class="form-label">Your Name *</label>
-                  <input type="text" class="form-input" id="contactName" placeholder="Hassan Hashmi" required />
+                  <label class="form-label" for="contactName">Your Name *</label>
+                  <input type="text" class="form-input" id="contactName" maxlength="100" autocomplete="name" placeholder="Hassan Hashmi" required />
                 </div>
                 <div class="form-group" style="margin:0;">
-                  <label class="form-label">Email Address *</label>
-                  <input type="email" class="form-input" id="contactEmail" placeholder="hassan@example.com" required />
+                  <label class="form-label" for="contactEmail">Email Address *</label>
+                  <input type="email" class="form-input" id="contactEmail" maxlength="254" autocomplete="email" placeholder="hassan@example.com" required />
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="form-label">Subject *</label>
+                <label class="form-label" for="contactSubject">Subject *</label>
                 <select class="form-select" id="contactSubject" required>
                   <option value="">Select a topic...</option>
                   <option value="bug">🐛 Report a Bug</option>
@@ -147,13 +149,13 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label">Message *</label>
-                <textarea class="form-textarea" id="contactMessage" placeholder="Tell us about your question, suggestion or feedback in detail..." style="min-height:140px;" required></textarea>
+                <label class="form-label" for="contactMessage">Message *</label>
+                <textarea class="form-textarea" id="contactMessage" maxlength="1000" placeholder="Tell us about your question, suggestion or feedback in detail..." style="min-height:140px;" required></textarea>
                 <div style="text-align:right;font-size:0.75rem;color:var(--text-muted);margin-top:4px;" id="msgCount">0/1000</div>
               </div>
 
               <div class="form-group" style="margin-bottom:20px;">
-                <label class="form-label">How did you find us?</label>
+                <label class="form-label" for="contactSource">How did you find us?</label>
                 <select class="form-select" id="contactSource">
                   <option value="">Select...</option>
                   <option value="google">Google Search</option>
@@ -165,15 +167,17 @@
               </div>
 
               <button type="submit" class="btn btn-primary w-full" id="submitBtn" style="padding:14px;font-size:1rem;">
-                <i class="fas fa-paper-plane"></i> Send Message
+                <i class="fas fa-paper-plane"></i> Prepare Email
               </button>
             </form>
 
-            <div id="contactSuccess" style="display:none;text-align:center;padding:32px 20px;">
-              <div style="font-size:3rem;margin-bottom:14px;">✅</div>
-              <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:8px;">Message Sent!</h3>
-              <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:16px;">Thank you for contacting us. We'll get back to you within 24-48 hours.</p>
-              <a href="index.html" class="btn btn-primary">← Back to Tools</a>
+            <div id="contactSuccess" hidden style="margin-top:24px;">
+              <h3>Finish sending in your email app</h3>
+              <p role="status">Your draft is ready, but has not been sent. Use the link below, then press Send in your email app.</p>
+              <a id="contactMailLink" class="btn btn-primary" href="mailto:hello@hashmitools.com">Open Email App</a>
+              <p style="margin-top:16px;">No email app configured? Copy this draft into your webmail and send it to <strong>hello@hashmitools.com</strong>.</p>
+              <label class="form-label" for="contactDraft">Email draft</label>
+              <textarea class="form-textarea" id="contactDraft" readonly rows="8"></textarea>
             </div>
           </div>
         </div>
@@ -186,7 +190,7 @@
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
             <div>
               <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:8px;color:var(--accent-cyan);">Are the tools really free?</h4>
-              <p style="font-size:0.875rem;color:var(--text-secondary);">Yes! All core tools are completely free. We're supported by non-intrusive ads.</p>
+              <p style="font-size:0.875rem;color:var(--text-secondary);">Core browser tools are free. External services may have their own limits or costs; check the individual tool instructions.</p>
             </div>
             <div>
               <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:8px;color:var(--accent-cyan);">How accurate are Islamic calculations?</h4>
@@ -198,7 +202,7 @@
             </div>
             <div>
               <h4 style="font-weight:700;font-size:0.9rem;margin-bottom:8px;color:var(--accent-cyan);">Do you store my data?</h4>
-              <p style="font-size:0.875rem;color:var(--text-secondary);">No. All calculations happen in your browser. We don't store personal financial data.</p>
+              <p style="font-size:0.875rem;color:var(--text-secondary);">Many calculations run locally. Some tools contact external services, and messages you send reach our inbox. See the Privacy Policy for details.</p>
             </div>
           </div>
         </div>
@@ -219,12 +223,12 @@
             <div style="padding:16px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:12px;text-align:center;">
               <div style="font-size:1.8rem;margin-bottom:8px;">🛠️</div>
               <h5 style="font-size:0.875rem;font-weight:700;margin-bottom:4px;">Tool Requests Welcomed</h5>
-              <p style="font-size:0.75rem;color:var(--text-muted);">We've added 20+ tools from user suggestions</p>
+              <p style="font-size:0.75rem;color:var(--text-muted);">Include the task you want to complete</p>
             </div>
             <div style="padding:16px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:12px;text-align:center;">
               <div style="font-size:1.8rem;margin-bottom:8px;">🔒</div>
-              <h5 style="font-size:0.875rem;font-weight:700;margin-bottom:4px;">Privacy Guaranteed</h5>
-              <p style="font-size:0.75rem;color:var(--text-muted);">Your message is never shared or sold</p>
+              <h5 style="font-size:0.875rem;font-weight:700;margin-bottom:4px;">Privacy Information</h5>
+              <p style="font-size:0.75rem;color:var(--text-muted);">See how contact messages are handled in our Privacy Policy</p>
             </div>
           </div>
           <p style="font-size:0.8rem;color:var(--text-muted);margin-top:16px;text-align:center;">
@@ -238,7 +242,7 @@
         <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:16px;">What Can We Help You With?</h2>
         <p style="color:var(--text-secondary);margin-bottom:14px;"><strong>Report a calculation issue.</strong> If a result from any calculator looks wrong — a tax figure that doesn't match your FBR portal, a Zakat total that differs from your scholar's calculation, an EMI that doesn't match your bank's quote — tell us the exact inputs you used and what you expected. Most discrepancies come from rate updates (budget changes, Nisab movements) and we prioritize these fixes above everything else.</p>
         <p style="color:var(--text-secondary);margin-bottom:14px;"><strong>Request a new tool or feature.</strong> Many of our tools exist because someone asked for them. If you need a calculator or converter we don't have, describe the problem you're trying to solve rather than just the tool name — it helps us build the right thing.</p>
-        <p style="color:var(--text-secondary);margin-bottom:14px;"><strong>Report a bug.</strong> Include your device, browser, and what happened (a screenshot helps). Because all our tools run in the browser, most issues are fixable quickly once we can reproduce them.</p>
+        <p style="color:var(--text-secondary);margin-bottom:14px;"><strong>Report a bug.</strong> Include your device, browser, and what happened (a screenshot helps). Tell us whether the problem occurs before or after contacting an external service.</p>
         <p style="color:var(--text-secondary);margin-bottom:14px;"><strong>Business, advertising & partnerships.</strong> For sponsorship, advertising, or partnership queries, email us directly with "Business" in the subject line. Note that we do not accept paid placement inside calculation results — tool outputs are never influenced by advertisers.</p>
         <p style="color:var(--text-secondary);"><strong>Before you write:</strong> answers to the most common questions — "Is it really free?", "Are my files uploaded?", "Which madhab does the inheritance calculator follow?" — are covered on each tool's own FAQ section and in our <a href="about.html">About page</a>. Privacy questions are answered in detail in our <a href="privacy.html">Privacy Policy</a>.</p>
       </section>
@@ -246,7 +250,7 @@
     </div>
   </main>
 
-  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div></div></div></footer>
+  <footer class="footer"><div class="footer-bottom"><div class="container"><div class="footer-bottom-content"><p>© 2025 <strong>HashmiTools.com</strong></p><div class="footer-bottom-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div></div></div><nav aria-label="Site information" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;padding:16px;"><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
   <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
 
   <script src="js/main.js"></script>
@@ -257,13 +261,22 @@
 
   function submitContact(e) {
     e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    btn.disabled = true;
-    setTimeout(() => {
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('contactSuccess').style.display = 'block';
-    }, 1500);
+    const form = document.getElementById('contactForm');
+    if (!form.reportValidity()) return;
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const message = document.getElementById('contactMessage').value.trim();
+    if (!name || !message) {
+      showToast('Please enter your name and a message, not just spaces.', 'error');
+      return;
+    }
+    const subject = 'HashmiTools: ' + document.getElementById('contactSubject').value;
+    const body = `Name: ${name}\nReply email: ${email}\n\n${message}`;
+    document.getElementById('contactMailLink').href =
+      'mailto:hello@hashmitools.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    document.getElementById('contactDraft').value = `Subject: ${subject}\n\n${body}`;
+    document.getElementById('contactSuccess').hidden = false;
+    document.getElementById('contactMailLink').focus();
   }
   </script>
 </body>

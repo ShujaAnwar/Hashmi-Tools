@@ -17,16 +17,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ══ SEO ══════════════════════════════════════════════════════════════ -->
-  <title>Free YouTube Shorts Maker – Create Viral Short Videos | HashmiTools</title>
-  <meta name="description" content="Create YouTube Shorts and Reels content ideas using AI. Generate scripts, hooks, and captions for viral short videos — free online shorts maker." />
-  <meta name="robots" content="index, follow" />
+  <title>Self-Hosted Shorts Maker – Backend Required | HashmiTools</title>
+  <meta name="description" content="A video-cutting frontend that requires your own FFmpeg backend. Public video processing is not currently available; setup and upload requirements are explained here." />
+  <meta name="robots" content="noindex, follow" />
   <meta name="keywords" content="youtube shorts maker, reels script generator, viral short video ideas, ai shorts creator, tiktok script generator" />
   <link rel="canonical" href="https://www.hashmitools.com/tools/shorts-maker.html" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
-  <meta property="og:title"       content="Free YouTube Shorts Maker – Create Viral Short Videos | HashmiTools" />
-  <meta property="og:description" content="Create YouTube Shorts and Reels content ideas using AI. Generate scripts, hooks, and captions for viral short videos — free online shorts maker." />
+  <meta property="og:title"       content="Self-Hosted Shorts Maker – Backend Required | HashmiTools" />
+  <meta property="og:description" content="A video-cutting frontend that requires your own FFmpeg backend. Public video processing is not currently available; setup and upload requirements are explained here." />
   <meta property="og:url"         content="https://www.hashmitools.com/tools/shorts-maker.html" />
   <meta property="og:site_name"   content="HashmiTools" />
   <meta property="og:image"       content="https://www.hashmitools.com/og-image.png" />
@@ -35,8 +35,8 @@
   <meta property="og:locale"      content="en_US" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Free YouTube Shorts Maker – Create Viral Short Videos | HashmiTools" />
-  <meta name="twitter:description" content="Create YouTube Shorts and Reels content ideas using AI. Generate scripts, hooks, and captions for viral short videos — free online shorts maker." />
+  <meta name="twitter:title"       content="Self-Hosted Shorts Maker – Backend Required | HashmiTools" />
+  <meta name="twitter:description" content="A video-cutting frontend that requires your own FFmpeg backend. Public video processing is not currently available; setup and upload requirements are explained here." />
   <meta name="twitter:image"       content="https://www.hashmitools.com/og-image.png" />
   <meta name="twitter:site"        content="@HashmiTools" />
 
@@ -616,8 +616,8 @@
   }
   </script>
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
-       crossorigin="anonymous"></script>
+  <!-- Ad delivery paused pending consent configuration. Ownership verification only. -->
+  <meta name="google-adsense-account" content="ca-pub-5313876284153733">
 </head>
 <body>
   <!-- Navigation (shared) -->
@@ -708,12 +708,13 @@
       </div>
 
       <!-- Backend connection banner (shown if backend unreachable) -->
-      <div class="sm-backend-banner" id="backendBanner">
+      <div class="sm-backend-banner" id="backendBanner" style="display:block;" role="status">
         <h4>⚠️ Backend Server Required</h4>
-        <p>This tool requires a backend server running FFmpeg to process videos. The current
-        backend URL (<code id="currentApiBase"></code>) is not reachable.<br />
-        If you've deployed the backend to Railway/Render, enter the URL below and click Save:</p>
+        <p><strong>Public video processing is currently unavailable.</strong> This frontend needs a separately deployed FFmpeg backend. No upload is enabled until a configured server passes its health check.</p>
+        <p>Configured server: <code id="currentApiBase">Not configured</code>. Only connect a server you own or trust. Selected videos are uploaded to that server and are subject to its retention policy; they do not stay only in this browser.</p>
+        <p>For other tasks, browse our <a href="productivity.html">productivity tools</a>. Advanced users can connect their own HTTPS backend below.</p>
         <div class="sm-backend-input-row">
+          <label for="backendUrlInput">Your trusted backend URL</label>
           <input type="url" id="backendUrlInput" placeholder="https://your-app.up.railway.app" />
           <button onclick="saveBackendUrl()">Save &amp; Test</button>
         </div>
@@ -725,10 +726,10 @@
         <div class="sm-upload-icon">📹</div>
         <div class="sm-upload-text">Drag &amp; drop your video here</div>
         <div class="sm-upload-sub">or click to browse your files</div>
-        <button class="sm-upload-btn" onclick="document.getElementById('videoFileInput').click()">
+        <button class="sm-upload-btn" disabled onclick="document.getElementById('videoFileInput').click()">
           <i class="fas fa-cloud-upload-alt"></i> Choose Video File
         </button>
-        <input type="file" id="videoFileInput" accept="video/mp4,video/quicktime,video/x-msvideo,.mp4,.mov,.avi" />
+        <input type="file" disabled id="videoFileInput" accept="video/mp4,video/quicktime,video/x-msvideo,.mp4,.mov,.avi" />
       </div>
 
       <!-- Upload progress -->
@@ -1003,7 +1004,7 @@
     <div class="footer-bottom">
       <p>© 2025 HashmiTools.com · All rights reserved · Built with ❤️ for creators</p>
     </div>
-  </footer>
+  <nav aria-label="Site information" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;padding:16px;"><a href="/disclaimer.html">Disclaimer</a></nav></footer>
 
   <!-- Scroll to top -->
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
@@ -1021,11 +1022,20 @@
   // ── Config ──────────────────────────────────────────────────────────────
   // IMPORTANT: Update this URL after deploying your backend to Railway/Render
   // You can also set it from the browser: localStorage.setItem('ht_shorts_api_url', 'https://...')
-  const API_BASE = (function() {
-    const stored = localStorage.getItem('ht_shorts_api_url');
-    if (stored) return stored.replace(/\/$/, '');
-    return 'http://localhost:3001';
+  function normalizeBackendUrl(value) {
+    try {
+      const url = new URL(value);
+      if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash) return '';
+      if (['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)) return '';
+      return url.href.replace(/\/$/, '');
+    } catch { return ''; }
+  }
+  const API_BASE = (() => {
+    try { return normalizeBackendUrl(localStorage.getItem('ht_shorts_api_url') || ''); }
+    catch { return ''; }
   })();
+  let backendReady = false;
+
 
   // ── State ───────────────────────────────────────────────────────────────
   let state = {
@@ -1045,14 +1055,17 @@
   (async function checkBackend() {
     const banner = document.getElementById('backendBanner');
     const codeEl = document.getElementById('currentApiBase');
-    if (codeEl) codeEl.textContent = API_BASE;
+    if (codeEl) codeEl.textContent = API_BASE || 'Not configured';
+    if (!API_BASE) return;
     try {
       const ctrl = new AbortController();
       const id = setTimeout(() => ctrl.abort(), 5000);
       const res = await fetch(`${API_BASE}/api/health`, { signal: ctrl.signal });
       clearTimeout(id);
       if (!res.ok) throw new Error(`Health check returned ${res.status}`);
-      // Backend OK — hide banner
+      backendReady = true;
+      document.getElementById('videoFileInput').disabled = false;
+      document.querySelector('.sm-upload-btn').disabled = false;
       if (banner) banner.style.display = 'none';
     } catch (err) {
       // Backend unreachable — show setup banner
@@ -1065,8 +1078,8 @@
   async function saveBackendUrl() {
     const input  = document.getElementById('backendUrlInput');
     const status = document.getElementById('backendStatusMsg');
-    const url    = input.value.trim().replace(/\/$/, '');
-    if (!url) return;
+    const url = normalizeBackendUrl(input.value.trim());
+    if (!url) { status.textContent = 'Enter a valid HTTPS backend URL without credentials, query strings or fragments.'; return; }
     status.textContent = 'Testing connection...';
     status.style.color = 'var(--text-muted)';
     try {
@@ -1100,6 +1113,8 @@
 
   // ── Handle file selection ───────────────────────────────────────────────
   async function handleFileSelected(file) {
+    if (!backendReady) { showToast('Video processing is unavailable. Connect a trusted backend first.', 'error'); return; }
+    if (!window.confirm('Upload this video to ' + API_BASE + '? Only continue if you trust this server and have permission to process this video.')) return;
     // Validate type
     const allowed = ['video/mp4','video/quicktime','video/x-msvideo','video/avi','video/mov'];
     const extOk = /\.(mp4|mov|avi)$/i.test(file.name);

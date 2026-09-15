@@ -62,24 +62,28 @@ function initHamburger() {
   const navLinks = document.getElementById('navLinks');
   if (!hamburger || !navLinks) return;
 
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+  hamburger.setAttribute('aria-controls', 'navLinks');
+  hamburger.setAttribute('aria-expanded', 'false');
+  if (!hamburger.getAttribute('aria-label')) hamburger.setAttribute('aria-label', 'Menu');
+  function setMenu(open) {
+    navLinks.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
     const spans = hamburger.querySelectorAll('span');
-    if (navLinks.classList.contains('open')) {
-      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-    } else {
-      spans[0].style.transform = '';
-      spans[1].style.opacity = '';
-      spans[2].style.transform = '';
+    if (spans.length === 3) {
+      spans[0].style.transform = open ? 'rotate(45deg) translate(5px, 5px)' : '';
+      spans[1].style.opacity = open ? '0' : '';
+      spans[2].style.transform = open ? 'rotate(-45deg) translate(5px, -5px)' : '';
     }
+  }
+  hamburger.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+  document.addEventListener('click', event => {
+    if (!hamburger.contains(event.target) && !navLinks.contains(event.target)) setMenu(false);
   });
-
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('open');
+  navLinks.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && navLinks.classList.contains('open')) {
+      setMenu(false);
+      hamburger.focus();
     }
   });
 }
@@ -108,63 +112,63 @@ function updateThemeIcon(theme, icon) {
 // ============================================
 const toolsData = [
   // ── Islamic Tools ──────────────────────────────────────────────
-  { name: 'Zakat Calculator', url: 'tools/zakat-calculator.html', cat: 'Islamic', icon: '🕌', tags: ['zakat','nisab','gold','silver','charity','islamiq','islamic','sadqa'] },
-  { name: 'Prayer Times', url: 'tools/prayer-times.html', cat: 'Islamic', icon: '🕐', tags: ['prayer','namaz','salah','fajr','zuhr','asr','maghrib','isha','azan','adhan','timings','times'] },
-  { name: 'Islamic Inheritance Calculator', url: 'tools/inheritance-calculator.html', cat: 'Islamic', icon: '⚖️', tags: ['inheritance','wirasat','mirasi','faraidh','estate','property','division'] },
-  { name: 'Hijri / Gregorian Date Converter', url: 'tools/hijri-converter.html', cat: 'Islamic', icon: '📅', tags: ['hijri','gregorian','calendar','date','converter','islamic date','lunar'] },
+  { name: 'Zakat Calculator', url: '/tools/zakat-calculator.html', cat: 'Islamic', icon: '🕌', tags: ['zakat','nisab','gold','silver','charity','islamiq','islamic','sadqa'] },
+  { name: 'Prayer Times', url: '/tools/prayer-times.html', cat: 'Islamic', icon: '🕐', tags: ['prayer','namaz','salah','fajr','zuhr','asr','maghrib','isha','azan','adhan','timings','times'] },
+  { name: 'Islamic Inheritance Calculator', url: '/tools/inheritance-calculator.html', cat: 'Islamic', icon: '⚖️', tags: ['inheritance','wirasat','mirasi','faraidh','estate','property','division'] },
+  { name: 'Hijri / Gregorian Date Converter', url: '/tools/hijri-converter.html', cat: 'Islamic', icon: '📅', tags: ['hijri','gregorian','calendar','date','converter','islamic date','lunar'] },
 
   // ── Finance Tools ──────────────────────────────────────────────
-  { name: 'EMI Calculator', url: 'tools/emi-calculator.html', cat: 'Finance', icon: '💰', tags: ['emi','loan','installment','monthly payment','bank','car loan','home loan','qist'] },
-  { name: 'Mortgage Calculator', url: 'tools/mortgage-calculator.html', cat: 'Finance', icon: '🏠', tags: ['mortgage','home loan','house','property','real estate','payment'] },
-  { name: 'Pakistan Tax Calculator', url: 'tools/pakistan-tax.html', cat: 'Finance', icon: '🇵🇰', tags: ['tax','pakistan','income tax','fbr','salary','withholding','pkr'] },
-  { name: 'Currency Converter', url: 'tools/currency-converter.html', cat: 'Finance', icon: '💱', tags: ['currency','converter','exchange rate','pkr','usd','eur','dollar','rupee','forex'] },
-  { name: 'Compound Interest Calculator', url: 'tools/compound-interest.html', cat: 'Finance', icon: '📈', tags: ['compound interest','investment','return','profit','savings','apr'] },
-  { name: 'SIP Investment Calculator', url: 'tools/sip-calculator.html', cat: 'Finance', icon: '💹', tags: ['sip','mutual fund','investment','return','systematic','portfolio'] },
+  { name: 'EMI Calculator', url: '/tools/emi-calculator.html', cat: 'Finance', icon: '💰', tags: ['emi','loan','installment','monthly payment','bank','car loan','home loan','qist'] },
+  { name: 'Mortgage Calculator', url: '/tools/mortgage-calculator.html', cat: 'Finance', icon: '🏠', tags: ['mortgage','home loan','house','property','real estate','payment'] },
+  { name: 'Pakistan Tax Calculator', url: '/tools/pakistan-tax.html', cat: 'Finance', icon: '🇵🇰', tags: ['tax','pakistan','income tax','fbr','salary','withholding','pkr'] },
+  { name: 'Currency Converter', url: '/tools/currency-converter.html', cat: 'Finance', icon: '💱', tags: ['currency','converter','exchange rate','pkr','usd','eur','dollar','rupee','forex'] },
+  { name: 'Compound Interest Calculator', url: '/tools/compound-interest.html', cat: 'Finance', icon: '📈', tags: ['compound interest','investment','return','profit','savings','apr'] },
+  { name: 'SIP Investment Calculator', url: '/tools/sip-calculator.html', cat: 'Finance', icon: '💹', tags: ['sip','mutual fund','investment','return','systematic','portfolio'] },
 
   // ── Health Tools ──────────────────────────────────────────────
-  { name: 'Weight Loss Planner', url: 'tools/weight-loss-planner.html', cat: 'Health', icon: '🥗', tags: ['weight loss','calorie deficit','diet plan','protein','fat loss','meal planner','nutrition','calories','food plan'] },
-  { name: 'BMI Calculator', url: 'tools/bmi-calculator.html', cat: 'Health', icon: '❤️', tags: ['bmi','body mass index','weight','height','obesity','overweight','health'] },
-  { name: 'Calorie Calculator', url: 'tools/calorie-calculator.html', cat: 'Health', icon: '🥗', tags: ['calorie','diet','nutrition','food','weight loss','tdee','bmr'] },
-  { name: 'Water Intake Calculator', url: 'tools/water-calculator.html', cat: 'Health', icon: '💧', tags: ['water','intake','hydration','daily water','drink','health'] },
-  { name: 'Age Calculator', url: 'tools/age-calculator.html', cat: 'Health', icon: '🎂', tags: ['age','birthday','years','months','days','born','date of birth','calculate age'] },
-  { name: 'Ideal Weight Calculator', url: 'tools/ideal-weight.html', cat: 'Health', icon: '⚖️', tags: ['ideal weight','healthy weight','target weight','body','fitness'] },
+  { name: 'Weight Loss Planner', url: '/tools/weight-loss-planner.html', cat: 'Health', icon: '🥗', tags: ['weight loss','calorie deficit','diet plan','protein','fat loss','meal planner','nutrition','calories','food plan'] },
+  { name: 'BMI Calculator', url: '/tools/bmi-calculator.html', cat: 'Health', icon: '❤️', tags: ['bmi','body mass index','weight','height','obesity','overweight','health'] },
+  { name: 'Calorie Calculator', url: '/tools/calorie-calculator.html', cat: 'Health', icon: '🥗', tags: ['calorie','diet','nutrition','food','weight loss','tdee','bmr'] },
+  { name: 'Water Intake Calculator', url: '/tools/water-calculator.html', cat: 'Health', icon: '💧', tags: ['water','intake','hydration','daily water','drink','health'] },
+  { name: 'Age Calculator', url: '/tools/age-calculator.html', cat: 'Health', icon: '🎂', tags: ['age','birthday','years','months','days','born','date of birth','calculate age'] },
+  { name: 'Ideal Weight Calculator', url: '/tools/ideal-weight.html', cat: 'Health', icon: '⚖️', tags: ['ideal weight','healthy weight','target weight','body','fitness'] },
 
   // ── Developer Tools ──────────────────────────────────────────────
-  { name: 'JSON Formatter & Validator', url: 'tools/json-formatter.html', cat: 'Developer', icon: '{ }', tags: ['json','formatter','validator','prettify','minify','parse','api','data'] },
-  { name: 'QR Code Generator', url: 'tools/qr-generator.html', cat: 'Developer', icon: '▦', tags: ['qr code','qr','generator','barcode','scan','link','wifi','contact'] },
-  { name: 'Password Generator', url: 'tools/password-generator.html', cat: 'Developer', icon: '🔐', tags: ['password','generator','random','secure','strong','crypto','secret'] },
-  { name: 'HEX to RGB Color Converter', url: 'tools/hex-rgb.html', cat: 'Developer', icon: '🎨', tags: ['hex','rgb','color','converter','css','design','color code','palette'] },
-  { name: 'URL Encoder / Decoder', url: 'tools/url-encoder.html', cat: 'Developer', icon: '🔗', tags: ['url','encode','decode','percent encoding','uri','query string','web'] },
-  { name: 'Base64 Encoder / Decoder', url: 'tools/base64.html', cat: 'Developer', icon: '64', tags: ['base64','encode','decode','binary','string','image','data'] },
-  { name: 'Typing Speed Test', url: 'tools/typing-test.html', cat: 'Developer', icon: '⌨️', tags: ['typing','speed','test','wpm','words per minute','keyboard','practice'] },
-  { name: 'Link Shortener', url: 'tools/link-shortener.html', cat: 'Developer', icon: '✂️', tags: ['link shortener','url shortener','short link','bitly','tiny url','shorten','redirect','custom link'] },
+  { name: 'JSON Formatter & Validator', url: '/tools/json-formatter.html', cat: 'Developer', icon: '{ }', tags: ['json','formatter','validator','prettify','minify','parse','api','data'] },
+  { name: 'QR Code Generator', url: '/tools/qr-generator.html', cat: 'Developer', icon: '▦', tags: ['qr code','qr','generator','barcode','scan','link','wifi','contact'] },
+  { name: 'Password Generator', url: '/tools/password-generator.html', cat: 'Developer', icon: '🔐', tags: ['password','generator','random','secure','strong','crypto','secret'] },
+  { name: 'HEX to RGB Color Converter', url: '/tools/hex-rgb.html', cat: 'Developer', icon: '🎨', tags: ['hex','rgb','color','converter','css','design','color code','palette'] },
+  { name: 'URL Encoder / Decoder', url: '/tools/url-encoder.html', cat: 'Developer', icon: '🔗', tags: ['url','encode','decode','percent encoding','uri','query string','web'] },
+  { name: 'Base64 Encoder / Decoder', url: '/tools/base64.html', cat: 'Developer', icon: '64', tags: ['base64','encode','decode','binary','string','image','data'] },
+  { name: 'Typing Speed Test', url: '/tools/typing-test.html', cat: 'Developer', icon: '⌨️', tags: ['typing','speed','test','wpm','words per minute','keyboard','practice'] },
+  { name: 'Link Shortener', url: '/tools/link-shortener.html', cat: 'Developer', icon: '✂️', tags: ['link shortener','url shortener','short link','bitly','tiny url','shorten','redirect','custom link'] },
 
   // ── PDF Tools ──────────────────────────────────────────────
-  { name: 'PDF Merge', url: 'tools/pdf-merge.html', cat: 'PDF', icon: '📄', tags: ['pdf','merge','combine','join','multiple pdf','combine pdf'] },
-  { name: 'PDF Split', url: 'tools/pdf-split.html', cat: 'PDF', icon: '✂️', tags: ['pdf','split','extract','pages','separate','divide'] },
-  { name: 'PDF Compress', url: 'tools/pdf-compress.html', cat: 'PDF', icon: '🗜️', tags: ['pdf','compress','reduce','size','optimize','smaller','lightweight'] },
-  { name: 'JPG to PDF Converter', url: 'tools/jpg-to-pdf.html', cat: 'PDF', icon: '🖼️', tags: ['jpg','jpeg','png','image','to pdf','convert','photos'] },
-  { name: 'PDF Editor', url: 'tools/pdf-editor.html', cat: 'PDF', icon: '✏️', tags: ['pdf','editor','edit','annotate','text','add','modify'] },
-  { name: 'Compress PDF', url: 'tools/compress-pdf.html', cat: 'PDF', icon: '📦', tags: ['compress','pdf','file size','reduce','shrink'] },
+  { name: 'PDF Merge', url: '/tools/pdf-merge.html', cat: 'PDF', icon: '📄', tags: ['pdf','merge','combine','join','multiple pdf','combine pdf'] },
+  { name: 'PDF Split', url: '/tools/pdf-split.html', cat: 'PDF', icon: '✂️', tags: ['pdf','split','extract','pages','separate','divide'] },
+  { name: 'PDF Compress', url: '/tools/pdf-compress.html', cat: 'PDF', icon: '🗜️', tags: ['pdf','compress','reduce','size','optimize','smaller','lightweight'] },
+  { name: 'JPG to PDF Converter', url: '/tools/jpg-to-pdf.html', cat: 'PDF', icon: '🖼️', tags: ['jpg','jpeg','png','image','to pdf','convert','photos'] },
+  { name: 'PDF Editor', url: '/tools/pdf-editor.html', cat: 'PDF', icon: '✏️', tags: ['pdf','editor','edit','annotate','text','add','modify'] },
+  { name: 'Compress PDF', url: '/tools/compress-pdf.html', cat: 'PDF', icon: '📦', tags: ['compress','pdf','file size','reduce','shrink'] },
 
   // ── Image Tools ──────────────────────────────────────────────
-  { name: 'Image Editor', url: 'tools/image-editor.html', cat: 'Image', icon: '🖼️', tags: ['image','editor','crop','resize','rotate','filter','photo','edit'] },
-  { name: 'Image Compressor', url: 'tools/image-compressor.html', cat: 'Image', icon: '🗜️', tags: ['image','compress','optimize','reduce','size','jpg','png','webp'] },
-  { name: 'Background Remover', url: 'tools/background-remover.html', cat: 'Image', icon: '🪄', tags: ['background','remover','remove','bg','transparent','cutout','photo'] },
+  { name: 'Image Editor', url: '/tools/image-editor.html', cat: 'Image', icon: '🖼️', tags: ['image','editor','crop','resize','rotate','filter','photo','edit'] },
+  { name: 'Image Compressor', url: '/tools/image-compressor.html', cat: 'Image', icon: '🗜️', tags: ['image','compress','optimize','reduce','size','jpg','png','webp'] },
+  { name: 'Background Remover', url: '/tools/background-remover.html', cat: 'Image', icon: '🪄', tags: ['background','remover','remove','bg','transparent','cutout','photo'] },
 
   // ── AI Tools ──────────────────────────────────────────────
-  { name: 'AI Hashtag Generator', url: 'tools/ai-hashtag.html', cat: 'AI', icon: '#️⃣', tags: ['hashtag','generator','ai','instagram','twitter','social media','tags'] },
-  { name: 'YouTube SEO Tool', url: 'tools/youtube-seo.html', cat: 'AI', icon: '▶️', tags: ['youtube','seo','title','description','tags','generator','video','channel','rank','optimize','thumbnail'] },
-  { name: 'SEO Audit Pro', url: 'tools/seo-audit.html', cat: 'AI', icon: '🔍', tags: ['seo','audit','website','analysis','crawl','score','technical','meta','canonical','backlinks','performance'] },
-  { name: 'AI Shorts Maker', url: 'tools/shorts-maker.html', cat: 'AI', icon: '🎬', tags: ['shorts','reels','tiktok','video','clips','highlight','cut','viral','youtube shorts','ai','ffmpeg','video editor','long video','short clips','social media video'] },
-  { name: 'AI CV / Resume Builder', url: 'tools/cv-builder.html', cat: 'AI', icon: '📄', tags: ['cv','resume','builder','ai resume','ats','ats score','pdf export','word export','resume template','job application','career','cover letter','bullet points','skills','experience'] },
-  { name: 'Medical Student Toolkit', url: 'tools/medical-toolkit.html', cat: 'Health', icon: '🩺', tags: ['medical','student','toolkit','drug dosage calculator','iv drip rate','bmi','bsa','gcs','apgar','clinical score','flashcards','mcq','quiz','lab values','nursing','pharmacy','mbbs','medical reference'] },
+  { name: 'AI Hashtag Generator', url: '/tools/ai-hashtag.html', cat: 'AI', icon: '#️⃣', tags: ['hashtag','generator','ai','instagram','twitter','social media','tags'] },
+  { name: 'YouTube SEO Tool', url: '/tools/youtube-seo.html', cat: 'AI', icon: '▶️', tags: ['youtube','seo','title','description','tags','generator','video','channel','rank','optimize','thumbnail'] },
+  { name: 'SEO Audit Pro', url: '/tools/seo-audit.html', cat: 'AI', icon: '🔍', tags: ['seo','audit','website','analysis','crawl','score','technical','meta','canonical','backlinks','performance'] },
+  { name: 'Shorts Maker (backend required)', url: '/tools/shorts-maker.html', cat: 'AI', icon: '🎬', tags: ['shorts','reels','tiktok','video','clips','highlight','cut','viral','youtube shorts','ai','ffmpeg','video editor','long video','short clips','social media video'] },
+  { name: 'AI CV / Resume Builder', url: '/tools/cv-builder.html', cat: 'AI', icon: '📄', tags: ['cv','resume','builder','ai resume','ats','ats score','pdf export','word export','resume template','job application','career','cover letter','bullet points','skills','experience'] },
+  { name: 'Medical Student Toolkit', url: '/tools/medical-toolkit.html', cat: 'Health', icon: '🩺', tags: ['medical','student','toolkit','drug dosage calculator','iv drip rate','bmi','bsa','gcs','apgar','clinical score','flashcards','mcq','quiz','lab values','nursing','pharmacy','mbbs','medical reference'] },
 
   // ── Pakistan Tools ──────────────────────────────────────────────
-  { name: 'Pakistan Tax Calculator', url: 'tools/pakistan-tax.html', cat: 'Pakistan', icon: '🇵🇰', tags: ['tax','pakistan','fbr','income','salary','withholding','pkr','2025'] },
+  { name: 'Pakistan Tax Calculator', url: '/tools/pakistan-tax.html', cat: 'Pakistan', icon: '🇵🇰', tags: ['tax','pakistan','fbr','income','salary','withholding','pkr','2025'] },
 
   // ── Productivity ──────────────────────────────────────────────
-  { name: 'Typing Speed Test', url: 'tools/typing-test.html', cat: 'Productivity', icon: '⌨️', tags: ['typing','speed','wpm','test','keyboard','practice','accuracy'] },
+  { name: 'Typing Speed Test', url: '/tools/typing-test.html', cat: 'Productivity', icon: '⌨️', tags: ['typing','speed','wpm','test','keyboard','practice','accuracy'] },
 ];
 
 function initSearch() {
@@ -201,7 +205,7 @@ function initSearch() {
         searchResults.innerHTML = `
           <div style="padding:24px;text-align:center;">
             <div style="font-size:2rem;margin-bottom:8px;">🔍</div>
-            <div style="font-weight:600;margin-bottom:4px;">No tools found for "<strong>${raw}</strong>"</div>
+            <div style="font-weight:600;margin-bottom:4px;">No tools found for "<strong>${escapeHtml(raw)}</strong>"</div>
             <div style="font-size:0.8rem;color:var(--text-muted);">Try: "zakat", "pdf", "qr code", "youtube", "seo", "password"…</div>
           </div>`;
         return;
@@ -216,7 +220,7 @@ function initSearch() {
           </div>
           <i class="fas fa-arrow-right" style="color:var(--text-muted);font-size:0.7rem;flex-shrink:0;"></i>
         </a>
-      `).join('') + `<div style="padding:8px 16px;font-size:0.72rem;color:var(--text-muted);text-align:center;">${results.length} result${results.length!==1?'s':''} for "<em>${raw}</em>"</div>`;
+      `).join('') + `<div style="padding:8px 16px;font-size:0.72rem;color:var(--text-muted);text-align:center;">${results.length} result${results.length!==1?'s':''} for "<em>${escapeHtml(raw)}</em>"</div>`;
     });
 
     // Show categories on focus with empty input
@@ -257,6 +261,12 @@ function intelligentSearch(q, limit = 8) {
   });
 
   return scored.sort((a, b) => b.score - a.score).slice(0, limit);
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
 }
 
 function highlightMatch(text, q) {
@@ -576,44 +586,13 @@ function initScrollTop() {
 // COOKIE BANNER
 // ============================================
 function initCookieBanner() {
+  // Ads are paused. This legacy banner is not a certified consent platform.
   const banner = document.getElementById('cookieBanner');
-  if (!banner) return;
-
-  // If already accepted/declined — hide immediately, no flicker
-  const consent = localStorage.getItem('ht-cookies');
-  if (consent === 'accepted' || consent === 'declined') {
-    banner.style.display = 'none';
-    return;
-  }
-
-  // Show after 1.5s (don't block first paint)
-  setTimeout(() => {
-    banner.style.display = 'flex';
-    requestAnimationFrame(() => banner.classList.add('visible'));
-  }, 1500);
+  if (banner) banner.style.display = 'none';
 }
 
-function acceptCookies() {
-  localStorage.setItem('ht-cookies', 'accepted');
-  _hideCookieBanner();
-}
-
-function declineCookies() {
-  localStorage.setItem('ht-cookies', 'declined');
-  _hideCookieBanner();
-}
-
-function _hideCookieBanner() {
-  const banner = document.getElementById('cookieBanner');
-  if (!banner) return;
-  banner.style.transform = 'translateY(150%)';
-  banner.style.opacity   = '0';
-  banner.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
-  setTimeout(() => {
-    banner.style.display = 'none';
-    banner.classList.add('hidden');
-  }, 380);
-}
+function acceptCookies() { initCookieBanner(); }
+function declineCookies() { initCookieBanner(); }
 
 // ============================================
 // TOAST NOTIFICATIONS
@@ -629,7 +608,7 @@ function showToast(msg, type = 'info', duration = 3000) {
   const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  toast.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${msg}</span>`;
+  toast.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${escapeHtml(msg)}</span>`;
   container.appendChild(toast);
 
   setTimeout(() => {
@@ -717,12 +696,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // LOCAL STORAGE HELPERS
 // ============================================
 const Storage = {
-  set(key, val) { localStorage.setItem(`ht_${key}`, JSON.stringify(val)); },
+  set(key, val) { try { localStorage.setItem(`ht_${key}`, JSON.stringify(val)); } catch { /* Storage is optional. */ } },
   get(key, def = null) {
     try { return JSON.parse(localStorage.getItem(`ht_${key}`)) || def; }
     catch { return def; }
   },
-  del(key) { localStorage.removeItem(`ht_${key}`); }
+  del(key) { try { localStorage.removeItem(`ht_${key}`); } catch { /* Storage is optional. */ } }
 };
 
 // Track recently viewed tools

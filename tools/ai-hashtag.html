@@ -316,8 +316,8 @@
   <script src="../assets/js/theme.js"></script>
 
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313876284153733"
-       crossorigin="anonymous"></script>
+  <!-- Ad delivery paused pending consent configuration. Ownership verification only. -->
+  <meta name="google-adsense-account" content="ca-pub-5313876284153733">
   <script type="application/ld+json">
   [{"@context":"https://schema.org","@type":"WebApplication","name":"AI Hashtag Generator – Instagram, TikTok, Twitter","description":"Generate trending, niche-specific hashtags for Instagram, TikTok, Twitter/X, and YouTube instantly. Free AI-powered hashtag generator — no login required.","url":"https://www.hashmitools.com/tools/ai-hashtag.html","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HashmiTools","url":"https://www.hashmitools.com"}}
     ,{
@@ -445,14 +445,14 @@
     <div class="api-setup-icon">🤖</div>
     <div class="api-setup-content">
       <h4>Free AI — No API Key Required</h4>
-      <p>These tools use <b>Pollinations AI</b> (powered by OpenAI) — completely free with no account or API key needed. Just type and generate!</p>
-      <div class="api-status ok" id="apiStatus">✅ Ready to use — no setup needed</div>
+      <p>These tools send prompts to <b>Pollinations AI</b> when you confirm a generation request. Provider availability and limits may change. Do not send sensitive or confidential information.</p>
+      <div class="api-status ok" id="apiStatus">✅ External AI service required</div>
     </div>
   </div>
 
   <!-- Usage note -->
   <div class="usage-note">
-    <b>How it works:</b> Each tool sends your text to Pollinations AI (powered by OpenAI models) — completely free with no API key. Results are real AI-generated outputs, not templates. Processing takes 3–8 seconds.
+    <b>How it works:</b> Each tool sends your text to Pollinations after confirmation. Responses can be inaccurate and processing time varies. A service failure will be reported rather than replaced with a fabricated result. See our <a href="../privacy.html">Privacy Policy</a>.
   </div>
 
   <!-- Tool Tabs -->
@@ -837,8 +837,10 @@ function saveApiKey(){ /* No longer needed */ }
 function initApiKey(){ /* No longer needed */ }
 
 async function callHuggingFace(prompt, maxTokens=512) {
+  if (!window.confirm('Send this text to Pollinations for AI generation? Do not include sensitive information.')) throw new Error('Request cancelled; no text was sent.');
   const response = await fetch('https://text.pollinations.ai/', {
     method: 'POST',
+    signal: AbortSignal.timeout(20000),
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: 'openai',
@@ -1217,5 +1219,6 @@ function escapeHtml(str) {
 .related-tool-chip{display:inline-flex;align-items:center;padding:7px 16px;background:var(--bg-glass,rgba(99,102,241,.07));border:1px solid var(--border-glass,rgba(99,102,241,.18));border-radius:999px;color:var(--accent-purple,#6366f1);font-size:.85rem;font-weight:500;text-decoration:none;transition:all .2s}
 .related-tool-chip:hover{background:var(--accent-purple,#6366f1);color:#fff;border-color:var(--accent-purple,#6366f1)}
 </style>
+<footer style="padding:24px;text-align:center;border-top:1px solid var(--border-color,#ddd);"><p>HashmiTools — Free online tools</p><nav aria-label="Site information" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;padding:16px;"><a href="/">Home</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
 </body>
 </html>
